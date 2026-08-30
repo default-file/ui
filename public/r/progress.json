@@ -1,0 +1,18 @@
+{
+  "name": "progress",
+  "type": "registry:ui",
+  "title": "Progress",
+  "description": "Linear progress bar for determinate or indeterminate completion.",
+  "dependencies": [],
+  "registryDependencies": [
+    "foundation"
+  ],
+  "files": [
+    {
+      "path": "src/components/df-progress.tsx",
+      "type": "registry:ui",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { useDfStrings } from \"../lib/df-intl\"\nimport { cn } from \"../lib/utils\"\n\ntype ProgressSize = \"sm\" | \"md\"\n\ntype ProgressProps = React.HTMLAttributes<HTMLDivElement> & {\n  /** Completeness from 0 to 100. Omit for an indeterminate bar. */\n  value?: number\n  size?: ProgressSize\n}\n\ntype ProgressIndicatorStyle = React.CSSProperties & {\n  \"--df-progress-value\"?: string\n}\n\nfunction clampProgress(value: number): number {\n  if (!Number.isFinite(value)) return 0\n  return Math.min(100, Math.max(0, value))\n}\n\nfunction Progress({\n  className,\n  value,\n  size = \"md\",\n  \"aria-label\": ariaLabel,\n  ...props\n}: ProgressProps) {\n  const s = useDfStrings()\n  const determinate = typeof value === \"number\"\n  const pct = determinate ? clampProgress(value) : null\n  const indicatorStyle: ProgressIndicatorStyle | undefined =\n    pct == null\n      ? undefined\n      : {\n          \"--df-progress-value\": `${pct}%`,\n        }\n\n  return (\n    <div\n      data-df=\"progress\"\n      data-size={size}\n      data-state={determinate ? \"determinate\" : \"indeterminate\"}\n      className={cn(\"df-progress\", className)}\n      role=\"progressbar\"\n      aria-label={ariaLabel ?? s.progressAriaLabel}\n      aria-valuemin={determinate ? 0 : undefined}\n      aria-valuemax={determinate ? 100 : undefined}\n      aria-valuenow={pct == null ? undefined : Math.round(pct)}\n      aria-valuetext={determinate ? undefined : s.progressIndeterminate}\n      aria-busy={determinate ? undefined : true}\n      {...props}\n    >\n      <div className=\"df-progress-indicator\" style={indicatorStyle} />\n    </div>\n  )\n}\n\nexport { Progress }\nexport type { ProgressProps, ProgressSize }\n",
+      "target": "default-file-ui/components/df-progress.tsx"
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+{
+  "name": "badge",
+  "slug": "badge",
+  "title": "Badge",
+  "description": "Compact labels for status, counts, and metadata.",
+  "aliases": [
+    "status badge",
+    "count badge",
+    "notification badge",
+    "meta badge",
+    "Badge"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-badge",
+  "dependencies": [],
+  "api": {
+    "description": "Compact label for status and metadata. Label ink is optically centered to cap height with text-box when available, and a 1cap line box otherwise. Inline badges also use vertical-align middle so they sit on the text line next to copy. Use leading and trailing slots for any node before or after the label. Use gap to control space between slots and the label. Compose a nested counter or OptionList dropdown via count, children, and render.",
+    "groups": [
+      {
+        "id": "badge",
+        "title": "Badge",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\"",
+            "default": "\"default\"",
+            "description": "Visual style of the badge."
+          },
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+            "default": "\"md\"",
+            "description": "T-shirt height and type size. Nested counter chips are supported on md, lg, and xl only."
+          },
+          {
+            "name": "radius",
+            "type": "\"none\" | \"xxs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"full\"",
+            "default": "\"4xl\"",
+            "description": "Corner radius of the badge."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Instance corner curve. Omit to inherit --df-corner-shape from the theme (set at create/init)."
+          },
+          {
+            "name": "gap",
+            "type": "number | \"none\"",
+            "description": "Space between leading, label, trailing, and count. Design-scale units from the shared spacing scale (none/0, even integers through 200, half-steps such as 0.5 and 1.5). One unit = 0.25rem via --spacing-unit. Omit to use the size default: 0.5 on xs and sm, 1 on md and lg, 1.5 on xl."
+          },
+          {
+            "name": "leading",
+            "type": "ReactNode",
+            "description": "Slot before the label. Pass any node. Prefer StatusDot for online and live presence marks. SVG glyphs inherit the badge size step."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "Slot after the label. Pass any node (close button, chevron, or custom control). Prefer this over placing trailing nodes in children."
+          },
+          {
+            "name": "count",
+            "type": "number | string",
+            "description": "Trailing count chip bound to any numeric value (1 to 4+ digits). Shown on md, lg, and xl hosts. Renders after the trailing slot."
+          },
+          {
+            "name": "render",
+            "type": "ReactElement",
+            "description": "Host element to clone badge styles onto. For dropdowns, prefer OptionListTrigger render={<Badge />}."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Label content between the leading and trailing slots. Prefer leading and trailing for icons and controls."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the badge."
+          }
+        ]
+      },
+      {
+        "id": "badge-composition",
+        "title": "Composition",
+        "description": "Patterns built with leading, trailing, count, children, or render. Leading icon (leading): Pass any node to leading for a mark before the label. Prefer StatusDot for a filled presence mark that follows the badge size. SVG children inherit the badge glyph size for the size step. Close button (trailing): Pass a button with an X icon to trailing. The button inherits badge color and is keyboard focusable. Counter (count | children): Prefer the count prop for numeric data. Or nest a second Badge. Host size must be md, lg, or xl so the chip stays readable. Width grows with 1 to 4+ digits.",
+        "props": []
+      },
+      {
+        "id": "badge-dropdown-panel",
+        "title": "Dropdown panel",
+        "description": "Pass these on OptionListContent when the badge opens an option list. Placement is relative to the badge trigger. alignOffset (number): Extra shift along the alignment axis in pixels. sideOffset (number): Gap between the badge and the menu. alignItemWithTrigger (boolean): When true, menu width matches the badge. When false, the menu sizes to its option content.",
+        "props": []
+      },
+      {
+        "id": "badge-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-badge-gap",
+            "type": "number",
+            "description": "Resolved unitless spacing-scale multiplier for space between leading, label, trailing, and count. Set by the gap prop, or from the size default tokens when gap is omitted.",
+            "default": "var(--df-badge-gap-md)"
+          },
+          {
+            "name": "--df-badge-gap-xs",
+            "type": "number",
+            "description": "Default gap step for size xs.",
+            "default": "0.5"
+          },
+          {
+            "name": "--df-badge-gap-sm",
+            "type": "number",
+            "description": "Default gap step for size sm.",
+            "default": "0.5"
+          },
+          {
+            "name": "--df-badge-gap-md",
+            "type": "number",
+            "description": "Default gap step for size md.",
+            "default": "1"
+          },
+          {
+            "name": "--df-badge-gap-lg",
+            "type": "number",
+            "description": "Default gap step for size lg.",
+            "default": "1"
+          },
+          {
+            "name": "--df-badge-gap-xl",
+            "type": "number",
+            "description": "Default gap step for size xl.",
+            "default": "1.5"
+          },
+          {
+            "name": "--spacing-unit",
+            "type": "CSS length",
+            "description": "Base unit multiplied by --df-badge-gap to resolve the flex gap.",
+            "default": "0.25rem"
+          },
+          {
+            "name": "--primary",
+            "type": "CSS color",
+            "description": "Default variant fill.",
+            "default": "var(--df-neutral-850, var(--df-neutral-900))"
+          },
+          {
+            "name": "--df-badge-secondary-bg",
+            "type": "CSS color",
+            "description": "Secondary variant fill. One step stronger than accent and muted surfaces.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--df-badge-secondary-fg",
+            "type": "CSS color",
+            "description": "Secondary variant label.",
+            "default": "var(--secondary-foreground)"
+          },
+          {
+            "name": "--destructive",
+            "type": "CSS color",
+            "description": "Destructive variant fill.",
+            "default": "oklch(0.577 0.245 27.325)"
+          },
+          {
+            "name": "--df-badge-outline-border",
+            "type": "CSS color",
+            "description": "Outline variant border.",
+            "default": "var(--df-neutral-200)"
+          },
+          {
+            "name": "--muted",
+            "type": "CSS color",
+            "description": "Ghost variant hover fill.",
+            "default": "var(--df-neutral-50)"
+          },
+          {
+            "name": "--muted-foreground",
+            "type": "CSS color",
+            "description": "Ghost variant label.",
+            "default": "var(--df-neutral-500)"
+          },
+          {
+            "name": "--radius-4xl",
+            "type": "CSS length",
+            "description": "Default radius step. The radius prop can select any --radius-* step, from none to full.",
+            "default": "calc(var(--radius) * 2.6)"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          },
+          {
+            "name": "--df-label-line-height",
+            "type": "CSS line-height",
+            "description": "Line box for label flex centering. Defaults to --df-leading-none. When text-box is unavailable and the cap unit is supported, the kit sets this to 1cap so flex centering matches cap-height ink.",
+            "default": "var(--df-leading-none)"
+          }
+        ]
+      }
+    ]
+  }
+}

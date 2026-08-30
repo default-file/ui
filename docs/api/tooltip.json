@@ -1,0 +1,208 @@
+{
+  "name": "tooltip",
+  "slug": "tooltip",
+  "title": "Tooltip",
+  "description": "Compact and detailed labels on hover, focus, or a viewport point.",
+  "aliases": [
+    "hover tip",
+    "focus tip",
+    "hover label",
+    "info tip",
+    "Tooltip"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-tooltip",
+  "dependencies": [],
+  "api": {
+    "description": "Compact or detailed labels on hover, focus, or a viewport point. Compose Tooltip, TooltipTrigger, and TooltipContent. Point mode uses anchorPoint and omits TooltipTrigger.",
+    "groups": [
+      {
+        "id": "tooltip",
+        "title": "Tooltip",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"compact\" | \"detailed\"",
+            "default": "\"compact\"",
+            "description": "Content density and typography."
+          },
+          {
+            "name": "appearance",
+            "type": "\"light\" | \"dark\" | \"inverse\"",
+            "default": "\"inverse\"",
+            "description": "Panel surface color. inverse uses a dark tip on light pages and a light tip on dark pages; light and dark lock one surface."
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "description": "Initial open state when uncontrolled."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when open state changes."
+          },
+          {
+            "name": "delayDuration",
+            "type": "number",
+            "default": "200",
+            "description": "Hover delay in milliseconds before showing."
+          },
+          {
+            "name": "anchorPoint",
+            "type": "{ x: number; y: number } | null",
+            "description": "Viewport point to anchor the tip when there is no trigger. Use with controlled open."
+          },
+          {
+            "name": "dismissDuration",
+            "type": "number",
+            "description": "Auto-hide duration in milliseconds while open. When omitted in point mode, uses --df-duration-tip-hold."
+          }
+        ]
+      },
+      {
+        "id": "tooltip-trigger",
+        "title": "TooltipTrigger",
+        "props": [
+          {
+            "name": "render",
+            "type": "ReactElement",
+            "description": "Host element to attach tooltip behavior to."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Trigger content when not using render."
+          }
+        ]
+      },
+      {
+        "id": "tooltip-content",
+        "title": "TooltipContent",
+        "props": [
+          {
+            "name": "side",
+            "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+            "default": "\"top\"",
+            "description": "Preferred placement side. Flips when there is not enough space."
+          },
+          {
+            "name": "align",
+            "type": "\"start\" | \"center\" | \"end\"",
+            "default": "\"center\"",
+            "description": "Alignment along the side."
+          },
+          {
+            "name": "sideOffset",
+            "type": "number",
+            "default": "14",
+            "description": "Gap between trigger and content."
+          },
+          {
+            "name": "alignOffset",
+            "type": "number",
+            "default": "0",
+            "description": "Shift along the alignment axis."
+          },
+          {
+            "name": "wrap",
+            "type": "boolean",
+            "description": "For the detailed variant, wrap text within the max width."
+          },
+          {
+            "name": "arrow",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show the pointing caret. The anchoring engine keeps it aimed at the trigger or anchor point after collision clamping."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Tooltip label or detailed body."
+          }
+        ]
+      },
+      {
+        "id": "tooltip-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-tooltip-max-width",
+            "type": "CSS length",
+            "description": "Compact variant max width.",
+            "default": "16rem"
+          },
+          {
+            "name": "--df-tooltip-max-width-detailed",
+            "type": "CSS length",
+            "description": "Detailed variant max width.",
+            "default": "18rem"
+          },
+          {
+            "name": "--df-tooltip-arrow-offset",
+            "type": "CSS length",
+            "description": "Arrow distance from the content edge.",
+            "default": "3.5px"
+          },
+          {
+            "name": "--df-tooltip-arrow-align-nudge",
+            "type": "CSS length",
+            "description": "Half-caret optical nudge for the trigger-tracked caret.",
+            "default": "4px"
+          },
+          {
+            "name": "--df-anchor-arrow-cross",
+            "type": "CSS length",
+            "description": "Trigger-centered caret offset on the cross axis. Set by the anchoring engine after collision clamping.",
+            "default": "50%"
+          },
+          {
+            "name": "--df-anchor-arrow-cross-inset",
+            "type": "CSS length",
+            "description": "Minimum inset that keeps the trigger-tracked caret on the panel edge.",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-duration-tip-hold",
+            "type": "CSS time",
+            "description": "Default auto-hide duration for point-anchored tips.",
+            "default": "1800ms"
+          },
+          {
+            "name": "--df-shadow-tooltip",
+            "type": "CSS shadow",
+            "description": "Drop shadow that includes the arrow silhouette.",
+            "default": "drop-shadow(0 4px 6px rgb(0 0 0 / 0.1)) drop-shadow(0 2px 3px rgb(0 0 0 / 0.08))"
+          },
+          {
+            "name": "--popover",
+            "type": "CSS color",
+            "description": "Tip fill. Remapped by appearance (inverse, light, or dark).",
+            "default": "var(--df-neutral-900)"
+          },
+          {
+            "name": "--popover-foreground",
+            "type": "CSS color",
+            "description": "Tip text color. Remapped by appearance.",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--foreground",
+            "type": "CSS color",
+            "description": "Used for the tip border mix. Remapped by appearance.",
+            "default": "var(--df-neutral-0)"
+          }
+        ]
+      }
+    ]
+  }
+}

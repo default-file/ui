@@ -1,0 +1,268 @@
+{
+  "name": "label",
+  "slug": "label",
+  "title": "Label",
+  "description": "Field and section labels with leading and trailing slots, required and optional marks, subtext, control inset alignment, and typography chrome.",
+  "aliases": [
+    "field label",
+    "form label",
+    "accessible label",
+    "section label",
+    "Label"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-label",
+  "dependencies": [],
+  "api": {
+    "description": "Field and section label with leading and trailing slots, required and optional marks, subtext, control inset alignment, and typography chrome. Use as=\"label\" with htmlFor for form controls. Use as=\"div\" for section titles that share the same chrome.",
+    "groups": [
+      {
+        "id": "label",
+        "title": "Label",
+        "description": "Root element, title content, and slots.",
+        "props": [
+          {
+            "name": "as",
+            "type": "\"label\" | \"div\"",
+            "default": "\"label\"",
+            "description": "Root element. \"label\" associates with a control via htmlFor. \"div\" is for section titles such as SidebarGroupLabel."
+          },
+          {
+            "name": "htmlFor",
+            "type": "string",
+            "description": "Id of the labeled control. Applies when as is label."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Primary title content."
+          },
+          {
+            "name": "leading",
+            "type": "ReactNode",
+            "description": "Slot before the title text. Prefer FeaturedIcon plain at size md with glyphShadow off for a bare mark that matches the leading size token. Plain SVG icons still fit that token."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "End-aligned slot on the title row. Pass Badge, a character count, an icon, or a control such as SidebarGroupAction."
+          },
+          {
+            "name": "subtext",
+            "type": "ReactNode",
+            "description": "Secondary supporting line under the title row."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the root."
+          },
+          {
+            "name": "style",
+            "type": "CSSProperties",
+            "description": "Inline styles on the root. Can set --label-required and --df-label-* chrome vars."
+          }
+        ]
+      },
+      {
+        "id": "label-inset",
+        "title": "Inset",
+        "description": "Horizontal inset relative to a paired control. content uses --df-control-content-inset-inline, the same default as Input and Select content start.",
+        "props": [
+          {
+            "name": "insetAlign",
+            "type": "\"left\" | \"content\" | \"custom\"",
+            "default": "\"left\"",
+            "description": "left aligns to the control outer edge. content aligns to the default control content start (text, or a leading icon at that inset). custom uses insetSize."
+          },
+          {
+            "name": "insetSize",
+            "type": "string",
+            "description": "Required for a non-zero custom inset when insetAlign is custom. Prefer spacing tokens such as calc(5 * var(--spacing-unit)). Sets --df-label-inset-custom."
+          }
+        ]
+      },
+      {
+        "id": "label-marks",
+        "title": "Marks",
+        "description": "Decorative required and optional indicators after the title.",
+        "props": [
+          {
+            "name": "required",
+            "type": "boolean",
+            "default": "false",
+            "description": "Shows a decorative required mark after the title. Wins over optional when both are set."
+          },
+          {
+            "name": "requiredVariant",
+            "type": "\"asterisk\" | \"text\"",
+            "default": "\"asterisk\"",
+            "description": "Required mark style. \"asterisk\" renders the catalogue asterisk string as-is. \"text\" renders the catalogue required string as-is. Color uses --label-required."
+          },
+          {
+            "name": "requiredColor",
+            "type": "string",
+            "description": "Required mark color. Prefer tokens such as var(--destructive). Sets --label-required."
+          },
+          {
+            "name": "optional",
+            "type": "boolean",
+            "default": "false",
+            "description": "Shows a decorative optional mark after the title. Ignored when required is true."
+          },
+          {
+            "name": "optionalVariant",
+            "type": "\"asterisk\" | \"text\"",
+            "default": "\"text\"",
+            "description": "Optional mark style. \"text\" renders the catalogue optional string as-is. \"asterisk\" renders the catalogue asterisk string as-is."
+          }
+        ]
+      },
+      {
+        "id": "label-typography",
+        "title": "Typography",
+        "description": "Title color and type. Prefer kit tokens for values.",
+        "props": [
+          {
+            "name": "color",
+            "type": "string",
+            "description": "Title color. Prefer tokens such as var(--muted-foreground). Sets --df-label-color."
+          },
+          {
+            "name": "fontFamily",
+            "type": "string",
+            "description": "Title font family. Sets --df-label-font."
+          },
+          {
+            "name": "fontSize",
+            "type": "string",
+            "description": "Title font size. Sets --df-label-size."
+          },
+          {
+            "name": "fontWeight",
+            "type": "string",
+            "description": "Title font weight. Sets --df-label-weight."
+          }
+        ]
+      },
+      {
+        "id": "label-parts",
+        "title": "Parts",
+        "description": "DOM structure markers for styling and tests. These are not component props. data-df=\"label\": Root element. data-inset is left, content, or custom. data-df=\"label-row\": Title row with the title group and trailing slot. data-df=\"label-title\": Title group: leading slot, title text, and required or optional mark. data-df=\"label-leading\": Leading slot before the title text. data-df=\"label-text\": Primary title text. data-df=\"label-required\": Required mark. Uses --label-required. data-variant is asterisk or text. data-df=\"label-optional\": Optional mark. data-variant is asterisk or text. data-df=\"label-trailing\": Trailing slot on the title row for meta, icons, or controls. Uses --df-label-row-gap between multiple trailing children. data-df=\"label-subtext\": Supporting line under the title row.",
+        "props": []
+      },
+      {
+        "id": "label-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-label-gap",
+            "type": "CSS length",
+            "description": "Stack gap between the title row and subtext.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-label-title-gap",
+            "type": "CSS length",
+            "description": "Gap inside the title group between leading, title text, and marks.",
+            "default": "calc(1.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-label-row-gap",
+            "type": "CSS length",
+            "description": "Gap on the title row between the title group and trailing slot, and between multiple trailing children.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-label-leading-size",
+            "type": "CSS length",
+            "description": "Default width and height for SVG icons in the leading slot.",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-label-trailing-size",
+            "type": "CSS length",
+            "description": "Default width and height for direct SVG icons in the trailing slot. Defaults to --df-label-leading-size.",
+            "default": "var(--df-label-leading-size)"
+          },
+          {
+            "name": "--df-label-color",
+            "type": "CSS color",
+            "description": "Title color. Falls back to --foreground. Override with color.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-label-font",
+            "type": "CSS font-family",
+            "description": "Title font family. Override with fontFamily.",
+            "default": "inherit"
+          },
+          {
+            "name": "--df-label-size",
+            "type": "CSS length",
+            "description": "Title font size. Falls back to --df-text-sm. Override with fontSize.",
+            "default": "var(--df-text-sm)"
+          },
+          {
+            "name": "--df-label-weight",
+            "type": "CSS font-weight",
+            "description": "Title font weight. Falls back to medium. Override with fontWeight.",
+            "default": "var(--df-font-weight-medium)"
+          },
+          {
+            "name": "--df-label-inset",
+            "type": "CSS length",
+            "description": "Horizontal inset applied as padding-inline-start. Resolved from insetAlign.",
+            "default": "0"
+          },
+          {
+            "name": "--df-label-inset-content",
+            "type": "CSS length",
+            "description": "Inset used when insetAlign is content. Defaults to --df-control-content-inset-inline. Input and Select field roots may override this to track their content padding.",
+            "default": "var(--df-control-content-inset-inline)"
+          },
+          {
+            "name": "--df-label-inset-custom",
+            "type": "CSS length",
+            "description": "Inset used when insetAlign is custom. Set by insetSize.",
+            "default": "0"
+          },
+          {
+            "name": "--df-control-content-inset-inline",
+            "type": "CSS length",
+            "description": "Shared default control content-start inset. Owned in df-tokens.css. Input, Select, Combobox, and Label content mode consume it.",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--foreground",
+            "type": "CSS color",
+            "description": "Default title color when --df-label-color is unset.",
+            "default": "var(--df-neutral-900)"
+          },
+          {
+            "name": "--muted-foreground",
+            "type": "CSS color",
+            "description": "Optional mark, subtext, and trailing color.",
+            "default": "var(--df-neutral-500)"
+          },
+          {
+            "name": "--label-required",
+            "type": "CSS color",
+            "description": "Required mark color. Override globally or via requiredColor.",
+            "default": "var(--destructive)"
+          },
+          {
+            "name": "--destructive",
+            "type": "CSS color",
+            "description": "Default source for --label-required.",
+            "default": "var(--df-destructive)"
+          }
+        ]
+      }
+    ]
+  }
+}

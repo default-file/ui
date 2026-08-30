@@ -1,0 +1,758 @@
+{
+  "name": "popover",
+  "slug": "popover",
+  "title": "Popover",
+  "description": "Anchored panel for mid-range tasks such as share sheets and short forms. Prefer Options Panel for denser inspectors, and Tooltip for hover-only hints.",
+  "aliases": [
+    "simple popover",
+    "light popover",
+    "lightweight popover",
+    "anchored popover",
+    "flyout",
+    "Popover"
+  ],
+  "chapter": "overlays",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-popover",
+  "dependencies": [],
+  "api": {
+    "description": "Anchored panel for mid-range tasks such as share sheets and short forms. Compose header, body, and footer with kit controls. Prefer Options Panel for denser inspectors, and Tooltip for hover-only hints.",
+    "groups": [
+      {
+        "id": "popover",
+        "title": "Popover",
+        "props": [
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state. Placement still uses PopoverTrigger when something else sets open."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "default": "false",
+            "description": "Initial open state when open is not passed. The popover manages open after that."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when open changes from the trigger, dismiss, PopoverClose, or parent updates."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Usually PopoverTrigger and PopoverContent."
+          }
+        ]
+      },
+      {
+        "id": "popover-trigger",
+        "title": "PopoverTrigger",
+        "description": "Placement anchor and usual toggle. The panel positions relative to this element when open.",
+        "props": [
+          {
+            "name": "render",
+            "type": "ReactElement",
+            "description": "Host element for the trigger. Toggles open and marks the anchor."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Trigger content when not using render."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the trigger host."
+          }
+        ]
+      },
+      {
+        "id": "popover-content",
+        "title": "PopoverContent",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"muted\" | \"elevated\" | \"inverse\"",
+            "default": "\"default\"",
+            "description": "Surface recipe. muted softens fill and caret elevation. elevated strengthens shadow. inverse flips against the nearest .dark theme. Chrome props override recipe tokens."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "Density for padding, type, radius, and max width. Padding and radius props override the size recipe."
+          },
+          {
+            "name": "showArrow",
+            "type": "boolean",
+            "default": "false",
+            "description": "Show a caret toward the trigger. The anchoring engine keeps the caret aimed at the trigger after collision clamping. Uses filter elevation so the shadow includes the caret silhouette."
+          },
+          {
+            "name": "animated",
+            "type": "boolean",
+            "default": "true",
+            "description": "Open motion with opacity, scale, and short travel from the placement side. Set false for an instant panel. prefers-reduced-motion disables motion."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Panel fill. Prefer tokens such as var(--popover). Sets --df-popover-surface."
+          },
+          {
+            "name": "foreground",
+            "type": "string",
+            "description": "Panel text color. Prefer tokens such as var(--popover-foreground). Sets --df-popover-surface-fg."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Border color. Prefer tokens such as var(--border). Sets --df-popover-border-color."
+          },
+          {
+            "name": "borderWidth",
+            "type": "\"none\" | \"hairline\" | \"thin\" | \"thick\"",
+            "default": "\"hairline\"",
+            "description": "Border width step. Maps to --border-width-* via --df-popover-border-width."
+          },
+          {
+            "name": "shadow",
+            "type": "string",
+            "description": "Elevation override. Without showArrow, prefer box-shadow tokens and sets --df-popover-shadow. With showArrow, prefer filter tokens such as var(--df-shadow-popover) and sets --df-popover-elevation."
+          },
+          {
+            "name": "radius",
+            "type": "\"none\" | \"xxs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"full\"",
+            "description": "Corner radius step. Maps to --radius-* via --df-popover-radius."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Instance corner curve. Omit to inherit --df-corner-shape from the theme (set at create/init)."
+          },
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Inset on all sides. Prefer spacing tokens. Sets each --df-popover-inset-*."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal inset. Sets --df-popover-inset-left and --df-popover-inset-right."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical inset. Sets --df-popover-inset-top and --df-popover-inset-bottom."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top inset. Sets --df-popover-inset-top. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Right inset. Sets --df-popover-inset-right. Wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom inset. Sets --df-popover-inset-bottom. With a direct PopoverFooter child, applied as footer bottom padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Left inset. Sets --df-popover-inset-left. Wins over paddingX and padding."
+          },
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Gap between header, body, and footer. Prefer spacing tokens. Sets --df-popover-gap."
+          },
+          {
+            "name": "side",
+            "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+            "default": "\"bottom\"",
+            "description": "Preferred side. bottom and top are the usual bi-directional pair. left and right are supported. With collisionAvoidance, the panel can flip when space is tight."
+          },
+          {
+            "name": "align",
+            "type": "\"start\" | \"center\" | \"end\" | \"auto\"",
+            "default": "\"center\"",
+            "description": "Alignment along the side. start, center, and end pin the panel. auto picks the best of those from available space."
+          },
+          {
+            "name": "sideOffset",
+            "type": "number",
+            "default": "8",
+            "description": "Distance in pixels between the trigger and the panel along the placement side."
+          },
+          {
+            "name": "alignOffset",
+            "type": "number",
+            "default": "0",
+            "description": "Shift in pixels along the alignment axis. Positive values move toward the end edge."
+          },
+          {
+            "name": "matchTriggerWidth",
+            "type": "boolean",
+            "default": "false",
+            "description": "Lock the panel width to the trigger. Off by default so the panel sizes to content within the size max width."
+          },
+          {
+            "name": "portal",
+            "type": "boolean",
+            "default": "true",
+            "description": "When true, render in document.body and copy the nearest .dark ancestor from the trigger. When false, render inline in the trigger tree."
+          },
+          {
+            "name": "dismissOnScroll",
+            "type": "boolean",
+            "default": "true",
+            "description": "Close when the page or an ancestor scrolls. Set false for panels with drag or scrollable controls."
+          },
+          {
+            "name": "followScroll",
+            "type": "boolean",
+            "default": "true",
+            "description": "Reposition while the page or an ancestor scrolls. Set false to keep the last placement until the next open."
+          },
+          {
+            "name": "collisionAvoidance",
+            "type": "boolean",
+            "default": "true",
+            "description": "Flip and shift the panel to stay in view. Set false to keep the requested side and align."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the panel."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Panel content. Compose PopoverHeader, PopoverBody, and PopoverFooter as needed."
+          }
+        ]
+      },
+      {
+        "id": "popover-header",
+        "title": "PopoverHeader",
+        "description": "Stacks the title row and description. Use PopoverHeaderBar when the title shares a row with close.",
+        "props": [
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Space between the title row and description. Prefer spacing tokens. Sets --df-popover-header-gap."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Usually PopoverHeaderBar then PopoverDescription, or title and description alone."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the header."
+          }
+        ]
+      },
+      {
+        "id": "popover-header-bar",
+        "title": "PopoverHeaderBar",
+        "description": "Title row with an end-aligned close or action on one midline.",
+        "props": [
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Space between the title and trailing control. Prefer spacing tokens. Sets --df-popover-header-bar-gap."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "PopoverTitle first, then PopoverClose (often a ghost icon-xs Button)."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the title row."
+          }
+        ]
+      },
+      {
+        "id": "popover-title",
+        "title": "PopoverTitle",
+        "description": "Panel title and accessible name. badge is an open ReactNode slot for status or meta.",
+        "props": [
+          {
+            "name": "color",
+            "type": "string",
+            "description": "Title color. Prefer tokens. Sets --df-popover-title-color."
+          },
+          {
+            "name": "fontSize",
+            "type": "string",
+            "description": "Title size. Prefer type tokens. Sets --df-popover-title-size."
+          },
+          {
+            "name": "fontWeight",
+            "type": "string",
+            "description": "Title weight. Prefer tokens. Sets --df-popover-title-weight."
+          },
+          {
+            "name": "fontFamily",
+            "type": "string",
+            "description": "Title font family. Prefer theme font tokens. Sets --df-popover-title-font."
+          },
+          {
+            "name": "lineHeight",
+            "type": "string",
+            "description": "Title line height. Prefer tokens. Sets --df-popover-title-leading."
+          },
+          {
+            "name": "letterSpacing",
+            "type": "string",
+            "description": "Title letter spacing. Prefer tokens. Sets --df-popover-title-tracking."
+          },
+          {
+            "name": "badge",
+            "type": "ReactNode",
+            "description": "Open slot beside or under the title. Any ReactNode; Badge is common but not required."
+          },
+          {
+            "name": "badgePosition",
+            "type": "\"end\" | \"below\"",
+            "default": "\"end\"",
+            "description": "end places the slot on the title row. below stacks it under the title."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Title text. Sets the accessible name on the panel."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the title."
+          }
+        ]
+      },
+      {
+        "id": "popover-description",
+        "title": "PopoverDescription",
+        "props": [
+          {
+            "name": "color",
+            "type": "string",
+            "description": "Description color. Prefer tokens. Sets --df-popover-description-color."
+          },
+          {
+            "name": "fontSize",
+            "type": "string",
+            "description": "Description size. Prefer type tokens. Sets --df-popover-description-size."
+          },
+          {
+            "name": "fontWeight",
+            "type": "string",
+            "description": "Description weight. Prefer tokens. Sets --df-popover-description-weight."
+          },
+          {
+            "name": "fontFamily",
+            "type": "string",
+            "description": "Description font family. Prefer theme font tokens. Sets --df-popover-description-font."
+          },
+          {
+            "name": "lineHeight",
+            "type": "string",
+            "description": "Description line height. Prefer tokens. Sets --df-popover-description-leading."
+          },
+          {
+            "name": "letterSpacing",
+            "type": "string",
+            "description": "Description letter spacing. Prefer tokens. Sets --df-popover-description-tracking."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Supporting copy. Wired as aria-describedby when present."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the description."
+          }
+        ]
+      },
+      {
+        "id": "popover-body",
+        "title": "PopoverBody",
+        "description": "Main content region between header and footer.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Kit controls such as Input, Toggle Group, and Switch."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the body."
+          }
+        ]
+      },
+      {
+        "id": "popover-footer",
+        "title": "PopoverFooter",
+        "description": "Action row. Default end-aligned. As a direct child of PopoverContent, receives the panel bottom inset by default. paddingTop and paddingBottom are independently overridable.",
+        "props": [
+          {
+            "name": "justify",
+            "type": "\"end\" | \"between\" | \"start\"",
+            "default": "\"end\"",
+            "description": "Action distribution along the footer. end for Cancel and primary. between for Previous and Next on opposite ends. start for a leading control."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Space above the actions. Prefer spacing tokens. Sets --df-popover-footer-padding-top. Default 0."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Space below the actions. Prefer spacing tokens. Sets --df-popover-footer-padding-bottom. Default matches Content bottom inset when this footer is a direct child."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal inset inside the footer. Prefer spacing tokens. Sets --df-popover-footer-padding-x. Default 0."
+          },
+          {
+            "name": "gap",
+            "type": "string",
+            "default": "calc(2 * var(--spacing-unit))",
+            "description": "Space between actions. Prefer spacing tokens. Sets --df-popover-footer-gap."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Usually Cancel via PopoverClose then a primary Button, or Previous and Next with justify between."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the footer."
+          }
+        ]
+      },
+      {
+        "id": "popover-close",
+        "title": "PopoverClose",
+        "description": "Dismisses the panel and returns focus to the trigger.",
+        "props": [
+          {
+            "name": "render",
+            "type": "ReactElement",
+            "description": "Host element to merge onto, usually a Button. Prefer ghost icon-xs in PopoverHeaderBar."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Label or icon for the close control."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the close host."
+          }
+        ]
+      },
+      {
+        "id": "popover-keyboard",
+        "title": "Keyboard and accessibility",
+        "description": "Behavior for portaled panels. Dismiss (Escape / outside click): Closes the panel and returns focus to the trigger when focus was inside. Role (disclosure): Non-modal anchored panel with no dialog role and no focus trap. The trigger exposes aria-expanded and aria-controls while open. Use PopoverTitle for an accessible name via aria-labelledby, or aria-label on PopoverContent. High contrast (forced-colors): Under forced-colors, the panel keeps a visible border and the trigger keeps a focus outline.",
+        "props": []
+      },
+      {
+        "id": "popover-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-popover-width-sm",
+            "type": "CSS length",
+            "description": "Max width for size sm.",
+            "default": "14rem"
+          },
+          {
+            "name": "--df-popover-width",
+            "type": "CSS length",
+            "description": "Max width for size md.",
+            "default": "18rem"
+          },
+          {
+            "name": "--df-popover-width-lg",
+            "type": "CSS length",
+            "description": "Max width for size lg.",
+            "default": "22rem"
+          },
+          {
+            "name": "--df-popover-width-safe",
+            "type": "CSS length",
+            "description": "Viewport-clamped md width for consumers.",
+            "default": "min(var(--df-popover-width), calc(100vw - 8 * var(--spacing-unit)))"
+          },
+          {
+            "name": "--df-popover-arrow-size",
+            "type": "CSS length",
+            "description": "Caret edge length.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-popover-arrow-offset",
+            "type": "CSS length",
+            "description": "Caret overlap on the panel edge. Shared with Tooltip.",
+            "default": "var(--df-tooltip-arrow-offset)"
+          },
+          {
+            "name": "--df-popover-arrow-align-nudge",
+            "type": "CSS length",
+            "description": "Half-caret optical nudge for the trigger-tracked caret. Shared with Tooltip.",
+            "default": "var(--df-tooltip-arrow-align-nudge)"
+          },
+          {
+            "name": "--df-anchor-arrow-cross",
+            "type": "CSS length",
+            "description": "Trigger-centered caret offset on the cross axis. Set by the anchoring engine after collision clamping.",
+            "default": "50%"
+          },
+          {
+            "name": "--df-anchor-arrow-cross-inset",
+            "type": "CSS length",
+            "description": "Minimum inset that keeps the trigger-tracked caret on the panel edge.",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-popover-surface",
+            "type": "CSS color",
+            "description": "Panel fill. Set by background or variant.",
+            "default": "var(--popover)"
+          },
+          {
+            "name": "--df-popover-surface-fg",
+            "type": "CSS color",
+            "description": "Panel text. Set by foreground or variant.",
+            "default": "var(--popover-foreground)"
+          },
+          {
+            "name": "--df-popover-border-color",
+            "type": "CSS color",
+            "description": "Border and caret edge color. Set by borderColor.",
+            "default": "var(--border)"
+          },
+          {
+            "name": "--df-popover-border-width",
+            "type": "CSS length",
+            "description": "Border width. Set by borderWidth.",
+            "default": "var(--border-width-hairline)"
+          },
+          {
+            "name": "--df-popover-shadow",
+            "type": "CSS box-shadow",
+            "description": "Box shadow when showArrow is false. Set by shadow or variant.",
+            "default": "var(--df-shadow-md)"
+          },
+          {
+            "name": "--df-popover-elevation",
+            "type": "CSS filter",
+            "description": "Filter elevation when showArrow is true. Default var(--df-shadow-popover); muted uses var(--df-shadow-tooltip); elevated uses var(--df-shadow-popover-elevated).",
+            "default": "var(--df-shadow-popover)"
+          },
+          {
+            "name": "--df-shadow-popover",
+            "type": "CSS filter",
+            "description": "Default drop-shadow for caret popovers.",
+            "default": "drop-shadow(0 4px 6px rgb(0 0 0 / 0.1)) drop-shadow(0 2px 4px rgb(0 0 0 / 0.08))"
+          },
+          {
+            "name": "--df-shadow-popover-elevated",
+            "type": "CSS filter",
+            "description": "Stronger drop-shadow for elevated caret popovers.",
+            "default": "drop-shadow(0 12px 18px rgb(0 0 0 / 0.14)) drop-shadow(0 4px 8px rgb(0 0 0 / 0.1))"
+          },
+          {
+            "name": "--df-popover-radius",
+            "type": "CSS length",
+            "description": "Corner radius. Set by radius or size.",
+            "default": "var(--radius-2xl)"
+          },
+          {
+            "name": "--df-popover-inset-top",
+            "type": "CSS length",
+            "description": "Shared top inset. Set by padding, paddingY, or paddingTop.",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-popover-inset-right",
+            "type": "CSS length",
+            "description": "Shared right inset. Set by padding, paddingX, or paddingRight.",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-popover-inset-bottom",
+            "type": "CSS length",
+            "description": "Shared bottom inset. Set by padding, paddingY, or paddingBottom. Applied to Content or Footer when a footer is present.",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-popover-inset-left",
+            "type": "CSS length",
+            "description": "Shared left inset. Set by padding, paddingX, or paddingLeft.",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-popover-padding-top",
+            "type": "CSS length",
+            "description": "Resolved top padding. Defaults to --df-popover-inset-top.",
+            "default": "var(--df-popover-inset-top)"
+          },
+          {
+            "name": "--df-popover-padding-right",
+            "type": "CSS length",
+            "description": "Resolved right padding. Defaults to --df-popover-inset-right.",
+            "default": "var(--df-popover-inset-right)"
+          },
+          {
+            "name": "--df-popover-padding-bottom",
+            "type": "CSS length",
+            "description": "Resolved bottom padding. Defaults to --df-popover-inset-bottom; 0 with a direct footer child.",
+            "default": "var(--df-popover-inset-bottom)"
+          },
+          {
+            "name": "--df-popover-padding-left",
+            "type": "CSS length",
+            "description": "Resolved left padding. Defaults to --df-popover-inset-left.",
+            "default": "var(--df-popover-inset-left)"
+          },
+          {
+            "name": "--df-popover-gap",
+            "type": "CSS length",
+            "description": "Gap between header, body, and footer. Set by gap.",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-popover-header-gap",
+            "type": "CSS length",
+            "description": "Gap between title row and description. Set by PopoverHeader gap.",
+            "default": "calc(1.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-popover-header-bar-gap",
+            "type": "CSS length",
+            "description": "Gap between title and close in PopoverHeaderBar. Set by PopoverHeaderBar gap.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-popover-footer-padding-top",
+            "type": "CSS length",
+            "description": "Footer top padding. Set by PopoverFooter paddingTop.",
+            "default": "0px"
+          },
+          {
+            "name": "--df-popover-footer-padding-bottom",
+            "type": "CSS length",
+            "description": "Footer bottom padding. Defaults to --df-popover-inset-bottom with a direct footer child.",
+            "default": "0px"
+          },
+          {
+            "name": "--df-popover-footer-padding-x",
+            "type": "CSS length",
+            "description": "Footer horizontal padding. Set by PopoverFooter paddingX.",
+            "default": "0px"
+          },
+          {
+            "name": "--df-popover-footer-gap",
+            "type": "CSS length",
+            "description": "Gap between footer actions. Set by PopoverFooter gap.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-popover-title-color",
+            "type": "CSS color",
+            "description": "Title color. Set by PopoverTitle color.",
+            "default": "var(--df-popover-surface-fg)"
+          },
+          {
+            "name": "--df-popover-title-size",
+            "type": "CSS length",
+            "description": "Title font size. Set by PopoverTitle fontSize.",
+            "default": "inherit"
+          },
+          {
+            "name": "--df-popover-title-weight",
+            "type": "CSS font-weight",
+            "description": "Title weight. Set by PopoverTitle fontWeight.",
+            "default": "var(--df-font-weight-semibold)"
+          },
+          {
+            "name": "--df-popover-title-font",
+            "type": "CSS font-family",
+            "description": "Title font family. Set by PopoverTitle fontFamily.",
+            "default": "inherit"
+          },
+          {
+            "name": "--df-popover-title-leading",
+            "type": "CSS line-height",
+            "description": "Title line height. Set by PopoverTitle lineHeight.",
+            "default": "var(--df-leading-5)"
+          },
+          {
+            "name": "--df-popover-title-tracking",
+            "type": "CSS letter-spacing",
+            "description": "Title letter spacing. Set by PopoverTitle letterSpacing.",
+            "default": "var(--df-tracking-snug)"
+          },
+          {
+            "name": "--df-popover-description-color",
+            "type": "CSS color",
+            "description": "Description color. Set by PopoverDescription color.",
+            "default": "var(--muted-foreground)"
+          },
+          {
+            "name": "--df-popover-description-size",
+            "type": "CSS length",
+            "description": "Description font size. Set by PopoverDescription fontSize.",
+            "default": "var(--df-text-13)"
+          },
+          {
+            "name": "--df-popover-description-weight",
+            "type": "CSS font-weight",
+            "description": "Description weight. Set by PopoverDescription fontWeight.",
+            "default": "var(--df-font-weight-normal)"
+          },
+          {
+            "name": "--df-popover-description-font",
+            "type": "CSS font-family",
+            "description": "Description font family. Set by PopoverDescription fontFamily.",
+            "default": "inherit"
+          },
+          {
+            "name": "--df-popover-description-leading",
+            "type": "CSS line-height",
+            "description": "Description line height. Set by PopoverDescription lineHeight.",
+            "default": "var(--df-leading-5)"
+          },
+          {
+            "name": "--df-popover-description-tracking",
+            "type": "CSS letter-spacing",
+            "description": "Description letter spacing. Set by PopoverDescription letterSpacing.",
+            "default": "normal"
+          }
+        ]
+      }
+    ]
+  }
+}

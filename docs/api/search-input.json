@@ -1,0 +1,164 @@
+{
+  "name": "search-input",
+  "slug": "search-input",
+  "title": "Search Input",
+  "description": "Search field with clear control, icon placement, background fill, and hover border.",
+  "aliases": [
+    "search bar",
+    "SearchBar",
+    "search field",
+    "search box",
+    "Search Input"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation",
+    "input"
+  ],
+  "importPath": "@default-file/ui/components/df-search-input",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Search field with clear control, sizes, icon placement, background fill, and Input hover border controls. Block padding stays equal; Input optical shift is disabled. SearchBar is an alias.",
+    "groups": [
+      {
+        "id": "search-input",
+        "title": "SearchInput",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"pill\"",
+            "default": "\"default\"",
+            "description": "Field shape."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "T-shirt height and type size."
+          },
+          {
+            "name": "iconPosition",
+            "type": "\"start\" | \"end\"",
+            "default": "\"start\"",
+            "description": "Side for the leading search icon."
+          },
+          {
+            "name": "leadingIcon",
+            "type": "ReactNode | false",
+            "description": "Override or hide the default search icon."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "Custom trailing slot beside clear when present."
+          },
+          {
+            "name": "clearable",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show a clear control when the field has a value."
+          },
+          {
+            "name": "onClear",
+            "type": "() => void",
+            "description": "Called when the clear control is activated."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Field fill. Prefer tokens such as var(--muted). Forwards to Input, sets --df-input-bg, and overrides the default and pill recipes for resting and filled states."
+          },
+          {
+            "name": "hoverBorder",
+            "type": "boolean",
+            "description": "Forwards to Input. Omit to inherit the theme. Set false to keep the resting border. Set true to force the hover border on."
+          },
+          {
+            "name": "hoverBorderColor",
+            "type": "string",
+            "description": "Forwards to Input. Hover border color when hover is active. Prefer tokens such as var(--foreground). Sets --df-input-hover-border."
+          },
+          {
+            "name": "inputClassName",
+            "type": "string",
+            "description": "Classes on the inner input element."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Classes on the outer search shell."
+          }
+        ]
+      },
+      {
+        "id": "search-input-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-input-bg",
+            "type": "CSS color",
+            "description": "Resolved field fill on the inner Input. Set by variant recipes or the background prop.",
+            "default": "var(--background)"
+          },
+          {
+            "name": "--df-search-input-bg",
+            "type": "CSS color",
+            "description": "Pill resting fill recipe. Mapped to --df-input-bg unless background is set.",
+            "default": "color-mix(in oklch, var(--muted) 50%, var(--background))"
+          },
+          {
+            "name": "--df-search-input-bg-filled",
+            "type": "CSS color",
+            "description": "Pill filled fill recipe. Mapped to --df-input-bg unless background is set.",
+            "default": "color-mix(in oklch, var(--muted) 70%, var(--background))"
+          },
+          {
+            "name": "--input",
+            "type": "CSS color",
+            "description": "Field border.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--border",
+            "type": "CSS color",
+            "description": "Fallback border.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--df-hover-border",
+            "type": "CSS keyword",
+            "description": "Theme field hover border. on paints the ink hover border; off keeps the resting border. Runtime gating uses data-df-hover-border on html. Set with df-ui init --hover-border. Default on.",
+            "default": "on"
+          },
+          {
+            "name": "--df-input-hover-border",
+            "type": "CSS color",
+            "description": "Hover border on the inner Input when the theme or instance enables hover. Defaults to the ink foreground. Override with hoverBorderColor.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--muted-foreground",
+            "type": "CSS color",
+            "description": "Icon and placeholder color.",
+            "default": "var(--df-neutral-500)"
+          },
+          {
+            "name": "--spacing-unit",
+            "type": "CSS length",
+            "description": "Base unit for padding and gap.",
+            "default": "0.25rem"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          }
+        ]
+      }
+    ]
+  }
+}

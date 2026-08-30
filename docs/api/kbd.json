@@ -1,0 +1,184 @@
+{
+  "name": "kbd",
+  "slug": "kbd",
+  "title": "Kbd",
+  "description": "Keyboard hint chip for shortcuts and key chords.",
+  "aliases": [
+    "keyboard shortcut",
+    "keycap",
+    "hotkey",
+    "shortcut chip",
+    "kbd"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-kbd",
+  "dependencies": [],
+  "api": {
+    "description": "Keyboard hint chip for shortcuts and key chords. Pass a compact Unicode string such as ⌘K, or compose KbdAbbr and KbdContent. Display only; the host owns bindings.",
+    "groups": [
+      {
+        "id": "kbd",
+        "title": "Kbd",
+        "props": [
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\"",
+            "default": "\"sm\"",
+            "description": "Chip density. sm for menu trailing slots. md for larger inline chrome."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Unicode chord such as ⌘K, or compose KbdAbbr and KbdContent. Textual forms such as Ctrl+K are not parsed."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "description": "Accessible name for the chip. Derived from string children when omitted. String-chord parts are presentational when a name is set."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the chip."
+          }
+        ]
+      },
+      {
+        "id": "kbd-abbr",
+        "title": "KbdAbbr",
+        "props": [
+          {
+            "name": "title",
+            "type": "string",
+            "description": "Accessible expansion for the modifier or special key, such as Command for ⌘."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Unicode key glyph such as ⌘, ⇧, ⌥, or ⌫."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the abbr."
+          }
+        ]
+      },
+      {
+        "id": "kbd-content",
+        "title": "KbdContent",
+        "props": [
+          {
+            "name": "kind",
+            "type": "\"key\" | \"punct\"",
+            "default": "\"key\"",
+            "description": "key for Latin characters. punct for punctuation such as a comma."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Key label such as K, P, or ,."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the content span."
+          }
+        ]
+      },
+      {
+        "id": "has-kbd-shortcut",
+        "title": "hasKbdShortcut",
+        "props": [
+          {
+            "name": "value",
+            "type": "unknown",
+            "description": "Returns true when value is a non-empty shortcut string after trim."
+          }
+        ]
+      },
+      {
+        "id": "kbd-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-kbd-bg",
+            "type": "color",
+            "description": "Chip fill.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--df-kbd-fg",
+            "type": "color",
+            "description": "Chord ink.",
+            "default": "var(--muted-foreground)"
+          },
+          {
+            "name": "--df-kbd-radius",
+            "type": "CSS length",
+            "description": "Corner radius.",
+            "default": "var(--radius-sm)"
+          },
+          {
+            "name": "--df-kbd-font-size-sm",
+            "type": "CSS length",
+            "description": "Type size at size sm.",
+            "default": "var(--df-text-xs)"
+          },
+          {
+            "name": "--df-kbd-font-size-md",
+            "type": "CSS length",
+            "description": "Type size at size md.",
+            "default": "var(--df-text-xs)"
+          },
+          {
+            "name": "--df-kbd-height-sm",
+            "type": "CSS length",
+            "description": "Chip height at size sm.",
+            "default": "calc(5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-kbd-height-md",
+            "type": "CSS length",
+            "description": "Chip height at size md.",
+            "default": "calc(5.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-kbd-padding-inline-sm",
+            "type": "CSS length",
+            "description": "Horizontal padding at size sm.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-kbd-padding-inline-md",
+            "type": "CSS length",
+            "description": "Horizontal padding at size md.",
+            "default": "calc(2.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-kbd-min-width-sm",
+            "type": "CSS length",
+            "description": "Minimum chip width at size sm.",
+            "default": "calc(5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-kbd-min-width-md",
+            "type": "CSS length",
+            "description": "Minimum chip width at size md.",
+            "default": "calc(5.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-kbd-glyph-gap",
+            "type": "CSS length",
+            "description": "Space between chord parts.",
+            "default": "0.12em"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,79 @@
+name: Bug report
+description: Something in the kit, the CLI, or the MCP server behaves incorrectly.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please search existing issues first. For a security problem, use the
+        Security tab instead of this form.
+
+  - type: input
+    id: version
+    attributes:
+      label: Kit version
+      description: Output of `df-ui version`, or the `@default-file/ui` version in your lockfile.
+      placeholder: 0.29.14
+    validations:
+      required: true
+
+  - type: dropdown
+    id: surface
+    attributes:
+      label: Where does it happen
+      options:
+        - Component behavior
+        - Component styling or tokens
+        - CSS entry points or utilities
+        - CLI (df-ui init, add, list, show)
+        - MCP server
+        - Types
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: item
+    attributes:
+      label: Component or command
+      placeholder: df-select, or df-ui add button
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: A link to a minimal repository or sandbox is the fastest route to a fix.
+      placeholder: |
+        1. Install the kit in a fresh Vite app
+        2. Render Select with 20 options
+        3. Open the menu and press End
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Framework and version, Node version, package manager, browser, and operating system.
+      placeholder: |
+        Framework: Next.js 16.2
+        Node: 22.13
+        Package manager: npm 11
+        Browser: Chrome 141
+        OS: macOS 15
+    validations:
+      required: true

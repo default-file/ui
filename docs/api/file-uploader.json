@@ -1,0 +1,259 @@
+{
+  "name": "file-uploader",
+  "slug": "file-uploader",
+  "title": "File Uploader",
+  "description": "Click, drag, or paste target for files with consumer-owned validation. Defaults to images. Use the tile variant for compact square or circle add and replace controls such as profile photos.",
+  "aliases": [
+    "file uploader",
+    "file upload",
+    "image upload",
+    "image dropzone",
+    "image paste target",
+    "photo dropzone",
+    "dropzone",
+    "profile picture upload",
+    "avatar upload",
+    "add photo"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-file-uploader",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Click, drag, or paste upload target. Defaults to images; pass pickFile for other media. Validation and copy stay with the consumer. Use variant tile for compact add or replace controls such as profile photos. Idle chrome is tokenized via --df-file-uploader-*.",
+    "groups": [
+      {
+        "id": "file-uploader",
+        "title": "FileUploader",
+        "props": [
+          {
+            "name": "onFile",
+            "type": "(file: File) => void",
+            "description": "Called when a file passes validation (required)."
+          },
+          {
+            "name": "validateFile",
+            "type": "(file: File) => string | null",
+            "description": "Return an error message to reject the file, or null to accept."
+          },
+          {
+            "name": "onReject",
+            "type": "(message: string) => void",
+            "description": "Called with the rejection message from validateFile."
+          },
+          {
+            "name": "accept",
+            "type": "string",
+            "default": "image/png,image/jpeg,image/webp,image/gif",
+            "description": "File input accept attribute."
+          },
+          {
+            "name": "pickFile",
+            "type": "(files: FileList | null | undefined) => File | undefined",
+            "description": "Choose a candidate from a drop, browse, or paste list. Defaults to the first image file. Paste gathers files from clipboard files and items."
+          },
+          {
+            "name": "enablePaste",
+            "type": "boolean",
+            "default": "true",
+            "description": "Listen for file paste on the window while mounted. Uses pickFile when set; otherwise the first clipboard image."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Disable interaction and paste handling."
+          },
+          {
+            "name": "variant",
+            "type": "\"default\" | \"tile\"",
+            "default": "\"default\"",
+            "description": "default is a full-width drop target. tile is a fixed square or circle control for add and replace flows such as profile photos."
+          },
+          {
+            "name": "shape",
+            "type": "\"rounded\" | \"circle\"",
+            "default": "\"rounded\"",
+            "description": "Tile corner shape. rounded uses radius-lg. circle uses a full pill radius. Ignored on default."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\" | \"xl\"",
+            "default": "\"md\"",
+            "description": "Tile edge length. Maps to --df-file-uploader-tile-size-*. Ignored on default. Override with --df-file-uploader-tile-size for a custom length."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Instance corner curve. Omit to inherit --df-corner-shape from the theme (set at create/init)."
+          },
+          {
+            "name": "title",
+            "type": "ReactNode",
+            "default": "\"Drop an image here\" (default) or \"Add\" (tile)",
+            "description": "Primary heading inside the uploader."
+          },
+          {
+            "name": "description",
+            "type": "ReactNode",
+            "default": "\"or click to browse. Paste also works.\" (default) or hidden (tile)",
+            "description": "Secondary line under the title. Pass null or an empty value to hide it."
+          },
+          {
+            "name": "hint",
+            "type": "ReactNode",
+            "description": "Optional tertiary hint (formats, size limits)."
+          },
+          {
+            "name": "icon",
+            "type": "ReactNode",
+            "description": "Leading icon. Defaults to ImagePlus. Pass a custom node to replace it."
+          },
+          {
+            "name": "previewSrc",
+            "type": "string",
+            "description": "Image URL for a filled replace state. Covers the shell and hides the idle icon and copy. Host manages object URL lifecycle."
+          },
+          {
+            "name": "borderStyle",
+            "type": "\"dashed\" | \"solid\"",
+            "default": "\"dashed\"",
+            "description": "Idle border style. Sets --df-file-uploader-border-style."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Idle border color. Prefer tokens such as var(--border). Sets --df-file-uploader-border-color."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Idle fill. Prefer tokens such as var(--muted) or transparent. Sets --df-file-uploader-bg."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the uploader shell."
+          }
+        ]
+      },
+      {
+        "id": "file-uploader-focus",
+        "title": "Focus",
+        "description": "Browse dialog (behavior): After the native file dialog closes (file chosen or cancelled), focus leaves the file input when it is still the active element. Host shortcuts such as Space are not kept on the uploader.",
+        "props": []
+      },
+      {
+        "id": "file-uploader-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-file-uploader-min-height",
+            "type": "CSS length",
+            "description": "Minimum height for the default variant.",
+            "default": "calc(30 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-file-uploader-border-style",
+            "type": "CSS border-style",
+            "description": "Idle border style.",
+            "default": "dashed"
+          },
+          {
+            "name": "--df-file-uploader-border-color",
+            "type": "CSS color",
+            "description": "Idle border color.",
+            "default": "var(--border)"
+          },
+          {
+            "name": "--df-file-uploader-bg",
+            "type": "CSS color",
+            "description": "Idle fill.",
+            "default": "color-mix(in oklch, var(--muted) 40%, transparent)"
+          },
+          {
+            "name": "--df-file-uploader-border-color-hover",
+            "type": "CSS color",
+            "description": "Border color on hover.",
+            "default": "color-mix(in oklch, var(--primary) 40%, transparent)"
+          },
+          {
+            "name": "--df-file-uploader-bg-hover",
+            "type": "CSS color",
+            "description": "Fill on hover.",
+            "default": "color-mix(in oklch, var(--muted) 60%, transparent)"
+          },
+          {
+            "name": "--df-file-uploader-border-color-active",
+            "type": "CSS color",
+            "description": "Border color while dragging a file over the uploader.",
+            "default": "var(--primary)"
+          },
+          {
+            "name": "--df-file-uploader-bg-active",
+            "type": "CSS color",
+            "description": "Fill while dragging a file over the uploader.",
+            "default": "color-mix(in oklch, var(--primary) 5%, transparent)"
+          },
+          {
+            "name": "--df-file-uploader-tile-size",
+            "type": "CSS length",
+            "description": "Resolved tile edge length. Override for a custom tile size.",
+            "default": "var(--df-file-uploader-tile-size-md)"
+          },
+          {
+            "name": "--df-file-uploader-tile-size-sm",
+            "type": "CSS length",
+            "description": "Tile size sm.",
+            "default": "calc(16 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-file-uploader-tile-size-md",
+            "type": "CSS length",
+            "description": "Tile size md.",
+            "default": "calc(22 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-file-uploader-tile-size-lg",
+            "type": "CSS length",
+            "description": "Tile size lg.",
+            "default": "calc(28 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-file-uploader-tile-size-xl",
+            "type": "CSS length",
+            "description": "Tile size xl.",
+            "default": "calc(36 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-file-uploader-tile-radius",
+            "type": "CSS length",
+            "description": "Tile corner radius. Circle shape sets this to radius-full.",
+            "default": "var(--radius-lg)"
+          },
+          {
+            "name": "--radius-lg",
+            "type": "CSS length",
+            "description": "Default and rounded-tile corner radius."
+          },
+          {
+            "name": "--radius-full",
+            "type": "CSS length",
+            "description": "Circle tile corner radius."
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          }
+        ]
+      }
+    ]
+  }
+}

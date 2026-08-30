@@ -1,0 +1,460 @@
+{
+  "name": "toast",
+  "slug": "toast",
+  "title": "Toast",
+  "description": "Transient messages with tone, a leading slot, and screen position.",
+  "aliases": [
+    "snackbar",
+    "notification toast",
+    "toast message",
+    "toast notification",
+    "Toast"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-toast",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Transient messages. Render Toast for static chrome, or mount Toaster once and call toast helpers for live messages. Tune chrome with props or --df-toast-* / --df-toaster-* CSS variables.",
+    "groups": [
+      {
+        "id": "toast",
+        "title": "Toast",
+        "description": "Presentational toast card. Toaster renders the same chrome for live messages.",
+        "props": [
+          {
+            "name": "tone",
+            "type": "\"success\" | \"error\" | \"info\" | \"warning\"",
+            "description": "Accent for the leading icon. Also selects the default leading icon when leading is omitted."
+          },
+          {
+            "name": "message",
+            "type": "string",
+            "description": "Primary toast copy."
+          },
+          {
+            "name": "leading",
+            "type": "ReactNode",
+            "description": "Leading slot before the message. Defaults to the tone icon. Pass a custom icon or node to replace it, or null to hide the slot. Custom icons inherit the tone accent through currentColor unless you set a color."
+          },
+          {
+            "name": "onDismiss",
+            "type": "() => void",
+            "description": "When set, renders an interactive dismiss control. Omit for static chrome with a non-interactive close glyph when showClose is true."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Card fill. Sets --df-toast-bg."
+          },
+          {
+            "name": "foreground",
+            "type": "string",
+            "description": "Card text color. Sets --df-toast-fg."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Card border color. Sets --df-toast-border."
+          },
+          {
+            "name": "borderWidth",
+            "type": "string",
+            "description": "Card border width. Sets --df-toast-border-width."
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Card corner radius. Sets --df-toast-radius."
+          },
+          {
+            "name": "shadow",
+            "type": "string",
+            "description": "Card box shadow. Sets --df-toast-shadow."
+          },
+          {
+            "name": "paddingBlock",
+            "type": "string",
+            "description": "Top and bottom padding. Sets --df-toast-padding-block."
+          },
+          {
+            "name": "paddingInline",
+            "type": "string",
+            "description": "Left and right padding. Sets --df-toast-padding-inline."
+          },
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Gap between leading, message, and close. Sets --df-toast-gap."
+          },
+          {
+            "name": "width",
+            "type": "string",
+            "description": "Card width. Sets --df-toast-width. Default 100% of the stack."
+          },
+          {
+            "name": "height",
+            "type": "string",
+            "description": "Card height. Sets --df-toast-height. Default auto."
+          },
+          {
+            "name": "minHeight",
+            "type": "string",
+            "description": "Card minimum height. Sets --df-toast-min-height."
+          },
+          {
+            "name": "showClose",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show the close control. Set false to hide it."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Instance corner curve. Omit to inherit --df-corner-shape from the theme (set at create/init)."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the toast root."
+          },
+          {
+            "name": "style",
+            "type": "CSSProperties",
+            "description": "Inline styles. Merged after chrome props. Prefer chrome props or --df-toast-* variables."
+          }
+        ]
+      },
+      {
+        "id": "toaster",
+        "title": "Toaster",
+        "description": "Portal host for live toasts. Mount once near the app root. Live toasts auto-dismiss after 3200ms. Card chrome props on Toaster inherit to every toast in the stack.",
+        "props": [
+          {
+            "name": "position",
+            "type": "\"top-left\" | \"top-center\" | \"top-right\" | \"left-center\" | \"center\" | \"right-center\" | \"bottom-left\" | \"bottom-center\" | \"bottom-right\"",
+            "default": "\"bottom-right\"",
+            "description": "Screen corner, edge centre, or dead centre for the stack."
+          },
+          {
+            "name": "stackWidth",
+            "type": "string",
+            "description": "Stack width. Sets --df-toaster-width."
+          },
+          {
+            "name": "stackGap",
+            "type": "string",
+            "description": "Gap between stacked toasts. Sets --df-toaster-gap."
+          },
+          {
+            "name": "inset",
+            "type": "string",
+            "description": "Distance from the viewport edge. Sets --df-toaster-inset."
+          },
+          {
+            "name": "viewportGutter",
+            "type": "string",
+            "description": "Horizontal viewport reserve used in the stack max-width clamp. Sets --df-toaster-viewport-gutter."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Card fill. Sets --df-toast-bg."
+          },
+          {
+            "name": "foreground",
+            "type": "string",
+            "description": "Card text color. Sets --df-toast-fg."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Card border color. Sets --df-toast-border."
+          },
+          {
+            "name": "borderWidth",
+            "type": "string",
+            "description": "Card border width. Sets --df-toast-border-width."
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Card corner radius. Sets --df-toast-radius."
+          },
+          {
+            "name": "shadow",
+            "type": "string",
+            "description": "Card box shadow. Sets --df-toast-shadow."
+          },
+          {
+            "name": "paddingBlock",
+            "type": "string",
+            "description": "Top and bottom padding. Sets --df-toast-padding-block."
+          },
+          {
+            "name": "paddingInline",
+            "type": "string",
+            "description": "Left and right padding. Sets --df-toast-padding-inline."
+          },
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Gap between leading, message, and close. Sets --df-toast-gap."
+          },
+          {
+            "name": "width",
+            "type": "string",
+            "description": "Card width. Sets --df-toast-width. Default 100% of the stack."
+          },
+          {
+            "name": "height",
+            "type": "string",
+            "description": "Card height. Sets --df-toast-height. Default auto."
+          },
+          {
+            "name": "minHeight",
+            "type": "string",
+            "description": "Card minimum height. Sets --df-toast-min-height."
+          },
+          {
+            "name": "showClose",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show the close control. Set false to hide it."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Instance corner curve. Omit to inherit --df-corner-shape from the theme (set at create/init)."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the toaster root."
+          },
+          {
+            "name": "style",
+            "type": "CSSProperties",
+            "description": "Inline styles on the toaster root. Merged after stack and chrome props."
+          }
+        ]
+      },
+      {
+        "id": "toast-api",
+        "title": "Helpers",
+        "description": "Imperative helpers for showing and dismissing live toasts. Requires a mounted Toaster.",
+        "props": [
+          {
+            "name": "toast.success",
+            "type": "(message: string, options?: ToastShowOptions) => string",
+            "description": "Show a success toast. Returns the toast id."
+          },
+          {
+            "name": "toast.error",
+            "type": "(message: string, options?: ToastShowOptions) => string",
+            "description": "Show an error toast. Returns the toast id."
+          },
+          {
+            "name": "toast.info",
+            "type": "(message: string, options?: ToastShowOptions) => string",
+            "description": "Show an info toast. Returns the toast id."
+          },
+          {
+            "name": "toast.warning",
+            "type": "(message: string, options?: ToastShowOptions) => string",
+            "description": "Show a warning toast. Returns the toast id."
+          },
+          {
+            "name": "toast.dismiss",
+            "type": "(id?: string) => void",
+            "description": "Dismiss one toast by id, or all toasts when id is omitted."
+          },
+          {
+            "name": "setToastPosition",
+            "type": "(position: ToastPosition) => void",
+            "description": "Update where new and existing live toasts stack. Same values as Toaster position."
+          }
+        ]
+      },
+      {
+        "id": "toast-show-options",
+        "title": "ToastShowOptions",
+        "description": "Optional second argument to toast.success, toast.error, toast.info, and toast.warning.",
+        "props": [
+          {
+            "name": "leading",
+            "type": "ReactNode",
+            "description": "Same contract as Toast leading. Replaces the tone icon, or null to hide the slot."
+          }
+        ]
+      },
+      {
+        "id": "toast-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override globally, on Toaster (inherits to the stack), or on Toast. Chrome props set the matching variables.",
+        "props": [
+          {
+            "name": "--df-toaster-width",
+            "type": "CSS length",
+            "description": "Toaster stack width.",
+            "default": "22rem"
+          },
+          {
+            "name": "--df-toaster-gap",
+            "type": "CSS length",
+            "description": "Gap between stacked toasts.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-toaster-inset",
+            "type": "CSS length",
+            "description": "Distance from the viewport edge.",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-toaster-viewport-gutter",
+            "type": "CSS length",
+            "description": "Horizontal viewport reserve for the stack max-width clamp.",
+            "default": "calc(8 * var(--spacing-unit))"
+          },
+          {
+            "name": "--z-toast",
+            "type": "number",
+            "description": "Stack layer above overlays.",
+            "default": "60"
+          },
+          {
+            "name": "--df-toast-width",
+            "type": "CSS length",
+            "description": "Toast card width.",
+            "default": "100%"
+          },
+          {
+            "name": "--df-toast-height",
+            "type": "CSS length",
+            "description": "Toast card height.",
+            "default": "auto"
+          },
+          {
+            "name": "--df-toast-min-height",
+            "type": "CSS length",
+            "description": "Toast card minimum height.",
+            "default": "auto"
+          },
+          {
+            "name": "--df-toast-bg",
+            "type": "CSS color",
+            "description": "Toast fill.",
+            "default": "var(--popover)"
+          },
+          {
+            "name": "--df-toast-fg",
+            "type": "CSS color",
+            "description": "Toast text color.",
+            "default": "var(--popover-foreground)"
+          },
+          {
+            "name": "--df-toast-border",
+            "type": "CSS color",
+            "description": "Toast border color.",
+            "default": "var(--border)"
+          },
+          {
+            "name": "--df-toast-border-width",
+            "type": "CSS length",
+            "description": "Toast border width.",
+            "default": "var(--border-width-hairline)"
+          },
+          {
+            "name": "--df-toast-radius",
+            "type": "CSS length",
+            "description": "Toast corner radius.",
+            "default": "var(--radius)"
+          },
+          {
+            "name": "--df-toast-shadow",
+            "type": "CSS shadow",
+            "description": "Toast box shadow.",
+            "default": "var(--df-shadow-lg)"
+          },
+          {
+            "name": "--df-toast-padding-block",
+            "type": "CSS length",
+            "description": "Top and bottom padding.",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-toast-padding-inline",
+            "type": "CSS length",
+            "description": "Left and right padding.",
+            "default": "calc(3.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-toast-gap",
+            "type": "CSS length",
+            "description": "Gap between leading, message, and close.",
+            "default": "calc(2.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-toast-icon-success",
+            "type": "CSS color",
+            "description": "Success tone icon accent.",
+            "default": "var(--success)"
+          },
+          {
+            "name": "--df-toast-icon-error",
+            "type": "CSS color",
+            "description": "Error tone icon accent.",
+            "default": "var(--destructive)"
+          },
+          {
+            "name": "--df-toast-icon-warning",
+            "type": "CSS color",
+            "description": "Warning tone icon accent.",
+            "default": "var(--warning)"
+          },
+          {
+            "name": "--df-toast-icon-info",
+            "type": "CSS color",
+            "description": "Info tone icon accent.",
+            "default": "var(--muted-foreground)"
+          },
+          {
+            "name": "--df-toast-close-size",
+            "type": "CSS length",
+            "description": "Close control width and height.",
+            "default": "var(--df-control-height-2xs)"
+          },
+          {
+            "name": "--df-toast-close-fg",
+            "type": "CSS color",
+            "description": "Close control icon color.",
+            "default": "var(--muted-foreground)"
+          },
+          {
+            "name": "--df-toast-close-hover-bg",
+            "type": "CSS color",
+            "description": "Close control hover fill.",
+            "default": "var(--muted)"
+          },
+          {
+            "name": "--df-toast-close-hover-fg",
+            "type": "CSS color",
+            "description": "Close control hover icon color.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "name": "chart",
+  "slug": "chart",
+  "title": "Chart",
+  "description": "Chart frame with optional title, description, toolbar, loading and empty states, plus legend and tooltip helpers.",
+  "aliases": [
+    "chart frame",
+    "plot",
+    "data chart",
+    "legend",
+    "Chart"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-chart",
+  "dependencies": [],
+  "api": {
+    "description": "Chart frame, legend, and tooltip helpers for kit plots. Compose ChartFrame around the graphic, then ChartLegend and ChartTooltip as needed.",
+    "groups": [
+      {
+        "id": "chart-frame",
+        "title": "ChartFrame",
+        "props": [
+          {
+            "name": "title",
+            "type": "ReactNode",
+            "description": "Header title above the plot."
+          },
+          {
+            "name": "description",
+            "type": "ReactNode",
+            "description": "Supporting copy under the title. Wired as aria-describedby on the plot when the plot has a name."
+          },
+          {
+            "name": "toolbar",
+            "type": "ReactNode",
+            "description": "Actions aligned with the header."
+          },
+          {
+            "name": "plotLabel",
+            "type": "string",
+            "description": "Accessible name for the plot. Prefer a short summary of the data. When omitted, a string title is used. Provide plotLabel or a string title so the graphic is not unnamed."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "Plot height step."
+          },
+          {
+            "name": "loading",
+            "type": "boolean",
+            "default": "false",
+            "description": "Show the loading placeholder instead of children."
+          },
+          {
+            "name": "empty",
+            "type": "boolean",
+            "default": "false",
+            "description": "Show emptyContent instead of children."
+          },
+          {
+            "name": "emptyContent",
+            "type": "ReactNode",
+            "description": "Content when empty is true."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Plot graphic when not loading or empty."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the frame."
+          }
+        ]
+      },
+      {
+        "id": "chart-legend",
+        "title": "ChartLegend",
+        "props": [
+          {
+            "name": "items",
+            "type": "readonly ChartLegendItem[]",
+            "description": "Legend rows. Each item has id, label, and optional color."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the list."
+          }
+        ]
+      },
+      {
+        "id": "chart-tooltip",
+        "title": "ChartTooltip",
+        "props": [
+          {
+            "name": "active",
+            "type": "boolean",
+            "description": "Whether the tooltip is shown."
+          },
+          {
+            "name": "label",
+            "type": "ReactNode",
+            "description": "Tooltip heading."
+          },
+          {
+            "name": "payload",
+            "type": "readonly ChartTooltipPayloadItem[]",
+            "description": "Series rows shown in the tooltip body."
+          },
+          {
+            "name": "formatValue",
+            "type": "(value, item) => ReactNode",
+            "description": "Optional formatter for each payload value."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the tooltip."
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+#!/bin/sh
+# Reject pushes to any repository other than the one declared in package.json.
+# Git passes the remote name as $1 and the remote URL as $2.
+
+set -e
+
+normalize() {
+	printf '%s' "$1" |
+		sed -E \
+			-e 's#^git\+##' \
+			-e 's#^git@github\.com:#https://github.com/#' \
+			-e 's#^ssh://git@github\.com/#https://github.com/#' \
+			-e 's#^https://github\.com/##' \
+			-e 's#\.git$##' \
+			-e 's#/$##'
+}
+
+target="$(normalize "$2")"
+declared="$(normalize "$(node -p "require('./package.json').repository.url")")"
+
+if [ "$target" = "$declared" ]; then
+	exit 0
+fi
+
+cat >&2 <<EOF
+
+Push rejected: this is not the declared kit repository.
+
+  Push target:  $target
+  package.json: $declared
+
+EOF
+
+case "$1" in
+*://* | *@*)
+	printf '%s\n' "Push to the declared repository instead:" >&2
+	printf '%s\n\n' "  git push https://github.com/$declared.git" >&2
+	;;
+*)
+	printf '%s\n' "Point the remote at the declared repository:" >&2
+	printf '%s\n\n' "  git remote set-url $1 https://github.com/$declared.git" >&2
+	;;
+esac
+
+cat >&2 <<EOF
+If the repository really did move, change repository.url in package.json in the
+same commit so every install path, registry URL, and docs link follows.
+
+EOF
+
+exit 1

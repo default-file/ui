@@ -1,0 +1,133 @@
+{
+  "name": "widget-grid",
+  "slug": "widget-grid",
+  "title": "Widget Grid",
+  "description": "Draggable and resizable widget layout on a CSS grid with keyboard edit affordances.",
+  "aliases": [
+    "dashboard grid",
+    "tile grid",
+    "resizable widgets",
+    "Widget Grid"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-widget-grid",
+  "dependencies": [],
+  "api": {
+    "description": "Draggable and resizable widget layout on a CSS grid with keyboard edit affordances.",
+    "groups": [
+      {
+        "id": "widget-grid",
+        "title": "WidgetGrid",
+        "props": [
+          {
+            "name": "layout",
+            "type": "WidgetLayoutItem[]",
+            "description": "Controlled cell placements (required)."
+          },
+          {
+            "name": "onLayoutChange",
+            "type": "(layout: WidgetLayoutItem[]) => void",
+            "description": "Called after a move or resize commits."
+          },
+          {
+            "name": "renderWidget",
+            "type": "(id: string) => ReactNode",
+            "description": "Render function for each layout id (required)."
+          },
+          {
+            "name": "columns",
+            "type": "number",
+            "default": "12",
+            "description": "Column count for the grid."
+          },
+          {
+            "name": "editable",
+            "type": "boolean",
+            "default": "true",
+            "description": "When false, drag, resize, and keyboard edit affordances are disabled."
+          },
+          {
+            "name": "minRowHeight",
+            "type": "string",
+            "description": "CSS length override for --df-widget-grid-row-height on this instance."
+          },
+          {
+            "name": "emptyContent",
+            "type": "ReactNode",
+            "description": "Content when the layout array is empty."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "description": "Accessible name for the grid. Defaults to the kit string catalogue. Override when the host supplies a visible heading."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "widget-layout-item",
+        "title": "WidgetLayoutItem",
+        "props": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Stable widget id (required)."
+          },
+          {
+            "name": "x",
+            "type": "number",
+            "description": "Column index from the left (required)."
+          },
+          {
+            "name": "y",
+            "type": "number",
+            "description": "Row index from the top (required)."
+          },
+          {
+            "name": "w",
+            "type": "number",
+            "description": "Width in columns (required)."
+          },
+          {
+            "name": "h",
+            "type": "number",
+            "description": "Height in rows (required)."
+          },
+          {
+            "name": "minW",
+            "type": "number",
+            "description": "Minimum width in columns."
+          },
+          {
+            "name": "minH",
+            "type": "number",
+            "description": "Minimum height in rows."
+          },
+          {
+            "name": "maxW",
+            "type": "number",
+            "description": "Maximum width in columns."
+          },
+          {
+            "name": "maxH",
+            "type": "number",
+            "description": "Maximum height in rows."
+          }
+        ]
+      },
+      {
+        "id": "widget-grid-a11y",
+        "title": "Accessibility",
+        "description": "Grid name: Pass aria-label when a visible title is not enough; otherwise the catalogue default names the grid. Widget content: renderWidget must supply meaningful content and names inside each cell. Drag handles: Editable cells expose move and resize controls with catalogue labels. Live region: Keyboard edits announce the new cell position and size.",
+        "props": []
+      }
+    ]
+  }
+}

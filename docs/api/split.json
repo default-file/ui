@@ -1,0 +1,89 @@
+{
+  "name": "split",
+  "slug": "split",
+  "title": "Split",
+  "description": "Two-pane layout with a keyboard and pointer resizable separator.",
+  "aliases": [
+    "split pane",
+    "resizable panes",
+    "splitter",
+    "Split"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-split",
+  "dependencies": [],
+  "api": {
+    "description": "Two-pane layout with a keyboard and pointer resizable separator. Pass exactly two children as primary and secondary panes.",
+    "groups": [
+      {
+        "id": "split",
+        "title": "Split",
+        "props": [
+          {
+            "name": "orientation",
+            "type": "\"horizontal\" | \"vertical\"",
+            "default": "\"horizontal\"",
+            "description": "horizontal splits left and right. vertical splits top and bottom."
+          },
+          {
+            "name": "ratio",
+            "type": "number",
+            "description": "Controlled primary pane share as a unit ratio (0 to 1) or a percentage greater than 1."
+          },
+          {
+            "name": "defaultRatio",
+            "type": "number",
+            "default": "0.5",
+            "description": "Uncontrolled initial ratio. Double-clicking the divider restores this value."
+          },
+          {
+            "name": "onRatioChange",
+            "type": "(ratio: number) => void",
+            "description": "Called with the clamped unit ratio after each change."
+          },
+          {
+            "name": "minSize",
+            "type": "number | `${number}%` | { px: number }",
+            "description": "Minimum primary pane size as a unit ratio, percent string, or pixel object."
+          },
+          {
+            "name": "maxSize",
+            "type": "number | `${number}%` | { px: number }",
+            "description": "Maximum primary pane size as a unit ratio, percent string, or pixel object."
+          },
+          {
+            "name": "step",
+            "type": "number",
+            "default": "0.02",
+            "description": "Arrow-key step as a unit ratio."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Locks the divider and removes it from the tab order."
+          },
+          {
+            "name": "children",
+            "type": "[ReactNode, ReactNode]",
+            "description": "Primary pane first, secondary pane second."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "split-a11y",
+        "title": "Keyboard and accessibility",
+        "description": "Separator (role=\"separator\"): The divider exposes aria-orientation and aria-valuenow, min, and max as percentages. Arrow keys step the ratio; Home and End jump to the bounds. There is no name prop on the separator; it may lack a spoken label until the kit adds one.",
+        "props": []
+      }
+    ]
+  }
+}

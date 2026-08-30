@@ -1,0 +1,154 @@
+{
+  "name": "data-grid",
+  "slug": "data-grid",
+  "title": "Data Grid",
+  "description": "Virtualized table with resizable columns, selection, and optional cell editing.",
+  "aliases": [
+    "table",
+    "grid",
+    "spreadsheet",
+    "virtual table",
+    "Data Grid"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-data-grid",
+  "dependencies": [
+    "@tanstack/react-virtual"
+  ],
+  "api": {
+    "description": "Virtualized data table with resizable columns, row selection, and optional cell editing.",
+    "groups": [
+      {
+        "id": "data-grid",
+        "title": "DataGrid",
+        "props": [
+          {
+            "name": "rows",
+            "type": "DataGridRow<T>[]",
+            "description": "Row models with id and data (required)."
+          },
+          {
+            "name": "columns",
+            "type": "DataGridColumnDef<T>[]",
+            "description": "Column definitions (required)."
+          },
+          {
+            "name": "columnState",
+            "type": "DataGridColumnState[]",
+            "description": "Controlled column width and visibility state."
+          },
+          {
+            "name": "defaultColumnState",
+            "type": "DataGridColumnState[]",
+            "description": "Uncontrolled initial column state."
+          },
+          {
+            "name": "onColumnStateChange",
+            "type": "(state: DataGridColumnState[]) => void",
+            "description": "Called when column widths or visibility change."
+          },
+          {
+            "name": "selectionMode",
+            "type": "\"none\" | \"single\" | \"multiple\"",
+            "description": "Row selection behavior."
+          },
+          {
+            "name": "selectedIds",
+            "type": "string[]",
+            "description": "Controlled selected row ids."
+          },
+          {
+            "name": "defaultSelectedIds",
+            "type": "string[]",
+            "description": "Uncontrolled initial selected row ids."
+          },
+          {
+            "name": "onSelectionChange",
+            "type": "(ids: string[]) => void",
+            "description": "Called when selection changes."
+          },
+          {
+            "name": "loading",
+            "type": "boolean",
+            "default": "false",
+            "description": "Show loading placeholder rows."
+          },
+          {
+            "name": "emptyContent",
+            "type": "ReactNode",
+            "description": "Content when there are no rows."
+          },
+          {
+            "name": "overscan",
+            "type": "number",
+            "description": "Extra virtual rows rendered outside the viewport."
+          },
+          {
+            "name": "estimateRowSize",
+            "type": "number",
+            "description": "Estimated row height in pixels for virtualization."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "data-grid-column",
+        "title": "DataGridColumnDef",
+        "props": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Stable column id (required)."
+          },
+          {
+            "name": "header",
+            "type": "ReactNode",
+            "description": "Header cell content (required)."
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "description": "Initial width in pixels."
+          },
+          {
+            "name": "minWidth",
+            "type": "number",
+            "description": "Lower bound for resize. Defaults to --df-data-grid-col-min-width."
+          },
+          {
+            "name": "maxWidth",
+            "type": "number",
+            "description": "Upper bound for resize. Defaults to --df-data-grid-col-max-width."
+          },
+          {
+            "name": "resizable",
+            "type": "boolean",
+            "description": "When true, the column can be resized."
+          },
+          {
+            "name": "hidden",
+            "type": "boolean",
+            "description": "When true, the column is omitted from the grid."
+          },
+          {
+            "name": "cell",
+            "type": "(row: DataGridRow<T>) => ReactNode",
+            "description": "Render function for the body cell (required)."
+          },
+          {
+            "name": "editCell",
+            "type": "(row, commit) => ReactNode",
+            "description": "Optional editor for the cell."
+          }
+        ]
+      }
+    ]
+  }
+}

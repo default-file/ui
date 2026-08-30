@@ -1,0 +1,180 @@
+{
+  "name": "featured-icon",
+  "slug": "featured-icon",
+  "title": "Featured Icon",
+  "description": "Static featured icon shell with chrome variants, semantic colors, sizes, shape, and a plain glyph mode.",
+  "aliases": [
+    "feature icon",
+    "icon badge",
+    "icon shell",
+    "featured glyph",
+    "status icon",
+    "Featured Icon"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-featured-icon",
+  "dependencies": [],
+  "api": {
+    "description": "Static featured icon shell for empty states, feature rows, and status marks. Pass any icon as children. Variants supply chrome recipes; override background, border, icon color, icon size, radius, and elevation shadow when you need a custom look.",
+    "groups": [
+      {
+        "id": "featured-icon",
+        "title": "Featured Icon",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"soft\" | \"halo\" | \"filled\" | \"outline\" | \"surface\" | \"plate\" | \"plain\"",
+            "default": "\"soft\"",
+            "description": "Chrome treatment. soft is a tinted fill. halo stacks a solid disc on a wash. filled is a solid plate. outline draws concentric rings in a fixed box. surface and plate are bordered elevated shells. plain is a bare sized glyph with no plate; it inherits the surrounding text color."
+          },
+          {
+            "name": "size",
+            "type": "\"2xs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\"",
+            "default": "\"md\"",
+            "description": "Outer footprint from 12px (2xs) to 62px (3xl). Also sets the default glyph size for that step. Plain uses the glyph size as the host size."
+          },
+          {
+            "name": "color",
+            "type": "\"brand\" | \"muted\" | \"success\" | \"warning\" | \"destructive\"",
+            "default": "\"brand\"",
+            "description": "Semantic accent recipe for fill, rings, and glyph when background, borderColor, and iconColor are omitted. brand follows primary so it stays visible in light and dark themes. Ignored for plain, which inherits the surrounding text color unless iconColor is set."
+          },
+          {
+            "name": "shape",
+            "type": "\"circle\" | \"square\"",
+            "description": "Container geometry. Omit to use the variant default: circle for soft, halo, and outline; square for filled, surface, and plate. Ignored for plain."
+          },
+          {
+            "name": "radius",
+            "type": "\"none\" | \"xxs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"full\"",
+            "description": "Corner radius override. When omitted, circle uses full and square uses the size step. Ignored for plain."
+          },
+          {
+            "name": "shadow",
+            "type": "boolean",
+            "default": "true",
+            "description": "Elevation shadow for filled, surface, and plate. Set false to keep the border without the drop shadow."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Container fill as a CSS color. Overrides the variant background recipe."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Border and ring stroke as a CSS color. Overrides the variant border recipe."
+          },
+          {
+            "name": "iconColor",
+            "type": "string",
+            "description": "Glyph color as a CSS color. Overrides the variant icon recipe. On plain, use this only when you need a color different from the surrounding text."
+          },
+          {
+            "name": "iconSize",
+            "type": "\"2xs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\"",
+            "description": "Glyph size step, independent of the container size. Same scale as size. For example size md with iconSize xl keeps a 32px shell and draws a 24px glyph. On plain, this also sets the host footprint."
+          },
+          {
+            "name": "glyphShadow",
+            "type": "boolean",
+            "default": "true",
+            "description": "Plain only. When true, apply the glyph drop shadow for busy surfaces. Set false to turn the shadow off."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Icon content, usually an SVG. Sized by the component via the glyph slot."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the host."
+          }
+        ]
+      },
+      {
+        "id": "featured-icon-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-featured-icon-bg",
+            "type": "CSS color",
+            "description": "Resolved container fill. Set by variant or the background prop.",
+            "default": "variant recipe"
+          },
+          {
+            "name": "--df-featured-icon-border",
+            "type": "CSS color",
+            "description": "Resolved border and ring stroke. Set by variant or the borderColor prop.",
+            "default": "variant recipe"
+          },
+          {
+            "name": "--df-featured-icon-icon",
+            "type": "CSS color",
+            "description": "Resolved glyph color. Set by variant or the iconColor prop.",
+            "default": "variant recipe"
+          },
+          {
+            "name": "--df-featured-icon-elevation",
+            "type": "CSS box-shadow",
+            "description": "Drop shadow for elevated variants. none when shadow is false.",
+            "default": "variant recipe"
+          },
+          {
+            "name": "--df-featured-icon-brand-solid",
+            "type": "CSS color",
+            "description": "Brand solid disc for halo. Stays dark under a light glyph in both themes.",
+            "default": "var(--primary) light; var(--primary-foreground) dark"
+          },
+          {
+            "name": "--df-featured-icon-brand-on-solid",
+            "type": "CSS color",
+            "description": "Light glyph on the brand solid disc. Stays light in both themes.",
+            "default": "var(--primary-foreground) light; var(--df-neutral-0) dark"
+          },
+          {
+            "name": "--df-featured-icon-size-2xs",
+            "type": "CSS length",
+            "description": "2xs container size (12px).",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-featured-icon-size-md",
+            "type": "CSS length",
+            "description": "md container size (32px).",
+            "default": "calc(8 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-featured-icon-size-3xl",
+            "type": "CSS length",
+            "description": "3xl container size (62px).",
+            "default": "calc(15.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-featured-icon-glyph-md",
+            "type": "CSS length",
+            "description": "md glyph size (16px).",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-featured-icon-radius-md",
+            "type": "CSS length",
+            "description": "Square corner radius at md when radius is omitted.",
+            "default": "var(--radius-md)"
+          },
+          {
+            "name": "--df-featured-icon-plain-glyph-filter",
+            "type": "CSS filter",
+            "description": "Drop shadow for plain glyphs on busy surfaces.",
+            "default": "var(--df-button-plain-glyph-filter)"
+          }
+        ]
+      }
+    ]
+  }
+}

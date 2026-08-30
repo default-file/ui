@@ -1,0 +1,20 @@
+{
+  "name": "checkbox",
+  "type": "registry:ui",
+  "title": "Checkbox",
+  "description": "Native checkbox with optional label and description, including indeterminate.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "foundation"
+  ],
+  "files": [
+    {
+      "path": "src/components/df-checkbox.tsx",
+      "type": "registry:ui",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Check, Minus } from \"lucide-react\"\n\nimport { useControllableState } from \"../hooks\"\nimport { cn } from \"../lib/utils\"\n\ntype CheckboxSize = \"sm\" | \"md\"\n\ntype CheckboxProps = Omit<\n  React.ComponentProps<\"input\">,\n  \"size\" | \"type\" | \"checked\" | \"defaultChecked\" | \"onChange\"\n> & {\n  checked?: boolean | \"indeterminate\"\n  defaultChecked?: boolean\n  onCheckedChange?: (checked: boolean | \"indeterminate\") => void\n  size?: CheckboxSize\n  invalid?: boolean\n  label?: React.ReactNode\n  description?: React.ReactNode\n}\n\nfunction Checkbox({\n  className,\n  checked: checkedProp,\n  defaultChecked = false,\n  onCheckedChange,\n  size = \"md\",\n  invalid = false,\n  disabled,\n  id: idProp,\n  label,\n  description,\n  name,\n  value,\n  required,\n  ...props\n}: CheckboxProps) {\n  const reactId = React.useId()\n  const inputId = idProp ?? `df-checkbox-${reactId}`\n  const descriptionId =\n    description != null ? `df-checkbox-desc-${reactId}` : undefined\n  const inputRef = React.useRef<HTMLInputElement>(null)\n\n  const [checked, setChecked] = useControllableState<boolean | \"indeterminate\">({\n    value: checkedProp,\n    defaultValue: defaultChecked,\n    onChange: onCheckedChange,\n  })\n\n  const isIndeterminate = checked === \"indeterminate\"\n  const isChecked = checked === true\n\n  React.useEffect(() => {\n    if (inputRef.current) {\n      inputRef.current.indeterminate = isIndeterminate\n    }\n  }, [isIndeterminate])\n\n  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {\n    setChecked(event.target.checked)\n  }\n\n  const control = (\n    <span\n      data-df=\"checkbox\"\n      data-size={size}\n      data-state={\n        isIndeterminate ? \"indeterminate\" : isChecked ? \"checked\" : \"unchecked\"\n      }\n      data-invalid={invalid ? \"\" : undefined}\n      data-disabled={disabled ? \"\" : undefined}\n      className={label == null && description == null ? cn(className) : undefined}\n    >\n      <input\n        {...props}\n        ref={inputRef}\n        id={inputId}\n        type=\"checkbox\"\n        name={name}\n        value={value}\n        checked={isChecked}\n        disabled={disabled}\n        required={required}\n        aria-checked={isIndeterminate ? \"mixed\" : undefined}\n        aria-invalid={invalid || undefined}\n        aria-describedby={descriptionId}\n        data-df=\"checkbox-input\"\n        onChange={handleChange}\n      />\n      <span data-df=\"checkbox-box\" aria-hidden>\n        {isIndeterminate ? (\n          <Minus data-df=\"checkbox-icon\" />\n        ) : isChecked ? (\n          <Check data-df=\"checkbox-icon\" />\n        ) : null}\n      </span>\n    </span>\n  )\n\n  if (label == null && description == null) {\n    return control\n  }\n\n  return (\n    <label\n      data-df=\"checkbox-field\"\n      data-size={size}\n      data-invalid={invalid ? \"\" : undefined}\n      data-disabled={disabled ? \"\" : undefined}\n      htmlFor={inputId}\n      className={cn(className)}\n    >\n      {control}\n      <span data-df=\"checkbox-copy\">\n        {label != null ? (\n          <span data-df=\"checkbox-label\">{label}</span>\n        ) : null}\n        {description != null ? (\n          <span data-df=\"checkbox-description\" id={descriptionId}>\n            {description}\n          </span>\n        ) : null}\n      </span>\n    </label>\n  )\n}\n\nexport { Checkbox }\nexport type { CheckboxProps, CheckboxSize }\n",
+      "target": "default-file-ui/components/df-checkbox.tsx"
+    }
+  ]
+}

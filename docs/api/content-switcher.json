@@ -1,0 +1,139 @@
+{
+  "name": "content-switcher",
+  "slug": "content-switcher",
+  "title": "Content Switcher",
+  "description": "Segmented single select for filters and view modes. Does not own tab panels.",
+  "aliases": [
+    "segmented control",
+    "segment control",
+    "segmented switcher",
+    "view switcher",
+    "mode switcher",
+    "Content Switcher"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-content-switcher",
+  "dependencies": [],
+  "api": {
+    "description": "Segmented single-select for filters and view modes. Supports t-shirt sizes and optional deselect. Label ink is optically centered to cap height with text-box when available, and a 1cap line box otherwise. Compose ContentSwitcher and ContentSwitcherItem.",
+    "groups": [
+      {
+        "id": "content-switcher",
+        "title": "ContentSwitcher",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Controlled selected value."
+          },
+          {
+            "name": "defaultValue",
+            "type": "string",
+            "description": "Uncontrolled initial value."
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: string) => void",
+            "description": "Called when selection changes."
+          },
+          {
+            "name": "orientation",
+            "type": "\"horizontal\" | \"vertical\"",
+            "default": "\"horizontal\"",
+            "description": "Layout direction."
+          },
+          {
+            "name": "fullWidth",
+            "type": "boolean",
+            "default": "false",
+            "description": "Stretch items to fill the available width."
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"xs\"",
+            "default": "\"default\"",
+            "description": "T-shirt size for segment height and type."
+          },
+          {
+            "name": "deselectable",
+            "type": "boolean",
+            "default": "false",
+            "description": "Click the active item again to clear selection (value becomes \"\")."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "content-switcher-item",
+        "title": "ContentSwitcherItem",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Item value (required)."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Non-interactive item."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Item label."
+          }
+        ]
+      },
+      {
+        "id": "content-switcher-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--muted",
+            "type": "CSS color",
+            "description": "Track fill.",
+            "default": "var(--df-neutral-50)"
+          },
+          {
+            "name": "--background",
+            "type": "CSS color",
+            "description": "Active item fill.",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--foreground",
+            "type": "CSS color",
+            "description": "Active item label.",
+            "default": "var(--df-neutral-900)"
+          },
+          {
+            "name": "--border",
+            "type": "CSS color",
+            "description": "Track border.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--spacing-unit",
+            "type": "CSS length",
+            "description": "Base unit for padding and gap.",
+            "default": "0.25rem"
+          },
+          {
+            "name": "--df-label-line-height",
+            "type": "CSS line-height",
+            "description": "Line box for label flex centering. Defaults to --df-leading-none. When text-box is unavailable and the cap unit is supported, the kit sets this to 1cap so flex centering matches cap-height ink.",
+            "default": "var(--df-leading-none)"
+          }
+        ]
+      }
+    ]
+  }
+}

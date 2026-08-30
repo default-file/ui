@@ -1,0 +1,18 @@
+{
+  "name": "switch",
+  "type": "registry:ui",
+  "title": "Switch",
+  "description": "Binary on and off control for immediate settings.",
+  "dependencies": [],
+  "registryDependencies": [
+    "foundation"
+  ],
+  "files": [
+    {
+      "path": "src/components/df-switch.tsx",
+      "type": "registry:ui",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { useControllableState } from \"../hooks\"\nimport { cn, composeEventHandlers } from \"../lib/utils\"\n\ntype SwitchProps = Omit<\n  React.ButtonHTMLAttributes<HTMLButtonElement>,\n  \"onChange\"\n> & {\n  checked?: boolean\n  defaultChecked?: boolean\n  onCheckedChange?: (checked: boolean) => void\n  size?: \"sm\" | \"default\"\n}\n\nfunction Switch({\n  className,\n  checked,\n  defaultChecked = false,\n  onCheckedChange,\n  size = \"default\",\n  disabled,\n  ...props\n}: SwitchProps) {\n  const [isChecked, setChecked] = useControllableState({\n    value: checked,\n    defaultValue: defaultChecked,\n    onChange: onCheckedChange,\n  })\n\n  return (\n    <button\n      type=\"button\"\n      role=\"switch\"\n      aria-checked={isChecked}\n      data-df=\"switch\"\n      data-size={size}\n      data-state={isChecked ? \"checked\" : \"unchecked\"}\n      disabled={disabled}\n      className={cn(className)}\n      {...props}\n      onClick={composeEventHandlers(props.onClick, () => {\n        if (disabled) return\n        setChecked(!isChecked)\n      })}\n    >\n      <span data-df=\"switch-thumb\" />\n    </button>\n  )\n}\n\nexport { Switch }\n",
+      "target": "default-file-ui/components/df-switch.tsx"
+    }
+  ]
+}

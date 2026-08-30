@@ -1,0 +1,60 @@
+{
+  "name": "empty-state",
+  "slug": "empty-state",
+  "title": "Empty State",
+  "description": "Placeholder for missing or filtered results with glyph, title, description, and optional action.",
+  "aliases": [
+    "no results",
+    "blank state",
+    "zero state",
+    "Empty State"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-empty-state",
+  "dependencies": [],
+  "api": {
+    "description": "Placeholder for missing data or empty filtered results. Compose a glyph, title, optional description, and optional action.",
+    "groups": [
+      {
+        "id": "empty-state",
+        "title": "EmptyState",
+        "props": [
+          {
+            "name": "glyph",
+            "type": "ReactNode",
+            "description": "Decorative mark above the copy. Hidden from assistive tech."
+          },
+          {
+            "name": "title",
+            "type": "ReactNode",
+            "description": "Primary empty-state heading (required)."
+          },
+          {
+            "name": "description",
+            "type": "ReactNode",
+            "description": "Supporting explanation under the title."
+          },
+          {
+            "name": "action",
+            "type": "ReactNode",
+            "description": "Optional recovery control under the copy."
+          },
+          {
+            "name": "announce",
+            "type": "boolean",
+            "default": "false",
+            "description": "When true, sets role=\"status\" so assistive technology announces the empty state as it appears. Keep false for a static empty illustration that is part of the initial page."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      }
+    ]
+  }
+}

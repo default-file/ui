@@ -1,0 +1,923 @@
+{
+  "name": "dropdown-menu",
+  "slug": "dropdown-menu",
+  "title": "Dropdown Menu",
+  "description": "Anchored action menu with header, body, and footer. Rows compose List Item. Prefer Option List for pickers that keep a selected value.",
+  "aliases": [
+    "action menu",
+    "three dot menu",
+    "kebab menu",
+    "profile menu",
+    "account menu",
+    "overflow menu",
+    "button menu",
+    "Dropdown Menu"
+  ],
+  "chapter": "overlays",
+  "registryDependencies": [
+    "foundation",
+    "list-item",
+    "scroll-area",
+    "kbd"
+  ],
+  "importPath": "@default-file/ui/components/df-dropdown-menu",
+  "dependencies": [],
+  "api": {
+    "description": "Anchored action menu for profile menus, workspace switchers, three dot menus, and toolbar actions. Compose Content with Header, Body, and Footer. Items fire onSelect and close by default. Rows compose List Item. Prefer Option List when the panel should keep a selected value without running a command.",
+    "groups": [
+      {
+        "id": "dropdown-menu",
+        "title": "DropdownMenu",
+        "props": [
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state. Placement still uses DropdownMenuTrigger when something else sets open."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "default": "false",
+            "description": "Initial open state when open is not passed. The menu manages open after that."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when open changes from the trigger, dismiss, item select, or parent updates."
+          },
+          {
+            "name": "closeOnSelect",
+            "type": "boolean",
+            "default": "true",
+            "description": "Close the menu after an item activates. Set false to keep the menu open."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Usually DropdownMenuTrigger and DropdownMenuContent."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-trigger",
+        "title": "DropdownMenuTrigger",
+        "description": "Placement anchor and toggle. Click, Enter, and Space toggle. ArrowDown opens. Escape closes when open.",
+        "props": [
+          {
+            "name": "render",
+            "type": "ReactElement",
+            "description": "Host element for the trigger. Toggles open and marks the anchor. Use a Button, icon button, or avatar control."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Trigger content when not using render."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the trigger host."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-content",
+        "title": "DropdownMenuContent",
+        "description": "Anchored surface shell. Place Header, Body, and Footer as children. Handles arrows, Home, End, typeahead, Escape, and Tab.",
+        "props": [
+          {
+            "name": "side",
+            "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+            "default": "\"bottom\"",
+            "description": "Preferred side of the trigger. Combine with align for corners. With collisionAvoidance, the panel can flip when space is tight."
+          },
+          {
+            "name": "align",
+            "type": "\"start\" | \"center\" | \"end\" | \"auto\"",
+            "default": "\"end\"",
+            "description": "Alignment along the placement side. auto picks start, center, or end from available space."
+          },
+          {
+            "name": "sideOffset",
+            "type": "number",
+            "default": "8",
+            "description": "Gap between the trigger and the menu, in pixels."
+          },
+          {
+            "name": "alignOffset",
+            "type": "number",
+            "default": "0",
+            "description": "Shift along the alignment axis, in pixels."
+          },
+          {
+            "name": "width",
+            "type": "\"hug\" | \"fill\" | string",
+            "default": "\"hug\"",
+            "description": "Panel width. hug sizes to content. fill matches the trigger when portaled, or the parent when portal is false. Pass a CSS length for a fixed panel."
+          },
+          {
+            "name": "itemSize",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+            "description": "Default List Item density for rows in this panel. Use sm for a compact menu. Per-item size overrides this."
+          },
+          {
+            "name": "matchTriggerWidth",
+            "type": "boolean",
+            "default": "true when width is fill, otherwise false",
+            "description": "Match the menu width to the trigger when portaled. Defaults to true when width is fill."
+          },
+          {
+            "name": "portal",
+            "type": "boolean",
+            "default": "true",
+            "description": "Render in a document body portal. Set false for an inline panel. Outside dismiss runs only when portal is true."
+          },
+          {
+            "name": "dismissOnScroll",
+            "type": "boolean",
+            "default": "true",
+            "description": "Close when the page scrolls outside the menu."
+          },
+          {
+            "name": "followScroll",
+            "type": "boolean",
+            "default": "true",
+            "description": "Keep the panel anchored to the trigger while the page scrolls."
+          },
+          {
+            "name": "collisionAvoidance",
+            "type": "boolean",
+            "default": "true",
+            "description": "Flip placement and cap height to the viewport when space is tight. Body scrolls when rows overflow. Set false to keep the requested side and align."
+          },
+          {
+            "name": "animated",
+            "type": "boolean",
+            "default": "true",
+            "description": "Open and close motion from the placement side. Set false for an instant panel. prefers-reduced-motion disables motion."
+          },
+          {
+            "name": "openDuration",
+            "type": "number",
+            "description": "Open motion duration in milliseconds. Defaults to --df-dropdown-menu-open-duration."
+          },
+          {
+            "name": "closeDuration",
+            "type": "number",
+            "description": "Close motion duration in milliseconds. Defaults to --df-dropdown-menu-close-duration."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Panel fill. Prefer tokens such as var(--popover). Sets --df-dropdown-menu-bg."
+          },
+          {
+            "name": "foreground",
+            "type": "string",
+            "description": "Panel text color. Prefer tokens such as var(--popover-foreground). Sets --df-dropdown-menu-fg."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Border color. Prefer tokens such as var(--border). Sets --df-dropdown-menu-border-color."
+          },
+          {
+            "name": "borderWidth",
+            "type": "string",
+            "description": "Border width. Prefer tokens such as var(--border-width-hairline). Sets --df-dropdown-menu-border-width."
+          },
+          {
+            "name": "borderStyle",
+            "type": "string",
+            "description": "Border style. Prefer solid. Sets --df-dropdown-menu-border-style."
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Corner radius. Prefer tokens such as var(--radius-2xl). Sets --df-dropdown-menu-radius."
+          },
+          {
+            "name": "shadow",
+            "type": "string | false",
+            "default": "none",
+            "description": "Panel box-shadow. Off by default. Pass a kit elevation token such as var(--df-shadow-md), or none or false to stay flat. Sets --df-dropdown-menu-shadow."
+          },
+          {
+            "name": "dividerColor",
+            "type": "string",
+            "description": "Header and separator hairline color. Prefer var(--border). Sets --df-dropdown-menu-divider-color."
+          },
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Inset on all sides. Prefer spacing tokens. Overridden by axis and side props."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal inset. Prefer spacing tokens."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical inset. Prefer spacing tokens."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top inset. Prefer spacing tokens. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Right inset. Prefer spacing tokens. Wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom inset. Prefer spacing tokens. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Left inset. Prefer spacing tokens. Wins over paddingX and padding."
+          },
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Gap between header, body, and footer. Sets --df-dropdown-menu-gap."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Usually DropdownMenuHeader, DropdownMenuBody, and DropdownMenuFooter."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-header",
+        "title": "DropdownMenuHeader",
+        "description": "Top section above the body with an edge-to-edge bottom rule. Use for profile blocks or selection status. Title becomes the menu accessible name when present.",
+        "props": [
+          {
+            "name": "leading",
+            "type": "ReactNode | false",
+            "description": "Leading media such as Avatar. Omit or pass false to hide it."
+          },
+          {
+            "name": "title",
+            "type": "ReactNode",
+            "description": "Primary label. Truncates with an ellipsis when the panel is too narrow."
+          },
+          {
+            "name": "description",
+            "type": "ReactNode",
+            "description": "Supporting line under the title, usually an email. Truncates when narrow."
+          },
+          {
+            "name": "meta",
+            "type": "ReactNode",
+            "description": "Below the description in the copy column. Prefer Badge for plan or status."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "End-aligned mark on the header row. Prefer Badge for a count or status chip."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Header fill. Prefer tokens. Sets --df-dropdown-menu-header-bg."
+          },
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Gap between leading, copy, and trailing. Sets --df-dropdown-menu-header-gap."
+          },
+          {
+            "name": "titleColor",
+            "type": "string",
+            "description": "Title color. Sets --df-dropdown-menu-title-color."
+          },
+          {
+            "name": "titleSize",
+            "type": "string",
+            "description": "Title font size. Sets --df-dropdown-menu-title-size."
+          },
+          {
+            "name": "titleWeight",
+            "type": "string",
+            "description": "Title font weight. Sets --df-dropdown-menu-title-weight."
+          },
+          {
+            "name": "descriptionColor",
+            "type": "string",
+            "description": "Description color. Sets --df-dropdown-menu-description-color."
+          },
+          {
+            "name": "descriptionSize",
+            "type": "string",
+            "description": "Description font size. Sets --df-dropdown-menu-description-size."
+          },
+          {
+            "name": "dividerColor",
+            "type": "string",
+            "description": "Header bottom rule color. Sets --df-dropdown-menu-divider-color for this header."
+          },
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Inset on all sides. Prefer spacing tokens. Overridden by axis and side props."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal inset. Prefer spacing tokens."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical inset. Prefer spacing tokens."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top inset. Prefer spacing tokens. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Right inset. Prefer spacing tokens. Wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom inset. Prefer spacing tokens. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Left inset. Prefer spacing tokens. Wins over paddingX and padding."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Extra header content below the title row."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-body",
+        "title": "DropdownMenuBody",
+        "description": "Middle section with role menu. Place action rows, labels, and separators here. Uses the kit ScrollArea; the thumb appears when rows overflow.",
+        "props": [
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Gap between rows. Sets --df-dropdown-menu-body-gap."
+          },
+          {
+            "name": "scrollable",
+            "type": "boolean",
+            "default": "false",
+            "description": "Apply maxHeight for an intentional height cap. Collision avoidance already scrolls when the viewport is tight."
+          },
+          {
+            "name": "maxHeight",
+            "type": "string | number",
+            "default": "var(--df-dropdown-menu-body-max-height)",
+            "description": "Height constraint when scrollable is true. Prefer tokens."
+          },
+          {
+            "name": "scrollThumbGap",
+            "type": "number",
+            "description": "Space on each side of the scrollbar thumb, in pixels. Sets --df-dropdown-menu-scroll-thumb-gap."
+          },
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Inset on all sides. Prefer spacing tokens. Overridden by axis and side props."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal inset. Prefer spacing tokens."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical inset. Prefer spacing tokens."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top inset. Prefer spacing tokens. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Right inset. Prefer spacing tokens. Wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom inset. Prefer spacing tokens. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Left inset. Prefer spacing tokens. Wins over paddingX and padding."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "DropdownMenuItem rows, plus optional labels and separators."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the body."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-item",
+        "title": "DropdownMenuItem",
+        "description": "Action row composed with List Item. Place inside DropdownMenuBody. Activates onSelect, then closes when closeOnSelect is true.",
+        "props": [
+          {
+            "name": "onSelect",
+            "type": "(event: Event) => void",
+            "description": "Called when the item activates. Call event.preventDefault() to keep the menu open even when closeOnSelect is true."
+          },
+          {
+            "name": "tone",
+            "type": "\"default\" | \"success\" | \"destructive\"",
+            "default": "\"default\"",
+            "description": "Visual tone. Use destructive for remove actions."
+          },
+          {
+            "name": "variant",
+            "type": "\"accent\" | \"muted\"",
+            "default": "\"accent\"",
+            "description": "List Item color recipe. muted uses muted-foreground for quieter rows."
+          },
+          {
+            "name": "leading",
+            "type": "ReactNode | false",
+            "description": "Leading icon or status mark. Passed to List Item."
+          },
+          {
+            "name": "shortcut",
+            "type": "string",
+            "description": "Unicode keyboard hint in the trailing slot via kit Kbd, such as ⌘K. Display only; host owns key bindings."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "Trailing content. Submenu triggers add a chevron when omitted."
+          },
+          {
+            "name": "secondary",
+            "type": "ReactNode",
+            "description": "Secondary text under the label."
+          },
+          {
+            "name": "layout",
+            "type": "\"inline\" | \"stacked\" | \"columns\"",
+            "default": "\"inline\"",
+            "description": "List Item copy layout."
+          },
+          {
+            "name": "selected",
+            "type": "boolean",
+            "default": "false",
+            "description": "Shows the end check when indicator is not overridden. Use for preference rows and the active workspace."
+          },
+          {
+            "name": "indicator",
+            "type": "boolean",
+            "description": "Force the end check on or off. Defaults to true when selected is true."
+          },
+          {
+            "name": "leadingFit",
+            "type": "\"icon\" | \"content\"",
+            "default": "\"icon\"",
+            "description": "Leading track sizing. Use content for Avatar and other non-icon marks."
+          },
+          {
+            "name": "asChild",
+            "type": "boolean",
+            "default": "false",
+            "description": "Render the child element as the row host, usually a link."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Disable activation and skip keyboard focus."
+          },
+          {
+            "name": "readOnly",
+            "type": "boolean",
+            "default": "false",
+            "description": "Presentational row. Not activatable and skipped for keyboard focus."
+          },
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+            "default": "\"md, or Content itemSize when set\"",
+            "description": "List Item density for this row. Defaults to Content itemSize when set, otherwise md."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Item label."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-shortcut",
+        "title": "DropdownMenuShortcut",
+        "description": "Keyboard hint for menu rows. Renders kit Kbd at size sm. Prefer the shortcut prop on DropdownMenuItem.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Unicode shortcut label such as ⌘K. Textual forms such as Ctrl+K are not parsed."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the shortcut host."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-separator",
+        "title": "DropdownMenuSeparator",
+        "description": "Hairline rule between item groups inside the body.",
+        "props": [
+          {
+            "name": "dividerColor",
+            "type": "string",
+            "description": "Hairline color for this rule. Prefer tokens such as var(--border). Sets --df-dropdown-menu-divider-color."
+          },
+          {
+            "name": "marginBlock",
+            "type": "string",
+            "description": "Vertical space around the rule. Prefer spacing tokens. Sets --df-dropdown-menu-separator-margin-block."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the separator."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-label",
+        "title": "DropdownMenuLabel",
+        "description": "Non-interactive group label above a set of items in the body.",
+        "props": [
+          {
+            "name": "color",
+            "type": "string",
+            "description": "Label color. Prefer tokens. Sets --df-dropdown-menu-label-color."
+          },
+          {
+            "name": "fontSize",
+            "type": "string",
+            "default": "var(--df-text-11)",
+            "description": "Label type size. Prefer tokens. Sets --df-dropdown-menu-label-size."
+          },
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Inset on all sides. Prefer spacing tokens. Overridden by axis and side props."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal inset. Prefer spacing tokens."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical inset. Prefer spacing tokens."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top inset. Prefer spacing tokens. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Right inset. Prefer spacing tokens. Wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom inset. Prefer spacing tokens. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Left inset. Prefer spacing tokens. Wins over paddingX and padding."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Label copy."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-submenu",
+        "title": "DropdownMenuSubmenu",
+        "description": "Hover-open nested action branch. Place a DropdownMenuItem trigger and DropdownMenuSubContent as children. Motion defaults come from CSS tokens and can be overridden here or on SubContent.",
+        "props": [
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled submenu open state."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "default": "false",
+            "description": "Initial open state when open is not passed."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when the submenu open state changes."
+          },
+          {
+            "name": "animated",
+            "type": "boolean",
+            "default": "true",
+            "description": "Open and close motion for this branch. Set false for an instant panel."
+          },
+          {
+            "name": "openDuration",
+            "type": "number",
+            "description": "Open motion duration in milliseconds. Defaults to --df-dropdown-menu-submenu-open-duration."
+          },
+          {
+            "name": "closeDuration",
+            "type": "number",
+            "description": "Close motion duration in milliseconds. Defaults to --df-dropdown-menu-submenu-close-duration."
+          },
+          {
+            "name": "closeDelay",
+            "type": "number",
+            "default": "60",
+            "description": "Hover leave delay before the submenu closes, in milliseconds."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Trigger item and DropdownMenuSubContent."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-sub-content",
+        "title": "DropdownMenuSubContent",
+        "description": "Nested menu surface. Defaults to the right of the trigger row and portals to the document body. Shares Content surface chrome. Placement and motion can be set per panel.",
+        "props": [
+          {
+            "name": "side",
+            "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+            "default": "\"right\"",
+            "description": "Preferred side of the trigger row."
+          },
+          {
+            "name": "sideOffset",
+            "type": "number",
+            "default": "4",
+            "description": "Gap between the trigger row and the nested panel, in pixels."
+          },
+          {
+            "name": "align",
+            "type": "\"start\" | \"center\" | \"end\" | \"auto\"",
+            "default": "\"start\"",
+            "description": "Alignment along the placement side."
+          },
+          {
+            "name": "alignOffset",
+            "type": "number",
+            "default": "0",
+            "description": "Shift along the alignment axis, in pixels."
+          },
+          {
+            "name": "portal",
+            "type": "boolean",
+            "default": "true",
+            "description": "Render in a document body portal."
+          },
+          {
+            "name": "animated",
+            "type": "boolean",
+            "default": "inherits DropdownMenuSubmenu.animated",
+            "description": "Per-panel motion override. Set false for an instant panel on this surface."
+          },
+          {
+            "name": "openDuration",
+            "type": "number",
+            "default": "inherits DropdownMenuSubmenu.openDuration",
+            "description": "Per-panel open duration in milliseconds. Defaults to the submenu token when unset."
+          },
+          {
+            "name": "closeDuration",
+            "type": "number",
+            "default": "inherits DropdownMenuSubmenu.closeDuration",
+            "description": "Per-panel close duration in milliseconds. Defaults to the submenu token when unset."
+          },
+          {
+            "name": "shadow",
+            "type": "string | false",
+            "default": "none",
+            "description": "Nested panel box-shadow. Same contract as DropdownMenuContent shadow."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Surface fill. Prefer tokens."
+          },
+          {
+            "name": "foreground",
+            "type": "string",
+            "description": "Surface text color. Prefer tokens."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Surface border color. Prefer tokens."
+          },
+          {
+            "name": "borderWidth",
+            "type": "string",
+            "description": "Surface border width. Prefer border-width tokens."
+          },
+          {
+            "name": "borderStyle",
+            "type": "string",
+            "description": "Surface border style."
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Corner radius. Prefer radius tokens."
+          },
+          {
+            "name": "dividerColor",
+            "type": "string",
+            "description": "Internal divider color. Prefer tokens."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Nested DropdownMenuItem rows and separators."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-footer",
+        "title": "DropdownMenuFooter",
+        "description": "Muted meta row under the body, such as version or legal copy. Composed with List Item. Defaults to readOnly. Use asChild for a link host.",
+        "props": [
+          {
+            "name": "leading",
+            "type": "ReactNode | false",
+            "default": "false",
+            "description": "Optional leading mark. Defaults to no leading slot."
+          },
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+            "default": "\"sm\"",
+            "description": "List Item density."
+          },
+          {
+            "name": "readOnly",
+            "type": "boolean",
+            "default": "true",
+            "description": "Presentational meta. Defaults to false when asChild is true so a link stays interactive."
+          },
+          {
+            "name": "asChild",
+            "type": "boolean",
+            "default": "false",
+            "description": "Render the child element as the row host, usually a link."
+          },
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Inset on all sides. Prefer spacing tokens. Overridden by axis and side props."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal inset. Prefer spacing tokens."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical inset. Prefer spacing tokens."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top inset. Prefer spacing tokens. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Right inset. Prefer spacing tokens. Wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom inset. Prefer spacing tokens. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Left inset. Prefer spacing tokens. Wins over paddingX and padding."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Row fill. Prefer tokens. See List Item chrome."
+          },
+          {
+            "name": "foreground",
+            "type": "string",
+            "description": "Row text color. Prefer tokens. See List Item chrome."
+          },
+          {
+            "name": "fontSize",
+            "type": "string",
+            "description": "Row type size. Prefer type tokens. See List Item chrome."
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Row corner radius. Prefer radius tokens. See List Item chrome."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Footer copy or link label."
+          }
+        ]
+      },
+      {
+        "id": "dropdown-menu-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-dropdown-menu-shadow",
+            "type": "CSS box-shadow",
+            "description": "Panel elevation. Off by default. Set by Content or SubContent shadow.",
+            "default": "none"
+          },
+          {
+            "name": "--df-dropdown-menu-body-max-height",
+            "type": "CSS length",
+            "description": "Default Body maxHeight when scrollable is true.",
+            "default": "min(60vh, var(--df-menu-max-height))"
+          },
+          {
+            "name": "--df-dropdown-menu-label-size",
+            "type": "CSS length",
+            "description": "Default DropdownMenuLabel type size.",
+            "default": "var(--df-text-11)"
+          },
+          {
+            "name": "--df-dropdown-menu-header-avatar-size",
+            "type": "CSS length",
+            "description": "Avatar size in Header when title and description are both present.",
+            "default": "calc(var(--df-leading-5) + var(--df-dropdown-menu-header-copy-gap) + var(--df-leading-4))"
+          },
+          {
+            "name": "--df-dropdown-menu-submenu-open-duration",
+            "type": "CSS time",
+            "description": "Default submenu open motion. Matches Option List nested open timing. Override with Submenu or SubContent openDuration.",
+            "default": "var(--df-duration-slow)"
+          },
+          {
+            "name": "--df-dropdown-menu-submenu-close-duration",
+            "type": "CSS time",
+            "description": "Default submenu close motion. Matches Option List nested close timing. Override with Submenu or SubContent closeDuration.",
+            "default": "var(--df-duration-fast)"
+          }
+        ]
+      }
+    ]
+  }
+}

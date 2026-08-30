@@ -1,0 +1,1113 @@
+{
+  "name": "select",
+  "slug": "select",
+  "title": "Select",
+  "description": "Single or multi choice field that composes Option List. Rows use List Item chrome. Configure width and open-list sizing. Closed list selection, not free-text autocomplete.",
+  "aliases": [
+    "dropdown",
+    "dropdown select",
+    "select menu",
+    "multi select",
+    "single select dropdown",
+    "Select"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation",
+    "option-list",
+    "label"
+  ],
+  "importPath": "@default-file/ui/components/df-select",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Select composes Option List for the open panel. SelectItem rows use List Item chrome; see the List Item page for size, muted or accent variants, asChild hosts, and fully configurable standalone rows. Configure root width, field chrome, trigger, value display, content, and items below. Root width sets the trigger; open-list width follows that mode unless SelectContent overrides alignItemWithTrigger. The trigger is a combobox with full keyboard support inherited from Option List.",
+    "groups": [
+      {
+        "id": "select-root",
+        "title": "Select",
+        "description": "Root state for single or multi choice, open state, width, disabled, and validation.",
+        "props": [
+          {
+            "name": "selectionMode",
+            "type": "\"single\" | \"multiple\"",
+            "default": "\"single\"",
+            "description": "Single value or multiple values."
+          },
+          {
+            "name": "value",
+            "type": "string | null",
+            "description": "Controlled value in single mode."
+          },
+          {
+            "name": "defaultValue",
+            "type": "string | null",
+            "default": "null",
+            "description": "Uncontrolled initial value in single mode."
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: string | null) => void",
+            "description": "Called when the single value changes."
+          },
+          {
+            "name": "values",
+            "type": "string[]",
+            "description": "Controlled values in multiple mode."
+          },
+          {
+            "name": "defaultValues",
+            "type": "string[]",
+            "description": "Uncontrolled initial values in multiple mode."
+          },
+          {
+            "name": "onValuesChange",
+            "type": "(values: string[]) => void",
+            "description": "Called when multiple values change."
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state for the option list."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "default": "false",
+            "description": "Uncontrolled initial open state."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when the panel opens or closes."
+          },
+          {
+            "name": "closeOnSelect",
+            "type": "boolean",
+            "description": "Close after choosing a row. Defaults to true in single mode, false in multiple."
+          },
+          {
+            "name": "width",
+            "type": "\"hug\" | \"fill\" | string",
+            "default": "\"hug\"",
+            "description": "Root and trigger width. hug sizes to the value. fill stretches to the parent. Pass a CSS length such as 12rem for a fixed width. Fill and fixed also default the open list to match the trigger; hug defaults the list to hug option content. Override with SelectContent alignItemWithTrigger."
+          },
+          {
+            "name": "itemChrome",
+            "type": "ListItemChromeProps",
+            "description": "Default List Item chrome for every SelectItem (padding, gap, type size/family/weight/color, radius, fills, and stroke). Forwarded to OptionList. Per-item chrome props on SelectItem win. See List Item for the full chrome contract."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Non-interactive state with a muted fill, hairline border, and muted value text. Keeps the menu closed."
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "default": "false",
+            "description": "Validation state. Sets aria-invalid on the trigger and applies the destructive border with --focus-ring-error. Hint text stays muted."
+          }
+        ]
+      },
+      {
+        "id": "select-field",
+        "title": "SelectField",
+        "description": "Optional label, subtext, and hint. Labels can sit above the control, overlap the top border, or stack inside the trigger.",
+        "props": [
+          {
+            "name": "label",
+            "type": "ReactNode",
+            "description": "Field title. outside renders above the control. overlap sits on the top border with a notch. inset stacks above the value inside the trigger."
+          },
+          {
+            "name": "labelPosition",
+            "type": "\"outside\" | \"overlap\" | \"inset\"",
+            "default": "\"outside\"",
+            "description": "outside places the label above the field. overlap pins a compact label on the top border with a surface-colored notch. inset stacks a muted label above the value inside the trigger chrome."
+          },
+          {
+            "name": "subtext",
+            "type": "ReactNode",
+            "description": "Secondary supporting line. With outside, uses the kit Label subtext slot under the title. With overlap or inset, renders above the control. Pass a string or any custom node."
+          },
+          {
+            "name": "required",
+            "type": "boolean",
+            "description": "Shows the required mark on the label."
+          },
+          {
+            "name": "help",
+            "type": "ReactNode",
+            "description": "Help control after the label (for example SelectFieldHelp inside a Tooltip). With overlap or inset, sits beside the field title."
+          },
+          {
+            "name": "hint",
+            "type": "ReactNode",
+            "description": "Supporting text below the control. Pass a string or any custom node. Omit to hide. Stays muted in the invalid state."
+          },
+          {
+            "name": "hintColor",
+            "type": "string",
+            "description": "Hint color. Prefer tokens such as var(--muted-foreground). Sets --df-select-hint."
+          },
+          {
+            "name": "hintClassName",
+            "type": "string",
+            "description": "Additional classes on the hint line."
+          },
+          {
+            "name": "hintId",
+            "type": "string",
+            "description": "Id for the hint; pair with the describedby ARIA attribute on the trigger."
+          },
+          {
+            "name": "labelColor",
+            "type": "string",
+            "description": "Owned label color. Prefer tokens such as var(--foreground) or var(--muted-foreground). Sets --df-select-label. Overlap and inset default to muted-foreground."
+          },
+          {
+            "name": "labelClassName",
+            "type": "string",
+            "description": "Additional classes on the owned Label."
+          },
+          {
+            "name": "labelInsetAlign",
+            "type": "\"left\" | \"content\" | \"custom\"",
+            "default": "\"left\"",
+            "description": "Outside label inset. Forwards to Label insetAlign. content uses --df-label-inset-content on the field, which tracks --df-select-overlap-inset and --df-control-content-inset-inline."
+          },
+          {
+            "name": "labelInsetSize",
+            "type": "string",
+            "description": "Outside label custom inset. Forwards to Label insetSize when labelInsetAlign is custom."
+          },
+          {
+            "name": "invalidLabel",
+            "type": "boolean",
+            "default": "true",
+            "description": "When Select invalid is true, tint the owned label with the error color. Set false to keep the label at its normal color."
+          },
+          {
+            "name": "errorLabelColor",
+            "type": "string",
+            "description": "Owned label color when invalid and invalidLabel are true. Prefer tokens such as var(--destructive). Sets --df-select-error-label."
+          },
+          {
+            "name": "overlapLabelBackground",
+            "type": "string",
+            "description": "Notch fill behind the overlap label. Match the surface behind the field. Prefer tokens such as var(--background). Sets --df-select-overlap-label-bg."
+          },
+          {
+            "name": "overlapInset",
+            "type": "string",
+            "description": "Distance from the trigger leading edge to the overlap label. Prefer spacing tokens. Align with trigger paddingLeft. Sets --df-select-overlap-inset."
+          },
+          {
+            "name": "overlapLabelPadding",
+            "type": "string",
+            "description": "Horizontal padding on the overlap label chip so the border notch clears the text. Prefer spacing tokens. Sets --df-select-overlap-label-pad."
+          },
+          {
+            "name": "overlapLabelSize",
+            "type": "string",
+            "description": "Overlap label font size. Prefer type tokens such as var(--df-text-11). Sets --df-select-overlap-label-size."
+          },
+          {
+            "name": "insetLabelSize",
+            "type": "string",
+            "description": "Inset label font size. Prefer type tokens such as var(--df-text-11). Sets --df-select-inset-label-size."
+          },
+          {
+            "name": "insetGap",
+            "type": "string",
+            "description": "Vertical gap between the inset label and the value. Prefer spacing tokens. Sets --df-select-inset-gap."
+          },
+          {
+            "name": "htmlFor",
+            "type": "string",
+            "description": "Associates the label with the trigger id."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Layout width and spacing for the field shell."
+          }
+        ]
+      },
+      {
+        "id": "select-trigger",
+        "title": "SelectTrigger",
+        "description": "Combobox host for the visible control. Variant, sizes, padding, width, radius, and truncation are configured here.",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"primary\" | \"secondary\"",
+            "default": "\"primary\"",
+            "description": "primary is a surface fill with a hairline border. secondary is a soft secondary wash with secondary-foreground value text and a transparent border."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\" | \"default\"",
+            "default": "\"md\"",
+            "description": "T-shirt height and type size. \"default\" is an alias for \"md\"."
+          },
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Padding on all sides. Prefer spacing tokens such as calc(2 * var(--spacing-unit)). Sets each --df-select-padding-* side. Inset label position uses a roomier default recipe; these props override it."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal padding. Sets --df-select-padding-left and --df-select-padding-right. Overrides padding on those sides."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical padding. Sets --df-select-padding-top and --df-select-padding-bottom. Overrides padding on those sides."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top padding. Prefer spacing tokens. Sets --df-select-padding-top and wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Right padding. Prefer spacing tokens. Sets --df-select-padding-right and wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom padding. Prefer spacing tokens. Sets --df-select-padding-bottom and wins over paddingY and padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Left padding. Prefer spacing tokens. Sets --df-select-padding-left and wins over paddingX and padding."
+          },
+          {
+            "name": "leadingIcon",
+            "type": "ReactNode",
+            "description": "Decorative icon at the start of the trigger, before SelectValue."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Trigger fill. Prefer tokens such as var(--background). Sets --df-select-bg and overrides the variant recipe."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Trigger border color. Prefer tokens such as var(--input). Sets --df-select-border."
+          },
+          {
+            "name": "hoverBorder",
+            "type": "boolean",
+            "description": "Instance hover border. Omit to inherit the theme. Set false to keep the resting border. Set true to force the hover border on. When set, the control writes data-hover-border; omit to inherit data-df-hover-border from the host."
+          },
+          {
+            "name": "hoverBorderColor",
+            "type": "string",
+            "description": "Hover border color when hover is active. Prefer tokens such as var(--foreground). Sets --df-select-hover-border. Focus and invalid borders take priority."
+          },
+          {
+            "name": "errorBorderColor",
+            "type": "string",
+            "description": "Invalid border color. Prefer tokens such as var(--destructive). Sets --df-select-error-border."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Overrides Select disabled when set on the trigger."
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "description": "Overrides Select invalid when set on the trigger. Also accepts aria-invalid."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Extra classes for shape and polish. Prefer Select width for hug, fill, or fixed sizing. Radius override examples: rounded-xl or rounded-full. Default radius uses the kit --radius-4xl token."
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "For label association and accessibility."
+          },
+          {
+            "name": "aria-describedby",
+            "type": "string",
+            "description": "Point at SelectField hintId when a hint is shown."
+          },
+          {
+            "name": "aria-invalid",
+            "type": "boolean | \"true\" | \"false\"",
+            "description": "Native invalid flag. Merged with Select invalid and the trigger invalid prop."
+          }
+        ]
+      },
+      {
+        "id": "select-value",
+        "title": "SelectValue",
+        "description": "Shows the placeholder, selected label, or a custom render. When the selected SelectItem uses layout stacked with secondary, the trigger mirrors that stack. Compose kit Badge beside the label in SelectItem children to show a status pill in the trigger and list.",
+        "props": [
+          {
+            "name": "placeholder",
+            "type": "string",
+            "description": "Pre-select copy when no value is chosen."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode | ((ctx) => ReactNode)",
+            "description": "Static content or a render function with selectionMode, value, values, labelFor, secondaryFor, layoutFor, and toggleValue. Omit to use the label registered from SelectItem, including any Badge composed into that label. Default single-select render stacks title and description only when the selected item layout is stacked."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Value text styles. Truncation follows a fixed width trigger."
+          }
+        ]
+      },
+      {
+        "id": "select-value-summary",
+        "title": "SelectValueSummary",
+        "description": "Multi-select summary used inside SelectValue.",
+        "props": [
+          {
+            "name": "count",
+            "type": "number",
+            "description": "Primary count text, for example \"2 selected\"."
+          },
+          {
+            "name": "supportingText",
+            "type": "ReactNode",
+            "description": "Muted secondary detail, for example \"16 users\"."
+          }
+        ]
+      },
+      {
+        "id": "select-value-badge",
+        "title": "SelectValueBadge",
+        "description": "Multi-select chip used inside SelectValue. For a status pill on a single selection, compose Badge inside SelectItem children instead.",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Selected option value; remove toggles this value off."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Badge label. Defaults to the registered option label."
+          },
+          {
+            "name": "onRemove",
+            "type": "(value: string) => void",
+            "description": "Optional custom remove handler instead of toggleValue."
+          }
+        ]
+      },
+      {
+        "id": "select-content",
+        "title": "SelectContent",
+        "description": "Open Option List panel. Same API as OptionListContent, including alignItemWithTrigger and searchBackground for the search field fill.",
+        "props": [
+          {
+            "name": "align",
+            "type": "\"start\" | \"center\" | \"end\" | \"auto\"",
+            "default": "\"start\"",
+            "description": "Horizontal anchor relative to the trigger. auto picks the best fit."
+          },
+          {
+            "name": "alignItemWithTrigger",
+            "type": "boolean",
+            "description": "Configure open-list width. true matches the trigger. false hugs the longest option (floored at --df-menu-min-width). Omit to follow the root width prop: hug defaults to false; fill and fixed default to true."
+          },
+          {
+            "name": "side",
+            "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+            "default": "\"bottom\"",
+            "description": "Preferred placement side. Flips when there is not enough space."
+          },
+          {
+            "name": "sideOffset",
+            "type": "number",
+            "default": "4",
+            "description": "Gap between trigger and panel."
+          },
+          {
+            "name": "alignOffset",
+            "type": "number",
+            "default": "0",
+            "description": "Shift along the alignment axis."
+          },
+          {
+            "name": "portal",
+            "type": "boolean",
+            "default": "true",
+            "description": "Render in a portal. Set false for inline previews."
+          },
+          {
+            "name": "chrome",
+            "type": "\"menu\" | \"plain\" | \"panel\"",
+            "default": "\"menu\"",
+            "description": "menu keeps popover fill, shadow, and radius. plain drops those so the list can sit inside a host surface. panel is a bordered card for always-visible lists."
+          },
+          {
+            "name": "background",
+            "type": "CSS color",
+            "description": "Surface fill for any chrome mode. Sets --df-option-list-surface-bg. Prefer a token such as var(--card) or var(--popover)."
+          },
+          {
+            "name": "foreground",
+            "type": "CSS color",
+            "description": "Surface text color for any chrome mode. Sets --df-option-list-surface-fg. Header label inherits this color."
+          },
+          {
+            "name": "borderColor",
+            "type": "CSS color",
+            "description": "Outer surface stroke only. Sets --df-option-list-surface-border-color. Does not change header, search, or footer rules; use dividerColor for those."
+          },
+          {
+            "name": "borderWidth",
+            "type": "CSS length",
+            "description": "Outer surface stroke width. Sets --df-option-list-surface-border-width. Prefer var(--border-width-hairline)."
+          },
+          {
+            "name": "borderStyle",
+            "type": "CSS border-style",
+            "description": "Outer surface stroke style. Sets --df-option-list-surface-border-style. Default solid."
+          },
+          {
+            "name": "dividerColor",
+            "type": "CSS color",
+            "description": "Hairline rules on header, search, and footer. Sets --df-option-list-divider-color. Defaults to var(--border)."
+          },
+          {
+            "name": "radius",
+            "type": "CSS length",
+            "description": "Surface corner radius for any chrome mode. Sets --df-option-list-surface-radius. Prefer a radius token such as var(--radius-xl)."
+          },
+          {
+            "name": "dismissOnScroll",
+            "type": "boolean",
+            "default": "true",
+            "description": "Close when the page scrolls. Scrolling inside the list stays open. Set false to keep the panel following the trigger (it can cover sticky chrome)."
+          },
+          {
+            "name": "header",
+            "type": "ReactNode",
+            "description": "Panel header above the options. Prefer OptionListHeader for a label, description, and edge-to-edge bottom rule. Stacks the panel like search and footer."
+          },
+          {
+            "name": "search",
+            "type": "boolean",
+            "default": "false",
+            "description": "Show a search field above the options."
+          },
+          {
+            "name": "searchPlaceholder",
+            "type": "string",
+            "default": "\"Search\"",
+            "description": "Placeholder for the search field."
+          },
+          {
+            "name": "searchBackground",
+            "type": "string",
+            "description": "Search field fill. Prefer tokens such as var(--muted). Forwards to SearchInput background. Named separately because background themes the panel surface."
+          },
+          {
+            "name": "searchValue",
+            "type": "string",
+            "description": "Controlled search query."
+          },
+          {
+            "name": "defaultSearchValue",
+            "type": "string",
+            "description": "Uncontrolled initial search query."
+          },
+          {
+            "name": "onSearchChange",
+            "type": "(value: string) => void",
+            "description": "Called when the search query changes."
+          },
+          {
+            "name": "scrollable",
+            "type": "boolean",
+            "description": "Wrap options in the kit ScrollArea. Omit to default true when the panel has no submenu, and false when it contains a submenu."
+          },
+          {
+            "name": "scrollMaxHeight",
+            "type": "string | number",
+            "description": "Max height of the scrollable body before it scrolls. Omit for min(60vh, var(--df-menu-max-height)), or var(--df-menu-stacked-max-height) when header, search, or footer is present. When the panel opens, the selected option scrolls into the list scrollport while list order stays the same."
+          },
+          {
+            "name": "scrollThumbGap",
+            "type": "number",
+            "description": "Space on each side of the scrollbar thumb, in pixels. Omit to use --df-option-list-scroll-thumb-gap."
+          },
+          {
+            "name": "footer",
+            "type": "ReactNode",
+            "description": "Footer actions under the options (for example Reset)."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Panel surface styles."
+          }
+        ]
+      },
+      {
+        "id": "select-item",
+        "title": "SelectItem",
+        "description": "Option row. Same API as OptionListItem. Forwards List Item presentation props (size, variant, slots, chrome). Selection state stays on Select. Open the List Item page for standalone rows and asChild links.",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Option value stored in Select state."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "List Item density. Forwarded to List Item. Use sm for compact nested submenu rows."
+          },
+          {
+            "name": "variant",
+            "type": "\"accent\" | \"muted\"",
+            "default": "\"accent\"",
+            "description": "List Item fill recipe. Forwarded to List Item. accent is the picker default; muted is for quiet nav-style rows."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Not selectable row."
+          },
+          {
+            "name": "readOnly",
+            "type": "boolean",
+            "description": "Presentational row. Forwarded to List Item. Not selectable and no hover chrome. Keeps resting and selected appearance."
+          },
+          {
+            "name": "leading",
+            "type": "\"checkbox\" | \"check\" | ReactNode | false",
+            "description": "Option List leading slot. Pass an icon or other node for row icons; works with layout stacked. Use \"checkbox\" for multi-select. Pair with SelectTrigger leadingIcon when the trigger should mirror the selected icon."
+          },
+          {
+            "name": "leadingFit",
+            "type": "\"icon\" | \"content\"",
+            "default": "\"icon\"",
+            "description": "Forwarded to List Item. icon keeps the mark box. content sizes the track to Avatar and other non-icon nodes. See List Item leadingFit."
+          },
+          {
+            "name": "secondary",
+            "type": "ReactNode",
+            "description": "Supporting copy beside or under the label."
+          },
+          {
+            "name": "layout",
+            "type": "\"inline\" | \"stacked\" | \"columns\"",
+            "default": "\"inline\"",
+            "description": "inline places secondary beside the label; stacked places it underneath; columns is leading, main, and trailing text with the main label horizontally centered in the row and height from content. With leading on stacked rows, the icon aligns to the title line. Select mirrors stacked layout in the trigger value."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "End of row slot: badge counter, nested menu chevron, measure text, or both. When set, the selected check is hidden unless indicator is forced on. Submenu triggers pass the chevron here; List Item renders the trailing slot."
+          },
+          {
+            "name": "indicator",
+            "type": "boolean",
+            "description": "Selected check in single mode. Defaults off when leading is checkbox or trailing is set; otherwise on."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Primary label registered for SelectValue. Compose a kit Badge beside a text span to show a status pill in the list and trigger."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional row styles."
+          },
+          {
+            "name": "style",
+            "type": "CSSProperties",
+            "description": "Host style. Merged after List Item chrome CSS variables."
+          },
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Padding on all sides. Forwarded to List Item. Sets each --df-list-item-padding-* side."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal padding. Forwarded to List Item. Overrides padding on those sides."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical padding. Forwarded to List Item. Overrides padding on those sides."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top padding. Forwarded to List Item. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Right padding. Forwarded to List Item. Wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom padding. Forwarded to List Item. Wins over paddingY and padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Left padding. Forwarded to List Item. Wins over paddingX and padding."
+          },
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Minimum space between leading, label, trailing, and indicator. Forwarded to List Item."
+          },
+          {
+            "name": "fontSize",
+            "type": "string",
+            "description": "Label type size. Forwarded to List Item. Prefer type tokens such as var(--df-text-11)."
+          },
+          {
+            "name": "fontFamily",
+            "type": "string",
+            "description": "Label font family. Forwarded to List Item."
+          },
+          {
+            "name": "fontWeight",
+            "type": "string",
+            "description": "Label font weight. Forwarded to List Item."
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Corner radius of the row fill and stroke. Forwarded to List Item."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Resting fill. Forwarded to List Item. Root itemChrome supplies defaults; per-item props win."
+          },
+          {
+            "name": "foreground",
+            "type": "string",
+            "description": "Resting label color. Forwarded to List Item."
+          },
+          {
+            "name": "hoverBackground",
+            "type": "string",
+            "description": "Hover, highlight, and focus fill. Forwarded to List Item."
+          },
+          {
+            "name": "hoverForeground",
+            "type": "string",
+            "description": "Hover, highlight, and focus label color. Forwarded to List Item."
+          },
+          {
+            "name": "selectedBackground",
+            "type": "string",
+            "description": "Selected fill. Forwarded to List Item."
+          },
+          {
+            "name": "selectedForeground",
+            "type": "string",
+            "description": "Selected label color. Forwarded to List Item."
+          },
+          {
+            "name": "selectedHoverBackground",
+            "type": "string",
+            "description": "Selected row hover fill. Forwarded to List Item."
+          },
+          {
+            "name": "activeBackground",
+            "type": "string",
+            "description": "Pressed fill. Forwarded to List Item."
+          },
+          {
+            "name": "borderWidth",
+            "type": "string",
+            "description": "Stroke width. Forwarded to List Item. Prefer var(--border-width-hairline). Default 0."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Stroke color. Forwarded to List Item. Prefer var(--border)."
+          },
+          {
+            "name": "borderStyle",
+            "type": "string",
+            "description": "Stroke style such as solid or dashed. Forwarded to List Item."
+          }
+        ]
+      },
+      {
+        "id": "select-field-label",
+        "title": "SelectFieldLabel",
+        "description": "Use when composing a field outside SelectField.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Label title content."
+          },
+          {
+            "name": "subtext",
+            "type": "ReactNode",
+            "description": "Secondary supporting line under the title. Same as Label subtext."
+          },
+          {
+            "name": "htmlFor",
+            "type": "string",
+            "description": "Associates the label with the SelectTrigger id."
+          },
+          {
+            "name": "required",
+            "type": "boolean",
+            "description": "Shows the required mark on the label."
+          },
+          {
+            "name": "help",
+            "type": "ReactNode",
+            "description": "Trailing help control after the label (typically SelectFieldHelp)."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the Label root."
+          }
+        ]
+      },
+      {
+        "id": "select-field-help",
+        "title": "SelectFieldHelp",
+        "description": "Help control for SelectFieldHelp inside a Tooltip.",
+        "props": [
+          {
+            "name": "label",
+            "type": "string",
+            "default": "\"More information\"",
+            "description": "Accessible name for the help button."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the help button."
+          }
+        ]
+      },
+      {
+        "id": "select-field-hint",
+        "title": "SelectFieldHint",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Supporting text below the control. Pass a string or any custom node."
+          },
+          {
+            "name": "color",
+            "type": "string",
+            "description": "Hint color. Prefer tokens such as var(--muted-foreground). Sets --df-select-hint."
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Hint id. Pair with aria-describedby on SelectTrigger."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the hint."
+          },
+          {
+            "name": "style",
+            "type": "CSSProperties",
+            "description": "Inline styles on the hint. Can also set --df-select-hint for color."
+          }
+        ]
+      },
+      {
+        "id": "select-group",
+        "title": "SelectGroup",
+        "description": "Groups related items. Alias of OptionListGroup.",
+        "props": [
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the group."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Grouped rows and labels."
+          }
+        ]
+      },
+      {
+        "id": "select-label",
+        "title": "SelectLabel",
+        "description": "Group heading inside the panel. Alias of OptionListLabel (ListItemLabel menu variant).",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Heading copy."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the heading."
+          }
+        ]
+      },
+      {
+        "id": "select-separator",
+        "title": "SelectSeparator",
+        "description": "Horizontal rule between sections. Alias of OptionListSeparator.",
+        "props": [
+          {
+            "name": "inset",
+            "type": "boolean",
+            "default": "false",
+            "description": "When true, inset the rule to match content padding. When false, span the full content width."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the rule."
+          }
+        ]
+      },
+      {
+        "id": "select-scroll-buttons",
+        "title": "SelectScrollUpButton and SelectScrollDownButton",
+        "description": "Optional scroll affordances for long lists. Aliases of the OptionList scroll buttons.",
+        "props": [
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the button."
+          }
+        ]
+      },
+      {
+        "id": "select-layout",
+        "title": "Layout and appearance",
+        "description": "Common configurations that are not single named props. Use className and tokens. Radius (CSS / className): Trigger uses the kit radius token. Override with className such as rounded-xl or rounded-full utilities. Corner shape (theme token): Curve style for rounded chrome. Set once with df-ui init --corner-shape (round or smooth), or override --df-corner-shape on :root. Fixed width (width CSS length): Pass a CSS length on Select such as 12rem or 200px. Multi-select badges wrap to new lines and the trigger grows in height. Text truncation (width CSS length): A fixed width that is shorter than the label ellipsizes SelectValue. The open list matches the trigger by default for fill and fixed width. Hug menu content (alignItemWithTrigger={false}): Menu width follows the longest option. Default when root width is hug, or pass false to override fill and fixed. Match trigger width (alignItemWithTrigger): Lock the menu to the trigger width. Default when root width is fill or fixed. List Item props (ListItem): SelectItem is OptionListItem. size, variant, slots, and chrome props forward to List Item. Open the List Item page for the full contract and use outside Select.",
+        "props": []
+      },
+      {
+        "id": "select-keyboard",
+        "title": "Keyboard and accessibility",
+        "description": "The trigger is a combobox that owns open state and value display; the open list is an Option List panel. Open (Enter / Space / ArrowDown): Open the list from the focused trigger. Focus moves into the panel and lands on the selected option. Navigate (ArrowUp / ArrowDown / Home / End): Move the active option with wrap. Type to jump by label (typeahead) when the list has no search field. Commit and dismiss (Enter / Escape): Enter selects the active option. Escape closes the list and returns focus to the trigger. ARIA (combobox + listbox): The trigger sets aria-expanded, aria-haspopup=\"listbox\", and aria-controls to the panel. Pair a label via SelectField or aria-describedby for hints. High contrast (forced-colors): Under forced-colors, the trigger keeps a border and selected or active rows use the system Highlight colors.",
+        "props": []
+      },
+      {
+        "id": "select-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-menu-min-width",
+            "type": "CSS length",
+            "description": "Minimum open panel width.",
+            "default": "9rem"
+          },
+          {
+            "name": "--df-menu-max-height",
+            "type": "CSS length",
+            "description": "Maximum panel height before scrolling.",
+            "default": "24rem"
+          },
+          {
+            "name": "--df-select-padding-top",
+            "type": "CSS length",
+            "description": "Top content padding. Set by padding, paddingY, or paddingTop. Inset label defaults to calc(3 * var(--spacing-unit)).",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-select-padding-right",
+            "type": "CSS length",
+            "description": "Right content padding. Set by padding, paddingX, or paddingRight. Defaults to --df-control-content-inset-inline. Inset label defaults to calc(3.5 * var(--spacing-unit)).",
+            "default": "var(--df-control-content-inset-inline)"
+          },
+          {
+            "name": "--df-select-padding-bottom",
+            "type": "CSS length",
+            "description": "Bottom content padding. Set by padding, paddingY, or paddingBottom. Inset label defaults to calc(3 * var(--spacing-unit)).",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-select-padding-left",
+            "type": "CSS length",
+            "description": "Left content padding. Set by padding, paddingX, or paddingLeft. Defaults to --df-control-content-inset-inline. Inset label defaults to calc(3.5 * var(--spacing-unit)).",
+            "default": "var(--df-control-content-inset-inline)"
+          },
+          {
+            "name": "--df-select-hint",
+            "type": "CSS color",
+            "description": "Hint line color. Set by SelectField hintColor or SelectFieldHint color.",
+            "default": "var(--muted-foreground)"
+          },
+          {
+            "name": "--df-select-label",
+            "type": "CSS color",
+            "description": "Owned label color. Set by SelectField labelColor. Overlap defaults to muted-foreground.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-select-error-label",
+            "type": "CSS color",
+            "description": "Owned label color when invalidLabel is active. Set by SelectField errorLabelColor.",
+            "default": "var(--destructive)"
+          },
+          {
+            "name": "--df-select-overlap-label-bg",
+            "type": "CSS color",
+            "description": "Notch fill for overlap labels. Set by SelectField overlapLabelBackground.",
+            "default": "var(--background)"
+          },
+          {
+            "name": "--df-select-overlap-inset",
+            "type": "CSS length",
+            "description": "Leading inset for the overlap label. Set by SelectField overlapInset. Defaults to --df-control-content-inset-inline. Outside Label content mode on the field tracks this value.",
+            "default": "var(--df-control-content-inset-inline)"
+          },
+          {
+            "name": "--df-select-overlap-label-pad",
+            "type": "CSS length",
+            "description": "Horizontal padding on the overlap label chip. Set by SelectField overlapLabelPadding.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-select-overlap-label-size",
+            "type": "CSS length",
+            "description": "Overlap label font size. Set by SelectField overlapLabelSize.",
+            "default": "var(--df-text-11)"
+          },
+          {
+            "name": "--df-select-inset-label-size",
+            "type": "CSS length",
+            "description": "Inset label font size. Set by SelectField insetLabelSize.",
+            "default": "var(--df-text-11)"
+          },
+          {
+            "name": "--df-select-inset-gap",
+            "type": "CSS length",
+            "description": "Gap between inset label and value. Set by SelectField insetGap.",
+            "default": "calc(0.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-select-error-border",
+            "type": "CSS color",
+            "description": "Invalid trigger border. Set by SelectTrigger errorBorderColor.",
+            "default": "var(--destructive)"
+          },
+          {
+            "name": "--focus-ring-error",
+            "type": "box-shadow",
+            "description": "Invalid focus ring recipe shared with Input.",
+            "default": "0 0 0 3px color-mix(in oklch, var(--destructive) 20%, transparent)"
+          },
+          {
+            "name": "--df-select-icon-size",
+            "type": "CSS length",
+            "description": "Leading icon box size on SelectTrigger. Scales with size.",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-select-line-height",
+            "type": "CSS length",
+            "description": "Value and placeholder leading. Paired with the size step as an even pixel value so single-line text centers without sub-pixel drift.",
+            "default": "var(--df-leading-5)"
+          },
+          {
+            "name": "--df-select-bg",
+            "type": "CSS color",
+            "description": "Trigger fill. Set by variant or the background prop.",
+            "default": "var(--background)"
+          },
+          {
+            "name": "--df-select-border",
+            "type": "CSS color",
+            "description": "Trigger border. Set by variant or the borderColor prop.",
+            "default": "var(--input)"
+          },
+          {
+            "name": "--df-hover-border",
+            "type": "CSS keyword",
+            "description": "Theme field hover border. on paints the ink hover border; off keeps the resting border. Runtime gating uses data-df-hover-border on html. Set with df-ui init --hover-border. Default on.",
+            "default": "on"
+          },
+          {
+            "name": "--df-select-hover-border",
+            "type": "CSS color",
+            "description": "Hover border when the theme or instance enables hover. Defaults to the ink foreground. Override with hoverBorderColor.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--border",
+            "type": "CSS color",
+            "description": "Panel and shared border token.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--background",
+            "type": "CSS color",
+            "description": "Primary fill default.",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--popover",
+            "type": "CSS color",
+            "description": "Open panel fill.",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--popover-foreground",
+            "type": "CSS color",
+            "description": "Open panel text color.",
+            "default": "var(--df-neutral-900)"
+          },
+          {
+            "name": "--accent",
+            "type": "CSS color",
+            "description": "Hover and highlight row fill.",
+            "default": "var(--df-neutral-50)"
+          },
+          {
+            "name": "--accent-foreground",
+            "type": "CSS color",
+            "description": "Hover and highlight row text.",
+            "default": "var(--df-neutral-850, var(--df-neutral-900))"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          }
+        ]
+      }
+    ]
+  }
+}

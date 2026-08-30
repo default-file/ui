@@ -1,0 +1,283 @@
+{
+  "name": "options-panel",
+  "slug": "options-panel",
+  "title": "Options Panel",
+  "description": "Anchored popover shell with header, body, and footer slots for custom controls. Footer owns gapX and gapY, with FooterActions and FooterMeta for paired actions and status copy. Prefer this over Popover when the surface needs composed controls.",
+  "aliases": [
+    "rich popover",
+    "form popover",
+    "control popover",
+    "popover with controls",
+    "tool popover",
+    "custom popover",
+    "options popover",
+    "titled popover",
+    "options sheet",
+    "Options Panel"
+  ],
+  "chapter": "overlays",
+  "registryDependencies": [
+    "foundation",
+    "popover"
+  ],
+  "importPath": "@default-file/ui/components/df-options-panel",
+  "dependencies": [],
+  "api": {
+    "description": "Anchored popover shell with a titled header and open body/footer slots for custom controls such as inputs, buttons, and sections. Prefer this over Popover when the surface needs composed controls. Width hugs content up to the panel max-width token and the viewport. Shares Popover dismiss behavior: Escape and outside clicks close, and focus returns to the trigger.",
+    "groups": [
+      {
+        "id": "options-panel",
+        "title": "OptionsPanel",
+        "description": "Root open state. Same API as Popover.",
+        "props": [
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "description": "Uncontrolled initial open state."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when open state changes."
+          }
+        ]
+      },
+      {
+        "id": "options-panel-trigger",
+        "title": "OptionsPanelTrigger",
+        "props": [
+          {
+            "name": "render",
+            "type": "ReactElement",
+            "description": "Host element that toggles the panel."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Trigger content when not using render."
+          }
+        ]
+      },
+      {
+        "id": "options-panel-content",
+        "title": "OptionsPanelContent",
+        "description": "Panel shell. Sizes to content, capped by --df-options-panel-max-width and the viewport. Defaults to end align and bottom side.",
+        "props": [
+          {
+            "name": "side",
+            "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+            "default": "\"bottom\"",
+            "description": "Preferred placement side. Flips when there is not enough space."
+          },
+          {
+            "name": "align",
+            "type": "\"start\" | \"center\" | \"end\" | \"auto\"",
+            "default": "\"end\"",
+            "description": "Alignment along the side. auto picks the best fit from available space (content-aware)."
+          },
+          {
+            "name": "sideOffset",
+            "type": "number",
+            "default": "8",
+            "description": "Gap between trigger and panel."
+          },
+          {
+            "name": "matchTriggerWidth",
+            "type": "boolean",
+            "default": "false",
+            "description": "Lock the panel to the trigger width. Off by default so the panel sizes to its content within the max-width cap."
+          },
+          {
+            "name": "portal",
+            "type": "boolean",
+            "default": "true",
+            "description": "When false, render the panel inline for docs demos. The body hugs content with no height clamp. Default portals to document.body and keeps the body max-height scroll contract."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Override or extend panel chrome. Use width or max-width utilities when a call site needs a different size than the token default."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Compose OptionsPanelHeader, OptionsPanelBody, and OptionsPanelFooter."
+          }
+        ]
+      },
+      {
+        "id": "options-panel-header",
+        "title": "OptionsPanelHeader",
+        "description": "Header region with bottom border. Usually wraps the title.",
+        "props": [
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the header."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Usually OptionsPanelTitle."
+          }
+        ]
+      },
+      {
+        "id": "options-panel-title",
+        "title": "OptionsPanelTitle",
+        "description": "Panel title text.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Title copy."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the title."
+          }
+        ]
+      },
+      {
+        "id": "options-panel-body",
+        "title": "OptionsPanelBody",
+        "description": "Body slot. Hugs content width. Never scrolls horizontally. Portaled panels clamp height with --df-options-panel-max-height and use the kit ScrollArea when content is taller. Inline panels (portal false) size to content with no scroll clamp.",
+        "props": [
+          {
+            "name": "fit",
+            "type": "boolean",
+            "default": "false",
+            "description": "Size the body to its content with no max-height scroll clamp. Default keeps the portaled height cap and vertical kit scroll."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the body."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Panel controls and content."
+          }
+        ]
+      },
+      {
+        "id": "options-panel-footer",
+        "title": "OptionsPanelFooter",
+        "description": "Footer region for actions and meta. Column layout by default. gapY spaces stacked rows. gapX feeds FooterActions and FooterMeta.",
+        "props": [
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Sets both gapX and gapY. Prefer spacing tokens such as calc(2 * var(--spacing-unit)). Overridden by gapX or gapY when those are set."
+          },
+          {
+            "name": "gapX",
+            "type": "string",
+            "default": "calc(2 * var(--spacing-unit))",
+            "description": "Horizontal gap for FooterActions and FooterMeta. Sets --df-options-panel-footer-gap-x."
+          },
+          {
+            "name": "gapY",
+            "type": "string",
+            "default": "calc(2.5 * var(--spacing-unit))",
+            "description": "Vertical gap between stacked footer rows such as actions and meta. Sets --df-options-panel-footer-gap-y."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Prefer OptionsPanelFooterActions for the two-up action row and OptionsPanelFooterMeta for status copy with Badge."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the footer region."
+          }
+        ]
+      },
+      {
+        "id": "options-panel-footer-actions",
+        "title": "OptionsPanelFooterActions",
+        "description": "Two-column action row for paired controls such as Download and Copy. Gap comes from the parent footer gapX.",
+        "props": [
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the actions row."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Paired action controls."
+          }
+        ]
+      },
+      {
+        "id": "options-panel-footer-meta",
+        "title": "OptionsPanelFooterMeta",
+        "description": "Centered meta row for export summary copy and kit Badge. Uses text-xs muted foreground by default. Gap comes from the parent footer gapX.",
+        "props": [
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the meta row."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Meta copy and badges."
+          }
+        ]
+      },
+      {
+        "id": "options-panel-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-options-panel-max-width",
+            "type": "CSS length",
+            "description": "Maximum panel width. The shell grows with content up to this cap and the viewport. Content wraps. The body does not scroll sideways.",
+            "default": "var(--df-max-w-xs)"
+          },
+          {
+            "name": "--df-options-panel-max-height",
+            "type": "CSS length",
+            "description": "Maximum panel height before scrolling.",
+            "default": "520px"
+          },
+          {
+            "name": "--df-options-panel-footer-gap-x",
+            "type": "CSS length",
+            "description": "Horizontal gap for FooterActions and FooterMeta. Set by gap or gapX.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-options-panel-footer-gap-y",
+            "type": "CSS length",
+            "description": "Vertical gap between stacked footer rows. Set by gap or gapY.",
+            "default": "calc(2.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--popover",
+            "type": "CSS color",
+            "description": "Panel fill.",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--popover-foreground",
+            "type": "CSS color",
+            "description": "Panel text color.",
+            "default": "var(--df-neutral-900)"
+          }
+        ]
+      }
+    ]
+  }
+}

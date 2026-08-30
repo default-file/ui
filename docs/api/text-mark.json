@@ -1,0 +1,186 @@
+{
+  "name": "text-mark",
+  "slug": "text-mark",
+  "title": "Text Mark",
+  "description": "Hand drawn text marks: highlight wash, underline, circle, and related annotation kinds.",
+  "aliases": [
+    "highlight mark",
+    "marker underline",
+    "scribble circle",
+    "text annotation",
+    "rough highlight",
+    "Text Mark"
+  ],
+  "chapter": "text",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-text-mark",
+  "dependencies": [
+    "rough-notation"
+  ],
+  "api": {
+    "description": "Inline hand-drawn emphasis for a word or phrase. Choose a marker wash (highlight), a sketchy baseline (underline), or a scribble oval (circle). Drive visibility with active for scroll or focus. Prefer separate TextMark instances on different phrases when combining a wash and a circle.",
+    "groups": [
+      {
+        "id": "text-mark",
+        "title": "TextMark",
+        "description": "Pick one kind for a single mark, or pass layers to stack marks on the same span.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Text or inline content to annotate."
+          },
+          {
+            "name": "active",
+            "type": "boolean",
+            "default": "true",
+            "description": "When true, draw the annotation. When false, hide it. Use this to sync marks with scroll steps or selection."
+          },
+          {
+            "name": "kind",
+            "type": "\"highlight\" | \"underline\" | \"circle\" | \"box\" | \"bracket\" | \"strike-through\" | \"crossed-off\"",
+            "default": "\"highlight\"",
+            "description": "Annotation shape. highlight is a marker wash. underline is a sketchy baseline under the glyphs. circle is a scribble oval around the phrase. Ignored when layers is set."
+          },
+          {
+            "name": "layers",
+            "type": "TextMarkLayer[]",
+            "description": "Ordered stack of annotations on the same span. Prefer separate TextMark nodes on different phrases when a wash and a circle should not share the same words."
+          },
+          {
+            "name": "color",
+            "type": "string",
+            "default": "kind token default",
+            "description": "CSS color for the single-kind path. Tokens and color-mix resolve at draw time. Defaults: highlight uses --df-text-mark-yellow, underline and circle use --df-text-mark-blue."
+          },
+          {
+            "name": "activeColor",
+            "type": "string",
+            "description": "Optional text color while active. Omit to keep inherited ink over a light wash."
+          },
+          {
+            "name": "strokeWidth",
+            "type": "number",
+            "default": "1.5",
+            "description": "Stroke thickness in CSS pixels for the single-kind path."
+          },
+          {
+            "name": "duration",
+            "type": "number",
+            "default": "600",
+            "description": "Draw duration in milliseconds for the single-kind path. Reduced motion sets this to 0."
+          },
+          {
+            "name": "iterations",
+            "type": "number",
+            "default": "2 or 3 by kind",
+            "description": "Extra sketch passes. Higher values look less uniform. Defaults to 3 for underline and circle, 2 for other kinds."
+          },
+          {
+            "name": "padding",
+            "type": "number",
+            "default": "2, 6, or 12 by kind",
+            "description": "Extra space around the glyphs in CSS pixels. Raise this to scale circles and boxes outward. Defaults to 12 for circle, 6 for box, 2 otherwise."
+          },
+          {
+            "name": "brackets",
+            "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | Array",
+            "description": "Bracket sides when kind is bracket. Ignored for other kinds."
+          },
+          {
+            "name": "multiline",
+            "type": "boolean",
+            "default": "true",
+            "description": "When true, annotate each visual line of wrapped text. Set false to treat the content as one box."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the host span."
+          }
+        ]
+      },
+      {
+        "id": "text-mark-layer",
+        "title": "TextMarkLayer",
+        "description": "One entry in the layers array. Same knobs as the single-kind props, scoped to that pass.",
+        "props": [
+          {
+            "name": "kind",
+            "type": "\"highlight\" | \"underline\" | \"circle\" | \"box\" | \"bracket\" | \"strike-through\" | \"crossed-off\"",
+            "description": "Annotation shape for this layer."
+          },
+          {
+            "name": "color",
+            "type": "string",
+            "description": "CSS color for this layer. Tokens resolve at draw time."
+          },
+          {
+            "name": "strokeWidth",
+            "type": "number",
+            "description": "Stroke thickness in CSS pixels for this layer."
+          },
+          {
+            "name": "duration",
+            "type": "number",
+            "description": "Draw duration in milliseconds for this layer."
+          },
+          {
+            "name": "iterations",
+            "type": "number",
+            "description": "Extra sketch passes for this layer. Raise for a less uniform scribble."
+          },
+          {
+            "name": "padding",
+            "type": "number",
+            "description": "Extra space around the glyphs in CSS pixels for this layer."
+          },
+          {
+            "name": "brackets",
+            "type": "\"left\" | \"right\" | \"top\" | \"bottom\" | Array",
+            "description": "Bracket sides when this layer kind is bracket."
+          }
+        ]
+      },
+      {
+        "id": "text-mark-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-text-mark",
+            "type": "CSS color",
+            "description": "Default mark color alias. Points at the yellow wash.",
+            "default": "var(--df-text-mark-yellow)"
+          },
+          {
+            "name": "--df-text-mark-yellow",
+            "type": "CSS color",
+            "description": "Neon yellow green marker wash for highlight (--df-yellow-green-90).",
+            "default": "color-mix(in oklch, var(--df-yellow-green-90) 82%, transparent)"
+          },
+          {
+            "name": "--df-text-mark-pink",
+            "type": "CSS color",
+            "description": "Pink marker wash for highlight accents.",
+            "default": "color-mix(in oklch, var(--df-magenta-200) 68%, transparent)"
+          },
+          {
+            "name": "--df-text-mark-blue",
+            "type": "CSS color",
+            "description": "Blue stroke for circle and underline.",
+            "default": "var(--df-blue-400)"
+          },
+          {
+            "name": "--df-text-mark-foreground",
+            "type": "CSS color",
+            "description": "Optional ink override when activeColor is set to this token.",
+            "default": "var(--foreground)"
+          }
+        ]
+      }
+    ]
+  }
+}

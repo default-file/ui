@@ -1,0 +1,95 @@
+{
+  "name": "progress",
+  "slug": "progress",
+  "title": "Progress",
+  "description": "Linear progress bar for determinate or indeterminate completion.",
+  "aliases": [
+    "progress bar",
+    "linear progress",
+    "determinate progress",
+    "indeterminate progress",
+    "Progress"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-progress",
+  "dependencies": [],
+  "api": {
+    "description": "Linear progress bar for determinate completion or an indeterminate wait. Track uses muted; the fill uses foreground.",
+    "groups": [
+      {
+        "id": "progress",
+        "title": "Progress",
+        "props": [
+          {
+            "name": "value",
+            "type": "number",
+            "description": "Completeness from 0 to 100. Omit for an indeterminate sliding indicator."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\"",
+            "default": "\"md\"",
+            "description": "Bar thickness."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "default": "\"Progress\"",
+            "description": "Accessible name for the progressbar."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "progress-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-progress-height-sm",
+            "type": "CSS length",
+            "description": "sm bar thickness.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-progress-height-md",
+            "type": "CSS length",
+            "description": "md bar thickness.",
+            "default": "calc(1.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-progress-duration",
+            "type": "CSS time",
+            "description": "Determinate width transition.",
+            "default": "var(--df-duration-fast)"
+          },
+          {
+            "name": "--df-progress-indeterminate-duration",
+            "type": "CSS time",
+            "description": "One indeterminate slide cycle.",
+            "default": "var(--df-duration-progress-indeterminate)"
+          },
+          {
+            "name": "--df-progress-indeterminate-width",
+            "type": "CSS length",
+            "description": "Sliding indicator width while indeterminate.",
+            "default": "40%"
+          },
+          {
+            "name": "--df-progress-indeterminate-travel",
+            "type": "CSS length",
+            "description": "End translate distance for the indeterminate slide.",
+            "default": "350%"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "name": "drawer",
+  "slug": "drawer",
+  "title": "Drawer",
+  "description": "Edge modal sheet with scrim, focus trap, and Escape to close.",
+  "aliases": [
+    "sheet",
+    "side sheet",
+    "bottom sheet",
+    "Drawer"
+  ],
+  "chapter": "overlays",
+  "registryDependencies": [
+    "foundation",
+    "button",
+    "scroll-area"
+  ],
+  "importPath": "@default-file/ui/components/df-drawer",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Edge modal sheet with scrim, focus trap, and Escape to close. Compose trigger, content, header, title, description, body, footer, and close.",
+    "groups": [
+      {
+        "id": "drawer",
+        "title": "Drawer",
+        "props": [
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "default": "false",
+            "description": "Uncontrolled initial open state."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when open should change."
+          },
+          {
+            "name": "side",
+            "type": "\"right\" | \"bottom\"",
+            "default": "\"right\"",
+            "description": "Edge the sheet enters from."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "Sheet width or height step for the chosen side."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Usually DrawerTrigger and DrawerContent with header, body, and footer parts."
+          }
+        ]
+      },
+      {
+        "id": "drawer-trigger",
+        "title": "DrawerTrigger",
+        "props": [
+          {
+            "name": "render",
+            "type": "ReactElement",
+            "description": "Optional host element. Merges open semantics onto a kit Button or other control."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Trigger content for the default button."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the trigger."
+          }
+        ]
+      },
+      {
+        "id": "drawer-content",
+        "title": "DrawerContent",
+        "description": "Portaled dialog panel with aria-modal. Includes a scrim that closes on click.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Sheet content."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the panel."
+          }
+        ]
+      },
+      {
+        "id": "drawer-header",
+        "title": "DrawerHeader",
+        "props": [
+          {
+            "name": "showClose",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show the catalogue-labeled close control in the header."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Usually DrawerTitle and DrawerDescription."
+          }
+        ]
+      },
+      {
+        "id": "drawer-title",
+        "title": "DrawerTitle",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Dialog title. Required for the panel accessible name via aria-labelledby."
+          }
+        ]
+      },
+      {
+        "id": "drawer-description",
+        "title": "DrawerDescription",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Supporting copy. Wired as aria-describedby when present."
+          }
+        ]
+      },
+      {
+        "id": "drawer-body",
+        "title": "DrawerBody",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Scrollable main content inside a kit ScrollArea."
+          }
+        ]
+      },
+      {
+        "id": "drawer-footer",
+        "title": "DrawerFooter",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Action row content."
+          }
+        ]
+      },
+      {
+        "id": "drawer-close",
+        "title": "DrawerClose",
+        "props": [
+          {
+            "name": "render",
+            "type": "ReactElement",
+            "description": "Optional host for the dismiss control."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Label or icon when not using render."
+          }
+        ]
+      },
+      {
+        "id": "drawer-a11y",
+        "title": "Keyboard and accessibility",
+        "description": "Role (dialog): Modal dialog with focus trap. Trigger exposes aria-expanded and aria-haspopup=\"dialog\". Include DrawerTitle so aria-labelledby resolves. Dismiss (Escape / scrim): Escape and scrim click close the sheet and return focus to the trigger.",
+        "props": []
+      }
+    ]
+  }
+}

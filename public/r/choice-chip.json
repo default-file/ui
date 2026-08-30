@@ -1,0 +1,18 @@
+{
+  "name": "choice-chip",
+  "type": "registry:ui",
+  "title": "Choice Chip",
+  "description": "",
+  "dependencies": [],
+  "registryDependencies": [
+    "foundation"
+  ],
+  "files": [
+    {
+      "path": "src/components/df-choice-chip.tsx",
+      "type": "registry:ui",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"../lib/utils\"\n\ntype ChoiceChipSize = \"sm\" | \"md\" | \"lg\"\n\ntype ChoiceChipProps = Omit<\n  React.ButtonHTMLAttributes<HTMLButtonElement>,\n  \"size\"\n> & {\n  selected?: boolean\n  size?: ChoiceChipSize\n}\n\nfunction ChoiceChip({\n  className,\n  selected,\n  size = \"md\",\n  ...props\n}: ChoiceChipProps) {\n  return (\n    <button\n      type=\"button\"\n      data-df=\"choice-chip\"\n      data-size={size}\n      data-selected={selected ? \"true\" : undefined}\n      aria-pressed={selected == null ? undefined : selected}\n      className={cn(className)}\n      {...props}\n    />\n  )\n}\n\nexport { ChoiceChip }\nexport type { ChoiceChipProps, ChoiceChipSize }\n",
+      "target": "default-file-ui/components/df-choice-chip.tsx"
+    }
+  ]
+}

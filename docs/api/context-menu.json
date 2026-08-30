@@ -1,0 +1,147 @@
+{
+  "name": "context-menu",
+  "slug": "context-menu",
+  "title": "Context Menu",
+  "description": "Pointer and keyboard menu with nested submenus and an imperative open helper.",
+  "aliases": [
+    "right click menu",
+    "contextual menu",
+    "Context Menu"
+  ],
+  "chapter": "overlays",
+  "registryDependencies": [
+    "foundation",
+    "kbd"
+  ],
+  "importPath": "@default-file/ui/components/df-context-menu",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Pointer and keyboard context menu with nested submenus, typeahead, and an imperative open helper. Mount ContextMenuHost once for openContextMenu.",
+    "groups": [
+      {
+        "id": "context-menu",
+        "title": "ContextMenu",
+        "props": [
+          {
+            "name": "items",
+            "type": "ContextMenuEntry[]",
+            "description": "Menu tree of actions and separators (required)."
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "default": "false",
+            "description": "Uncontrolled initial open state."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when open should change."
+          },
+          {
+            "name": "onSelect",
+            "type": "(item: ContextMenuActionEntry) => void",
+            "description": "Called when an action is chosen, in addition to item.onSelect."
+          },
+          {
+            "name": "children",
+            "type": "ReactElement",
+            "description": "Single trigger element. Receives contextmenu and Shift+F10 / ContextMenu key handlers."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes merged onto the trigger."
+          }
+        ]
+      },
+      {
+        "id": "context-menu-entry",
+        "title": "ContextMenuActionEntry",
+        "props": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Stable action id (required)."
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "description": "Visible label (required)."
+          },
+          {
+            "name": "glyph",
+            "type": "ReactNode",
+            "description": "Leading mark."
+          },
+          {
+            "name": "shortcut",
+            "type": "string",
+            "description": "Optional shortcut shown with Kbd."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Non-selectable item."
+          },
+          {
+            "name": "destructive",
+            "type": "boolean",
+            "description": "Destructive visual tone."
+          },
+          {
+            "name": "onSelect",
+            "type": "() => void",
+            "description": "Per-item select handler."
+          },
+          {
+            "name": "submenu",
+            "type": "ContextMenuEntry[]",
+            "description": "Nested menu opened from this item."
+          }
+        ]
+      },
+      {
+        "id": "context-menu-separator",
+        "title": "ContextMenuSeparatorEntry",
+        "props": [
+          {
+            "name": "type",
+            "type": "\"separator\"",
+            "description": "Marks a separator row."
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Optional stable id for the separator."
+          }
+        ]
+      },
+      {
+        "id": "context-menu-host",
+        "title": "ContextMenuHost",
+        "description": "Renders the imperative menu session. Mount once near the app root before calling openContextMenu.",
+        "props": []
+      },
+      {
+        "id": "open-context-menu",
+        "title": "openContextMenu",
+        "description": "Opens a menu at the pointer or trigger box. Requires ContextMenuHost mounted in the tree. Signature: (event, items) => void.",
+        "props": []
+      },
+      {
+        "id": "context-menu-a11y",
+        "title": "Keyboard and accessibility",
+        "description": "Role (menu): Root and submenu surfaces are menus with menuitem rows. Arrow keys, Home, End, typeahead, Enter, and Escape navigate and dismiss. Placement (anchored): Uses the shared anchored-position hook. After a position attempt the menu stays interactive even when the first measure has no box.",
+        "props": []
+      }
+    ]
+  }
+}

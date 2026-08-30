@@ -1,0 +1,18 @@
+{
+  "name": "panel-section",
+  "type": "registry:ui",
+  "title": "Panel Section",
+  "description": "",
+  "dependencies": [],
+  "registryDependencies": [
+    "foundation"
+  ],
+  "files": [
+    {
+      "path": "src/components/df-panel-section.tsx",
+      "type": "registry:ui",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"../lib/utils\"\n\nfunction PanelSection({\n  title,\n  children,\n  className,\n}: {\n  title: string\n  children: React.ReactNode\n  className?: string\n}) {\n  return (\n    <section className={cn(\"flex flex-col gap-2.5\", className)} data-df=\"panel-section\">\n      <p className=\"text-11 font-semibold tracking-wide text-muted-foreground\">\n        {title}\n      </p>\n      {children}\n    </section>\n  )\n}\n\nexport { PanelSection }\n",
+      "target": "default-file-ui/components/df-panel-section.tsx"
+    }
+  ]
+}

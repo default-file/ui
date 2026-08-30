@@ -1,0 +1,20 @@
+{
+  "name": "number-slider",
+  "type": "registry:ui",
+  "title": "Number Slider",
+  "description": "",
+  "dependencies": [],
+  "registryDependencies": [
+    "foundation",
+    "label",
+    "slider"
+  ],
+  "files": [
+    {
+      "path": "src/components/df-number-slider.tsx",
+      "type": "registry:ui",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { Label } from \"./df-label\"\nimport { Slider, type SliderThickness, type SliderVariant } from \"./df-slider\"\n\nexport type NumberSliderProps = {\n  label: string\n  value: number\n  min: number\n  max: number\n  step?: number\n  onChange: (value: number) => void\n  /** Track and thumb thickness. Matches Slider. Default md. */\n  thickness?: SliderThickness\n  /** Visual recipe. Matches Slider. Default bar. */\n  variant?: SliderVariant\n}\n\nfunction NumberSlider({\n  label,\n  value,\n  min,\n  max,\n  step = 0.01,\n  onChange,\n  thickness = \"md\",\n  variant = \"bar\",\n}: NumberSliderProps) {\n  const labelId = React.useId()\n  const digits = step >= 1 ? 0 : step >= 0.1 ? 1 : 2\n  const bounded = Math.min(max, Math.max(min, value))\n\n  return (\n    <div className=\"flex flex-col gap-2\">\n      <Label\n        id={labelId}\n        as=\"div\"\n        className=\"text-xs text-muted-foreground\"\n        trailing={\n          <span className=\"font-mono text-11\">{bounded.toFixed(digits)}</span>\n        }\n      >\n        {label}\n      </Label>\n      <Slider\n        min={min}\n        max={max}\n        step={step}\n        thickness={thickness}\n        variant={variant}\n        value={[bounded]}\n        aria-labelledby={labelId}\n        onValueChange={(next) => {\n          const v = Array.isArray(next) ? next[0] : next\n          if (typeof v === \"number\") onChange(v)\n        }}\n      />\n    </div>\n  )\n}\n\nexport { NumberSlider }\n",
+      "target": "default-file-ui/components/df-number-slider.tsx"
+    }
+  ]
+}

@@ -1,0 +1,1736 @@
+{
+  "name": "default-file-ui",
+  "homepage": "https://github.com/default-file/ui",
+  "items": [
+    {
+      "name": "color-system",
+      "type": "registry:style",
+      "title": "Color System",
+      "description": "Color scales, semantic tokens, and utilities. Install without components.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "src/css/df-color-system.css",
+          "type": "registry:file",
+          "target": "default-file-ui/css/df-color-system.css"
+        },
+        {
+          "path": "src/css/df-color-scales.css",
+          "type": "registry:file",
+          "target": "default-file-ui/css/df-color-scales.css"
+        },
+        {
+          "path": "src/css/df-tokens.css",
+          "type": "registry:file",
+          "target": "default-file-ui/css/df-tokens.css"
+        },
+        {
+          "path": "src/css/df-utilities.css",
+          "type": "registry:file",
+          "target": "default-file-ui/css/df-utilities.css"
+        }
+      ]
+    },
+    {
+      "name": "foundation",
+      "type": "registry:style",
+      "title": "Foundation",
+      "description": "Kit CSS entry, component styles, hooks, and cn. Depends on color-system. Install first for components.",
+      "dependencies": [],
+      "registryDependencies": [
+        "color-system"
+      ],
+      "files": [
+        {
+          "path": "src/css/df-index.css",
+          "type": "registry:file",
+          "target": "default-file-ui/css/df-index.css"
+        },
+        {
+          "path": "src/css/df-reset.css",
+          "type": "registry:file",
+          "target": "default-file-ui/css/df-reset.css"
+        },
+        {
+          "path": "src/css/df-animations.css",
+          "type": "registry:file",
+          "target": "default-file-ui/css/df-animations.css"
+        },
+        {
+          "path": "src/css/df-components.css",
+          "type": "registry:file",
+          "target": "default-file-ui/css/df-components.css"
+        },
+        {
+          "path": "src/lib/utils/index.ts",
+          "type": "registry:lib",
+          "target": "lib/utils/index.ts"
+        },
+        {
+          "path": "src/hooks/df-hooks.ts",
+          "type": "registry:hook",
+          "target": "default-file-ui/hooks/df-hooks.ts"
+        },
+        {
+          "path": "src/hooks/index.ts",
+          "type": "registry:hook",
+          "target": "default-file-ui/hooks/index.ts"
+        },
+        {
+          "path": "src/lib/df-css-token/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-css-token/index.ts"
+        },
+        {
+          "path": "src/lib/df-motion/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-motion/index.ts"
+        },
+        {
+          "path": "src/lib/df-roving/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-roving/index.ts"
+        },
+        {
+          "path": "src/lib/df-tween/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-tween/index.ts"
+        },
+        {
+          "path": "src/lib/nearest-theme/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/nearest-theme/index.ts"
+        },
+        {
+          "path": "src/lib/df-intl/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-intl/index.ts"
+        },
+        {
+          "path": "src/lib/df-css-value/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-css-value/index.ts"
+        },
+        {
+          "path": "src/lib/corner-shape/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/corner-shape/index.ts"
+        },
+        {
+          "path": "src/lib/padding-chrome/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/padding-chrome/index.ts"
+        },
+        {
+          "path": "src/lib/hover-border/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/hover-border/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Indeterminate circular loading indicator.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-spinner.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-spinner.tsx"
+        }
+      ]
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Placeholder surface for loading text, blocks, and circles.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-skeleton.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-skeleton.tsx"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Linear progress bar for determinate or indeterminate completion.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-progress.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-progress.tsx"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Button with variants, text and icon sizes, and a plain icon-only style.",
+      "registryDependencies": [
+        "foundation",
+        "spinner",
+        "badge"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-button.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-button.tsx"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-badge.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-badge.tsx"
+        }
+      ]
+    },
+    {
+      "name": "status-dot",
+      "type": "registry:ui",
+      "title": "Status Dot",
+      "description": "Filled status mark for online, live, and similar presence chips.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-status-dot.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-status-dot.tsx"
+        }
+      ]
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "Keyboard hint chip for shortcuts and key chords in menus and lists.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-kbd.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-kbd.tsx"
+        }
+      ]
+    },
+    {
+      "name": "featured-icon",
+      "type": "registry:ui",
+      "title": "Featured Icon",
+      "description": "Static featured icon shell with chrome variants, semantic colors, sizes, and a plain glyph mode.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-featured-icon.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-featured-icon.tsx"
+        }
+      ]
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "registryDependencies": [
+        "foundation",
+        "label"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-input.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Field and section label with leading and trailing slots, required and optional marks, subtext, control inset alignment, and typography chrome. Use as label for form controls and as div for section titles.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-label.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-label.tsx"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-separator.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-separator.tsx"
+        }
+      ]
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-switch.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-switch.tsx"
+        }
+      ],
+      "description": "Binary on and off control for immediate settings."
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Single or dual thumb scrubber with marks, orientation, label, and value chrome. Prefer Number Slider for a compact settings row, and Tick Slider for bound labels with a tick gauge.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-slider.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-slider.tsx"
+        },
+        {
+          "path": "src/lib/df-ui-audio/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-ui-audio/index.ts"
+        },
+        {
+          "path": "src/lib/df-scrub-sound/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-scrub-sound/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "tick-slider",
+      "type": "registry:ui",
+      "title": "Tick Slider",
+      "description": "Pill shell with bound labels, tick gauge, and a floating value bubble.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-tick-slider.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-tick-slider.tsx"
+        },
+        {
+          "path": "src/lib/df-ui-audio/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-ui-audio/index.ts"
+        },
+        {
+          "path": "src/lib/df-tick-sound/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-tick-sound/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-toggle-group.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-toggle-group.tsx"
+        }
+      ],
+      "description": "Grouped single- or multi-select toggles. Prefer Content Switcher for exclusive view modes as segments."
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-scroll-area.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-scroll-area.tsx"
+        }
+      ]
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-popover.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-popover.tsx"
+        }
+      ],
+      "description": "Anchored floating panel for short content. Prefer Options Panel when the surface needs inputs, buttons, or other composed controls."
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Anchored action menu with header, body, and footer for profile menus, three dot menus, and toolbar actions. Body owns role menu. Rows compose List Item. Prefer Option List for pickers that keep a selected value.",
+      "registryDependencies": [
+        "foundation",
+        "list-item",
+        "scroll-area",
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-dropdown-menu.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-dropdown-menu.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Compact pill and detailed rounded-square labels on hover and focus.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-tooltip.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-tooltip.tsx"
+        }
+      ]
+    },
+    {
+      "name": "list-item",
+      "type": "registry:ui",
+      "title": "List Item",
+      "description": "Presentational row with leading, secondary, trailing, density, and muted or accent variants. Includes ListItemLabel and ListItemNest. Option List, Select, Combobox, Tag Input, Contents Nav, and Dropdown Menu compose this for selectable options, outlines, and action menus.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-list-item.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-list-item.tsx"
+        },
+        {
+          "path": "src/components/df-list-item-nest.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-list-item-nest.tsx"
+        }
+      ]
+    },
+    {
+      "name": "contents-nav",
+      "type": "registry:ui",
+      "title": "Contents Nav",
+      "description": "Page outline and catalogue index composed with List Item. Use toc for on-page headings with optional nest line and scroll spy. Use index for sectioned side navigation.",
+      "dependencies": [],
+      "registryDependencies": [
+        "foundation",
+        "list-item"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-contents-nav.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-contents-nav.tsx"
+        },
+        {
+          "path": "src/lib/df-url/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-url/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "option-list",
+      "type": "registry:ui",
+      "title": "Option List",
+      "description": "Open panel and option rows for pickers. Select composes this list.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation",
+        "list-item",
+        "search-input",
+        "scroll-area"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-option-list.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-option-list.tsx"
+        }
+      ]
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation",
+        "option-list",
+        "label"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-select.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-toast.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-toast.tsx"
+        }
+      ]
+    },
+    {
+      "name": "color-picker",
+      "type": "registry:ui",
+      "title": "Color Picker",
+      "registryDependencies": [
+        "foundation",
+        "input",
+        "popover",
+        "tabs"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-color-picker.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-color-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "number-slider",
+      "type": "registry:ui",
+      "title": "Number Slider",
+      "registryDependencies": [
+        "foundation",
+        "label",
+        "slider"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-number-slider.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-number-slider.tsx"
+        }
+      ]
+    },
+    {
+      "name": "choice-chip",
+      "type": "registry:ui",
+      "title": "Choice Chip",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-choice-chip.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-choice-chip.tsx"
+        }
+      ]
+    },
+    {
+      "name": "file-uploader",
+      "type": "registry:ui",
+      "title": "File Uploader",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-file-uploader.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-file-uploader.tsx"
+        },
+        {
+          "path": "src/lib/df-url/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-url/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "panel-section",
+      "type": "registry:ui",
+      "title": "Panel Section",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-panel-section.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-panel-section.tsx"
+        }
+      ]
+    },
+    {
+      "name": "options-panel",
+      "type": "registry:ui",
+      "title": "Options Panel",
+      "description": "Anchored popover shell with header, body, and footer slots for custom controls. Footer owns gapX and gapY, with FooterActions and FooterMeta for paired actions and status copy. Prefer this over Popover when the surface needs composed controls.",
+      "registryDependencies": [
+        "foundation",
+        "popover",
+        "scroll-area"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-options-panel.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-options-panel.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dock-panel",
+      "type": "registry:ui",
+      "title": "Dock Panel",
+      "description": "Collapsible edge-docked inspector with a kit scrollbar body. Prefer this for persistent side chrome; prefer Options Panel for anchored temporary controls.",
+      "registryDependencies": [
+        "foundation",
+        "button",
+        "scroll-area"
+      ],
+      "dependencies": [
+        "lucide-react"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-dock-panel.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-dock-panel.tsx"
+        }
+      ]
+    },
+    {
+      "name": "nav-rail",
+      "type": "registry:ui",
+      "title": "Tool Rail",
+      "description": "Fixed icon-over-label tool rail with composable items, separators, and tokenized chrome props. Does not expand into an inspector.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-nav-rail.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-nav-rail.tsx"
+        },
+        {
+          "path": "src/lib/shadow-intensity/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/shadow-intensity/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Composable primary navigation with provider state, height modes, docked floating or inset variants, icon or offcanvas collapse, collapsible groups with chevron toggles, List Item menu rows, kit ScrollArea content, and a menu hierarchy. Prefer Tool Rail for icon mode switching and Dock Panel for inspectors.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation",
+        "button",
+        "label",
+        "list-item",
+        "search-input",
+        "tooltip",
+        "separator",
+        "skeleton",
+        "scroll-area"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-sidebar.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-sidebar.tsx"
+        },
+        {
+          "path": "src/lib/df-focus-trap/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/index.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/trap.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/trap.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/use-focus-trap.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/use-focus-trap.ts"
+        },
+        {
+          "path": "src/lib/df-sidebar/sidebar-content-separators.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-sidebar/sidebar-content-separators.ts"
+        },
+        {
+          "path": "src/lib/df-sidebar/sidebar-height-mode.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-sidebar/sidebar-height-mode.ts"
+        },
+        {
+          "path": "src/lib/df-url/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-url/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "search-input",
+      "type": "registry:ui",
+      "title": "Search Input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation",
+        "input"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-search-input.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-search-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Expandable sections with single or multiple open items, dividers, sizes, and keyboard navigation.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-accordion.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-accordion.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Tablist with pill, line, and segment variants for switching panels and modes.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-tabs.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-tabs.tsx"
+        }
+      ]
+    },
+    {
+      "name": "content-switcher",
+      "type": "registry:ui",
+      "title": "Content Switcher",
+      "description": "Segmented single-select control for filtering and view modes.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-content-switcher.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-content-switcher.tsx"
+        }
+      ]
+    },
+    {
+      "name": "floating-controls",
+      "type": "registry:ui",
+      "title": "Floating Controls",
+      "description": "Modular action bar with configurable slots and dividers for tool chrome.",
+      "registryDependencies": [
+        "foundation",
+        "separator"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-floating-controls.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-floating-controls.tsx"
+        }
+      ]
+    },
+    {
+      "name": "format-toolbar",
+      "type": "registry:ui",
+      "title": "Format Toolbar",
+      "description": "Rich text formatting toolbar with headings, marks, lists, callouts, and table row and column actions. Host owns document state through a controller.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation",
+        "button",
+        "input",
+        "popover",
+        "separator",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-format-toolbar.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-format-toolbar.tsx"
+        },
+        {
+          "path": "src/lib/df-url/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-url/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "overlay-hint",
+      "type": "registry:ui",
+      "title": "Overlay Hint",
+      "description": "Tokenized instruction pill with frosted glass, muted chip, and marquee variants. Supports sm and md density plus configurable radius, chrome, and separator.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-overlay-hint.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-overlay-hint.tsx"
+        },
+        {
+          "path": "src/lib/df-url/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-url/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Center modal with scrim, focus trap, Escape to close, and body scroll lock.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-dialog.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-dialog.tsx"
+        },
+        {
+          "path": "src/lib/df-focus-trap/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/index.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/trap.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/trap.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/use-focus-trap.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/use-focus-trap.ts"
+        }
+      ]
+    },
+    {
+      "name": "spectrum-text",
+      "type": "registry:ui",
+      "title": "Spectrum Text",
+      "description": "Inline text with a shifting multi-stop SVG gradient fill. Glyphs stay still; only the clipped background moves. Configurable colors and speed.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-spectrum-text.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-spectrum-text.tsx"
+        }
+      ]
+    },
+    {
+      "name": "border-glow",
+      "type": "registry:ui",
+      "title": "Border Glow",
+      "description": "Card chrome with a pointer-directed border, optional soft bloom, and a hairline trace mode.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-border-glow.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-border-glow.tsx"
+        }
+      ]
+    },
+    {
+      "name": "text-mark",
+      "type": "registry:ui",
+      "title": "Text Mark",
+      "description": "Animated hand-drawn marks for inline text: marker wash, hand-drawn underline, or hand-drawn circle. Configurable shape, color, iterations, padding, and active state.",
+      "dependencies": [
+        "rough-notation"
+      ],
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-text-mark.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-text-mark.tsx"
+        }
+      ]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "title": "Timeline",
+      "description": "Virtualized timeline with shared row scroll, time-scale bars, dependency routing, and snapped drag edits.",
+      "dependencies": [
+        "@tanstack/react-virtual"
+      ],
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-timeline.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-timeline.tsx"
+        },
+        {
+          "path": "src/lib/df-timeline/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-timeline/index.ts"
+        },
+        {
+          "path": "src/lib/df-timeline/scale.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-timeline/scale.ts"
+        },
+        {
+          "path": "src/lib/df-timeline/bars.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-timeline/bars.ts"
+        },
+        {
+          "path": "src/lib/df-timeline/dependencies.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-timeline/dependencies.ts"
+        },
+        {
+          "path": "src/lib/df-timeline/drag.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-timeline/drag.ts"
+        },
+        {
+          "path": "src/lib/df-date/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-date/index.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/auto-scroll-runtime.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/auto-scroll-runtime.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/auto-scroll.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/auto-scroll.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/drag-overlay.tsx",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/drag-overlay.tsx"
+        },
+        {
+          "path": "src/lib/df-dnd/drop-indicator.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/drop-indicator.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/index.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/motion.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/motion.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/multi-drag.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/multi-drag.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/reorder.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/reorder.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/tree.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/tree.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/use-board-dnd.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/use-board-dnd.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/use-sortable-list.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/use-sortable-list.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/use-tree-dnd.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/use-tree-dnd.ts"
+        },
+        {
+          "path": "src/lib/df-virtual/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-virtual/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Shared chart chrome: sized frame with empty and loading states, token tooltip surface, and legend. Compose plot primitives inside the frame.",
+      "dependencies": [],
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-chart.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-chart.tsx"
+        },
+        {
+          "path": "src/lib/df-chart/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-chart/index.ts"
+        },
+        {
+          "path": "src/lib/df-chart/theme.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-chart/theme.ts"
+        },
+        {
+          "path": "src/lib/df-chart/format.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-chart/format.ts"
+        },
+        {
+          "path": "src/lib/df-chart/series.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-chart/series.ts"
+        },
+        {
+          "path": "src/lib/df-date/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-date/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "widget-grid",
+      "type": "registry:ui",
+      "title": "Widget Grid",
+      "description": "Twelve-column dashboard layout with drag move, edge resize, ghost previews, and keyboard cell editing.",
+      "dependencies": [],
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-widget-grid.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-widget-grid.tsx"
+        },
+        {
+          "path": "src/lib/df-widget-grid/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-widget-grid/index.ts"
+        },
+        {
+          "path": "src/lib/df-widget-grid/layout.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-widget-grid/layout.ts"
+        },
+        {
+          "path": "src/lib/df-widget-grid/pointer.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-widget-grid/pointer.ts"
+        },
+        {
+          "path": "src/lib/df-widget-grid/serialize.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-widget-grid/serialize.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/auto-scroll-runtime.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/auto-scroll-runtime.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/auto-scroll.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/auto-scroll.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/drag-overlay.tsx",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/drag-overlay.tsx"
+        },
+        {
+          "path": "src/lib/df-dnd/drop-indicator.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/drop-indicator.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/index.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/motion.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/motion.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/multi-drag.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/multi-drag.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/reorder.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/reorder.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/tree.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/tree.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/use-board-dnd.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/use-board-dnd.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/use-sortable-list.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/use-sortable-list.ts"
+        },
+        {
+          "path": "src/lib/df-dnd/use-tree-dnd.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dnd/use-tree-dnd.ts"
+        }
+      ]
+    },
+    {
+      "name": "editor",
+      "type": "registry:ui",
+      "title": "Editor",
+      "description": "Markdown-first rich text surface with AST transforms, static and floating toolbars, and contentEditable input mapping.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "foundation",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-editor.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-editor.tsx"
+        },
+        {
+          "path": "src/lib/df-editor/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-editor/index.ts"
+        },
+        {
+          "path": "src/lib/df-editor/ast.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-editor/ast.ts"
+        },
+        {
+          "path": "src/lib/df-editor/parse.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-editor/parse.ts"
+        },
+        {
+          "path": "src/lib/df-editor/serialize.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-editor/serialize.ts"
+        },
+        {
+          "path": "src/lib/df-editor/transforms.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-editor/transforms.ts"
+        },
+        {
+          "path": "src/lib/df-editor/input-rules.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-editor/input-rules.ts"
+        },
+        {
+          "path": "src/lib/df-editor/url.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-editor/url.ts"
+        },
+        {
+          "path": "src/lib/df-url/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-url/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Person mark with photo or initials, optional presence, and a stacked overflow group.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-avatar.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-avatar.tsx"
+        },
+        {
+          "path": "src/lib/df-avatar/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-avatar/index.ts"
+        },
+        {
+          "path": "src/lib/df-avatar/initials.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-avatar/initials.ts"
+        },
+        {
+          "path": "src/lib/df-avatar/tone.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-avatar/tone.ts"
+        },
+        {
+          "path": "src/lib/df-url/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-url/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Native checkbox with optional label and description, including indeterminate.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-checkbox.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-checkbox.tsx"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "Filterable text field with an option list, optional async loading, and custom values.",
+      "registryDependencies": [
+        "foundation",
+        "input",
+        "label",
+        "list-item",
+        "option-list",
+        "scroll-area",
+        "search-input"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-combobox.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-combobox.tsx"
+        },
+        {
+          "path": "src/lib/df-combobox/filter.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-combobox/filter.ts"
+        },
+        {
+          "path": "src/lib/df-combobox/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-combobox/index.ts"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "command-palette",
+      "type": "registry:ui",
+      "title": "Command Palette",
+      "description": "Searchable command dialog with ranking, optional async source, and recent ids.",
+      "registryDependencies": [
+        "foundation",
+        "badge",
+        "button",
+        "dialog",
+        "input",
+        "kbd",
+        "label",
+        "search-input",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-command-palette.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-command-palette.tsx"
+        },
+        {
+          "path": "src/lib/df-command/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-command/index.ts"
+        },
+        {
+          "path": "src/lib/df-command/rank.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-command/rank.ts"
+        },
+        {
+          "path": "src/lib/df-command/score.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-command/score.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/index.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/trap.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/trap.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/use-focus-trap.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/use-focus-trap.ts"
+        }
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "Pointer and keyboard menu with nested submenus and an imperative open helper.",
+      "registryDependencies": [
+        "foundation",
+        "kbd"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-context-menu.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-context-menu.tsx"
+        },
+        {
+          "path": "src/lib/df-context-menu/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-context-menu/index.ts"
+        },
+        {
+          "path": "src/lib/df-context-menu/items.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-context-menu/items.ts"
+        },
+        {
+          "path": "src/lib/df-context-menu/nav.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-context-menu/nav.ts"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "data-grid",
+      "type": "registry:ui",
+      "title": "Data Grid",
+      "description": "Virtualized table with resizable columns, selection, and optional cell editing.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-data-grid.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-data-grid.tsx"
+        },
+        {
+          "path": "src/lib/df-data-grid/column-state.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-data-grid/column-state.ts"
+        },
+        {
+          "path": "src/lib/df-data-grid/edit-session.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-data-grid/edit-session.ts"
+        },
+        {
+          "path": "src/lib/df-data-grid/focus.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-data-grid/focus.ts"
+        },
+        {
+          "path": "src/lib/df-data-grid/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-data-grid/index.ts"
+        },
+        {
+          "path": "src/lib/df-data-grid/selection.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-data-grid/selection.ts"
+        },
+        {
+          "path": "src/lib/df-virtual/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-virtual/index.ts"
+        }
+      ],
+      "dependencies": [
+        "@tanstack/react-virtual",
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "Single day and range calendars in a popover, with locale-aware month titles and week start.",
+      "registryDependencies": [
+        "foundation",
+        "input",
+        "label",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-date-picker.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-date-picker.tsx"
+        },
+        {
+          "path": "src/lib/df-calendar-grid/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-calendar-grid/index.ts"
+        },
+        {
+          "path": "src/lib/df-calendar-grid/layout.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-calendar-grid/layout.ts"
+        },
+        {
+          "path": "src/lib/df-date-picker/day-state.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-date-picker/day-state.ts"
+        },
+        {
+          "path": "src/lib/df-date-picker/focus.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-date-picker/focus.ts"
+        },
+        {
+          "path": "src/lib/df-date-picker/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-date-picker/index.ts"
+        },
+        {
+          "path": "src/lib/df-date-picker/month.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-date-picker/month.ts"
+        },
+        {
+          "path": "src/lib/df-date-picker/range.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-date-picker/range.ts"
+        },
+        {
+          "path": "src/lib/df-date/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-date/index.ts"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "Edge modal sheet with scrim, focus trap, and Escape to close.",
+      "registryDependencies": [
+        "foundation",
+        "badge",
+        "button",
+        "scroll-area",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-drawer.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-drawer.tsx"
+        },
+        {
+          "path": "src/lib/df-focus-trap/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/index.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/trap.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/trap.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/use-focus-trap.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/use-focus-trap.ts"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    },
+    {
+      "name": "empty-state",
+      "type": "registry:ui",
+      "title": "Empty State",
+      "description": "Placeholder for missing or filtered results with glyph, title, description, and optional action.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-empty-state.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-empty-state.tsx"
+        }
+      ]
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Exclusive native radio group with optional heading and per-item labels.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-radio-group.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-radio-group.tsx"
+        }
+      ]
+    },
+    {
+      "name": "split",
+      "type": "registry:ui",
+      "title": "Split",
+      "description": "Two-pane layout with a keyboard and pointer resizable separator.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-split.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-split.tsx"
+        },
+        {
+          "path": "src/lib/df-split/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-split/index.ts"
+        },
+        {
+          "path": "src/lib/df-split/ratio.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-split/ratio.ts"
+        }
+      ]
+    },
+    {
+      "name": "tag-input",
+      "type": "registry:ui",
+      "title": "Tag Input",
+      "description": "Chip field for a string[] value with suggestions, paste batching, and max tags.",
+      "registryDependencies": [
+        "foundation",
+        "input",
+        "label",
+        "list-item",
+        "option-list",
+        "scroll-area",
+        "search-input"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-tag-input.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-tag-input.tsx"
+        },
+        {
+          "path": "src/lib/df-tag-input/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-tag-input/index.ts"
+        },
+        {
+          "path": "src/lib/df-tag-input/tokenize.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-tag-input/tokenize.ts"
+        }
+      ],
+      "dependencies": [
+        "lucide-react"
+      ]
+    }
+  ]
+}

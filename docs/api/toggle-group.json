@@ -1,0 +1,178 @@
+{
+  "name": "toggle-group",
+  "slug": "toggle-group",
+  "title": "Toggle Group",
+  "description": "Grouped toggle buttons with a clearable string[] selection model. Prefer Content Switcher for exclusive view modes as segments.",
+  "aliases": [
+    "button group",
+    "option group",
+    "toggle buttons",
+    "multi select toggles",
+    "Toggle Group"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-toggle-group",
+  "dependencies": [],
+  "api": {
+    "description": "Grouped toggle buttons with a shared string[] value. Single-select is clearable: pressing the selected item clears the selection. Multi-select adds and removes values. Prefer Content Switcher for exclusive view modes as radio segments, and Switch for a single binary setting.",
+    "groups": [
+      {
+        "id": "toggle-group",
+        "title": "ToggleGroup",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"outline\"",
+            "default": "\"default\"",
+            "description": "Visual style for items."
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\"",
+            "default": "\"default\"",
+            "description": "Item height and type size."
+          },
+          {
+            "name": "radius",
+            "type": "\"xxs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"full\"",
+            "description": "Corner radius of the group. Defaults to a pill look."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Instance corner curve. Omit to inherit --df-corner-shape from the theme (set at create/init)."
+          },
+          {
+            "name": "spacing",
+            "type": "number",
+            "default": "2",
+            "description": "Gap between items (design-scale units)."
+          },
+          {
+            "name": "orientation",
+            "type": "\"horizontal\" | \"vertical\"",
+            "default": "\"horizontal\"",
+            "description": "Layout direction. Also sets the roving tabindex arrow-key axis."
+          },
+          {
+            "name": "multiple",
+            "type": "boolean",
+            "default": "false",
+            "description": "When false, at most one value is selected and pressing the selected item clears to []. When true, values accumulate and each press toggles membership."
+          },
+          {
+            "name": "value",
+            "type": "string[]",
+            "description": "Controlled selected values. Always an array, including single-select."
+          },
+          {
+            "name": "defaultValue",
+            "type": "string[]",
+            "default": "[]",
+            "description": "Uncontrolled initial values."
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: string[]) => void",
+            "description": "Called when selection changes."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Disable the whole group."
+          }
+        ]
+      },
+      {
+        "id": "toggle-group-item",
+        "title": "ToggleGroupItem",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Item value (required)."
+          },
+          {
+            "name": "variant",
+            "type": "\"default\" | \"outline\"",
+            "description": "Override group variant for this item."
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"sm\" | \"lg\"",
+            "description": "Override group size for this item."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Non-interactive item."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Item label or icon."
+          }
+        ]
+      },
+      {
+        "id": "toggle-group-keyboard",
+        "title": "Keyboard and accessibility",
+        "description": "Selection (toggle button): Each item is a button with aria-pressed reflecting selection. Single and multi modes use the same pressed model, not radio or checkbox roles. Roving tabindex (Arrow keys): Arrow keys move focus along orientation. Home and End jump to the first and last enabled item. Space and Enter activate the focused item.",
+        "props": []
+      },
+      {
+        "id": "toggle-group-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-toggle-radius",
+            "type": "CSS length",
+            "description": "Instance variable set from the radius prop. Falls back to --radius-4xl.",
+            "default": "var(--radius-4xl)"
+          },
+          {
+            "name": "--gap",
+            "type": "CSS length",
+            "description": "Instance variable set from the spacing prop.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--muted",
+            "type": "CSS color",
+            "description": "Outline variant hover fill.",
+            "default": "var(--df-neutral-50)"
+          },
+          {
+            "name": "--background",
+            "type": "CSS color",
+            "description": "Selected item fill.",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--border",
+            "type": "CSS color",
+            "description": "Outline variant border.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--foreground",
+            "type": "CSS color",
+            "description": "Selected item label.",
+            "default": "var(--df-neutral-900)"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          }
+        ]
+      }
+    ]
+  }
+}

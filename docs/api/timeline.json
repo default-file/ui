@@ -1,0 +1,142 @@
+{
+  "name": "timeline",
+  "slug": "timeline",
+  "title": "Timeline",
+  "description": "Virtualized timeline with time-scale bars, dependency paths, and snapped drag edits.",
+  "aliases": [
+    "gantt",
+    "schedule",
+    "bar timeline",
+    "Timeline"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-timeline",
+  "dependencies": [
+    "@tanstack/react-virtual"
+  ],
+  "api": {
+    "description": "Virtualized timeline with shared row scroll, time-scale bars, dependency routing, and snapped drag edits. Requires @tanstack/react-virtual.",
+    "groups": [
+      {
+        "id": "timeline",
+        "title": "Timeline",
+        "props": [
+          {
+            "name": "rows",
+            "type": "TimelineRow[]",
+            "description": "Row models with id and label (required)."
+          },
+          {
+            "name": "visibleRange",
+            "type": "TimelineVisibleRange",
+            "description": "Inclusive ISO date range for the scale ({ start, end }) (required)."
+          },
+          {
+            "name": "dependencies",
+            "type": "TimelineDependencyEdge[]",
+            "default": "[]",
+            "description": "Directed edges between row ids ({ fromId, toId }) drawn as dependency paths."
+          },
+          {
+            "name": "zoom",
+            "type": "\"day\" | \"week\" | \"month\" | \"quarter\"",
+            "default": "\"day\"",
+            "description": "Fine tick unit for the time scale."
+          },
+          {
+            "name": "loading",
+            "type": "boolean",
+            "default": "false",
+            "description": "Show placeholder rows and set aria-busy."
+          },
+          {
+            "name": "emptyContent",
+            "type": "ReactNode",
+            "description": "Content when there are no rows and loading is false."
+          },
+          {
+            "name": "overscan",
+            "type": "number",
+            "default": "6",
+            "description": "Extra virtual rows rendered outside the viewport."
+          },
+          {
+            "name": "estimateRowSize",
+            "type": "number",
+            "description": "Estimated row height in pixels for virtualization. Defaults to the kit row height token."
+          },
+          {
+            "name": "onBarChange",
+            "type": "(id: string, next: TimelineBarChange) => void",
+            "description": "Called when a bar finishes a pointer or keyboard edit with ISO start and due."
+          },
+          {
+            "name": "onRowClick",
+            "type": "(id: string) => void",
+            "description": "Called when a row is activated."
+          },
+          {
+            "name": "renderRowMeta",
+            "type": "(row: TimelineRow) => ReactNode",
+            "description": "Optional trailing content in the row label column."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "description": "Accessible name for the treegrid. Defaults to the kit string catalogue. Override when the host supplies a visible heading."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "timeline-row",
+        "title": "TimelineRow",
+        "props": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Stable row id (required)."
+          },
+          {
+            "name": "label",
+            "type": "ReactNode",
+            "description": "Label column content (required). Prefer a string so the bar cell can reuse it as part of its accessible name."
+          },
+          {
+            "name": "start",
+            "type": "string",
+            "description": "ISO start date for the bar."
+          },
+          {
+            "name": "due",
+            "type": "string",
+            "description": "ISO due date for the bar."
+          },
+          {
+            "name": "progress",
+            "type": "number",
+            "description": "Optional completion fraction for the bar fill."
+          },
+          {
+            "name": "colorToken",
+            "type": "string",
+            "description": "CSS custom property name used as the bar fill, for example --success."
+          }
+        ]
+      },
+      {
+        "id": "timeline-a11y",
+        "title": "Accessibility",
+        "description": "Treegrid name: Pass aria-label when a visible title is not enough; otherwise the catalogue default names the grid. Row labels: Prefer string labels so gridcells can announce the item. Non-string labels fall back to a catalogue item name. Live region: Drag and keyboard edits announce the new date range.",
+        "props": []
+      }
+    ]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "name": "skeleton",
+  "slug": "skeleton",
+  "title": "Skeleton",
+  "description": "Decorative loading placeholder shapes. Always aria-hidden; announce busy state on the host.",
+  "aliases": [
+    "loading placeholder",
+    "shimmer",
+    "pulse placeholder",
+    "Skeleton"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-skeleton",
+  "dependencies": [],
+  "api": {
+    "description": "Decorative loading placeholder. Always aria-hidden; the host must announce busy state elsewhere.",
+    "groups": [
+      {
+        "id": "skeleton",
+        "title": "Skeleton",
+        "props": [
+          {
+            "name": "shape",
+            "type": "\"text\" | \"block\" | \"circle\"",
+            "default": "\"text\"",
+            "description": "Placeholder silhouette."
+          },
+          {
+            "name": "width",
+            "type": "string",
+            "description": "Inline CSS width for this instance."
+          },
+          {
+            "name": "height",
+            "type": "string",
+            "description": "Inline CSS height for this instance."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "skeleton-a11y",
+        "title": "Accessibility",
+        "description": "Decorative only: The root is always aria-hidden. Pair with a parent aria-busy, a Spinner with a name, or live status copy so assistive technology hears the wait.",
+        "props": []
+      }
+    ]
+  }
+}

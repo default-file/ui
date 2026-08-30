@@ -1,0 +1,77 @@
+{
+  "name": "status-dot",
+  "slug": "status-dot",
+  "title": "Status Dot",
+  "description": "Filled presence mark for online, live, and similar status chips.",
+  "aliases": [
+    "presence dot",
+    "online dot",
+    "live indicator",
+    "status indicator",
+    "Status Dot"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-status-dot",
+  "dependencies": [],
+  "api": {
+    "description": "Filled presence mark for online, live, and offline chips. Uses currentColor. Prefer inside Badge leading so the mark follows the badge size when size is omitted.",
+    "groups": [
+      {
+        "id": "status-dot",
+        "title": "Status Dot",
+        "props": [
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+            "description": "Diameter step. Omit inside Badge to inherit the badge size step. Outside Badge, the default diameter is md."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the mark."
+          }
+        ]
+      },
+      {
+        "id": "status-dot-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-status-dot-size-xs",
+            "type": "CSS length",
+            "description": "xs diameter.",
+            "default": "calc(1.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-status-dot-size-sm",
+            "type": "CSS length",
+            "description": "sm diameter.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-status-dot-size-md",
+            "type": "CSS length",
+            "description": "md diameter. Default when size is omitted outside a sized host.",
+            "default": "calc(2.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-status-dot-size-lg",
+            "type": "CSS length",
+            "description": "lg diameter.",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-status-dot-size-xl",
+            "type": "CSS length",
+            "description": "xl diameter.",
+            "default": "calc(3.5 * var(--spacing-unit))"
+          }
+        ]
+      }
+    ]
+  }
+}

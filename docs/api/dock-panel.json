@@ -1,0 +1,449 @@
+{
+  "name": "dock-panel",
+  "slug": "dock-panel",
+  "title": "Dock Panel",
+  "description": "Collapsible edge-docked inspector with a kit scrollbar body. Prefer this for persistent side chrome; prefer Options Panel for anchored temporary controls.",
+  "aliases": [
+    "side panel",
+    "side drawer",
+    "edge drawer",
+    "inspector",
+    "inspector panel",
+    "edge panel",
+    "docked inspector",
+    "collapsible inspector",
+    "Dock Panel"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation",
+    "button",
+    "scroll-area"
+  ],
+  "importPath": "@default-file/ui/components/df-dock-panel",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Collapsible edge-docked inspector. Compose a rail of panels with optional header text, custom icons, and a body that owns the kit ScrollArea. Prefer this for persistent side chrome; prefer Options Panel for anchored temporary controls. Use dismissible for temporary tune panels that leave the rail when closed.",
+    "groups": [
+      {
+        "id": "dock-panel-rail",
+        "title": "DockPanelRail",
+        "description": "Layout container for one or more DockPanel instances. Stacks vertically below xl and sits in a row at xl and up.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "One or more DockPanel children."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the rail."
+          }
+        ]
+      },
+      {
+        "id": "dock-panel",
+        "title": "DockPanel",
+        "description": "Root panel. Pass title and subtitle for a convenience header, or compose Header, Body, and Footer manually.",
+        "props": [
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "default": "true",
+            "description": "Initial open state when uncontrolled."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when the open state changes."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\" | \"xl\"",
+            "default": "\"md\"",
+            "description": "Expanded width at xl and up. Maps to --df-dock-width-* tokens."
+          },
+          {
+            "name": "mobileMaxHeight",
+            "type": "\"sm\" | \"md\" | \"lg\"",
+            "default": "\"lg\"",
+            "description": "Open max-height below xl. Maps to --df-dock-mobile-max-height-* tokens."
+          },
+          {
+            "name": "title",
+            "type": "ReactNode",
+            "description": "Eyebrow label in the convenience header. When title or subtitle is set, children render inside DockPanelBody."
+          },
+          {
+            "name": "subtitle",
+            "type": "ReactNode",
+            "description": "Primary heading in the convenience header."
+          },
+          {
+            "name": "titleVisible",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show the eyebrow title. When false, the subtitle centers with the collapse control."
+          },
+          {
+            "name": "subtitleVisible",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show the primary heading. When false, the title centers with the collapse control."
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "description": "Accessible name for the aside landmark (aria-label) and for collapse or dismiss controls. Falls back to a string title or subtitle, then a catalogue default."
+          },
+          {
+            "name": "dismissible",
+            "type": "boolean",
+            "default": "false",
+            "description": "When true, closing removes the panel from the rail instead of showing the collapsed expand chip. Defaults the header control to a close icon and Close {label}. Use for temporary tune panels opened from another surface."
+          },
+          {
+            "name": "collapseIcon",
+            "type": "ReactNode",
+            "description": "Icon for the collapse or dismiss control. Defaults to X when dismissible, otherwise PanelLeft."
+          },
+          {
+            "name": "expandIcon",
+            "type": "ReactNode",
+            "description": "Icon for the collapsed expand control. Defaults to collapseIcon, then PanelLeft. Ignored when dismissible, because closed panels leave the rail."
+          },
+          {
+            "name": "collapseLabel",
+            "type": "string",
+            "description": "Accessible name for the collapse or dismiss control. Defaults to Close {label} when dismissible, otherwise Collapse {label}."
+          },
+          {
+            "name": "expandLabel",
+            "type": "string",
+            "description": "Accessible name for the expand control. Defaults to Expand {label}."
+          },
+          {
+            "name": "collapsedLabelVisible",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show the text label on the collapsed rail. When false, only the icon chip is shown."
+          },
+          {
+            "name": "collapsedAlign",
+            "type": "\"start\" | \"center\"",
+            "default": "\"start\"",
+            "description": "Placement of the expand control on the collapsed rail. start aligns to the top at xl, or the leading edge below xl. center places it in the middle."
+          },
+          {
+            "name": "variant",
+            "type": "\"default\" | \"edge\"",
+            "default": "\"default\"",
+            "description": "ScrollArea thumb style on the convenience DockPanelBody. Use edge with side left for a thin thumb on the panel leading border."
+          },
+          {
+            "name": "side",
+            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
+            "description": "ScrollArea thumb placement on the convenience DockPanelBody."
+          },
+          {
+            "name": "thumbShape",
+            "type": "\"rounded\" | \"flat\"",
+            "default": "\"rounded\"",
+            "description": "ScrollArea thumb shape on the convenience DockPanelBody."
+          },
+          {
+            "name": "visibility",
+            "type": "\"hover\" | \"always\"",
+            "default": "\"hover\"",
+            "description": "ScrollArea thumb visibility on the convenience DockPanelBody."
+          },
+          {
+            "name": "space",
+            "type": "\"auto\" | \"none\"",
+            "default": "\"none\"",
+            "description": "ScrollArea track inset on the convenience DockPanelBody. none overlays the thumb with no reserved gutter."
+          },
+          {
+            "name": "orientation",
+            "type": "\"vertical\" | \"horizontal\" | \"both\"",
+            "default": "\"vertical\"",
+            "description": "ScrollArea axes on the convenience DockPanelBody."
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "description": "ScrollArea scrollbar thickness in pixels on the convenience DockPanelBody."
+          },
+          {
+            "name": "viewportClassName",
+            "type": "string",
+            "description": "Classes on the ScrollArea viewport inside the convenience DockPanelBody."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Panel content. With a convenience header, children fill DockPanelBody. Otherwise compose Header, Body, and Footer as needed."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the panel root."
+          }
+        ]
+      },
+      {
+        "id": "dock-panel-header",
+        "title": "DockPanelHeader",
+        "description": "Header row for compound composition.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Typically heading text and DockPanelCollapseTrigger."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the header."
+          }
+        ]
+      },
+      {
+        "id": "dock-panel-title",
+        "title": "DockPanelTitle",
+        "description": "Eyebrow label in the header.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Eyebrow text."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the title."
+          }
+        ]
+      },
+      {
+        "id": "dock-panel-subtitle",
+        "title": "DockPanelSubtitle",
+        "description": "Primary heading in the header.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Heading text."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the subtitle."
+          }
+        ]
+      },
+      {
+        "id": "dock-panel-collapse-trigger",
+        "title": "DockPanelCollapseTrigger",
+        "description": "Control that collapses an open panel.",
+        "props": [
+          {
+            "name": "icon",
+            "type": "ReactNode",
+            "description": "Icon for this trigger. Overrides collapseIcon from the root."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Custom trigger content. Replaces the default icon when set."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the trigger."
+          }
+        ]
+      },
+      {
+        "id": "dock-panel-expand-trigger",
+        "title": "DockPanelExpandTrigger",
+        "description": "Control shown when the panel is collapsed.",
+        "props": [
+          {
+            "name": "icon",
+            "type": "ReactNode",
+            "description": "Icon for the expand chip. Overrides expandIcon from the root."
+          },
+          {
+            "name": "label",
+            "type": "ReactNode",
+            "description": "Visible label on the collapsed rail."
+          },
+          {
+            "name": "showLabel",
+            "type": "boolean",
+            "description": "Show or hide the collapsed label for this trigger. Overrides collapsedLabelVisible from the root."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Custom trigger content. Replaces the default chip and label layout when set."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the trigger."
+          }
+        ]
+      },
+      {
+        "id": "dock-panel-body",
+        "title": "DockPanelBody",
+        "description": "Expanded content region. Always wraps children in the kit ScrollArea. Do not nest another ScrollArea inside.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Panel content."
+          },
+          {
+            "name": "space",
+            "type": "\"auto\" | \"none\"",
+            "default": "\"none\"",
+            "description": "ScrollArea track inset. none overlays the thumb with no reserved gutter. auto reserves inset when that axis overflows."
+          },
+          {
+            "name": "variant",
+            "type": "\"default\" | \"edge\"",
+            "default": "\"default\"",
+            "description": "Passed through to ScrollArea."
+          },
+          {
+            "name": "thumbShape",
+            "type": "\"rounded\" | \"flat\"",
+            "default": "\"rounded\"",
+            "description": "Passed through to ScrollArea."
+          },
+          {
+            "name": "orientation",
+            "type": "\"vertical\" | \"horizontal\" | \"both\"",
+            "default": "\"vertical\"",
+            "description": "Passed through to ScrollArea."
+          },
+          {
+            "name": "side",
+            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
+            "description": "Passed through to ScrollArea."
+          },
+          {
+            "name": "visibility",
+            "type": "\"hover\" | \"always\"",
+            "default": "\"hover\"",
+            "description": "Passed through to ScrollArea."
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "description": "Passed through to ScrollArea as scrollbar thickness in pixels."
+          },
+          {
+            "name": "viewportClassName",
+            "type": "string",
+            "description": "Classes on the ScrollArea viewport."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the body shell."
+          }
+        ]
+      },
+      {
+        "id": "dock-panel-footer",
+        "title": "DockPanelFooter",
+        "description": "Optional region below the scrolling body for footnotes, disclaimers, or actions.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Footer content."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the footer."
+          }
+        ]
+      },
+      {
+        "id": "dock-panel-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-dock-width-sm",
+            "type": "CSS length",
+            "description": "Expanded width for size sm.",
+            "default": "252px"
+          },
+          {
+            "name": "--df-dock-width-md",
+            "type": "CSS length",
+            "description": "Expanded width for size md.",
+            "default": "280px"
+          },
+          {
+            "name": "--df-dock-width-lg",
+            "type": "CSS length",
+            "description": "Expanded width for size lg.",
+            "default": "300px"
+          },
+          {
+            "name": "--df-dock-width-xl",
+            "type": "CSS length",
+            "description": "Expanded width for size xl.",
+            "default": "420px"
+          },
+          {
+            "name": "--df-dock-collapsed-size",
+            "type": "CSS length",
+            "description": "Collapsed rail width and mobile collapsed height.",
+            "default": "calc(12 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-dock-mobile-max-height-sm",
+            "type": "CSS length",
+            "description": "Open max-height below xl for mobileMaxHeight sm.",
+            "default": "38vh"
+          },
+          {
+            "name": "--df-dock-mobile-max-height-md",
+            "type": "CSS length",
+            "description": "Open max-height below xl for mobileMaxHeight md.",
+            "default": "42vh"
+          },
+          {
+            "name": "--df-dock-mobile-max-height-lg",
+            "type": "CSS length",
+            "description": "Open max-height below xl for mobileMaxHeight lg.",
+            "default": "46vh"
+          },
+          {
+            "name": "--df-shadow-dock-chip",
+            "type": "CSS box-shadow",
+            "description": "Shadow on the collapsed expand chip.",
+            "default": "0 1px 2px rgb(0 0 0 / 0.04)"
+          }
+        ]
+      }
+    ]
+  }
+}

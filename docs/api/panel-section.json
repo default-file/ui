@@ -1,0 +1,70 @@
+{
+  "name": "panel-section",
+  "slug": "panel-section",
+  "title": "Panel Section",
+  "description": "Titled groupings for control panels and inspectors.",
+  "aliases": [
+    "inspector section",
+    "panel group",
+    "control section",
+    "settings section",
+    "Panel Section"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-panel-section",
+  "dependencies": [],
+  "api": {
+    "description": "Titled grouping for control panels.",
+    "groups": [
+      {
+        "id": "panel-section",
+        "title": "PanelSection",
+        "props": [
+          {
+            "name": "title",
+            "type": "string",
+            "description": "Section heading (required)."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Section body content (required)."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the section shell."
+          }
+        ]
+      },
+      {
+        "id": "panel-section-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--border",
+            "type": "CSS color",
+            "description": "Section divider.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--muted-foreground",
+            "type": "CSS color",
+            "description": "Section title color.",
+            "default": "var(--df-neutral-500)"
+          },
+          {
+            "name": "--spacing-unit",
+            "type": "CSS length",
+            "description": "Base unit for padding and gap.",
+            "default": "0.25rem"
+          }
+        ]
+      }
+    ]
+  }
+}

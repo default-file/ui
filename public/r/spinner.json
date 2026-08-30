@@ -1,0 +1,18 @@
+{
+  "name": "spinner",
+  "type": "registry:ui",
+  "title": "Spinner",
+  "description": "Indeterminate circular loading indicator.",
+  "dependencies": [],
+  "registryDependencies": [
+    "foundation"
+  ],
+  "files": [
+    {
+      "path": "src/components/df-spinner.tsx",
+      "type": "registry:ui",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { useDfStrings } from \"../lib/df-intl\"\nimport { cn } from \"../lib/utils\"\n\ntype SpinnerSize = \"xs\" | \"sm\" | \"md\" | \"lg\"\n\ntype SpinnerProps = React.HTMLAttributes<HTMLSpanElement> & {\n  size?: SpinnerSize\n}\n\nfunction Spinner({\n  className,\n  size = \"md\",\n  \"aria-label\": ariaLabel,\n  \"aria-hidden\": ariaHidden,\n  ...props\n}: SpinnerProps) {\n  const s = useDfStrings()\n  const isHidden = ariaHidden === true || ariaHidden === \"true\"\n\n  return (\n    <span\n      data-df=\"spinner\"\n      data-size={size}\n      className={cn(\"df-spinner\", className)}\n      role={isHidden ? undefined : \"status\"}\n      aria-label={isHidden ? undefined : (ariaLabel ?? s.spinnerLoading)}\n      aria-hidden={isHidden ? true : undefined}\n      {...props}\n    >\n      <svg viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\">\n        <circle className=\"df-spinner-track\" cx=\"8\" cy=\"8\" r=\"6\" />\n        <circle className=\"df-spinner-indicator\" cx=\"8\" cy=\"8\" r=\"6\" />\n      </svg>\n    </span>\n  )\n}\n\nexport { Spinner }\nexport type { SpinnerProps, SpinnerSize }\n",
+      "target": "default-file-ui/components/df-spinner.tsx"
+    }
+  ]
+}

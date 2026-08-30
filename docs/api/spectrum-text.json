@@ -1,0 +1,100 @@
+{
+  "name": "spectrum-text",
+  "slug": "spectrum-text",
+  "title": "Spectrum Text",
+  "description": "Inline text with a shifting multi stop gradient fill.",
+  "aliases": [
+    "gradient text",
+    "spectrum gradient text",
+    "animated gradient text",
+    "Spectrum Text"
+  ],
+  "chapter": "text",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-spectrum-text",
+  "dependencies": [],
+  "api": {
+    "description": "Inline text with a shifting multi-stop gradient fill built from SVG gradient code (data URI, not an external file). Glyphs stay still; only the clipped background moves. Screen readers get a plain copy; the animated layer is hidden from assistive tech.",
+    "groups": [
+      {
+        "id": "spectrum-text",
+        "title": "SpectrumText",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Text or inline content to paint with the gradient fill."
+          },
+          {
+            "name": "colors",
+            "type": "string[]",
+            "default": "DEFAULT_SPECTRUM_COLORS",
+            "description": "Gradient stops for the fill. Rendered as inline SVG linearGradient markup when colors are hex or rgb. CSS variables fall back to a CSS gradient. The first color is appended again so the loop stays seamless."
+          },
+          {
+            "name": "speed",
+            "type": "number",
+            "default": "1",
+            "description": "Animation speed multiplier. 1 is the base loop (10s). 2 runs twice as fast (5s)."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the host span."
+          }
+        ]
+      },
+      {
+        "id": "spectrum-text-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--spectrum-text-color-1",
+            "type": "CSS color",
+            "description": "First stop. Closest kit match to magenta: rose-470.",
+            "default": "var(--df-rose-470)"
+          },
+          {
+            "name": "--spectrum-text-color-2",
+            "type": "CSS color",
+            "description": "Second stop. Closest kit match to violet: violet-670.",
+            "default": "var(--df-violet-670)"
+          },
+          {
+            "name": "--spectrum-text-color-3",
+            "type": "CSS color",
+            "description": "Third stop. Closest kit match to blue: blue-530.",
+            "default": "var(--df-blue-530)"
+          },
+          {
+            "name": "--spectrum-text-color-4",
+            "type": "CSS color",
+            "description": "Fourth stop. Closest kit match to sky: azure-330.",
+            "default": "var(--df-azure-330)"
+          },
+          {
+            "name": "--spectrum-text-duration",
+            "type": "time",
+            "description": "Base loop duration at speed 1. The component overrides this from the speed prop.",
+            "default": "10s"
+          },
+          {
+            "name": "--spectrum-text-ease",
+            "type": "easing",
+            "description": "Timing function for the spectrum loop.",
+            "default": "ease-in-out"
+          },
+          {
+            "name": "--spectrum-text-background-size",
+            "type": "background-size",
+            "description": "Gradient size so position shifts read clearly.",
+            "default": "200% auto"
+          }
+        ]
+      }
+    ]
+  }
+}

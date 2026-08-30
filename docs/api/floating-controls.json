@@ -1,0 +1,341 @@
+{
+  "name": "floating-controls",
+  "slug": "floating-controls",
+  "title": "Floating Controls",
+  "description": "Modular action strip for canvas toolbars and docks.",
+  "aliases": [
+    "floating toolbar",
+    "canvas action bar",
+    "tool action strip",
+    "overlay controls",
+    "Floating Controls"
+  ],
+  "chapter": "toolbars",
+  "registryDependencies": [
+    "foundation",
+    "separator"
+  ],
+  "importPath": "@default-file/ui/components/df-floating-controls",
+  "dependencies": [],
+  "api": {
+    "description": "Modular action bar with items, dividers, and slots. Label ink is optically centered to cap height with text-box when available, and a 1cap line box otherwise. Pass children or an items array.",
+    "groups": [
+      {
+        "id": "floating-controls",
+        "title": "FloatingControls",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"surface\" | \"overlay\"",
+            "default": "\"surface\"",
+            "description": "Bar surface treatment."
+          },
+          {
+            "name": "padding",
+            "type": "\"none\" | \"sm\" | \"default\" | \"lg\" | \"2xl\"",
+            "default": "\"default\"",
+            "description": "Inner inset around the bar."
+          },
+          {
+            "name": "radius",
+            "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"full\"",
+            "default": "\"xl\"",
+            "description": "Corner radius of the bar. Maps to a --radius-* token."
+          },
+          {
+            "name": "items",
+            "type": "FloatingControlsEntry[]",
+            "description": "Declarative entries (item, divider, slot). Ignored when children are passed."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Compose FloatingControlsItem, Divider, and Slot manually."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the bar."
+          }
+        ]
+      },
+      {
+        "id": "floating-controls-item",
+        "title": "FloatingControlsItem",
+        "props": [
+          {
+            "name": "leading",
+            "type": "ReactNode",
+            "description": "Leading icon or mark."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "Trailing icon or mark."
+          },
+          {
+            "name": "tone",
+            "type": "\"ghost\" | \"solid\"",
+            "default": "\"ghost\"",
+            "description": "Item emphasis."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Item label content."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the item button."
+          }
+        ]
+      },
+      {
+        "id": "floating-controls-divider",
+        "title": "FloatingControlsDivider",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Optional custom divider content; default is a rule."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "floating-controls-slot",
+        "title": "FloatingControlsSlot",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Freeform slot for custom controls."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "floating-controls-item-entry",
+        "title": "FloatingControlsItemEntry",
+        "description": "Declarative item shape in the items array. Maps to FloatingControlsItem. Also accepts onClick, disabled, className, and aria-label.",
+        "props": [
+          {
+            "name": "type",
+            "type": "\"item\"",
+            "description": "Optional. Omit or set item for a control entry."
+          },
+          {
+            "name": "key",
+            "type": "string",
+            "description": "Optional React key."
+          },
+          {
+            "name": "label",
+            "type": "ReactNode",
+            "description": "Entry label. Used when children is omitted."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Entry label content. Wins over label when both are set."
+          },
+          {
+            "name": "leading",
+            "type": "ReactNode",
+            "description": "Leading icon or mark."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "Trailing icon or mark."
+          },
+          {
+            "name": "tone",
+            "type": "\"ghost\" | \"solid\"",
+            "description": "Item emphasis."
+          }
+        ]
+      },
+      {
+        "id": "floating-controls-divider-entry",
+        "title": "FloatingControlsDividerEntry",
+        "props": [
+          {
+            "name": "type",
+            "type": "\"divider\"",
+            "description": "Marks a divider entry (required)."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Optional custom divider content."
+          }
+        ]
+      },
+      {
+        "id": "floating-controls-slot-entry",
+        "title": "FloatingControlsSlotEntry",
+        "props": [
+          {
+            "name": "type",
+            "type": "\"slot\"",
+            "description": "Marks a slot entry (required)."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Slot content (required)."
+          }
+        ]
+      },
+      {
+        "id": "floating-controls-keyboard",
+        "title": "Keyboard and accessibility",
+        "description": "Toolbar items share one tab stop. Arrow keys move focus between enabled FloatingControlsItem hosts. Home and End jump to the ends.",
+        "props": []
+      },
+      {
+        "id": "floating-controls-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-floating-controls-padding",
+            "type": "CSS length",
+            "description": "Active bar inset. Resolved from the padding prop scale.",
+            "default": "var(--df-floating-controls-padding-default)"
+          },
+          {
+            "name": "--df-floating-controls-radius",
+            "type": "CSS length",
+            "description": "Active bar corner radius. Resolved from the radius prop.",
+            "default": "var(--radius-xl)"
+          },
+          {
+            "name": "--df-floating-controls-padding-none",
+            "type": "CSS length",
+            "description": "Bar inset for padding none.",
+            "default": "0"
+          },
+          {
+            "name": "--df-floating-controls-padding-sm",
+            "type": "CSS length",
+            "description": "Bar inset for padding sm.",
+            "default": "calc(0.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-floating-controls-padding-default",
+            "type": "CSS length",
+            "description": "Bar inset for padding default.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-floating-controls-padding-lg",
+            "type": "CSS length",
+            "description": "Bar inset for padding lg.",
+            "default": "calc(1.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-floating-controls-padding-2xl",
+            "type": "CSS length",
+            "description": "Bar inset for padding 2xl.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--overlay-bg",
+            "type": "CSS color",
+            "description": "Bar fill on the overlay variant.",
+            "default": "color-mix(in oklch, black 50%, transparent)"
+          },
+          {
+            "name": "--overlay-fg",
+            "type": "CSS color",
+            "description": "Bar label color on the overlay variant.",
+            "default": "color-mix(in oklch, white 88%, transparent)"
+          },
+          {
+            "name": "--overlay-border",
+            "type": "CSS color",
+            "description": "Bar border on the overlay variant.",
+            "default": "color-mix(in oklch, white 10%, transparent)"
+          },
+          {
+            "name": "--overlay-shadow",
+            "type": "CSS shadow",
+            "description": "Bar shadow on the overlay variant.",
+            "default": "var(--df-shadow-overlay)"
+          },
+          {
+            "name": "--overlay-blur",
+            "type": "CSS length",
+            "description": "Backdrop blur on the overlay variant.",
+            "default": "var(--df-blur-overlay)"
+          },
+          {
+            "name": "--overlay-item-fg",
+            "type": "CSS color",
+            "description": "Item label color at rest.",
+            "default": "color-mix(in oklch, white 82%, transparent)"
+          },
+          {
+            "name": "--overlay-item-fg-active",
+            "type": "CSS color",
+            "description": "Item label color when active.",
+            "default": "white"
+          },
+          {
+            "name": "--overlay-item-hover-bg",
+            "type": "CSS color",
+            "description": "Item fill on hover.",
+            "default": "color-mix(in oklch, white 10%, transparent)"
+          },
+          {
+            "name": "--overlay-item-on-bg",
+            "type": "CSS color",
+            "description": "Item fill when toggled on.",
+            "default": "color-mix(in oklch, white 12%, transparent)"
+          },
+          {
+            "name": "--overlay-solid-bg",
+            "type": "CSS color",
+            "description": "Bar fill on the surface variant.",
+            "default": "white"
+          },
+          {
+            "name": "--overlay-solid-fg",
+            "type": "CSS color",
+            "description": "Bar label color on the surface variant.",
+            "default": "oklch(0.2 0 0)"
+          },
+          {
+            "name": "--overlay-solid-hover-bg",
+            "type": "CSS color",
+            "description": "Item fill on hover for the surface variant.",
+            "default": "color-mix(in oklch, white 88%, oklch(0.85 0 0))"
+          },
+          {
+            "name": "--overlay-divider",
+            "type": "CSS color",
+            "description": "Divider color between items.",
+            "default": "color-mix(in oklch, white 15%, transparent)"
+          },
+          {
+            "name": "--df-label-line-height",
+            "type": "CSS line-height",
+            "description": "Line box for label flex centering. Defaults to --df-leading-none. When text-box is unavailable and the cap unit is supported, the kit sets this to 1cap so flex centering matches cap-height ink.",
+            "default": "var(--df-leading-none)"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+name: Feature or component request
+description: Propose a new component, token, prop, or CLI capability.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please check `df-ui list` and the existing issues first. The kit prefers
+        one flexible component over several near duplicates.
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What are you proposing
+      options:
+        - New component
+        - New prop or variant on an existing component
+        - New token or utility
+        - CLI or MCP capability
+        - Documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to build, and where does the kit fall short today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed API
+      description: Sketch the props, tokens, or command surface you have in mind.
+      render: tsx
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you tried instead
+      description: Existing components or workarounds, and why they were not enough.
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I am willing to open a pull request for this.

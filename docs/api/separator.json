@@ -1,0 +1,59 @@
+{
+  "name": "separator",
+  "slug": "separator",
+  "title": "Separator",
+  "description": "Horizontal or vertical rules between sections.",
+  "aliases": [
+    "divider",
+    "horizontal rule",
+    "vertical divider",
+    "Separator"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-separator",
+  "dependencies": [],
+  "api": {
+    "description": "Horizontal or vertical rule between sections.",
+    "groups": [
+      {
+        "id": "separator",
+        "title": "Separator",
+        "props": [
+          {
+            "name": "orientation",
+            "type": "\"horizontal\" | \"vertical\"",
+            "default": "\"horizontal\"",
+            "description": "Direction of the rule."
+          },
+          {
+            "name": "decorative",
+            "type": "boolean",
+            "default": "true",
+            "description": "When true, treated as presentational for assistive tech."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "separator-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--border",
+            "type": "CSS color",
+            "description": "Rule color.",
+            "default": "var(--df-neutral-100)"
+          }
+        ]
+      }
+    ]
+  }
+}

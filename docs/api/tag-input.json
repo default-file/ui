@@ -1,0 +1,112 @@
+{
+  "name": "tag-input",
+  "slug": "tag-input",
+  "title": "Tag Input",
+  "description": "Chip field for a string[] value with suggestions, paste batching, and max tags.",
+  "aliases": [
+    "chips input",
+    "token input",
+    "multi value input",
+    "Tag Input"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation",
+    "option-list"
+  ],
+  "importPath": "@default-file/ui/components/df-tag-input",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Chip field for a string[] value with optional suggestions, paste batching, max tags, and reject feedback.",
+    "groups": [
+      {
+        "id": "tag-input",
+        "title": "TagInput",
+        "props": [
+          {
+            "name": "value",
+            "type": "string[]",
+            "description": "Controlled tags."
+          },
+          {
+            "name": "defaultValue",
+            "type": "string[]",
+            "default": "[]",
+            "description": "Uncontrolled initial tags."
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: string[]) => void",
+            "description": "Called when the tag list changes."
+          },
+          {
+            "name": "suggestions",
+            "type": "readonly string[]",
+            "default": "[]",
+            "description": "Suggestion list filtered against the draft and existing tags."
+          },
+          {
+            "name": "maxTags",
+            "type": "number",
+            "description": "Upper bound on committed tags."
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "default": "false",
+            "description": "Invalid styling and aria-invalid on the combobox."
+          },
+          {
+            "name": "validation",
+            "type": "ReactNode",
+            "description": "Message under the field."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Disables chips, input, and suggestions."
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "description": "Input placeholder when there are no tags. Defaults to the string catalogue."
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Id on the text input."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "description": "Applied on the root wrapper, not the combobox input. Prefer a visible Label with htmlFor pointing at id so the combobox itself is named."
+          },
+          {
+            "name": "itemChrome",
+            "type": "ListItemChromeProps",
+            "description": "Default List Item chrome for suggestion rows."
+          },
+          {
+            "name": "onReject",
+            "type": "(tag: string, reason: \"duplicate\" | \"max\") => void",
+            "description": "Called when a commit is rejected. Duplicate also plays a short shake."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "tag-input-a11y",
+        "title": "Keyboard and accessibility",
+        "description": "Combobox (role=\"combobox\"): The draft input is a combobox with list autocomplete. Arrow keys move the active suggestion; Enter commits the active suggestion or the draft; Escape closes the list; Backspace on an empty draft removes the last chip. Chip remove (button): Each chip remove control uses a catalogue aria-label that includes the tag text. Accessible name (Label htmlFor): Wire a visible Label with htmlFor matching id. The aria-label prop names the root wrapper only, so Label plus id is the reliable way to name the combobox.",
+        "props": []
+      }
+    ]
+  }
+}

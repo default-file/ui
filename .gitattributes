@@ -1,0 +1,4 @@
+public/r/*.json text eol=lf
+
+# Shell hooks must keep LF endings so sh can run them on every platform.
+.githooks/* text eol=lf

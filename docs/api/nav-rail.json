@@ -1,0 +1,396 @@
+{
+  "name": "nav-rail",
+  "slug": "nav-rail",
+  "title": "Tool Rail",
+  "description": "Fixed icon-over-label edge rail for switching tools or modes.",
+  "aliases": [
+    "tool rail",
+    "nav rail",
+    "navigation rail",
+    "icon rail",
+    "mode rail"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-nav-rail",
+  "dependencies": [],
+  "api": {
+    "description": "Tool rail: fixed icon-over-label edge chrome for switching tools or modes. Compose items and separators in any order. Place on left, right, top, or bottom. Use edgeShadow with shadowIntensity (2xs to 4xl, subtle, default, strong, or 0 to 1) for a side-matched cast. Chrome is tokenized via --df-nav-rail-* and kit --df-shadow-intensity-* steps.",
+    "groups": [
+      {
+        "id": "nav-rail",
+        "title": "NavRail",
+        "description": "Edge strip for a flex workspace shell. Vertical sides stack items; horizontal sides row them. Pass appearance props or set the matching CSS variables on style.",
+        "props": [
+          {
+            "name": "side",
+            "type": "\"left\" | \"right\" | \"top\" | \"bottom\"",
+            "default": "\"left\"",
+            "description": "Which edge the rail sits on. Controls axis, item flow, separator orientation, and which side draws the inner border."
+          },
+          {
+            "name": "width",
+            "type": "string",
+            "description": "Cross-axis size of the rail. Prefer tokens such as var(--df-nav-rail-width) or calc(18 * var(--spacing-unit)). On left or right this is the rail width. On top or bottom this is the rail height. Sets --df-nav-rail-width."
+          },
+          {
+            "name": "radius",
+            "type": "\"none\" | \"xxs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"full\"",
+            "default": "\"none\"",
+            "description": "Corner radius of the rail shell. Maps to --df-nav-rail-radius."
+          },
+          {
+            "name": "itemRadius",
+            "type": "\"none\" | \"xxs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"full\"",
+            "default": "\"lg\"",
+            "description": "Corner radius of item icon plates. Maps to --df-nav-rail-item-radius."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Instance corner curve. Omit to inherit --df-corner-shape from the theme (set at create/init)."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Rail background. Prefer tokens such as var(--background) or var(--card). Sets --df-nav-rail-bg."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Inner-edge border color. Prefer tokens such as var(--border). Sets --df-nav-rail-border."
+          },
+          {
+            "name": "iconColor",
+            "type": "string",
+            "description": "Resting icon and label color for all items. Prefer tokens such as var(--muted-foreground). Sets --df-nav-rail-fg."
+          },
+          {
+            "name": "activeBackground",
+            "type": "string",
+            "description": "Active icon-plate fill. Prefer tokens such as var(--df-nav-rail-item-active-bg). Sets --df-nav-rail-item-active-bg on this instance."
+          },
+          {
+            "name": "activeForeground",
+            "type": "string",
+            "description": "Active icon and label color. Prefer tokens such as var(--df-nav-rail-item-active-fg). Sets --df-nav-rail-item-active-fg on this instance."
+          },
+          {
+            "name": "shadow",
+            "type": "string",
+            "description": "Box shadow. Prefer var(--df-nav-rail-shadow-edge-left), right, top, or bottom for an edge cast toward the workspace, or none. Overrides edgeShadow when set. Sets --df-nav-rail-shadow."
+          },
+          {
+            "name": "edgeShadow",
+            "type": "boolean",
+            "default": "false",
+            "description": "When true and shadow is omitted, applies the side-matched edge shadow token."
+          },
+          {
+            "name": "shadowIntensity",
+            "type": "\"2xs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"subtle\" | \"default\" | \"strong\" | number",
+            "description": "Edge shadow strength from the kit cast scale (--df-shadow-intensity-*). Prefer 2xs to 4xl. subtle, default, and strong alias xs, lg, and 2xl. Pass 0 to 1 only for a custom strength. Sets --df-nav-rail-shadow-intensity. Theme default is --df-shadow-intensity-default."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Compose NavRailItem and NavRailSeparator in any order. Omit an item to remove it; place separators where you want groups."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the rail root."
+          },
+          {
+            "name": "style",
+            "type": "CSSProperties",
+            "description": "Inline styles. Override --df-nav-rail-width, --df-nav-rail-bg, --df-nav-rail-border, --df-nav-rail-fg, --df-nav-rail-item-active-bg, --df-nav-rail-item-active-fg, --df-nav-rail-shadow, --df-nav-rail-shadow-intensity, --df-nav-rail-radius, or --df-nav-rail-item-radius directly."
+          }
+        ]
+      },
+      {
+        "id": "nav-rail-item",
+        "title": "NavRailItem",
+        "description": "Centered icon with a short label underneath. Pass any icon node. Set active for the current item. Use disabled or hidden for availability. When active, button and asChild hosts expose aria-current=\"page\". Disabled items omit the current-page marker.",
+        "props": [
+          {
+            "name": "icon",
+            "type": "ReactNode",
+            "description": "Glyph shown above the label. Replace per item as needed."
+          },
+          {
+            "name": "active",
+            "type": "boolean",
+            "default": "false",
+            "description": "Marks the current item and styles the icon plate."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Disables interaction and dims the item. Works for button and asChild link hosts."
+          },
+          {
+            "name": "hidden",
+            "type": "boolean",
+            "default": "false",
+            "description": "When true, the item is not rendered."
+          },
+          {
+            "name": "iconColor",
+            "type": "string",
+            "description": "Resting icon and label color for this item. Prefer tokens. Sets --df-nav-rail-item-fg."
+          },
+          {
+            "name": "activeBackground",
+            "type": "string",
+            "description": "Active icon-plate fill for this item. Prefer tokens. Sets --df-nav-rail-item-active-bg."
+          },
+          {
+            "name": "activeForeground",
+            "type": "string",
+            "description": "Active icon and label color for this item. Prefer tokens. Sets --df-nav-rail-item-active-fg."
+          },
+          {
+            "name": "asChild",
+            "type": "boolean",
+            "default": "false",
+            "description": "Merge item props onto a single child element. The child becomes the interactive root; icon and label render inside it."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Short label when asChild is false. When asChild is true, a single element whose children are the label text."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the item root."
+          },
+          {
+            "name": "style",
+            "type": "CSSProperties",
+            "description": "Inline styles. Override --df-nav-rail-item-fg, --df-nav-rail-item-active-bg, or --df-nav-rail-item-active-fg directly."
+          }
+        ]
+      },
+      {
+        "id": "nav-rail-separator",
+        "title": "NavRailSeparator",
+        "description": "Hairline divider between item groups. Place anywhere in the rail children.",
+        "props": [
+          {
+            "name": "color",
+            "type": "string",
+            "description": "Separator color. Prefer tokens such as var(--border). Sets --df-nav-rail-separator."
+          },
+          {
+            "name": "hidden",
+            "type": "boolean",
+            "default": "false",
+            "description": "When true, the separator is not rendered."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the separator."
+          },
+          {
+            "name": "style",
+            "type": "CSSProperties",
+            "description": "Inline styles. Override --df-nav-rail-separator directly."
+          }
+        ]
+      },
+      {
+        "id": "nav-rail-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-nav-rail-width",
+            "type": "CSS length",
+            "description": "Cross-axis size. Width on left or right; height on top or bottom.",
+            "default": "calc(16 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-nav-rail-bg",
+            "type": "CSS color",
+            "description": "Rail background.",
+            "default": "var(--background)"
+          },
+          {
+            "name": "--df-nav-rail-border",
+            "type": "CSS color",
+            "description": "Inner-edge border color.",
+            "default": "var(--border)"
+          },
+          {
+            "name": "--df-nav-rail-fg",
+            "type": "CSS color",
+            "description": "Resting icon and label color.",
+            "default": "var(--muted-foreground)"
+          },
+          {
+            "name": "--df-nav-rail-fg-hover",
+            "type": "CSS color",
+            "description": "Hover icon and label color.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-nav-rail-item-hover-bg",
+            "type": "CSS color",
+            "description": "Hover icon-plate fill.",
+            "default": "var(--muted)"
+          },
+          {
+            "name": "--df-nav-rail-item-active-bg",
+            "type": "CSS color",
+            "description": "Active icon-plate fill."
+          },
+          {
+            "name": "--df-nav-rail-item-active-fg",
+            "type": "CSS color",
+            "description": "Active icon and label color."
+          },
+          {
+            "name": "--df-nav-rail-separator",
+            "type": "CSS color",
+            "description": "Separator fill.",
+            "default": "var(--border)"
+          },
+          {
+            "name": "--df-shadow-intensity-2xs",
+            "type": "CSS percentage",
+            "description": "Kit cast strength scale: 2xs.",
+            "default": "5%"
+          },
+          {
+            "name": "--df-shadow-intensity-xs",
+            "type": "CSS percentage",
+            "description": "Kit cast strength scale: xs.",
+            "default": "6%"
+          },
+          {
+            "name": "--df-shadow-intensity-sm",
+            "type": "CSS percentage",
+            "description": "Kit cast strength scale: sm.",
+            "default": "8%"
+          },
+          {
+            "name": "--df-shadow-intensity-md",
+            "type": "CSS percentage",
+            "description": "Kit cast strength scale: md.",
+            "default": "10%"
+          },
+          {
+            "name": "--df-shadow-intensity-lg",
+            "type": "CSS percentage",
+            "description": "Kit cast strength scale: lg.",
+            "default": "12%"
+          },
+          {
+            "name": "--df-shadow-intensity-xl",
+            "type": "CSS percentage",
+            "description": "Kit cast strength scale: xl.",
+            "default": "16%"
+          },
+          {
+            "name": "--df-shadow-intensity-2xl",
+            "type": "CSS percentage",
+            "description": "Kit cast strength scale: 2xl.",
+            "default": "20%"
+          },
+          {
+            "name": "--df-shadow-intensity-3xl",
+            "type": "CSS percentage",
+            "description": "Kit cast strength scale: 3xl.",
+            "default": "28%"
+          },
+          {
+            "name": "--df-shadow-intensity-4xl",
+            "type": "CSS percentage",
+            "description": "Kit cast strength scale: 4xl.",
+            "default": "35%"
+          },
+          {
+            "name": "--df-shadow-intensity-subtle",
+            "type": "CSS percentage",
+            "description": "Alias of --df-shadow-intensity-xs.",
+            "default": "var(--df-shadow-intensity-xs)"
+          },
+          {
+            "name": "--df-shadow-intensity-default",
+            "type": "CSS percentage",
+            "description": "Alias of --df-shadow-intensity-lg.",
+            "default": "var(--df-shadow-intensity-lg)"
+          },
+          {
+            "name": "--df-shadow-intensity-strong",
+            "type": "CSS percentage",
+            "description": "Alias of --df-shadow-intensity-2xl.",
+            "default": "var(--df-shadow-intensity-2xl)"
+          },
+          {
+            "name": "--df-nav-rail-shadow",
+            "type": "CSS box-shadow",
+            "description": "Rail box shadow.",
+            "default": "none"
+          },
+          {
+            "name": "--df-nav-rail-shadow-intensity",
+            "type": "CSS percentage",
+            "description": "Opacity used by edge shadow tokens. Defaults to --df-shadow-intensity-default. Set via shadowIntensity.",
+            "default": "var(--df-shadow-intensity-default)"
+          },
+          {
+            "name": "--df-nav-rail-shadow-edge-left",
+            "type": "CSS box-shadow",
+            "description": "Edge shadow for side left. Strength follows --df-nav-rail-shadow-intensity."
+          },
+          {
+            "name": "--df-nav-rail-shadow-edge-right",
+            "type": "CSS box-shadow",
+            "description": "Edge shadow for side right. Strength follows --df-nav-rail-shadow-intensity."
+          },
+          {
+            "name": "--df-nav-rail-shadow-edge-top",
+            "type": "CSS box-shadow",
+            "description": "Edge shadow for side top. Strength follows --df-nav-rail-shadow-intensity."
+          },
+          {
+            "name": "--df-nav-rail-shadow-edge-bottom",
+            "type": "CSS box-shadow",
+            "description": "Edge shadow for side bottom. Strength follows --df-nav-rail-shadow-intensity."
+          },
+          {
+            "name": "--df-nav-rail-radius",
+            "type": "CSS length",
+            "description": "Rail shell corner radius.",
+            "default": "0"
+          },
+          {
+            "name": "--df-nav-rail-item-radius",
+            "type": "CSS length",
+            "description": "Item icon-plate corner radius.",
+            "default": "var(--radius-lg)"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          },
+          {
+            "name": "--df-demo-stage-height",
+            "type": "CSS length",
+            "description": "Shared height for docs workspace stage frames.",
+            "default": "600px"
+          }
+        ]
+      }
+    ]
+  }
+}

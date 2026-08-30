@@ -1,0 +1,189 @@
+{
+  "name": "color-picker",
+  "slug": "color-picker",
+  "title": "Color Picker",
+  "description": "Swatch trigger with hex trailing, hover border, and channel editors.",
+  "aliases": [
+    "colour picker",
+    "swatch picker",
+    "hex picker",
+    "color swatch",
+    "Color Picker"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation",
+    "input",
+    "popover",
+    "tabs"
+  ],
+  "importPath": "@default-file/ui/components/df-color-picker",
+  "dependencies": [],
+  "api": {
+    "description": "Pill swatch trigger with optional hex or clear trailing, hover border controls, and channel editors in a popover.",
+    "groups": [
+      {
+        "id": "color-picker",
+        "title": "ColorPicker",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Current color as a hex string (required)."
+          },
+          {
+            "name": "onChange",
+            "type": "(hex: string) => void",
+            "description": "Called when the color changes (required)."
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "default": "\"Pick color\"",
+            "description": "Accessible name for the swatch trigger."
+          },
+          {
+            "name": "trailing",
+            "type": "\"hex\" | \"clear\"",
+            "description": "Optional trailing control: show hex text, or a clear action. Pill triggers use the hover border contract."
+          },
+          {
+            "name": "onClear",
+            "type": "() => void",
+            "description": "Required when trailing is \"clear\"."
+          },
+          {
+            "name": "clearLabel",
+            "type": "string",
+            "default": "\"Remove color\"",
+            "description": "Accessible label for the clear control."
+          },
+          {
+            "name": "hoverBorder",
+            "type": "boolean",
+            "description": "Instance hover border on pill triggers (hex or clear). Omit to inherit the theme. Set false to keep the resting border. Set true to force the hover border on. Dot only triggers do not use this contract."
+          },
+          {
+            "name": "hoverBorderColor",
+            "type": "string",
+            "description": "Hover border color when hover is active. Prefer tokens such as var(--foreground). Sets --df-color-picker-hover-border."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the pill trigger or swatch root."
+          }
+        ]
+      },
+      {
+        "id": "color-picker-parts",
+        "title": "Parts",
+        "description": "DOM structure markers for styling and tests. These are not component props. data-df=\"color-picker-trigger\": Pill shell for trailing hex or clear. Owns layout, start padding, resting border, and hover border chrome. data-trailing: hex or clear on the pill trigger. data-df=\"color-picker-open\": Inner swatch control on the clear pill. data-hover-border: true or false when hoverBorder is set; omit to inherit the host theme.",
+        "props": []
+      },
+      {
+        "id": "color-picker-layout",
+        "title": "Layout & appearance",
+        "description": "Popover editors (internal UI): Opened panel supports hex, rgb, hsl, and hsb channel modes (not separate props). Placement flips when there is not enough space.",
+        "props": []
+      },
+      {
+        "id": "color-picker-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-color-picker-width",
+            "type": "CSS length",
+            "description": "Popover panel width.",
+            "default": "300px"
+          },
+          {
+            "name": "--df-color-picker-height",
+            "type": "CSS length",
+            "description": "Popover panel height.",
+            "default": "220px"
+          },
+          {
+            "name": "--df-color-picker-hex-width",
+            "type": "CSS length",
+            "description": "Fixed width for the hex label on the pill trigger so it does not reflow while dragging.",
+            "default": "7ch"
+          },
+          {
+            "name": "--df-color-picker-trigger-height",
+            "type": "CSS length",
+            "description": "Pill trigger height.",
+            "default": "calc(8 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-color-picker-trigger-pad-start",
+            "type": "CSS length",
+            "description": "Inset from the start edge of the pill to the swatch.",
+            "default": "calc(1.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-color-picker-trigger-pad-end",
+            "type": "CSS length",
+            "description": "Inset from the end edge of the hex pill.",
+            "default": "calc(2.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-color-picker-trigger-gap",
+            "type": "CSS length",
+            "description": "Space between the swatch and the hex label.",
+            "default": "calc(1.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-color-picker-trigger-pad-end-clear",
+            "type": "CSS length",
+            "description": "Inset from the end edge of the clear pill.",
+            "default": "calc(0.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-color-picker-trigger-gap-clear",
+            "type": "CSS length",
+            "description": "Space between the swatch and the clear control.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-color-picker-border",
+            "type": "CSS color",
+            "description": "Resting border on the pill trigger.",
+            "default": "var(--input)"
+          },
+          {
+            "name": "--df-hover-border",
+            "type": "CSS keyword",
+            "description": "Theme field hover border. on paints the ink hover border; off keeps the resting border. Runtime gating uses data-df-hover-border on html. Set with df-ui init --hover-border. Default on.",
+            "default": "on"
+          },
+          {
+            "name": "--df-color-picker-hover-border",
+            "type": "CSS color",
+            "description": "Hover border when the theme or instance enables hover. Defaults to the ink foreground. Override with hoverBorderColor.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-color-picker-bg",
+            "type": "CSS color",
+            "description": "Pill trigger fill.",
+            "default": "var(--muted)"
+          },
+          {
+            "name": "--df-shadow-picker-thumb",
+            "type": "CSS shadow",
+            "description": "Ring around the channel thumb.",
+            "default": "0 0 0 1px rgb(0 0 0 / 0.45)"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          }
+        ]
+      }
+    ]
+  }
+}

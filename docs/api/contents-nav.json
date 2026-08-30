@@ -1,0 +1,289 @@
+{
+  "name": "contents-nav",
+  "slug": "contents-nav",
+  "title": "Contents Nav",
+  "description": "Page outline and catalogue index composed with List Item. Use toc for on-page headings with optional nest line and scroll spy. Use index for sectioned side navigation.",
+  "aliases": [
+    "toc",
+    "table of contents",
+    "on this page",
+    "catalogue index",
+    "side nav",
+    "outline",
+    "contents",
+    "Contents Nav"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation",
+    "list-item"
+  ],
+  "importPath": "@default-file/ui/components/df-contents-nav",
+  "dependencies": [],
+  "api": {
+    "description": "Page outline and catalogue index composed with List Item. Use variant toc for on-page headings with nested rows, optional nest guide line, and scroll spy. Use variant index for sectioned side navigation. Pass scrollRoot for the host scrollport. Compose with ContentsNavHeading, ContentsNavSection, ContentsNavItem, and ListItemNest, or pass items and sections.",
+    "groups": [
+      {
+        "id": "contents-nav",
+        "title": "ContentsNav",
+        "description": "Root nav. toc defaults nestLine and scrollSpy on. index defaults them off and uses section labels.",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"toc\" | \"index\"",
+            "default": "\"toc\"",
+            "description": "toc is the on-page outline. index is the catalogue or side index."
+          },
+          {
+            "name": "title",
+            "type": "ReactNode",
+            "description": "Optional heading above the list. Typical for toc (for example On this page)."
+          },
+          {
+            "name": "items",
+            "type": "ContentsNavItemData[]",
+            "description": "Tree or flat rows. Each item needs id and title. Optional href, children, disabled, and readOnly. toc defaults href to #id when omitted. Pass href null for a non-link row. readOnly keeps size and selected chrome without hover or activation."
+          },
+          {
+            "name": "sections",
+            "type": "ContentsNavSectionData[]",
+            "description": "Grouped index sections with label, optional divided, and items. Used when variant is index and layout is grouped."
+          },
+          {
+            "name": "layout",
+            "type": "\"grouped\" | \"flat\"",
+            "default": "\"grouped\"",
+            "description": "Index list shape. grouped renders sections. flat renders items only."
+          },
+          {
+            "name": "nestLine",
+            "type": "boolean",
+            "description": "Default guide line for nested groups. Defaults true for toc and false for index. Override per group with ListItemNest line."
+          },
+          {
+            "name": "scrollSpy",
+            "type": "boolean",
+            "description": "Update activeId from scroll position. Defaults true for toc and false for index."
+          },
+          {
+            "name": "scrollRoot",
+            "type": "Element | RefObject<Element | null> | (() => Element | null)",
+            "description": "Scrollport used by scroll spy. Defaults to document.scrollingElement. Pass your app scroller when the page does not scroll on the document."
+          },
+          {
+            "name": "spyRatio",
+            "type": "number",
+            "default": "0.25",
+            "description": "Fraction of the scrollport height used as the primary spy marker."
+          },
+          {
+            "name": "activeId",
+            "type": "string",
+            "description": "Controlled active item id."
+          },
+          {
+            "name": "defaultActiveId",
+            "type": "string",
+            "description": "Uncontrolled initial active id."
+          },
+          {
+            "name": "onActiveIdChange",
+            "type": "(id: string) => void",
+            "description": "Called when the active id changes from spy or selection."
+          },
+          {
+            "name": "itemVariant",
+            "type": "\"accent\" | \"muted\"",
+            "default": "\"muted\"",
+            "description": "Default List Item variant for rows."
+          },
+          {
+            "name": "itemSize",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+            "description": "Default List Item size for top-level rows. Defaults to \"sm\" for toc and \"md\" for index."
+          },
+          {
+            "name": "nestItemSize",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+            "default": "\"xs\"",
+            "description": "Default List Item size for nested rows."
+          },
+          {
+            "name": "itemChrome",
+            "type": "ListItemChromeProps",
+            "description": "Default List Item chrome for every row (padding, gap, type size/family/weight/color, radius, fills, and stroke). Applies to composed ContentsNavItem rows and data-driven branches. Per-item chrome props on ContentsNavItem win. See List Item for the full chrome contract."
+          },
+          {
+            "name": "nestChrome",
+            "type": "ListItemNestChromeProps",
+            "description": "Default ListItemNest chrome for data-driven child groups (indent, pad, gap, lineWidth, lineColor). nestLine still controls whether the guide line paints. Composed ListItemNest instances set their own props."
+          },
+          {
+            "name": "renderItem",
+            "type": "(item, ctx) => ReactElement",
+            "description": "Render a custom host for each data item (for example a router Link). The host is painted with List Item via asChild."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Composition mode. Use ContentsNavHeading, ContentsNavSection, ContentsNavItem, and ListItemNest instead of items or sections."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the nav host."
+          }
+        ]
+      },
+      {
+        "id": "contents-nav-heading",
+        "title": "ContentsNavHeading",
+        "description": "Title row above the list (data-df contents-nav-heading).",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Heading text."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "contents-nav-section",
+        "title": "ContentsNavSection",
+        "description": "Index section with ListItemLabel nav and optional top divider.",
+        "props": [
+          {
+            "name": "label",
+            "type": "ReactNode",
+            "description": "Section title rendered with ListItemLabel variant nav."
+          },
+          {
+            "name": "divided",
+            "type": "boolean",
+            "default": "false",
+            "description": "When true, adds a top hairline and spacing above the section."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Section rows."
+          }
+        ]
+      },
+      {
+        "id": "contents-nav-item",
+        "title": "ContentsNavItem",
+        "description": "List Item row for a nav entry. Also accepts List Item chrome props such as padding, gap, fontSize, fills, stroke, and radius. Per-item chrome wins over ContentsNav itemChrome. See List Item.",
+        "props": [
+          {
+            "name": "active",
+            "type": "boolean",
+            "description": "Selected appearance. When omitted and itemId is set, matches activeId from context."
+          },
+          {
+            "name": "itemId",
+            "type": "string",
+            "description": "Id used for selection and scroll spy matching."
+          },
+          {
+            "name": "href",
+            "type": "string",
+            "description": "Renders an anchor row when asChild is false."
+          },
+          {
+            "name": "asChild",
+            "type": "boolean",
+            "default": "false",
+            "description": "Paint List Item onto a single child element such as a link."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Non-interactive row. Forwarded to List Item. Dims the row and blocks activation."
+          },
+          {
+            "name": "readOnly",
+            "type": "boolean",
+            "default": "false",
+            "description": "Presentational row. Forwarded to List Item. Keeps size, variant, and selected appearance with no hover, press, or activation."
+          },
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+            "description": "Overrides the size default. Outside ListItemNest, defaults to itemSize. Inside ListItemNest, defaults to nestItemSize."
+          },
+          {
+            "name": "variant",
+            "type": "\"accent\" | \"muted\"",
+            "description": "Overrides the ContentsNav itemVariant default."
+          }
+        ]
+      },
+      {
+        "id": "contents-nav-separator",
+        "title": "ContentsNavSeparator",
+        "description": "Horizontal hairline between flat index groups.",
+        "props": [
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "contents-nav-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-contents-nav-gap",
+            "type": "CSS length",
+            "description": "Gap between top-level children. Index defaults to 0 so sections own rhythm."
+          },
+          {
+            "name": "--df-contents-nav-branch-gap",
+            "type": "CSS length",
+            "description": "Gap between a row and its nested group."
+          },
+          {
+            "name": "--df-contents-nav-heading-margin-bottom",
+            "type": "CSS length",
+            "description": "Space under ContentsNavHeading."
+          },
+          {
+            "name": "--df-list-item-nest-indent",
+            "type": "CSS length",
+            "description": "Outer inset on ListItemNest. Set by the indent prop."
+          },
+          {
+            "name": "--df-list-item-nest-pad",
+            "type": "CSS length",
+            "description": "Inner pad after the nest guide line. Set by the pad prop."
+          },
+          {
+            "name": "--df-list-item-nest-gap",
+            "type": "CSS length",
+            "description": "Gap between nested rows. Set by the gap prop on ListItemNest."
+          },
+          {
+            "name": "--df-list-item-nest-line-width",
+            "type": "CSS length",
+            "description": "Nest guide line thickness. Set by lineWidth."
+          },
+          {
+            "name": "--df-list-item-nest-line-color",
+            "type": "CSS color",
+            "description": "Nest guide line color. Set by lineColor."
+          }
+        ]
+      }
+    ]
+  }
+}

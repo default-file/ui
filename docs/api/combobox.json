@@ -1,0 +1,133 @@
+{
+  "name": "combobox",
+  "slug": "combobox",
+  "title": "Combobox",
+  "description": "Filterable text field with an option list, optional async loading, and custom values.",
+  "aliases": [
+    "autocomplete",
+    "typeahead",
+    "filter select",
+    "Combobox"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation",
+    "option-list"
+  ],
+  "importPath": "@default-file/ui/components/df-combobox",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Filterable text field backed by Option List. Supports static options, async loading, clear, and optional custom values.",
+    "groups": [
+      {
+        "id": "combobox",
+        "title": "Combobox",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Controlled committed option value. The input shows the matching label; typing uses a separate query string."
+          },
+          {
+            "name": "defaultValue",
+            "type": "string",
+            "description": "Uncontrolled initial option value."
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: string) => void",
+            "description": "Called with the option value when a selection is committed, or with custom text when allowCustomValue is set."
+          },
+          {
+            "name": "options",
+            "type": "readonly ComboboxOption[]",
+            "description": "Static options to filter."
+          },
+          {
+            "name": "loadOptions",
+            "type": "(query: string) => Promise<ComboboxOption[]>",
+            "description": "Async option loader for the current query."
+          },
+          {
+            "name": "allowCustomValue",
+            "type": "boolean",
+            "description": "Allow committing text that is not in the option list."
+          },
+          {
+            "name": "clearable",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show a clear control when the field has text."
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "description": "Input placeholder."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Disable the field."
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "description": "Mark the field invalid for styling and aria-invalid."
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled list open state."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "description": "Uncontrolled initial open state."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when the list open state changes."
+          },
+          {
+            "name": "debounceMs",
+            "type": "number",
+            "description": "Debounce for async loadOptions."
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Id on the text input."
+          },
+          {
+            "name": "emptyContent",
+            "type": "ReactNode",
+            "description": "Content when the filtered list is empty."
+          },
+          {
+            "name": "itemChrome",
+            "type": "ListItemChromeProps",
+            "description": "Default List Item chrome for every option row."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "description": "Accessible name when no aria-labelledby is set."
+          },
+          {
+            "name": "aria-labelledby",
+            "type": "string",
+            "description": "Id of an external label. When set, aria-label is omitted so the external name wins."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      }
+    ]
+  }
+}

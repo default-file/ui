@@ -1,0 +1,208 @@
+{
+  "name": "format-toolbar",
+  "slug": "format-toolbar",
+  "title": "Format Toolbar",
+  "description": "Rich text formatting toolbar with headings, marks, lists, callouts, and table row and column actions.",
+  "aliases": [
+    "rich text toolbar",
+    "formatting toolbar",
+    "editor toolbar",
+    "wysiwyg toolbar",
+    "text formatting bar",
+    "Format Toolbar"
+  ],
+  "chapter": "toolbars",
+  "registryDependencies": [
+    "foundation",
+    "button",
+    "input",
+    "popover",
+    "separator",
+    "tooltip"
+  ],
+  "importPath": "@default-file/ui/components/df-format-toolbar",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Rich text formatting toolbar for editor surfaces. Host owns document state through a controller.",
+    "groups": [
+      {
+        "id": "format-toolbar",
+        "title": "FormatToolbar",
+        "props": [
+          {
+            "name": "controller",
+            "type": "FormatToolbarController | null",
+            "description": "Command surface for formatting actions and pressed states. Pass null while the editor is unavailable."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Disables every control."
+          },
+          {
+            "name": "locked",
+            "type": "boolean",
+            "default": "false",
+            "description": "Blocks edits and reports lock attempts when a control is pressed."
+          },
+          {
+            "name": "onLockedEditAttempt",
+            "type": "(clientX: number, clientY: number) => void",
+            "description": "Called when a locked control is pressed. Use for unlock hints."
+          },
+          {
+            "name": "isValidHref",
+            "type": "(href: string) => boolean",
+            "description": "Validates link URLs before Apply. Defaults to http, https, and mailto."
+          },
+          {
+            "name": "calloutLabel",
+            "type": "(type: FormatToolbarCalloutType) => string",
+            "description": "Label for each callout option in the callout menu."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the toolbar root."
+          }
+        ]
+      },
+      {
+        "id": "format-toolbar-types",
+        "title": "Types and constants",
+        "description": "FORMAT_TOOLBAR_CALLOUT_TYPES is the callout list (note, tip, important, warning, caution). FormatToolbarCalloutType is that union. FormatToolbarQuery covers isActive queries (bold, italic, strike, inlineCode, link, heading, paragraph, bulletList, orderedList, taskList, blockquote, callout, codeBlock, table). FormatToolbarAttrs holds optional heading level and callout type for those queries.",
+        "props": []
+      },
+      {
+        "id": "format-toolbar-controller",
+        "title": "FormatToolbarController",
+        "description": "Host-owned command surface. Wire each method to the current selection and document. Block transforms no-op inside tables; marks and links apply in table cells.",
+        "props": [
+          {
+            "name": "isActive",
+            "type": "(query: FormatToolbarQuery, attrs?: FormatToolbarAttrs) => boolean",
+            "description": "Pressed state for a formatting query."
+          },
+          {
+            "name": "getLinkHref",
+            "type": "() => string | null",
+            "description": "Current link href at the selection, if any."
+          },
+          {
+            "name": "toggleHeading",
+            "type": "(level: 1 | 2 | 3) => void",
+            "description": "Toggle heading level 1, 2, or 3 at the selection."
+          },
+          {
+            "name": "toggleBold",
+            "type": "() => void",
+            "description": "Toggle bold at the selection."
+          },
+          {
+            "name": "toggleItalic",
+            "type": "() => void",
+            "description": "Toggle italic at the selection."
+          },
+          {
+            "name": "toggleStrike",
+            "type": "() => void",
+            "description": "Toggle strikethrough at the selection."
+          },
+          {
+            "name": "toggleInlineCode",
+            "type": "() => void",
+            "description": "Toggle inline code at the selection."
+          },
+          {
+            "name": "setLink",
+            "type": "(href: string) => void",
+            "description": "Apply a link href to the selection."
+          },
+          {
+            "name": "unsetLink",
+            "type": "() => void",
+            "description": "Remove the link at the selection."
+          },
+          {
+            "name": "toggleBulletList",
+            "type": "() => void",
+            "description": "Toggle a bullet list at the selection."
+          },
+          {
+            "name": "toggleOrderedList",
+            "type": "() => void",
+            "description": "Toggle an ordered list at the selection."
+          },
+          {
+            "name": "toggleTaskList",
+            "type": "() => void",
+            "description": "Toggle a task list at the selection."
+          },
+          {
+            "name": "toggleBlockquote",
+            "type": "() => void",
+            "description": "Toggle a block quote at the selection."
+          },
+          {
+            "name": "setCallout",
+            "type": "(type: FormatToolbarCalloutType) => void",
+            "description": "Apply a callout type at the selection."
+          },
+          {
+            "name": "unsetCallout",
+            "type": "() => void",
+            "description": "Clear the callout at the selection."
+          },
+          {
+            "name": "toggleCodeBlock",
+            "type": "() => void",
+            "description": "Toggle a code block at the selection."
+          },
+          {
+            "name": "insertHorizontalRule",
+            "type": "() => void",
+            "description": "Insert a horizontal rule after the current block."
+          },
+          {
+            "name": "insertTable",
+            "type": "() => void",
+            "description": "Insert a table after the current block. Replaces an empty paragraph in place."
+          },
+          {
+            "name": "addTableRow",
+            "type": "() => void",
+            "description": "Add a row after the current table row."
+          },
+          {
+            "name": "addTableColumn",
+            "type": "() => void",
+            "description": "Add a column after the current table column."
+          },
+          {
+            "name": "deleteTableRow",
+            "type": "() => void",
+            "description": "Delete the current table row. Deletes the table when it is the last row."
+          },
+          {
+            "name": "deleteTableColumn",
+            "type": "() => void",
+            "description": "Delete the current table column. Deletes the table when it is the last column."
+          },
+          {
+            "name": "deleteTable",
+            "type": "() => void",
+            "description": "Delete the current table."
+          },
+          {
+            "name": "subscribe",
+            "type": "(listener: () => void) => () => void",
+            "description": "Subscribe to selection and document updates so pressed states refresh."
+          }
+        ]
+      }
+    ]
+  }
+}

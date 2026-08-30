@@ -1,0 +1,141 @@
+{
+  "name": "switch",
+  "slug": "switch",
+  "title": "Switch",
+  "description": "Binary on and off control for immediate settings.",
+  "aliases": [
+    "toggle switch",
+    "on off switch",
+    "binary switch",
+    "settings switch",
+    "Switch"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-switch",
+  "dependencies": [],
+  "api": {
+    "description": "Binary on and off control for immediate settings. Prefer Toggle Group for option clusters.",
+    "groups": [
+      {
+        "id": "switch",
+        "title": "Switch",
+        "props": [
+          {
+            "name": "checked",
+            "type": "boolean",
+            "description": "Controlled checked state."
+          },
+          {
+            "name": "defaultChecked",
+            "type": "boolean",
+            "default": "false",
+            "description": "Uncontrolled initial checked state."
+          },
+          {
+            "name": "onCheckedChange",
+            "type": "(checked: boolean) => void",
+            "description": "Called when the switch toggles."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"default\"",
+            "default": "\"default\"",
+            "description": "Control size."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Non-interactive switch."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "switch-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-switch-thumb-gap",
+            "type": "CSS length",
+            "description": "Inset between track edge and thumb. Source of truth for enclosed vertical slack.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-switch-thumb-size",
+            "type": "CSS length",
+            "description": "Default thumb diameter.",
+            "default": "var(--df-affordance-size-sm)"
+          },
+          {
+            "name": "--df-switch-thumb-travel",
+            "type": "CSS length",
+            "description": "Default checked translate distance. Matches the thumb diameter.",
+            "default": "var(--df-switch-thumb-size)"
+          },
+          {
+            "name": "--df-switch-track-height",
+            "type": "CSS length",
+            "description": "Default track height. Derived as thumb size plus twice the thumb gap (40x24 with the default gap).",
+            "default": "calc(var(--df-switch-thumb-size) + 2 * var(--df-switch-thumb-gap))"
+          },
+          {
+            "name": "--df-switch-track-width",
+            "type": "CSS length",
+            "description": "Default track width. Derived as track height plus thumb travel.",
+            "default": "calc(var(--df-switch-track-height) + var(--df-switch-thumb-travel))"
+          },
+          {
+            "name": "--df-switch-thumb-size-sm",
+            "type": "CSS length",
+            "description": "Small thumb diameter.",
+            "default": "var(--df-affordance-size-xs)"
+          },
+          {
+            "name": "--df-switch-thumb-travel-sm",
+            "type": "CSS length",
+            "description": "Small checked translate distance. Matches the small thumb diameter.",
+            "default": "var(--df-switch-thumb-size-sm)"
+          },
+          {
+            "name": "--df-switch-track-height-sm",
+            "type": "CSS length",
+            "description": "Small track height. Derived as small thumb size plus twice the thumb gap (32x20 with the default gap).",
+            "default": "calc(var(--df-switch-thumb-size-sm) + 2 * var(--df-switch-thumb-gap))"
+          },
+          {
+            "name": "--df-switch-track-width-sm",
+            "type": "CSS length",
+            "description": "Small track width. Derived as small track height plus small thumb travel.",
+            "default": "calc(var(--df-switch-track-height-sm) + var(--df-switch-thumb-travel-sm))"
+          },
+          {
+            "name": "--primary",
+            "type": "CSS color",
+            "description": "Checked track fill.",
+            "default": "var(--df-neutral-850, var(--df-neutral-900))"
+          },
+          {
+            "name": "--input",
+            "type": "CSS color",
+            "description": "Unchecked track fill.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--background",
+            "type": "CSS color",
+            "description": "Thumb fill.",
+            "default": "var(--df-neutral-0)"
+          }
+        ]
+      }
+    ]
+  }
+}

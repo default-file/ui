@@ -1,0 +1,163 @@
+{
+  "name": "dialog",
+  "slug": "dialog",
+  "title": "Dialog",
+  "description": "Center modal with scrim, focus trap, Escape to close, and scroll lock.",
+  "aliases": [
+    "modal",
+    "modal dialog",
+    "center modal",
+    "confirm dialog",
+    "Dialog"
+  ],
+  "chapter": "overlays",
+  "registryDependencies": [
+    "foundation",
+    "button"
+  ],
+  "importPath": "@default-file/ui/components/df-dialog",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Center modal with scrim, focus trap, Escape to close, and body scroll lock. Use for instructional or confirmational content that should interrupt the page.",
+    "groups": [
+      {
+        "id": "dialog",
+        "title": "Dialog",
+        "props": [
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "default": "false",
+            "description": "Initial open state when uncontrolled."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when open state should change."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Compose with DialogTrigger, DialogContent, and the header, body, and footer parts."
+          }
+        ]
+      },
+      {
+        "id": "dialog-trigger",
+        "title": "DialogTrigger",
+        "props": [
+          {
+            "name": "render",
+            "type": "ReactElement",
+            "description": "Optional host element. Merge trigger props onto a kit Button or other control."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Trigger label when rendering the default button."
+          }
+        ]
+      },
+      {
+        "id": "dialog-content",
+        "title": "DialogContent",
+        "props": [
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Classes on the dialog panel."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Panel contents. Prefer DialogHeader, DialogBody, and DialogFooter."
+          }
+        ]
+      },
+      {
+        "id": "dialog-header",
+        "title": "DialogHeader",
+        "props": [
+          {
+            "name": "showClose",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show the trailing close control in the header."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Usually DialogTitle and DialogDescription."
+          }
+        ]
+      },
+      {
+        "id": "dialog-title",
+        "title": "DialogTitle",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Accessible dialog title. Wired to aria-labelledby."
+          }
+        ]
+      },
+      {
+        "id": "dialog-description",
+        "title": "DialogDescription",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Supporting copy under the title. Wired to aria-describedby."
+          }
+        ]
+      },
+      {
+        "id": "dialog-body",
+        "title": "DialogBody",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Scrollable main content."
+          }
+        ]
+      },
+      {
+        "id": "dialog-footer",
+        "title": "DialogFooter",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Actions aligned to the end of the panel."
+          }
+        ]
+      },
+      {
+        "id": "dialog-close",
+        "title": "DialogClose",
+        "props": [
+          {
+            "name": "render",
+            "type": "ReactElement",
+            "description": "Optional host element. Merge close props onto a kit Button."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Close control label when rendering the default button."
+          }
+        ]
+      }
+    ]
+  }
+}

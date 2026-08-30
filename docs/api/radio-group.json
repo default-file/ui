@@ -1,0 +1,140 @@
+{
+  "name": "radio-group",
+  "slug": "radio-group",
+  "title": "Radio Group",
+  "description": "Exclusive native radio group with optional heading and per-item labels.",
+  "aliases": [
+    "radio buttons",
+    "option radios",
+    "Radio Group"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-radio-group",
+  "dependencies": [],
+  "api": {
+    "description": "Exclusive choice group built on native radios. Compose RadioGroup with RadioItem children.",
+    "groups": [
+      {
+        "id": "radio-group",
+        "title": "RadioGroup",
+        "props": [
+          {
+            "name": "value",
+            "type": "string | null",
+            "description": "Controlled selected value."
+          },
+          {
+            "name": "defaultValue",
+            "type": "string | null",
+            "default": "null",
+            "description": "Uncontrolled initial value."
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: string) => void",
+            "description": "Called with the newly selected value."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Shared native name for the radios. Generated when omitted."
+          },
+          {
+            "name": "label",
+            "type": "ReactNode",
+            "description": "Group heading. Wired as aria-labelledby on the radiogroup."
+          },
+          {
+            "name": "description",
+            "type": "ReactNode",
+            "description": "Supporting text under the heading. Wired as aria-describedby."
+          },
+          {
+            "name": "orientation",
+            "type": "\"vertical\" | \"horizontal\"",
+            "default": "\"vertical\"",
+            "description": "Layout of the items."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\"",
+            "default": "\"md\"",
+            "description": "Default size for items."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Disables every item and sets aria-disabled on the group."
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "default": "false",
+            "description": "Marks the group invalid and sets aria-invalid."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "RadioItem children."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the group root."
+          }
+        ]
+      },
+      {
+        "id": "radio-item",
+        "title": "RadioItem",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Item value (required)."
+          },
+          {
+            "name": "label",
+            "type": "ReactNode",
+            "description": "Visible label. When set (or description is set), wraps in a label element."
+          },
+          {
+            "name": "description",
+            "type": "ReactNode",
+            "description": "Supporting text. Wired as aria-describedby on the radio input."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\"",
+            "description": "Override the group size for this item."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Disable this item."
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Input id. Generated when omitted."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the field wrapper when labeled, otherwise on the control root."
+          }
+        ]
+      },
+      {
+        "id": "radio-a11y",
+        "title": "Accessibility",
+        "description": "Group name (label or aria-label): Pass label for a visible group name, or aria-label / aria-labelledby on RadioGroup when there is no visible heading.",
+        "props": []
+      }
+    ]
+  }
+}

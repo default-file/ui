@@ -1,0 +1,104 @@
+{
+  "name": "checkbox",
+  "slug": "checkbox",
+  "title": "Checkbox",
+  "description": "Native checkbox with optional label and description, including indeterminate.",
+  "aliases": [
+    "tick box",
+    "indeterminate checkbox",
+    "Checkbox"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-checkbox",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Native checkbox with optional label and description, supporting checked, unchecked, and indeterminate.",
+    "groups": [
+      {
+        "id": "checkbox",
+        "title": "Checkbox",
+        "props": [
+          {
+            "name": "checked",
+            "type": "boolean | \"indeterminate\"",
+            "description": "Controlled state. Pass \"indeterminate\" for the mixed visual and aria-checked=\"mixed\"."
+          },
+          {
+            "name": "defaultChecked",
+            "type": "boolean",
+            "default": "false",
+            "description": "Uncontrolled initial checked state."
+          },
+          {
+            "name": "onCheckedChange",
+            "type": "(checked: boolean | \"indeterminate\") => void",
+            "description": "Called when the user toggles. Interaction always commits true or false; indeterminate is set from the parent."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\"",
+            "default": "\"md\"",
+            "description": "Control size."
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "default": "false",
+            "description": "Marks the control invalid and sets aria-invalid."
+          },
+          {
+            "name": "label",
+            "type": "ReactNode",
+            "description": "Visible label. When set (or description is set), the control wraps in a label element bound with htmlFor."
+          },
+          {
+            "name": "description",
+            "type": "ReactNode",
+            "description": "Supporting text under the label. Wired as aria-describedby on the input."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Disables the input."
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Input id. Generated when omitted."
+          },
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Form name on the input."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Form value on the input."
+          },
+          {
+            "name": "required",
+            "type": "boolean",
+            "description": "Native required on the input."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the field wrapper when label or description is set, otherwise on the control root."
+          }
+        ]
+      },
+      {
+        "id": "checkbox-a11y",
+        "title": "Accessibility",
+        "description": "Pass label for a visible name, or supply aria-label or aria-labelledby on the input when rendering the control alone. Also accepts other native input attributes except type, size, checked, defaultChecked, and onChange; use onCheckedChange for selection changes.",
+        "props": []
+      }
+    ]
+  }
+}

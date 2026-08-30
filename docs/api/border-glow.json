@@ -1,0 +1,348 @@
+{
+  "name": "border-glow",
+  "slug": "border-glow",
+  "title": "Border Glow",
+  "description": "Pointer directed border glow wrapper with optional soft bloom.",
+  "aliases": [
+    "glow border",
+    "pointer glow",
+    "border bloom",
+    "hover border glow",
+    "Border Glow"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-border-glow",
+  "dependencies": [],
+  "api": {
+    "description": "Card chrome with a pointer-directed border. Use bloom for the soft mesh glow, or trace for the outer hairline.",
+    "groups": [
+      {
+        "id": "border-glow",
+        "title": "BorderGlow",
+        "description": "Shared card chrome and layout.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Content rendered inside the card."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional classes on the outer wrapper."
+          },
+          {
+            "name": "variant",
+            "type": "\"default\" | \"light\"",
+            "default": "\"default\"",
+            "description": "default uses the dark face (neutral-920). light uses a soft white face and tinted mesh, and stays subtle white under dark theme."
+          },
+          {
+            "name": "backgroundColor",
+            "type": "string",
+            "default": "variant token",
+            "description": "Card face fill. Omit to use --df-border-glow-bg or --df-border-glow-light-bg."
+          },
+          {
+            "name": "strokeColor",
+            "type": "string",
+            "default": "variant stroke token",
+            "description": "Idle CSS border color. Omit to use --df-border-glow-stroke or --df-border-glow-light-stroke."
+          },
+          {
+            "name": "borderRadius",
+            "type": "number",
+            "description": "Corner radius in pixels. Omit to use --df-border-glow-radius."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Instance corner curve. Omit to inherit --df-corner-shape from the theme (set at create/init)."
+          }
+        ]
+      },
+      {
+        "id": "border-glow-bloom",
+        "title": "Bloom",
+        "description": "Soft outer glow and directional mesh. Ignored when trace is true.",
+        "props": [
+          {
+            "name": "bloom",
+            "type": "boolean",
+            "default": "true",
+            "description": "Soft outer bloom around the card. Set false to disable bloom (inner wash defaults to 0). Ignored when trace is true."
+          },
+          {
+            "name": "glowColor",
+            "type": "string",
+            "default": "var(--df-border-glow-ink-base) or light ink token",
+            "description": "Soft outer glow source when bloom is true. Prefer a CSS color. HSL channels as \"H S L\" still work. In trace mode, used as the single hairline ink when colors is omitted."
+          },
+          {
+            "name": "glowRadius",
+            "type": "number",
+            "default": "var(--df-border-glow-glow-radius)",
+            "description": "How far the soft outer bloom extends beyond the card in pixels. Omit to use --df-border-glow-glow-radius."
+          },
+          {
+            "name": "glowIntensity",
+            "type": "number",
+            "default": "0.8",
+            "description": "Multiplier for bloom opacity (0.1 to 3)."
+          },
+          {
+            "name": "edgeSensitivity",
+            "type": "number",
+            "default": "0",
+            "description": "How close the pointer must be to the edge for the glow to appear (0 to 100). Lower values light the edge sooner."
+          },
+          {
+            "name": "coneSpread",
+            "type": "number",
+            "default": "5",
+            "description": "Width of the directional cone mask as a percentage (5 to 45)."
+          },
+          {
+            "name": "colors",
+            "type": "string[]",
+            "default": "variant mesh tokens",
+            "description": "Three colors for the mesh gradient border. Defaults to --df-border-glow-color-* or --df-border-glow-light-color-*."
+          },
+          {
+            "name": "fillOpacity",
+            "type": "number",
+            "default": "0.5 when bloom; 0 when bloom is false",
+            "description": "Strength of the near edge mesh fill inside the card (0 to 1)."
+          },
+          {
+            "name": "animated",
+            "type": "boolean",
+            "default": "false",
+            "description": "Play an intro cone sweep on mount."
+          }
+        ]
+      },
+      {
+        "id": "border-glow-trace",
+        "title": "Trace",
+        "description": "Hairline only animation. Forces bloom off and no face wash. The arc expands from zero at the pointer, then follows it.",
+        "props": [
+          {
+            "name": "trace",
+            "type": "boolean",
+            "default": "false",
+            "description": "Enable hairline trace mode. Paints only the outer hairline (masked to the border, never the face)."
+          },
+          {
+            "name": "glowColor",
+            "type": "string",
+            "default": "var(--df-neutral-1000)",
+            "description": "Single hairline ink when colors is omitted."
+          },
+          {
+            "name": "colors",
+            "type": "string[]",
+            "default": "glowColor as one stop",
+            "description": "Up to four colors along the expanding hairline arc. Pass DEFAULT_SPECTRUM_COLORS from SpectrumText for the kit spectrum."
+          },
+          {
+            "name": "coneSpread",
+            "type": "number",
+            "default": "20",
+            "description": "Max lit arc length. Higher values make a longer hairline segment."
+          },
+          {
+            "name": "outlineOffset",
+            "type": "number",
+            "default": "var(--df-border-glow-trace-outline-offset)",
+            "description": "Gap in pixels between the card edge and the outer hairline. Omit in trace mode to use --df-border-glow-trace-outline-offset."
+          },
+          {
+            "name": "outlineWidth",
+            "type": "number",
+            "default": "var(--df-border-glow-outline-width)",
+            "description": "Thickness in pixels of the outer hairline. Omit to use --df-border-glow-outline-width."
+          },
+          {
+            "name": "followDuration",
+            "type": "number",
+            "default": "0.5",
+            "description": "Seconds for the lit arc to ease toward the pointer. Lower is snappier; higher is smoother."
+          },
+          {
+            "name": "revealDuration",
+            "type": "number",
+            "default": "0.7",
+            "description": "Seconds for the hairline to expand from zero on enter and collapse on leave. Uses a quint ease out curve."
+          },
+          {
+            "name": "arcFade",
+            "type": "number",
+            "default": "0.75",
+            "description": "How soft the ends of the lit arc are (0 to 1). Higher fades out earlier and more gradually."
+          }
+        ]
+      },
+      {
+        "id": "border-glow-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-border-glow-bg",
+            "type": "CSS color",
+            "description": "Default (dark) card face.",
+            "default": "var(--df-neutral-920)"
+          },
+          {
+            "name": "--df-border-glow-stroke",
+            "type": "CSS color",
+            "description": "Idle CSS border color on the default card.",
+            "default": "color-mix(in oklch, var(--df-neutral-0) 15%, transparent)"
+          },
+          {
+            "name": "--df-border-glow-radius",
+            "type": "length",
+            "description": "Default corner radius when borderRadius is omitted.",
+            "default": "var(--radius-4xl)"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          },
+          {
+            "name": "--df-border-glow-edge-sensitivity",
+            "type": "number",
+            "description": "Theme default for edgeSensitivity (0 to 100).",
+            "default": "0"
+          },
+          {
+            "name": "--df-border-glow-glow-radius",
+            "type": "length",
+            "description": "Theme default for glowRadius.",
+            "default": "calc(3.75 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-border-glow-outline-offset",
+            "type": "length",
+            "description": "Gap between the card edge and the outer outline when bloom is off.",
+            "default": "calc(0.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-border-glow-trace-outline-offset",
+            "type": "length",
+            "description": "Gap between the card edge and the outer hairline in trace mode.",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-border-glow-outline-width",
+            "type": "length",
+            "description": "Thickness of the outer hairline in trace mode.",
+            "default": "var(--border-width-hairline)"
+          },
+          {
+            "name": "--df-border-glow-trace-follow",
+            "type": "number",
+            "description": "Theme default for followDuration in seconds.",
+            "default": "0.5"
+          },
+          {
+            "name": "--df-border-glow-trace-reveal",
+            "type": "number",
+            "description": "Theme default for revealDuration in seconds.",
+            "default": "0.7"
+          },
+          {
+            "name": "--df-border-glow-trace-fade",
+            "type": "number",
+            "description": "Theme default for arcFade (0 to 1).",
+            "default": "0.75"
+          },
+          {
+            "name": "--df-border-glow-cone-spread",
+            "type": "number",
+            "description": "Theme default for coneSpread in bloom modes.",
+            "default": "5"
+          },
+          {
+            "name": "--df-border-glow-glow-intensity",
+            "type": "number",
+            "description": "Theme default for glowIntensity.",
+            "default": "0.8"
+          },
+          {
+            "name": "--df-border-glow-fill-opacity",
+            "type": "number",
+            "description": "Theme default for fillOpacity on the default variant.",
+            "default": "0.5"
+          },
+          {
+            "name": "--df-border-glow-ink-base",
+            "type": "CSS color",
+            "description": "Default soft outer glow source color.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--df-border-glow-color-1",
+            "type": "CSS color",
+            "description": "Default mesh stop 1.",
+            "default": "var(--df-orange-80)"
+          },
+          {
+            "name": "--df-border-glow-color-2",
+            "type": "CSS color",
+            "description": "Default mesh stop 2.",
+            "default": "var(--df-orange-180)"
+          },
+          {
+            "name": "--df-border-glow-color-3",
+            "type": "CSS color",
+            "description": "Default mesh stop 3.",
+            "default": "var(--df-blue-320)"
+          },
+          {
+            "name": "--df-border-glow-light-bg",
+            "type": "CSS color",
+            "description": "Light variant face. Soft white under .dark (neutral-50).",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--df-border-glow-light-stroke",
+            "type": "CSS color",
+            "description": "Idle CSS border color on the light variant.",
+            "default": "color-mix(in oklch, var(--df-neutral-1000) 8%, transparent)"
+          },
+          {
+            "name": "--df-border-glow-light-ink-base",
+            "type": "CSS color",
+            "description": "Light variant soft outer glow source color.",
+            "default": "var(--df-orange-340)"
+          },
+          {
+            "name": "--df-border-glow-light-color-1",
+            "type": "CSS color",
+            "description": "Light variant mesh stop 1.",
+            "default": "var(--df-orange-80)"
+          },
+          {
+            "name": "--df-border-glow-light-color-2",
+            "type": "CSS color",
+            "description": "Light variant mesh stop 2.",
+            "default": "var(--df-orange-420)"
+          },
+          {
+            "name": "--df-border-glow-light-color-3",
+            "type": "CSS color",
+            "description": "Light variant mesh stop 3.",
+            "default": "var(--code-dark-keyword)"
+          }
+        ]
+      }
+    ]
+  }
+}

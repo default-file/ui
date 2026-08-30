@@ -1,0 +1,253 @@
+{
+  "name": "tabs",
+  "slug": "tabs",
+  "title": "Tabs",
+  "description": "Panel switcher with pill, line, and segment variants. Prefer Content Switcher when you only switch mode without tab panels.",
+  "aliases": [
+    "tab bar",
+    "tab panels",
+    "tabbed panels",
+    "panel tabs",
+    "Tabs"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-tabs",
+  "dependencies": [],
+  "api": {
+    "description": "Panel switcher with pill, line, and segment variants in horizontal or vertical orientation. Label ink is optically centered to cap height with text-box when available, and a 1cap line box otherwise. Compose Tabs, TabsList, TabsTrigger, and TabsContent.",
+    "groups": [
+      {
+        "id": "tabs",
+        "title": "Tabs",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"pill\" | \"line\" | \"segment\"",
+            "default": "\"pill\"",
+            "description": "Visual style. pill = soft rounded track; line = underline; segment = equal width mode switcher with a sliding chip (e.g. color input modes)."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"default\" | \"lg\"",
+            "default": "\"default\"",
+            "description": "Trigger height and type size."
+          },
+          {
+            "name": "orientation",
+            "type": "\"horizontal\" | \"vertical\"",
+            "default": "\"horizontal\"",
+            "description": "Layout axis. horizontal puts triggers in a row with the panel below; vertical stacks triggers in a column with the panel alongside. Arrow key navigation switches to Up/Down."
+          },
+          {
+            "name": "lineSide",
+            "type": "\"top\" | \"bottom\" | \"left\" | \"right\"",
+            "default": "\"bottom\" (horizontal) / \"right\" (vertical)",
+            "description": "For the line variant only: which edge holds the divider and active indicator. Horizontal layouts accept top or bottom; vertical layouts accept left or right. Prefer left when the list sits to the right of its content so the line faces the panel."
+          },
+          {
+            "name": "lineAlign",
+            "type": "\"start\" | \"end\"",
+            "description": "For the line variant only. Leave unset so the list sizes to its triggers. Choose start or end to stretch the divider across the available width and group the tabs on that side. In a horizontal layout, start places tabs on the left and end places them on the right. In a vertical layout, start places tabs at the top and end places them at the bottom."
+          },
+          {
+            "name": "radius",
+            "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"full\"",
+            "description": "Corner radius for the track, sliding chip, and triggers. Defaults: pill full (2xl when vertical), segment lg. Line ignores radius."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Corner curve for pill and segment chrome. Omit to inherit --df-corner-shape from the theme."
+          },
+          {
+            "name": "gap",
+            "type": "number | \"none\"",
+            "default": "1.5",
+            "description": "Gap inside each trigger between leading icon, label, and trailing badge. Design-scale units from the shared spacing scale (none/0, even integers through 200, half-steps like 0.5 and 1.5). One unit = 0.25rem via --spacing-unit."
+          },
+          {
+            "name": "spacing",
+            "type": "number | \"none\"",
+            "default": "0 (pill/line) / 0.5 (segment)",
+            "description": "Gap between triggers in the list. Same design-scale units as gap. Defaults keep pill and line flush and segment slightly open."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Controlled active tab value."
+          },
+          {
+            "name": "defaultValue",
+            "type": "string",
+            "description": "Uncontrolled initial tab value."
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: string) => void",
+            "description": "Called when the active tab changes."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "tabs-list",
+        "title": "TabsList",
+        "description": "Container for triggers. Inherits variant, size, and radius from Tabs. Hosts the animated active indicator.",
+        "props": [
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the list."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "TabsTrigger children."
+          }
+        ]
+      },
+      {
+        "id": "tabs-trigger",
+        "title": "TabsTrigger",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Tab value this trigger activates (required)."
+          },
+          {
+            "name": "leading",
+            "type": "ReactNode",
+            "description": "Icon or node before the label."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "Node after the label. Pass a Badge with a count for notifications."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Non-interactive trigger. Skipped by pointer and selection."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Trigger label."
+          }
+        ]
+      },
+      {
+        "id": "tabs-content",
+        "title": "TabsContent",
+        "description": "Selected panels are focusable (tabIndex 0). Inactive panels omit the tab stop unless forceMount keeps them mounted with tabIndex unset.",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Shows when this value is active (required)."
+          },
+          {
+            "name": "forceMount",
+            "type": "boolean",
+            "default": "false",
+            "description": "Keep content mounted when inactive."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Panel content."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the panel."
+          }
+        ]
+      },
+      {
+        "id": "tabs-segment",
+        "title": "Segment variant",
+        "description": "Equal width segmented control for compact mode switching. The active chip slides between options with transform animation. Animated indicator (built-in): TabsList renders a sliding background chip behind the active trigger. Honors prefers-reduced-motion.",
+        "props": []
+      },
+      {
+        "id": "tabs-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-tabs-indicator-thickness",
+            "type": "CSS length",
+            "description": "Line variant indicator thickness.",
+            "default": "var(--border-width-thick)"
+          },
+          {
+            "name": "--df-shadow-tabs-indicator",
+            "type": "CSS shadow",
+            "description": "Shadow under the sliding indicator.",
+            "default": "0 1px 2px color-mix(in oklch, var(--foreground) var(--df-shadow-intensity-lg), transparent)"
+          },
+          {
+            "name": "--df-tabs-gap",
+            "type": "CSS length",
+            "description": "Instance variable set by the gap prop. Sizes the gap between leading icon, label, and trailing badge inside a trigger."
+          },
+          {
+            "name": "--df-tabs-spacing",
+            "type": "CSS length",
+            "description": "Instance variable set by the spacing prop. Sizes the gap between triggers in the list."
+          },
+          {
+            "name": "--df-tabs-panel-gap",
+            "type": "CSS length",
+            "description": "Instance variable set between the list and its panel."
+          },
+          {
+            "name": "--muted",
+            "type": "CSS color",
+            "description": "Pill variant track fill.",
+            "default": "var(--df-neutral-50)"
+          },
+          {
+            "name": "--background",
+            "type": "CSS color",
+            "description": "Active trigger and sliding chip fill.",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--foreground",
+            "type": "CSS color",
+            "description": "Active trigger label.",
+            "default": "var(--df-neutral-900)"
+          },
+          {
+            "name": "--border",
+            "type": "CSS color",
+            "description": "Line variant divider.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          },
+          {
+            "name": "--df-label-line-height",
+            "type": "CSS line-height",
+            "description": "Line box for label flex centering. Defaults to --df-leading-none. When text-box is unavailable and the cap unit is supported, the kit sets this to 1cap so flex centering matches cap-height ink.",
+            "default": "var(--df-leading-none)"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,476 @@
+@keyframes df-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes df-progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(var(--df-progress-indeterminate-travel));
+  }
+}
+
+@keyframes df-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes df-enter {
+  from {
+    opacity: var(--df-enter-opacity, 1);
+    transform: translate3d(
+        var(--df-enter-translate-x, 0),
+        var(--df-enter-translate-y, 0),
+        0
+      )
+      scale(var(--df-enter-scale, 1));
+  }
+}
+
+@keyframes df-exit {
+  to {
+    opacity: var(--df-exit-opacity, 1);
+    transform: translate3d(
+        var(--df-exit-translate-x, 0),
+        var(--df-exit-translate-y, 0),
+        0
+      )
+      scale(var(--df-exit-scale, 1));
+  }
+}
+
+@keyframes home-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(var(--df-motion-travel-xl));
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-shader-drift {
+  0% {
+    background-position: 0% 40%, 100% 60%, 50% 50%;
+  }
+  50% {
+    background-position: 80% 20%, 20% 80%, 40% 60%;
+  }
+  100% {
+    background-position: 0% 40%, 100% 60%, 50% 50%;
+  }
+}
+
+@keyframes home-mesh-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(4%, -3%, 0) scale(1.04);
+  }
+}
+
+@keyframes home-stage-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(calc(-1 * var(--df-motion-travel-sm)));
+  }
+}
+
+@keyframes df-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--df-marquee-gap)));
+  }
+}
+
+@keyframes df-tag-input-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(calc(-1 * var(--df-tag-input-shake-travel)));
+  }
+  75% {
+    transform: translateX(var(--df-tag-input-shake-travel));
+  }
+}
+
+@keyframes df-drawer-in {
+  from {
+    opacity: var(--df-opacity-0);
+    transform: translate3d(
+      var(--df-drawer-enter-x),
+      var(--df-drawer-enter-y),
+      0
+    );
+  }
+  to {
+    opacity: var(--df-opacity-100);
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes df-tab-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes df-spectrum-text {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 100%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 0%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.home-reveal {
+  animation: home-reveal var(--df-duration-reveal) var(--df-ease-decelerate) both;
+}
+
+.df-reveal {
+  opacity: 0;
+  transform: translateY(var(--df-reveal-y, var(--df-motion-travel-3xl)));
+  transition:
+    opacity var(--df-duration-reveal-long) var(--df-ease-decelerate),
+    transform var(--df-duration-reveal-long) var(--df-ease-decelerate),
+    color var(--df-duration-reveal-long) var(--df-ease-decelerate);
+  transition-delay: var(--df-reveal-delay, 0ms);
+}
+
+.df-reveal.is-inview {
+  opacity: 1;
+  transform: none;
+}
+
+.df-reveal-y-48 {
+  --df-reveal-y: var(--df-motion-travel-4xl);
+}
+
+.df-reveal-y-72 {
+  --df-reveal-y: var(--df-motion-travel-5xl);
+}
+
+.df-reveal-emphasis {
+  color: color-mix(in oklch, var(--foreground) 25%, transparent);
+  opacity: 1;
+  transform: none;
+}
+
+.df-reveal-emphasis.is-inview {
+  color: var(--foreground);
+}
+
+.home-grid-fade {
+  background-image:
+    linear-gradient(
+      to right,
+      var(--home-grid-line) var(--border-width-hairline),
+      transparent var(--border-width-hairline)
+    ),
+    linear-gradient(
+      to bottom,
+      var(--home-grid-line) var(--border-width-hairline),
+      transparent var(--border-width-hairline)
+    );
+  background-size: var(--home-grid-size);
+  mask-image: linear-gradient(180deg, black 0%, transparent 88%);
+}
+
+.home-intro-stage {
+  display: flex;
+  min-height: 100dvh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.home-section-tools {
+  background: var(--home-section-tools-wash);
+}
+
+.home-preview-frame {
+  box-shadow: var(--home-preview-frame-shadow);
+}
+
+.home-preview-shader {
+  background-image: var(--home-preview-shader-image);
+  background-size: 140% 140%, 140% 140%, 140% 140%, 100% 100%;
+  animation: home-shader-drift var(--home-shader-drift-duration) ease-in-out
+    infinite;
+}
+
+.home-preview-mesh {
+  background: var(--home-preview-mesh-bg);
+}
+
+.home-preview-mesh::before,
+.home-preview-mesh::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  border-radius: var(--radius-full);
+  filter: blur(var(--df-blur-mesh));
+  animation: home-mesh-float var(--home-mesh-float-duration) ease-in-out infinite;
+}
+
+.home-preview-mesh::before {
+  background: var(--home-preview-mesh-blob-a);
+  left: -10%;
+  top: -15%;
+}
+
+.home-preview-mesh::after {
+  background: var(--home-preview-mesh-blob-b);
+  right: -15%;
+  bottom: -20%;
+  animation-delay: -3s;
+}
+
+.home-hero-stage {
+  box-shadow: var(--home-hero-stage-shadow);
+}
+
+.home-hero-collage-gap {
+  margin-top: var(--home-hero-collage-gap);
+}
+
+@media (min-width: 640px) {
+  :root {
+    --home-hero-collage-gap: calc(32 * var(--spacing-unit, 0.25rem));
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --home-hero-collage-gap: calc(36 * var(--spacing-unit, 0.25rem));
+  }
+}
+
+.home-hero-collage-stage {
+  --home-hero-collage-stage-ring: color-mix(
+    in oklch,
+    var(--border) 70%,
+    transparent
+  );
+  background: var(--muted);
+  box-shadow:
+    0 0 0 var(--border-width-hairline) var(--home-hero-collage-stage-ring),
+    var(--home-hero-collage-stage-elevation);
+}
+
+.home-hero-card {
+  background: var(--card);
+  box-shadow: var(--home-hero-card-shadow);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
+
+.home-hero-card__float {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.home-hero-card-label {
+  background: color-mix(in oklch, var(--background) 72%, transparent);
+  box-shadow: var(--home-hero-card-label-shadow);
+}
+
+.home-stage-frame {
+  animation: home-stage-float var(--home-stage-float-duration) ease-in-out
+    infinite;
+}
+
+.home-stage-frame:nth-child(2) {
+  animation-delay: -2.5s;
+}
+
+.home-stage-frame:nth-child(3) {
+  animation-delay: -4.5s;
+}
+
+.df-marquee {
+  --df-marquee-gap: calc(3 * var(--spacing-unit, 0.25rem));
+  overflow: hidden;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.df-marquee-track {
+  display: flex;
+  gap: var(--df-marquee-gap);
+}
+
+.df-marquee-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-around;
+  gap: var(--df-marquee-gap);
+  min-width: 100%;
+  animation: df-marquee var(--df-marquee-duration, 30s) linear infinite;
+}
+
+.df-marquee:hover .df-marquee-group {
+  animation-play-state: paused;
+}
+
+.df-tab-progress {
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.df-tab-progress.is-active {
+  animation: df-tab-progress var(--df-tab-duration, 6s) linear forwards;
+}
+
+.df-accordion-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--df-duration-panel) var(--df-ease-decelerate);
+}
+
+.df-accordion-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.df-accordion-panel > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.df-accordion-chevron {
+  transition: transform var(--df-duration-panel) var(--df-ease-decelerate);
+}
+
+.df-accordion-chevron[data-open="true"] {
+  transform: rotate(180deg);
+}
+
+.df-sidebar-group-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--df-sidebar-motion-duration)
+    var(--df-sidebar-motion-ease);
+}
+
+.df-sidebar-group-panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.df-sidebar-group-panel > div {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.df-sidebar-group-chevron {
+  transition: transform var(--df-sidebar-motion-duration) var(--df-sidebar-motion-ease);
+}
+
+.df-sidebar-group-chevron[data-open="true"] {
+  transform: rotate(180deg);
+}
+
+.df-auto-tab-panel {
+  opacity: 0;
+  transform: translateY(var(--df-motion-travel-lg));
+  transition:
+    opacity var(--df-duration-panel-soft) var(--df-ease-decelerate),
+    transform var(--df-duration-panel-soft) var(--df-ease-decelerate);
+  pointer-events: none;
+}
+
+.df-auto-tab-panel.is-active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-reveal,
+  .home-preview-shader,
+  .home-preview-mesh::before,
+  .home-preview-mesh::after,
+  .home-stage-frame,
+  .df-marquee-group,
+  .df-tab-progress.is-active,
+  .df-spectrum-text-fill,
+  .animate-spin,
+  .animate-pulse,
+  :where([data-df="spinner"] svg),
+  .df-spinner svg,
+  :where([data-df="progress"][data-state="indeterminate"] .df-progress-indicator),
+  .df-progress[data-state="indeterminate"] .df-progress-indicator,
+  .df-data-grid-skeleton,
+  :where([data-df="skeleton"]),
+  .df-skeleton {
+    animation: none !important;
+  }
+
+  .df-reveal,
+  .df-reveal-emphasis,
+  .df-auto-tab-panel,
+  .df-accordion-panel,
+  .df-accordion-chevron,
+  .df-sidebar-group-panel,
+  .df-sidebar-group-chevron {
+    transition: none !important;
+  }
+
+  .df-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .df-reveal-emphasis {
+    color: var(--foreground);
+  }
+
+  .df-auto-tab-panel {
+    opacity: 0;
+    transform: none;
+  }
+
+  .df-auto-tab-panel.is-active {
+    opacity: 1;
+  }
+
+  .df-tab-progress {
+    transform: scaleX(1);
+  }
+}

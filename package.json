@@ -1,0 +1,276 @@
+{
+  "name": "@default-file/ui",
+  "version": "0.31.0",
+  "description": "Default File UI design system: color system, tokens, components, motion, CLI, and copy source registry.",
+  "license": "MIT",
+  "author": "Default File",
+  "homepage": "https://defaultfile.com/ui",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/default-file/ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/default-file/ui/issues"
+  },
+  "keywords": [
+    "design-system",
+    "react",
+    "component-library",
+    "ui-kit",
+    "css-variables",
+    "design-tokens",
+    "color-scales",
+    "oklch",
+    "accessibility",
+    "cli",
+    "mcp"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=22.6.0",
+      "onFail": "error"
+    }
+  },
+  "bin": {
+    "default-file-ui": "./bin/default-file-ui.mjs",
+    "df-ui": "./bin/default-file-ui.mjs"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "src/css",
+    "public/r",
+    "registry.json",
+    "scripts/cli",
+    "scripts/df-theme.mjs",
+    "scripts/generate-df-utilities.mjs",
+    "docs",
+    "skills",
+    "CHANGELOG.md"
+  ],
+  "exports": {
+    "./css/df-color-system.css": "./src/css/df-color-system.css",
+    "./css/df-index.css": "./src/css/df-index.css",
+    "./css/*": "./src/css/*",
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "default": "./dist/components/index.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "default": "./dist/components/*.js"
+    },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "default": "./dist/hooks/index.js"
+    },
+    "./utils": {
+      "types": "./dist/lib/utils/index.d.ts",
+      "default": "./dist/lib/utils/index.js"
+    },
+    "./nearest-theme": {
+      "types": "./dist/lib/nearest-theme/index.d.ts",
+      "default": "./dist/lib/nearest-theme/index.js"
+    },
+    "./df-ui-audio": {
+      "types": "./dist/lib/df-ui-audio/index.d.ts",
+      "default": "./dist/lib/df-ui-audio/index.js"
+    },
+    "./df-tick-sound": {
+      "types": "./dist/lib/df-tick-sound/index.d.ts",
+      "default": "./dist/lib/df-tick-sound/index.js"
+    },
+    "./df-schema": {
+      "types": "./dist/lib/df-schema/index.d.ts",
+      "default": "./dist/lib/df-schema/index.js"
+    },
+    "./df-scrub-sound": {
+      "types": "./dist/lib/df-scrub-sound/index.d.ts",
+      "default": "./dist/lib/df-scrub-sound/index.js"
+    },
+    "./df-store": {
+      "types": "./dist/lib/df-store/index.d.ts",
+      "default": "./dist/lib/df-store/index.js"
+    },
+    "./df-date": {
+      "types": "./dist/lib/df-date/index.d.ts",
+      "default": "./dist/lib/df-date/index.js"
+    },
+    "./df-dnd": {
+      "types": "./dist/lib/df-dnd/index.d.ts",
+      "default": "./dist/lib/df-dnd/index.js"
+    },
+    "./df-editor": {
+      "types": "./dist/lib/df-editor/index.d.ts",
+      "default": "./dist/lib/df-editor/index.js"
+    },
+    "./df-calendar-grid": {
+      "types": "./dist/lib/df-calendar-grid/index.d.ts",
+      "default": "./dist/lib/df-calendar-grid/index.js"
+    },
+    "./df-chart": {
+      "types": "./dist/lib/df-chart/index.d.ts",
+      "default": "./dist/lib/df-chart/index.js"
+    },
+    "./df-virtual": {
+      "types": "./dist/lib/df-virtual/index.d.ts",
+      "default": "./dist/lib/df-virtual/index.js"
+    },
+    "./df-data-grid": {
+      "types": "./dist/lib/df-data-grid/index.d.ts",
+      "default": "./dist/lib/df-data-grid/index.js"
+    },
+    "./df-avatar": {
+      "types": "./dist/lib/df-avatar/index.d.ts",
+      "default": "./dist/lib/df-avatar/index.js"
+    },
+    "./df-command": {
+      "types": "./dist/lib/df-command/index.d.ts",
+      "default": "./dist/lib/df-command/index.js"
+    },
+    "./df-context-menu": {
+      "types": "./dist/lib/df-context-menu/index.d.ts",
+      "default": "./dist/lib/df-context-menu/index.js"
+    },
+    "./df-date-picker": {
+      "types": "./dist/lib/df-date-picker/index.d.ts",
+      "default": "./dist/lib/df-date-picker/index.js"
+    },
+    "./df-tag-input": {
+      "types": "./dist/lib/df-tag-input/index.d.ts",
+      "default": "./dist/lib/df-tag-input/index.js"
+    },
+    "./df-combobox": {
+      "types": "./dist/lib/df-combobox/index.d.ts",
+      "default": "./dist/lib/df-combobox/index.js"
+    },
+    "./df-split": {
+      "types": "./dist/lib/df-split/index.d.ts",
+      "default": "./dist/lib/df-split/index.js"
+    },
+    "./df-focus-trap": {
+      "types": "./dist/lib/df-focus-trap/index.d.ts",
+      "default": "./dist/lib/df-focus-trap/index.js"
+    },
+    "./df-timeline": {
+      "types": "./dist/lib/df-timeline/index.d.ts",
+      "default": "./dist/lib/df-timeline/index.js"
+    },
+    "./df-widget-grid": {
+      "types": "./dist/lib/df-widget-grid/index.d.ts",
+      "default": "./dist/lib/df-widget-grid/index.js"
+    },
+    "./df-local-store": {
+      "types": "./dist/lib/df-local-store/index.d.ts",
+      "default": "./dist/lib/df-local-store/index.js"
+    },
+    "./df-url": {
+      "types": "./dist/lib/df-url/index.d.ts",
+      "default": "./dist/lib/df-url/index.js"
+    },
+    "./df-css-value": {
+      "types": "./dist/lib/df-css-value/index.d.ts",
+      "default": "./dist/lib/df-css-value/index.js"
+    },
+    "./df-css-token": {
+      "types": "./dist/lib/df-css-token/index.d.ts",
+      "default": "./dist/lib/df-css-token/index.js"
+    },
+    "./df-intl": {
+      "types": "./dist/lib/df-intl/index.d.ts",
+      "default": "./dist/lib/df-intl/index.js"
+    },
+    "./df-tween": {
+      "types": "./dist/lib/df-tween/index.d.ts",
+      "default": "./dist/lib/df-tween/index.js"
+    },
+    "./df-motion": {
+      "types": "./dist/lib/df-motion/index.d.ts",
+      "default": "./dist/lib/df-motion/index.js"
+    },
+    "./df-roving": {
+      "types": "./dist/lib/df-roving/index.d.ts",
+      "default": "./dist/lib/df-roving/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "df:colors": "node scripts/generate-df-color-scales.mjs",
+    "df:utilities": "node scripts/generate-df-utilities.mjs",
+    "df:breakpoints": "node scripts/generate-df-breakpoints.mjs",
+    "df:tokens": "npm run df:colors && npm run df:utilities && npm run df:breakpoints",
+    "df:registry": "node scripts/build-df-registry.mjs",
+    "df:cli": "node bin/default-file-ui.mjs",
+    "df:mcp": "node bin/default-file-ui.mjs mcp",
+    "test:discovery": "node scripts/cli/test-discovery.mjs",
+    "verify:registry": "node scripts/verify-registry.mjs",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test:lib": "node --import ./scripts/register-lib-test.mjs --experimental-strip-types --test \"src/lib/**/*.test.ts\"",
+    "test:components": "vitest run",
+    "test:scripts": "node --test \"scripts/**/*.test.mjs\"",
+    "df:audit-geometry": "node scripts/audit-df-geometry.mjs",
+    "test": "npm run test:lib && npm run test:components && npm run test:scripts",
+    "verify": "npm run verify:registry && npm run df:audit-geometry && npm run test:lib && npm run typecheck && npm run lint && npm run test:components && npm run test:scripts && npm run build && npm run test:dist",
+    "prepublishOnly": "npm run df:tokens && npm run df:registry && npm run verify",
+    "prepare": "node scripts/build.mjs && node scripts/install-git-hooks.mjs",
+    "build": "node scripts/build.mjs",
+    "test:dist": "node scripts/verify-dist.mjs"
+  },
+  "peerDependencies": {
+    "@tanstack/react-virtual": "^3.14.8",
+    "lucide-react": ">=0.400.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0",
+    "rough-notation": ">=0.5.0"
+  },
+  "peerDependenciesMeta": {
+    "@tanstack/react-virtual": {
+      "optional": true
+    },
+    "lucide-react": {
+      "optional": true
+    },
+    "rough-notation": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@tanstack/react-virtual": "^3.14.8",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^22.20.1",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "axe-core": "^4.10.3",
+    "eslint": "^9.39.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.0",
+    "globals": "^16.4.0",
+    "jsdom": "^26.1.0",
+    "lucide-react": "^1.27.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "rough-notation": "^0.5.1",
+    "typescript": "^5",
+    "typescript-eslint": "^8.46.0",
+    "vitest": "^3.2.4",
+    "vitest-axe": "1.0.0-pre.5"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0"
+  }
+}

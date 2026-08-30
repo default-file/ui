@@ -1,0 +1,563 @@
+{
+  "name": "input",
+  "slug": "input",
+  "title": "Input",
+  "description": "Text fields with variants, sizes, labels, icons, clear control, numeric stepper, change or blur value commit, addons, input groups, hover and focus borders, and validation.",
+  "aliases": [
+    "text field",
+    "text input",
+    "text box",
+    "form input",
+    "number input",
+    "numeric stepper",
+    "spinbutton",
+    "Input"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation",
+    "label"
+  ],
+  "importPath": "@default-file/ui/components/df-input",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Single-line text field with primary and secondary variants, size, height, padding, and border width control, outside or inside labels, chrome overrides, hover and focus border recipes, icons, clearable trailing control, optional numeric stepper with swappable icons, change or blur value commit, prefix and suffix addons, an attached action for input groups, and validation state.",
+    "groups": [
+      {
+        "id": "input",
+        "title": "Input",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"primary\" | \"secondary\"",
+            "default": "\"primary\"",
+            "description": "primary is a surface fill with a hairline border. secondary is a soft secondary wash with secondary-foreground value text and a transparent border."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\" | \"xl\"",
+            "default": "\"md\"",
+            "description": "Field height step. Maps to --df-control-height-sm through --df-control-height-xl via --df-input-height. Replaces the native HTML size attribute."
+          },
+          {
+            "name": "height",
+            "type": "string",
+            "description": "Exact field height. Prefer a control token such as var(--df-control-height-2xl). Sets --df-input-height and overrides size."
+          },
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Padding on all sides. Prefer spacing tokens such as calc(2 * var(--spacing-unit)). Sets each --df-input-padding-* side."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal padding. Sets --df-input-padding-left and --df-input-padding-right. Overrides padding on those sides."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical padding. Sets --df-input-padding-top and --df-input-padding-bottom. Overrides padding on those sides."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top padding. Prefer spacing tokens. Sets --df-input-padding-top and wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Right padding. Prefer spacing tokens. Sets --df-input-padding-right and wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom padding. Prefer spacing tokens. Sets --df-input-padding-bottom and wins over paddingY and padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Left padding. Prefer spacing tokens. Sets --df-input-padding-left and wins over paddingX and padding. Leading icons and floating labels follow this inset."
+          },
+          {
+            "name": "label",
+            "type": "ReactNode",
+            "description": "Field title. With labelPosition outside, renders the kit Label above the control. With inside, renders a floating label in the field that rises on focus or when the value is filled."
+          },
+          {
+            "name": "labelPosition",
+            "type": "\"outside\" | \"inside\"",
+            "default": "\"outside\"",
+            "description": "outside places the label above the field. inside uses a floating label inside the field chrome. Empty versus filled state is driven by the field value via data-empty."
+          },
+          {
+            "name": "labelTrailing",
+            "type": "ReactNode",
+            "description": "Meta on the label row. Forwards to Label trailing when outside. Supports Badge or any node."
+          },
+          {
+            "name": "labelInsetAlign",
+            "type": "\"left\" | \"content\" | \"custom\"",
+            "default": "\"left\"",
+            "description": "Outside label inset. Forwards to Label insetAlign. content tracks paddingLeft when set, otherwise --df-control-content-inset-inline."
+          },
+          {
+            "name": "labelInsetSize",
+            "type": "string",
+            "description": "Outside label custom inset. Forwards to Label insetSize when labelInsetAlign is custom."
+          },
+          {
+            "name": "labelColor",
+            "type": "string",
+            "description": "Label color. Prefer tokens such as var(--foreground). Sets --df-input-label."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Field fill. Prefer tokens such as var(--background). Sets --df-input-bg and overrides the variant recipe."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Field border color. Prefer tokens such as var(--input). Sets --df-input-border."
+          },
+          {
+            "name": "borderWidth",
+            "type": "\"hairline\" | \"thin\" | \"thick\"",
+            "default": "\"hairline\"",
+            "description": "Field border width step. Maps to --border-width-hairline, --border-width-thin, or --border-width-thick via --df-input-border-width."
+          },
+          {
+            "name": "hoverBorder",
+            "type": "boolean",
+            "description": "Instance hover border. Omit to inherit the theme. Set false to keep the resting border. Set true to force the hover border on. When set, the control writes data-hover-border; omit to inherit data-df-hover-border from the host."
+          },
+          {
+            "name": "hoverBorderColor",
+            "type": "string",
+            "description": "Hover border color when hover is active. Prefer tokens such as var(--foreground). Sets --df-input-hover-border. Focus and invalid borders take priority."
+          },
+          {
+            "name": "foreground",
+            "type": "string",
+            "description": "Value text color. Prefer tokens such as var(--foreground). Sets --df-input-fg."
+          },
+          {
+            "name": "placeholderColor",
+            "type": "string",
+            "description": "Placeholder color. Prefer tokens such as var(--muted-foreground). Sets --df-input-placeholder."
+          },
+          {
+            "name": "radius",
+            "type": "\"none\" | \"xxs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"full\"",
+            "default": "\"4xl\"",
+            "description": "Corner radius step. Maps to a --radius-* token via --df-input-radius."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Instance corner curve. Omit to inherit --df-corner-shape from the theme (set at create/init)."
+          },
+          {
+            "name": "focusVariant",
+            "type": "\"ring\" | \"border\"",
+            "default": "\"ring\"",
+            "description": "ring uses the focus ring token. border uses a solid focus outline only."
+          },
+          {
+            "name": "focusBorderColor",
+            "type": "string",
+            "description": "Focus border color when focusVariant is border. Prefer tokens such as var(--foreground). Sets --df-input-focus-border."
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "default": "false",
+            "description": "Validation state. Sets aria-invalid and applies the destructive border with --focus-ring-error. Hint text stays muted."
+          },
+          {
+            "name": "invalidLabel",
+            "type": "boolean",
+            "default": "true",
+            "description": "When invalid is true, tint the owned label with the error color. Set false to keep the label at its normal color."
+          },
+          {
+            "name": "errorBorderColor",
+            "type": "string",
+            "description": "Invalid border color. Prefer tokens such as var(--destructive). Sets --df-input-error-border."
+          },
+          {
+            "name": "errorLabelColor",
+            "type": "string",
+            "description": "Owned label color when invalid and invalidLabel are true. Prefer tokens such as var(--destructive). Sets --df-input-error-label."
+          },
+          {
+            "name": "leadingIcon",
+            "type": "ReactNode",
+            "description": "Decorative icon at the start of the field."
+          },
+          {
+            "name": "trailingIcon",
+            "type": "ReactNode",
+            "description": "Icon or control at the end of the text area. Allows interaction for show and hide controls."
+          },
+          {
+            "name": "clearable",
+            "type": "boolean",
+            "default": "false",
+            "description": "Show a clear control on the trailing edge when the field has a value. Hidden while disabled or readOnly."
+          },
+          {
+            "name": "onClear",
+            "type": "() => void",
+            "description": "Called when the clear control is activated."
+          },
+          {
+            "name": "prefix",
+            "type": "ReactNode",
+            "description": "Static start addon inside the field. Muted and non-editable. Not part of the input value. Use for schemes such as https://."
+          },
+          {
+            "name": "suffix",
+            "type": "ReactNode",
+            "description": "Static end addon inside the field. Same rules as prefix."
+          },
+          {
+            "name": "addonColor",
+            "type": "string",
+            "description": "Prefix and suffix color. Prefer tokens such as var(--muted-foreground). Sets --df-input-addon."
+          },
+          {
+            "name": "action",
+            "type": "ReactNode",
+            "description": "Attached end action for an input group. Typically a kit Button. Shares the field border with a vertical divider."
+          },
+          {
+            "name": "stepper",
+            "type": "boolean",
+            "default": "false",
+            "description": "Show kit increment and decrement controls when the field is editable. Steps with ArrowUp, ArrowDown, and the control buttons. Honors min, max, and step. Hides browser spin buttons. Hidden when disabled or readOnly. With commitMode change, forces type number. With commitMode blur, keeps the type prop (default text) so empty and padded drafts remain editable."
+          },
+          {
+            "name": "incrementIcon",
+            "type": "ReactNode",
+            "description": "Icon for the increment control. Defaults to ChevronUp. Only used when stepper is true."
+          },
+          {
+            "name": "decrementIcon",
+            "type": "ReactNode",
+            "description": "Icon for the decrement control. Defaults to ChevronDown. Only used when stepper is true."
+          },
+          {
+            "name": "commitMode",
+            "type": "\"change\" | \"blur\"",
+            "default": "\"change\"",
+            "description": "When onChange receives the field value. change fires on every keystroke. blur keeps a local draft while focused and commits on blur or Enter. Stepper buttons, ArrowUp, ArrowDown, and clear still commit immediately. If a controlled parent normalizes or rejects that value, the draft reconciles to the committed value. Prefer blur when the parent pads or clamps on commit."
+          },
+          {
+            "name": "hint",
+            "type": "ReactNode",
+            "description": "Helper line under the field. Wired with aria-describedby. Stays muted in the invalid state."
+          },
+          {
+            "name": "hintColor",
+            "type": "string",
+            "description": "Hint color. Prefer tokens such as var(--muted-foreground). Sets --df-input-hint."
+          },
+          {
+            "name": "type",
+            "type": "string",
+            "default": "\"text\"",
+            "description": "Native input type (text, email, password, and others)."
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Controlled field value."
+          },
+          {
+            "name": "defaultValue",
+            "type": "string",
+            "description": "Uncontrolled initial field value."
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "description": "Empty-state hint text in the editable segment."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Non-interactive field. Muted fill, hairline border, and muted value text."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the outermost wrapper when the field is shelled, otherwise on the native input."
+          }
+        ]
+      },
+      {
+        "id": "input-parts",
+        "title": "Parts",
+        "description": "DOM structure markers for styling and tests. These are not component props. data-df=\"input-root\": Column wrapper when label, hint, or field chrome is present. data-df=\"input-field\": Relative shell for icons, addons, action, and inside labels. data-empty marks an empty inside-label field. data-df=\"input-label\": Inside-label title. data-df=\"input-prefix\": Static start addon. data-df=\"input-suffix\": Static end addon. data-df=\"input-icon\": Icon slot. data-side is start or end. data-df=\"input-clear\": Clear control on the trailing edge when clearable is active and the field has a value. data-df=\"input-stepper\": Stacked increment and decrement controls when stepper is true. data-df=\"input-stepper-button\": Stepper button. data-direction is up or down. data-df=\"input-action\": Attached action for the input group. data-df=\"input-hint\": Helper line under the field. data-df=\"input\": Native input element. Also uses class df-input. data-commit-mode: Present with value blur when commitMode is blur. Omitted for change. data-border-width: Border width step on the field shell and native input: hairline, thin, or thick. data-hover-border: true or false when hoverBorder is set; omit to inherit the host theme.",
+        "props": []
+      },
+      {
+        "id": "input-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-input-bg",
+            "type": "CSS color",
+            "description": "Field fill. Set by variant or the background prop.",
+            "default": "var(--background)"
+          },
+          {
+            "name": "--df-input-border",
+            "type": "CSS color",
+            "description": "Field border. Set by variant or the borderColor prop.",
+            "default": "var(--input)"
+          },
+          {
+            "name": "--df-input-border-width",
+            "type": "CSS length",
+            "description": "Resolved field border width from the borderWidth step.",
+            "default": "var(--border-width-hairline)"
+          },
+          {
+            "name": "--border-width-hairline",
+            "type": "CSS length",
+            "description": "Hairline border width step.",
+            "default": "1px"
+          },
+          {
+            "name": "--border-width-thin",
+            "type": "CSS length",
+            "description": "Thin border width step.",
+            "default": "1.5px"
+          },
+          {
+            "name": "--border-width-thick",
+            "type": "CSS length",
+            "description": "Thick border width step.",
+            "default": "2px"
+          },
+          {
+            "name": "--df-input-fg",
+            "type": "CSS color",
+            "description": "Value text color.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-input-placeholder",
+            "type": "CSS color",
+            "description": "Placeholder color.",
+            "default": "var(--muted-foreground)"
+          },
+          {
+            "name": "--df-input-autofill-bg",
+            "type": "CSS color",
+            "description": "Browser autofill fill. Applied to the field shell so the wash follows the field radius, including under leading and trailing icons.",
+            "default": "color-mix(in oklch, var(--secondary) 45%, var(--background))"
+          },
+          {
+            "name": "--df-input-autofill-fg",
+            "type": "CSS color",
+            "description": "Browser autofill value text color.",
+            "default": "var(--df-input-fg)"
+          },
+          {
+            "name": "--df-input-hint",
+            "type": "CSS color",
+            "description": "Hint line color.",
+            "default": "var(--muted-foreground)"
+          },
+          {
+            "name": "--df-input-label",
+            "type": "CSS color",
+            "description": "Owned label color.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-input-addon",
+            "type": "CSS color",
+            "description": "Prefix and suffix color.",
+            "default": "var(--muted-foreground)"
+          },
+          {
+            "name": "--df-input-radius",
+            "type": "CSS length",
+            "description": "Resolved corner radius from the radius prop.",
+            "default": "var(--radius-4xl)"
+          },
+          {
+            "name": "--df-input-height",
+            "type": "CSS length",
+            "description": "Field height from size or height. Defaults to the md control height.",
+            "default": "var(--df-control-height-md)"
+          },
+          {
+            "name": "--df-input-font-size",
+            "type": "CSS length",
+            "description": "Value and placeholder font size. Defaults to --df-text-sm. Size steps override this token.",
+            "default": "var(--df-text-sm)"
+          },
+          {
+            "name": "--df-input-line-height",
+            "type": "CSS length",
+            "description": "Value and placeholder leading. Paired with the size step as an even pixel value so single-line text centers without sub-pixel drift.",
+            "default": "var(--df-leading-5)"
+          },
+          {
+            "name": "--df-input-floating-min-height",
+            "type": "CSS length",
+            "description": "Minimum height when labelPosition is inside so the floating label has room to rise.",
+            "default": "var(--df-control-height-xl)"
+          },
+          {
+            "name": "--df-input-padding-top",
+            "type": "CSS length",
+            "description": "Top content padding. Set by padding, paddingY, or paddingTop.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-input-padding-right",
+            "type": "CSS length",
+            "description": "Right content padding. Set by padding, paddingX, or paddingRight. Defaults to --df-control-content-inset-inline.",
+            "default": "var(--df-control-content-inset-inline)"
+          },
+          {
+            "name": "--df-input-padding-bottom",
+            "type": "CSS length",
+            "description": "Bottom content padding. Set by padding, paddingY, or paddingBottom.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-input-padding-left",
+            "type": "CSS length",
+            "description": "Left content padding. Set by padding, paddingX, or paddingLeft. Icons and floating labels follow this inset. Defaults to --df-control-content-inset-inline.",
+            "default": "var(--df-control-content-inset-inline)"
+          },
+          {
+            "name": "--df-hover-border",
+            "type": "CSS keyword",
+            "description": "Theme field hover border. on paints the ink hover border; off keeps the resting border. Runtime gating uses data-df-hover-border on html. Set with df-ui init --hover-border. Default on.",
+            "default": "on"
+          },
+          {
+            "name": "--df-input-hover-border",
+            "type": "CSS color",
+            "description": "Hover border when the theme or instance enables hover. Defaults to the ink foreground. Override with hoverBorderColor.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-input-focus-border",
+            "type": "CSS color",
+            "description": "Solid focus border when focusVariant is border.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-input-error-border",
+            "type": "CSS color",
+            "description": "Invalid border color.",
+            "default": "var(--destructive)"
+          },
+          {
+            "name": "--df-input-error-label",
+            "type": "CSS color",
+            "description": "Owned label color when invalidLabel is active.",
+            "default": "var(--destructive)"
+          },
+          {
+            "name": "--input",
+            "type": "CSS color",
+            "description": "Default border token.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--ring",
+            "type": "CSS color",
+            "description": "Ring focus border color.",
+            "default": "var(--df-neutral-400)"
+          },
+          {
+            "name": "--focus-ring-width",
+            "type": "CSS length",
+            "description": "Shared spread for --focus-ring and --focus-ring-inset.",
+            "default": "3px"
+          },
+          {
+            "name": "--focus-ring",
+            "type": "CSS box-shadow",
+            "description": "Outer ring focus glow for controls with surrounding space.",
+            "default": "0 0 0 var(--focus-ring-width) color-mix(in oklch, var(--ring) 50%, transparent)"
+          },
+          {
+            "name": "--focus-ring-inset",
+            "type": "CSS box-shadow",
+            "description": "Inset ring focus glow for dense rows inside overflow scrollports (for example Sidebar menus).",
+            "default": "inset 0 0 0 var(--focus-ring-width) color-mix(in oklch, var(--ring) 50%, transparent)"
+          },
+          {
+            "name": "--focus-ring-error",
+            "type": "CSS box-shadow",
+            "description": "Invalid glow.",
+            "default": "0 0 0 var(--focus-ring-width) color-mix(in oklch, var(--destructive) 20%, transparent)"
+          },
+          {
+            "name": "--destructive",
+            "type": "CSS color",
+            "description": "Invalid label and default error border.",
+            "default": "var(--df-destructive)"
+          },
+          {
+            "name": "--background",
+            "type": "CSS color",
+            "description": "Primary fill default.",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--secondary",
+            "type": "CSS color",
+            "description": "Secondary variant wash source.",
+            "default": "var(--df-neutral-50)"
+          },
+          {
+            "name": "--secondary-foreground",
+            "type": "CSS color",
+            "description": "Secondary variant value text.",
+            "default": "var(--df-neutral-850, var(--df-neutral-900))"
+          },
+          {
+            "name": "--muted",
+            "type": "CSS color",
+            "description": "Disabled fill default.",
+            "default": "var(--df-neutral-50)"
+          },
+          {
+            "name": "--muted-foreground",
+            "type": "CSS color",
+            "description": "Disabled value text.",
+            "default": "var(--df-neutral-500)"
+          },
+          {
+            "name": "--foreground",
+            "type": "CSS color",
+            "description": "Default text color.",
+            "default": "var(--df-neutral-900)"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          }
+        ]
+      }
+    ]
+  }
+}

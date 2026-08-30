@@ -1,0 +1,21 @@
+{
+  "name": "search-input",
+  "type": "registry:ui",
+  "title": "Search Input",
+  "description": "",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "foundation",
+    "input"
+  ],
+  "files": [
+    {
+      "path": "src/components/df-search-input.tsx",
+      "type": "registry:ui",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Search, X } from \"lucide-react\"\n\nimport { Input, type InputProps } from \"./df-input\"\nimport { useControllableState } from \"../hooks\"\nimport { useDfStrings } from \"../lib/df-intl\"\nimport { cn } from \"../lib/utils\"\n\ntype SearchInputSize = \"sm\" | \"md\" | \"lg\"\ntype SearchInputIconPosition = \"start\" | \"end\"\n\ntype SearchInputProps = Omit<\n  React.ComponentProps<\"input\">,\n  \"className\" | \"size\" | \"height\"\n> &\n  Pick<InputProps, \"background\" | \"hoverBorder\" | \"hoverBorderColor\"> & {\n    className?: string\n    inputClassName?: string\n    leadingIcon?: React.ReactNode | false\n    iconPosition?: SearchInputIconPosition\n    trailing?: React.ReactNode\n    clearable?: boolean\n    onClear?: () => void\n    variant?: \"default\" | \"pill\"\n    size?: SearchInputSize\n  }\n\nfunction SearchInput({\n  className,\n  inputClassName,\n  leadingIcon,\n  iconPosition = \"start\",\n  trailing,\n  clearable = true,\n  onClear,\n  variant = \"default\",\n  size = \"md\",\n  value,\n  defaultValue,\n  onChange,\n  placeholder,\n  disabled,\n  ...props\n}: SearchInputProps) {\n  const s = useDfStrings()\n  const [current, setCurrent] = useControllableState<string>({\n    value: value === undefined ? undefined : String(value),\n    defaultValue:\n      defaultValue === undefined || defaultValue === null\n        ? \"\"\n        : String(defaultValue),\n  })\n\n  const filled = current.trim().length > 0\n  const state = filled ? \"filled\" : \"placeholder\"\n  const showIcon = leadingIcon !== false\n  const iconNode = leadingIcon ?? <Search aria-hidden />\n  const showClear = clearable && filled && !disabled\n  const showTrailingActions = Boolean(trailing) || showClear\n\n  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {\n    setCurrent(event.target.value)\n    onChange?.(event)\n  }\n\n  function handleClear() {\n    setCurrent(\"\")\n    onClear?.()\n    onChange?.({\n      target: { value: \"\" },\n      currentTarget: { value: \"\" },\n    } as React.ChangeEvent<HTMLInputElement>)\n  }\n\n  const searchIcon = showIcon ? (\n    <span data-df=\"search-input-icon\" data-side={iconPosition} aria-hidden>\n      {iconNode}\n    </span>\n  ) : null\n\n  return (\n    <div\n      className={cn(className)}\n      data-df=\"search-input\"\n      data-state={state}\n      data-variant={variant}\n      data-size={size}\n      data-icon-position={iconPosition}\n      data-clearable={clearable ? \"\" : undefined}\n      data-has-icon={showIcon ? \"\" : undefined}\n      data-has-trailing={showTrailingActions ? \"\" : undefined}\n      data-disabled={disabled ? \"\" : undefined}\n    >\n      {searchIcon}\n\n      <Input\n        {...props}\n        disabled={disabled}\n        placeholder={placeholder}\n        value={current}\n        onChange={handleChange}\n        size={size}\n        className={cn(inputClassName)}\n      />\n\n      {showTrailingActions ? (\n        <div data-df=\"search-input-trailing\">\n          {showClear ? (\n            <button\n              type=\"button\"\n              data-df=\"search-input-clear\"\n              aria-label={s.searchInputClear}\n              onMouseDown={(event) => {\n                event.preventDefault()\n              }}\n              onClick={handleClear}\n            >\n              <X aria-hidden />\n            </button>\n          ) : null}\n          {trailing}\n        </div>\n      ) : null}\n    </div>\n  )\n}\n\nconst SearchBar = SearchInput\n\nexport { SearchInput, SearchBar }\nexport type { SearchInputProps, SearchInputSize, SearchInputIconPosition }\n",
+      "target": "default-file-ui/components/df-search-input.tsx"
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "name": "date-picker",
+  "slug": "date-picker",
+  "title": "Date Picker",
+  "description": "Single day and range calendars in a popover, with locale-aware month titles and week start.",
+  "aliases": [
+    "calendar",
+    "date range",
+    "range picker",
+    "Date Picker"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation",
+    "popover",
+    "input"
+  ],
+  "importPath": "@default-file/ui/components/df-date-picker",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Single-day DatePicker and range DateRangePicker. Both open a locale-aware calendar in a popover.",
+    "groups": [
+      {
+        "id": "date-picker-shared",
+        "title": "Shared props",
+        "description": "Available on DatePicker and DateRangePicker.",
+        "props": [
+          {
+            "name": "locale",
+            "type": "string",
+            "default": "\"en-US\"",
+            "description": "BCP 47 locale for the month title and the first day of the week."
+          },
+          {
+            "name": "min",
+            "type": "string | null",
+            "description": "Earliest selectable ISO day."
+          },
+          {
+            "name": "max",
+            "type": "string | null",
+            "description": "Latest selectable ISO day."
+          },
+          {
+            "name": "disabledDates",
+            "type": "(dayIso: string) => boolean",
+            "description": "Return true to disable a specific day."
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "description": "Trigger field placeholder when empty."
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state for the calendar popover."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "description": "Uncontrolled initial open state."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when the popover open state changes."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Disable the trigger and calendar."
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Id forwarded to the trigger input."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "description": "Accessible name for the trigger when no external label is used."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "date-picker",
+        "title": "DatePicker",
+        "props": [
+          {
+            "name": "value",
+            "type": "string | null",
+            "description": "Controlled ISO day value."
+          },
+          {
+            "name": "defaultValue",
+            "type": "string | null",
+            "description": "Uncontrolled initial ISO day."
+          },
+          {
+            "name": "onChange",
+            "type": "(value: string | null) => void",
+            "description": "Called when the selected day changes."
+          }
+        ]
+      },
+      {
+        "id": "date-range-picker",
+        "title": "DateRangePicker",
+        "props": [
+          {
+            "name": "value",
+            "type": "DateRangeValue | null",
+            "description": "Controlled { start, end } ISO day range."
+          },
+          {
+            "name": "defaultValue",
+            "type": "DateRangeValue | null",
+            "description": "Uncontrolled initial range."
+          },
+          {
+            "name": "onChange",
+            "type": "(value: DateRangeValue | null) => void",
+            "description": "Called when the range changes."
+          }
+        ]
+      }
+    ]
+  }
+}

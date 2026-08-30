@@ -1,0 +1,100 @@
+{
+  "name": "spinner",
+  "slug": "spinner",
+  "title": "Spinner",
+  "description": "Indeterminate circular loading indicator.",
+  "aliases": [
+    "loader",
+    "loading spinner",
+    "circular loader",
+    "Spinner"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-spinner",
+  "dependencies": [],
+  "api": {
+    "description": "Indeterminate circular loading indicator. Uses currentColor so it matches the host text color.",
+    "groups": [
+      {
+        "id": "spinner",
+        "title": "Spinner",
+        "props": [
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "Diameter of the ring."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "default": "\"Loading\"",
+            "description": "Accessible name when the spinner is announced. Ignored when the spinner is hidden from assistive tech."
+          },
+          {
+            "name": "aria-hidden",
+            "type": "boolean",
+            "description": "Hide from assistive tech when a parent already exposes busy state."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "spinner-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-spinner-size-xs",
+            "type": "CSS length",
+            "description": "xs diameter.",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-spinner-size-sm",
+            "type": "CSS length",
+            "description": "sm diameter.",
+            "default": "calc(3.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-spinner-size-md",
+            "type": "CSS length",
+            "description": "md diameter.",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-spinner-size-lg",
+            "type": "CSS length",
+            "description": "lg diameter.",
+            "default": "calc(5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-spinner-stroke",
+            "type": "CSS length",
+            "description": "Ring stroke width.",
+            "default": "var(--border-width-thick)"
+          },
+          {
+            "name": "--df-spinner-track-opacity",
+            "type": "number",
+            "description": "Muted full ring opacity.",
+            "default": "var(--df-opacity-25)"
+          },
+          {
+            "name": "--df-duration-spin",
+            "type": "CSS time",
+            "description": "One full rotation period.",
+            "default": "1s"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "name": "button",
+  "slug": "button",
+  "title": "Button",
+  "description": "Primary actions with variants, text sizes, icon sizes, and a plain icon-only style.",
+  "aliases": [
+    "cta",
+    "action button",
+    "icon button",
+    "plain icon button",
+    "outline button",
+    "transparent outline",
+    "Button"
+  ],
+  "chapter": "actions",
+  "registryDependencies": [
+    "foundation",
+    "spinner",
+    "badge"
+  ],
+  "importPath": "@default-file/ui/components/df-button",
+  "dependencies": [],
+  "api": {
+    "description": "Primary actions with variants, text and icon sizes, optional leading or trailing content, loading state, and a corner count badge. plain is the icon-only variant with no resting plate. Use glyphShadow to control the plain icon drop shadow on busy surfaces. Use transparent on outline to drop the resting fill.",
+    "groups": [
+      {
+        "id": "button",
+        "title": "Button",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"outline\" | \"secondary\" | \"ghost\" | \"destructive\" | \"link\" | \"plain\"",
+            "default": "\"default\"",
+            "description": "Visual style of the button. plain is icon-only chrome with no resting plate; hover and focus expand a soft pad around the glyph without shifting layout. Use ghost for labeled transparent actions on UI chrome. Prefer plain on media, gradients, and dense overlays. Give plain buttons an aria-label. link is inline text with no control height or horizontal padding. On outline, set transparent to drop the resting fill."
+          },
+          {
+            "name": "size",
+            "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"xl\" | \"2xl\" | \"icon\" | \"icon-2xs\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\" | \"icon-xl\" | \"icon-2xl\"",
+            "default": "\"default\"",
+            "description": "Text sizes use padding (xs to 2xl). Icon sizes are square controls (icon-2xs to icon-2xl). plain requires an icon size; the resting box matches the glyph for that step. If plain is paired with a text size, size falls back to icon-xs."
+          },
+          {
+            "name": "underline",
+            "type": "boolean",
+            "default": "true",
+            "description": "Link variant only. When true, show underline on hover. Set false to keep the label plain on hover."
+          },
+          {
+            "name": "transparent",
+            "type": "boolean",
+            "default": "false",
+            "description": "Outline variant only. When true, drop the resting fill (data-transparent). Theme the filled plate with --df-button-outline-fill. Hover and expanded washes stay for affordance. Ignored on other variants."
+          },
+          {
+            "name": "glyphShadow",
+            "type": "boolean",
+            "default": "true",
+            "description": "Plain icon only. When true, apply the glyph drop shadow to the icon so light glyphs stay readable on busy surfaces such as media and gradients. Set false to turn the shadow off (data-glyph-shadow=off). Customize the filter with --df-button-plain-glyph-filter when the shadow is on. Ignored on non-plain variants."
+          },
+          {
+            "name": "leading",
+            "type": "ReactNode",
+            "description": "Content before the label, such as an icon."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "Content after the label, such as an icon or badge."
+          },
+          {
+            "name": "loading",
+            "type": "boolean",
+            "default": "false",
+            "description": "Shows a Spinner in the icon area, keeps the label, and disables the control. Unsupported on the link variant. Supported on plain icon sizes."
+          },
+          {
+            "name": "loadingPlacement",
+            "type": "\"leading\" | \"trailing\"",
+            "default": "\"leading\"",
+            "description": "Which icon slot shows the Spinner while loading. Ignored for icon-only sizes, which replace the icon child."
+          },
+          {
+            "name": "loadingAppearance",
+            "type": "\"muted\" | \"solid\"",
+            "default": "\"muted\"",
+            "description": "muted fades the whole control like disabled. solid keeps the default background, fades the label only, and leaves the Spinner at full opacity."
+          },
+          {
+            "name": "badge",
+            "type": "number | string",
+            "description": "Corner count badge anchored to the top end of the button. Count ink is optically centered to cap height with text-box when available, and a 1cap line box otherwise. Hidden when empty, null, or 0. Include the count in aria-label for icon buttons."
+          },
+          {
+            "name": "badgeVariant",
+            "type": "\"default\" | \"secondary\" | \"destructive\" | \"outline\" | \"ghost\" | \"link\"",
+            "description": "Badge visual style. Defaults to secondary on the default button variant, otherwise default, so the count stays readable on dark fills."
+          },
+          {
+            "name": "badgePosition",
+            "type": "\"edge\" | \"inset\"",
+            "default": "\"edge\"",
+            "description": "edge sits on the corner. inset pulls the badge a notch inside the button."
+          },
+          {
+            "name": "badgeSide",
+            "type": "\"start\" | \"end\"",
+            "default": "\"end\"",
+            "description": "Which top corner hosts the badge. end is the trailing side (right in left to right layouts). start is the leading side."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Disables the button."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "button-helpers",
+        "title": "Helpers",
+        "description": "Class helper for applying button styles to a host that is not a button.",
+        "props": [
+          {
+            "name": "dfButtonClass",
+            "type": "(opts?: { variant?, size?, className? }) => string",
+            "description": "Builds the same class string Button uses internally. Resolves plain with a non-icon size to icon-xs, matching Button. For link hosts, set the underline data attribute to hover or none to match the underline prop. For outline hosts without a resting fill, set data-transparent. For plain icon hosts without glyph shadow, set data-glyph-shadow to off."
+          }
+        ]
+      },
+      {
+        "id": "button-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--spacing-unit",
+            "type": "CSS length",
+            "description": "Base unit for padding, gap, and icon button size.",
+            "default": "0.25rem"
+          },
+          {
+            "name": "--primary",
+            "type": "CSS color",
+            "description": "Default variant fill.",
+            "default": "var(--df-neutral-850, var(--df-neutral-900))"
+          },
+          {
+            "name": "--primary-foreground",
+            "type": "CSS color",
+            "description": "Default variant label.",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--secondary",
+            "type": "CSS color",
+            "description": "Secondary variant fill.",
+            "default": "var(--df-neutral-50)"
+          },
+          {
+            "name": "--secondary-foreground",
+            "type": "CSS color",
+            "description": "Secondary variant label.",
+            "default": "var(--df-neutral-850, var(--df-neutral-900))"
+          },
+          {
+            "name": "--destructive",
+            "type": "CSS color",
+            "description": "Destructive variant fill.",
+            "default": "oklch(0.577 0.245 27.325)"
+          },
+          {
+            "name": "--border",
+            "type": "CSS color",
+            "description": "Outline variant border.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--df-button-outline-fill",
+            "type": "CSS color",
+            "description": "Outline variant resting fill from the theme tables (:root and .dark). Overridden when transparent is true.",
+            "default": "color-mix(in oklch, var(--input) 30%, var(--background))"
+          },
+          {
+            "name": "--df-button-outline-fill-hover",
+            "type": "CSS color",
+            "description": "Outline variant hover fill from the theme tables (:root and .dark).",
+            "default": "color-mix(in oklch, var(--input) 50%, var(--background))"
+          },
+          {
+            "name": "--muted",
+            "type": "CSS color",
+            "description": "Ghost variant hover fill.",
+            "default": "var(--df-neutral-50)"
+          },
+          {
+            "name": "--ring",
+            "type": "CSS color",
+            "description": "Focus ring color.",
+            "default": "var(--df-neutral-400)"
+          },
+          {
+            "name": "--df-button-plain-hover-outset",
+            "type": "CSS length",
+            "description": "How far the plain icon hover pad expands beyond the glyph.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-plain-hover-fill",
+            "type": "CSS color",
+            "description": "Plain icon hover pad fill.",
+            "default": "color-mix(in oklch, var(--foreground) 14%, transparent)"
+          },
+          {
+            "name": "--df-button-plain-hover-radius",
+            "type": "CSS length",
+            "description": "Corner radius of the plain icon hover pad.",
+            "default": "var(--radius-md)"
+          },
+          {
+            "name": "--df-button-plain-glyph-filter",
+            "type": "CSS filter",
+            "description": "Glyph elevation for plain icons when glyphShadow is true. Set glyphShadow to false to disable without changing this token.",
+            "default": "drop-shadow(0 1px 1px rgb(0 0 0 / 0.35))"
+          },
+          {
+            "name": "--df-affordance-size-2xs",
+            "type": "CSS length",
+            "description": "Glyph size for icon-2xs and plain icon-2xs.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-press-offset",
+            "type": "CSS length",
+            "description": "Active press translate distance.",
+            "default": "1px"
+          },
+          {
+            "name": "--df-underline-offset",
+            "type": "CSS length",
+            "description": "Link variant underline offset.",
+            "default": "4px"
+          },
+          {
+            "name": "--radius-4xl",
+            "type": "CSS length",
+            "description": "Default corner radius.",
+            "default": "calc(var(--radius) * 2.6)"
+          },
+          {
+            "name": "--df-button-badge-size",
+            "type": "CSS length",
+            "description": "Corner badge height and minimum width.",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-badge-pad-inline",
+            "type": "CSS length",
+            "description": "Horizontal padding inside the corner badge for longer counts.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-badge-inset",
+            "type": "CSS length",
+            "description": "Offset used when badgePosition is inset.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--z-raised",
+            "type": "number",
+            "description": "Stacking level for the corner badge.",
+            "default": "1"
+          },
+          {
+            "name": "--df-label-line-height",
+            "type": "CSS line-height",
+            "description": "Line box for label flex centering. Defaults to --df-leading-none. When text-box is unavailable and the cap unit is supported, the kit sets this to 1cap so flex centering matches cap-height ink.",
+            "default": "var(--df-leading-none)"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          }
+        ]
+      }
+    ]
+  }
+}

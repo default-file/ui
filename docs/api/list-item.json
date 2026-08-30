@@ -1,0 +1,463 @@
+{
+  "name": "list-item",
+  "slug": "list-item",
+  "title": "List Item",
+  "description": "Configurable row with leading, secondary, trailing, density, muted or accent variants, readOnly presentational rows, and as=\"button\" or asChild link hosts. Includes ListItemLabel for menu and nav section headings, and ListItemNest for indented child groups with an optional guide line. Option List, Select, Combobox, Tag Input, Contents Nav, Sidebar, and Dropdown Menu compose these for selectable options, outlines, and app nav.",
+  "aliases": [
+    "list row",
+    "menu item",
+    "nav item",
+    "option row",
+    "line item",
+    "List Item"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-list-item",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Configurable row for menus, pickers, TOC, and app navigation. Compose leading, secondary, and trailing slots. Pair with ListItemLabel for section headings and ListItemNest for indented child groups with an optional guide line. Option List, Select, Combobox, Tag Input, Contents Nav, Sidebar, and Dropdown Menu compose List Item. Use as=\"button\" for in-page actions. Use asChild to paint the row onto a link. Pass itemChrome on composer roots for shared defaults, or set chrome props on each row. Chrome props set --df-list-item-* variables so padding, gap, type (size, family, weight, color), radius, fills, and stroke can be overridden per row.",
+    "groups": [
+      {
+        "id": "list-item",
+        "title": "ListItem",
+        "description": "Row chrome, density, host element, and presentational state.",
+        "props": [
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "Density and type size. xs is nest and TOC child (text-11). sm is TOC parent (text-13). md matches Option List and the left index (text-sm). lg is roomier. For muted, each size has its own density recipe. Override further with padding and fontSize props."
+          },
+          {
+            "name": "variant",
+            "type": "\"accent\" | \"muted\"",
+            "default": "\"accent\"",
+            "description": "accent uses picker hover and selected fills. muted uses quiet nav fills for catalogue and TOC rows. Density for muted is per size. Override fills with background, hoverBackground, and selectedBackground."
+          },
+          {
+            "name": "selected",
+            "type": "boolean",
+            "default": "false",
+            "description": "Selected or current row appearance."
+          },
+          {
+            "name": "highlighted",
+            "type": "boolean",
+            "default": "false",
+            "description": "Hover or keyboard highlight without selecting."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Non-interactive row. Sets aria-disabled and dims the row. On as=\"button\", also sets the native disabled attribute."
+          },
+          {
+            "name": "readOnly",
+            "type": "boolean",
+            "default": "false",
+            "description": "Presentational row for reading only. Keeps size, variant, and selected appearance with no hover, press, focus, or activation. Distinct from disabled, which dims the row. Option List, Select, Dropdown Menu, Contents Nav, and Combobox options skip or forward readOnly through the same contract."
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "default": "false",
+            "description": "Open state for submenu-style rows. Sets data-open. Independent of selected, which sets data-state."
+          },
+          {
+            "name": "leading",
+            "type": "\"checkbox\" | \"check\" | ReactNode | false",
+            "description": "Leading slot. Pass an icon, \"checkbox\" or \"check\" for selection marks, or false to omit. Icons use the icon track by default. For Avatar or other non-icon marks, set leadingFit to content. In columns layout, pass text; the slot hugs content. Set aria-hidden on decorative icons."
+          },
+          {
+            "name": "leadingFit",
+            "type": "\"icon\" | \"content\"",
+            "default": "\"icon\"",
+            "description": "Track size for custom leading nodes. icon keeps the mark box used by row icons. content sizes the track to the node. Use content for Avatar, media, or text marks. Ignored for checkbox and check. Stacked rows with content center the leading, label stack, and trailing as one group."
+          },
+          {
+            "name": "secondary",
+            "type": "ReactNode",
+            "description": "Supporting copy beside or under the label. Long title and secondary text truncate with an ellipsis when the row is narrower than the copy."
+          },
+          {
+            "name": "layout",
+            "type": "\"inline\" | \"stacked\" | \"columns\"",
+            "default": "\"inline\"",
+            "description": "inline places secondary beside the label. stacked places it underneath. columns is a three-column text row: leading, main label, and trailing. The main label stays horizontally centered in the row. Leading and trailing hug their tracks. Height follows content. columns does not require secondary."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "End slot for badges, chevrons, measures, or actions. Stays end-aligned with margin-inline-start auto when the row spans its parent. For nested menu affordances, pass ListItemSubmenuChevron so size matches the indicator slot. When List Item is an OptionListTrigger render host, set OptionList width fill (or a fixed length) so the row has width to push against. In columns layout, use for end-aligned text such as a size value."
+          },
+          {
+            "name": "indicator",
+            "type": "boolean",
+            "default": "false",
+            "description": "Reserve an end check slot. The check shows when selected. The slot stays end-aligned with auto space before it; --df-list-item-gap is the minimum space from the label. Long labels truncate."
+          },
+          {
+            "name": "as",
+            "type": "\"div\" | \"button\"",
+            "default": "\"div\"",
+            "description": "Native host when asChild is false. Use button for clickable rows without navigation. Ignored when asChild is true."
+          },
+          {
+            "name": "asChild",
+            "type": "boolean",
+            "default": "false",
+            "description": "When true, List Item does not render its own wrapper. Pass one child element (usually a link). That element becomes the clickable row and keeps its own href or routing. Prefer this over wrapping List Item in a separate link. The child text is the label."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Label text by default. With asChild, pass a single element such as <a> or <Link> instead."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the host."
+          }
+        ]
+      },
+      {
+        "id": "list-item-chrome",
+        "title": "Chrome overrides",
+        "description": "String props write --df-list-item-* on the host. Prefer token expressions such as var(--muted), var(--border-width-hairline), or calc(2 * var(--spacing-unit)). Size and variant still supply defaults when a prop is omitted. OptionListItem, SelectItem, Combobox, Tag Input, and ContentsNavItem forward the same props. Root itemChrome sets defaults for every row; per-item props win.",
+        "props": [
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Padding on all sides. Sets each --df-list-item-padding-* side."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal padding. Sets --df-list-item-padding-left and --df-list-item-padding-right. Overrides padding on those sides."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical padding. Sets --df-list-item-padding-top and --df-list-item-padding-bottom. Overrides padding on those sides."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top padding. Sets --df-list-item-padding-top and wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Right padding. Sets --df-list-item-padding-right and wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom padding. Sets --df-list-item-padding-bottom and wins over paddingY and padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Left padding. Sets --df-list-item-padding-left and wins over paddingX and padding."
+          },
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Minimum space between leading, label, trailing, and indicator slots. Sets --df-list-item-gap."
+          },
+          {
+            "name": "fontSize",
+            "type": "string",
+            "description": "Label type size. Prefer type tokens such as var(--df-text-11). Sets --df-list-item-font-size."
+          },
+          {
+            "name": "fontFamily",
+            "type": "string",
+            "description": "Label font family. Prefer family tokens such as var(--df-font-sans) or var(--df-font-mono). Sets --df-list-item-font-family."
+          },
+          {
+            "name": "fontWeight",
+            "type": "string",
+            "description": "Label font weight. Prefer weight tokens such as var(--df-font-weight-semibold). Sets --df-list-item-font-weight. Accent titles default to medium when omitted; muted defaults to normal."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Resting fill. Sets --df-list-item-bg."
+          },
+          {
+            "name": "foreground",
+            "type": "string",
+            "description": "Resting label color. Sets --df-list-item-fg."
+          },
+          {
+            "name": "hoverBackground",
+            "type": "string",
+            "description": "Hover, highlight, and focus fill. Sets --df-list-item-hover-bg."
+          },
+          {
+            "name": "hoverForeground",
+            "type": "string",
+            "description": "Hover, highlight, and focus label color. Sets --df-list-item-hover-fg."
+          },
+          {
+            "name": "selectedBackground",
+            "type": "string",
+            "description": "Selected fill. Also sets selected hover fill unless selectedHoverBackground is passed. Sets --df-list-item-selected-bg and --df-list-item-selected-hover-bg."
+          },
+          {
+            "name": "selectedForeground",
+            "type": "string",
+            "description": "Selected label color. Sets --df-list-item-selected-fg."
+          },
+          {
+            "name": "selectedHoverBackground",
+            "type": "string",
+            "description": "Selected row hover fill. Sets --df-list-item-selected-hover-bg."
+          },
+          {
+            "name": "activeBackground",
+            "type": "string",
+            "description": "Pressed fill. Sets --df-list-item-active-bg."
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Corner radius of the row fill and stroke. Prefer radius tokens such as var(--radius-md) or var(--radius-2xl). Sets --df-list-item-radius."
+          },
+          {
+            "name": "borderWidth",
+            "type": "string",
+            "description": "Stroke width. Prefer border tokens such as var(--border-width-hairline). Default 0 (no stroke). Sets --df-list-item-border-width."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Stroke color. Prefer var(--border) or other color tokens. Sets --df-list-item-border-color."
+          },
+          {
+            "name": "borderStyle",
+            "type": "string",
+            "description": "Stroke style such as solid or dashed. Default solid. Sets --df-list-item-border-style."
+          }
+        ]
+      },
+      {
+        "id": "list-item-section",
+        "title": "ListItemLabel",
+        "description": "Section heading above a group of rows (data-df list-item-section). OptionListLabel and SelectLabel use the menu variant.",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"menu\" | \"nav\"",
+            "default": "\"menu\"",
+            "description": "menu is the quiet picker group title (Option List). nav is the uppercase mono catalogue section title."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Section title text."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "list-item-submenu-chevron",
+        "title": "ListItemSubmenuChevron",
+        "description": "Nested menu affordance for the trailing slot. Uses the same size box as the indicator check and muted foreground. Dropdown Menu injects it when a submenu trigger has no custom trailing. Pass it from Option List and Sidebar rows that open nested panels.",
+        "props": [
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the chevron host."
+          }
+        ]
+      },
+      {
+        "id": "list-item-nest",
+        "title": "ListItemNest",
+        "description": "Indented group for nested rows. Optional guide line via line. Chrome props write --df-list-item-nest-* on the host. Provides nest scope so ContentsNavItem defaults to nestItemSize inside the group.",
+        "props": [
+          {
+            "name": "line",
+            "type": "boolean",
+            "default": "true",
+            "description": "When true, paints the nest guide line. When false, keeps indent without a line."
+          },
+          {
+            "name": "indent",
+            "type": "string",
+            "description": "Outer inset before the nest group. Prefer spacing tokens. Sets --df-list-item-nest-indent."
+          },
+          {
+            "name": "pad",
+            "type": "string",
+            "description": "Inner pad after the guide line. Prefer spacing tokens. Sets --df-list-item-nest-pad."
+          },
+          {
+            "name": "gap",
+            "type": "string",
+            "description": "Gap between nested rows. Sets --df-list-item-nest-gap."
+          },
+          {
+            "name": "lineWidth",
+            "type": "string",
+            "description": "Guide line thickness. Prefer var(--border-width-hairline). Sets --df-list-item-nest-line-width."
+          },
+          {
+            "name": "lineColor",
+            "type": "string",
+            "description": "Guide line color. Prefer var(--border). Sets --df-list-item-nest-line-color."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Nested List Item rows."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "list-item-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--df-list-item-padding-top",
+            "type": "CSS length",
+            "description": "Top padding. Set by padding, paddingY, or paddingTop."
+          },
+          {
+            "name": "--df-list-item-padding-right",
+            "type": "CSS length",
+            "description": "Right padding. Set by padding, paddingX, or paddingRight."
+          },
+          {
+            "name": "--df-list-item-padding-bottom",
+            "type": "CSS length",
+            "description": "Bottom padding. Set by padding, paddingY, or paddingBottom."
+          },
+          {
+            "name": "--df-list-item-padding-left",
+            "type": "CSS length",
+            "description": "Left padding. Set by padding, paddingX, or paddingLeft."
+          },
+          {
+            "name": "--df-list-item-gap",
+            "type": "CSS length",
+            "description": "Minimum space between leading, label, trailing, and indicator slots. Set by the gap prop."
+          },
+          {
+            "name": "--df-list-item-indicator-size",
+            "type": "CSS length",
+            "description": "Width and height of the end check slot when indicator is on."
+          },
+          {
+            "name": "--df-list-item-font-size",
+            "type": "CSS length",
+            "description": "Label type size. Set by data-size recipes, or by the fontSize chrome prop."
+          },
+          {
+            "name": "--df-list-item-radius",
+            "type": "CSS length",
+            "description": "Row corner radius. Set by the radius prop."
+          },
+          {
+            "name": "--df-list-item-bg",
+            "type": "CSS color",
+            "description": "Resting fill. Set by the background prop."
+          },
+          {
+            "name": "--df-list-item-fg",
+            "type": "CSS color",
+            "description": "Resting label color. Set by the foreground prop."
+          },
+          {
+            "name": "--df-list-item-hover-bg",
+            "type": "CSS color",
+            "description": "Hover and highlight fill. Set by the hoverBackground prop."
+          },
+          {
+            "name": "--df-list-item-hover-fg",
+            "type": "CSS color",
+            "description": "Hover and highlight label color. Set by the hoverForeground prop."
+          },
+          {
+            "name": "--df-list-item-selected-bg",
+            "type": "CSS color",
+            "description": "Selected fill. Set by the selectedBackground prop."
+          },
+          {
+            "name": "--df-list-item-selected-fg",
+            "type": "CSS color",
+            "description": "Selected label color. Set by the selectedForeground prop."
+          },
+          {
+            "name": "--df-list-item-selected-hover-bg",
+            "type": "CSS color",
+            "description": "Selected hover fill. Set by selectedHoverBackground or selectedBackground."
+          },
+          {
+            "name": "--df-list-item-active-bg",
+            "type": "CSS color",
+            "description": "Pressed fill. Set by the activeBackground prop."
+          },
+          {
+            "name": "--accent",
+            "type": "CSS color",
+            "description": "Default accent hover and selected recipe."
+          },
+          {
+            "name": "--muted",
+            "type": "CSS color",
+            "description": "Default muted selected and hover recipe."
+          },
+          {
+            "name": "--muted-foreground",
+            "type": "CSS color",
+            "description": "Default muted resting label color."
+          },
+          {
+            "name": "--df-list-item-nest-indent",
+            "type": "CSS length",
+            "description": "Outer nest inset. Set by ListItemNest indent."
+          },
+          {
+            "name": "--df-list-item-nest-pad",
+            "type": "CSS length",
+            "description": "Inner nest pad. Set by ListItemNest pad."
+          },
+          {
+            "name": "--df-list-item-nest-gap",
+            "type": "CSS length",
+            "description": "Gap between nested rows. Set by ListItemNest gap."
+          },
+          {
+            "name": "--df-list-item-nest-line-width",
+            "type": "CSS length",
+            "description": "Nest guide thickness. Set by ListItemNest lineWidth."
+          },
+          {
+            "name": "--df-list-item-nest-line-color",
+            "type": "CSS color",
+            "description": "Nest guide color. Set by ListItemNest lineColor."
+          }
+        ]
+      }
+    ]
+  }
+}

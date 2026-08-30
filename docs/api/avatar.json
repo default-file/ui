@@ -1,0 +1,106 @@
+{
+  "name": "avatar",
+  "slug": "avatar",
+  "title": "Avatar",
+  "description": "Person mark with photo or initials, optional presence, and a stacked overflow group.",
+  "aliases": [
+    "user avatar",
+    "profile photo",
+    "avatar stack",
+    "Avatar"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-avatar",
+  "dependencies": [],
+  "api": {
+    "description": "Person mark with optional photo, generated initials fallback, presence tone, and a stacked overflow group.",
+    "groups": [
+      {
+        "id": "avatar",
+        "title": "Avatar",
+        "props": [
+          {
+            "name": "name",
+            "type": "string",
+            "description": "Required display name. Drives initials, default title, default image label, and the tone color."
+          },
+          {
+            "name": "src",
+            "type": "string | null",
+            "description": "Image URL. Sanitized before load. On failure or omit, initials render instead."
+          },
+          {
+            "name": "alt",
+            "type": "string",
+            "description": "Accessible name for the loaded image. Defaults to name."
+          },
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "Face size step."
+          },
+          {
+            "name": "shape",
+            "type": "\"circle\" | \"square\"",
+            "default": "\"circle\"",
+            "description": "Clip shape."
+          },
+          {
+            "name": "presence",
+            "type": "\"online\" | \"away\" | \"busy\" | \"offline\"",
+            "description": "Status dot tone. Omit to hide the dot. The dot has its own accessible name from the string catalogue."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "avatar-a11y",
+        "title": "Accessibility",
+        "description": "Image name (alt): When src loads, the image uses alt (defaulting to name). Initials fallback is aria-hidden; the root title defaults to name and is not an ARIA name. Presence (status): The presence dot carries a catalogue aria-label for its tone.",
+        "props": []
+      },
+      {
+        "id": "avatar-stack",
+        "title": "AvatarStack",
+        "props": [
+          {
+            "name": "items",
+            "type": "AvatarStackItem[]",
+            "description": "People to show. Each item needs id and name; src and presence are optional."
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "default": "3",
+            "description": "How many faces to show before an overflow chip. The overflow chip announces how many more."
+          },
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "Size for every face and the overflow chip."
+          },
+          {
+            "name": "shape",
+            "type": "\"circle\" | \"square\"",
+            "default": "\"circle\"",
+            "description": "Shape for every face and the overflow chip."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the stack."
+          }
+        ]
+      }
+    ]
+  }
+}

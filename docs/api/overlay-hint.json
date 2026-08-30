@@ -1,0 +1,338 @@
+{
+  "name": "overlay-hint",
+  "slug": "overlay-hint",
+  "title": "Overlay Hint",
+  "description": "On-canvas instruction or status pill with frosted, muted, and marquee variants.",
+  "aliases": [
+    "instruction chip",
+    "hint pill",
+    "canvas hint",
+    "marquee hint",
+    "Overlay Hint"
+  ],
+  "chapter": "feedback",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-overlay-hint",
+  "dependencies": [],
+  "api": {
+    "description": "Instruction or status pill for tool chrome. Default is frosted glass that follows light and dark surfaces. Muted is a solid chip. Marquee scrolls the label with an optional trailing icon action and sm or md density. Label ink is optically centered to cap height with text-box when available, and a 1cap line box otherwise. Chrome is tokenized via --overlay-hint-*.",
+    "groups": [
+      {
+        "id": "overlay-hint",
+        "title": "OverlayHint",
+        "props": [
+          {
+            "name": "variant",
+            "type": "\"default\" | \"muted\" | \"marquee\"",
+            "default": "\"default\"",
+            "description": "default frosted glass that adapts under a .dark surface. muted solid surface chip. marquee scrolling label with an optional trailing icon action."
+          },
+          {
+            "name": "scheme",
+            "type": "\"light\" | \"dark\"",
+            "description": "Explicit light or dark recipe for marquee. When omitted, marquee follows a .dark ancestor like default."
+          },
+          {
+            "name": "speed",
+            "type": "number",
+            "default": "18",
+            "description": "Marquee loop duration in seconds. Smaller values scroll faster. Sets --overlay-hint-marquee-duration."
+          },
+          {
+            "name": "marqueeWidth",
+            "type": "string",
+            "description": "Visible marquee viewport width. Any CSS length such as 10rem or 14rem. Theme default is 12rem. Sets --overlay-hint-marquee-width."
+          },
+          {
+            "name": "clickTarget",
+            "type": "\"chip\" | \"action\"",
+            "default": "\"chip\"",
+            "description": "Marquee hit target. chip makes the whole hint clickable; the trailing icon is decorative. action limits clicks to the trailing control only."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\"",
+            "default": "\"md\"",
+            "description": "Marquee density only. md is the default chip. sm tightens padding, uses text-11 type, and shrinks the trailing control for compact tool chrome. Ignored on default and muted."
+          },
+          {
+            "name": "action",
+            "type": "ReactNode",
+            "description": "Icon for the trailing marquee control. Renders as a kit icon-only Button (size icon-xs, variant secondary). Decorative when clickTarget is chip. Interactive when clickTarget is action."
+          },
+          {
+            "name": "actionLabel",
+            "type": "string",
+            "description": "Accessible name for the interactive control (whole chip or trailing action)."
+          },
+          {
+            "name": "onAction",
+            "type": "MouseEventHandler<HTMLElement>",
+            "description": "Click handler when the interactive control renders as a button."
+          },
+          {
+            "name": "actionHref",
+            "type": "string",
+            "description": "When set, the interactive control renders as a link instead of a button."
+          },
+          {
+            "name": "radius",
+            "type": "\"none\" | \"md\" | \"full\"",
+            "default": "\"md\"",
+            "description": "Corner radius for the hint chip: none square, md soft, full pill. Three steps kept distinct. Trailing marquee control uses the Button radius. Maps to --overlay-hint-radius."
+          },
+          {
+            "name": "cornerShape",
+            "type": "\"round\" | \"smooth\"",
+            "description": "Instance corner curve. Omit to inherit --df-corner-shape from the theme (set at create/init)."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Background color. Prefer tokens such as var(--df-neutral-900). Sets --overlay-hint-bg."
+          },
+          {
+            "name": "borderColor",
+            "type": "string",
+            "description": "Border color. Prefer tokens such as var(--border). Sets --overlay-hint-border."
+          },
+          {
+            "name": "foreground",
+            "type": "string",
+            "description": "Label color. Prefer tokens such as var(--muted-foreground). Sets --overlay-hint-fg."
+          },
+          {
+            "name": "shadow",
+            "type": "string",
+            "description": "Box shadow. Prefer tokens such as var(--overlay-shadow) or none. Sets --overlay-hint-shadow."
+          },
+          {
+            "name": "blur",
+            "type": "string",
+            "description": "Backdrop blur length. Prefer tokens such as var(--overlay-blur) or 0px. Sets --overlay-hint-blur."
+          },
+          {
+            "name": "parts",
+            "type": "ReactNode[]",
+            "description": "Label segments joined by separator. Prefer this for multi part hints. When set, children is ignored."
+          },
+          {
+            "name": "separator",
+            "type": "ReactNode",
+            "default": "OVERLAY_HINT_SEPARATOR (·)",
+            "description": "Node between parts. Defaults to the middle dot constant. Pass a glyph, icon, or custom divider. Set null to omit."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Single label hint. Use parts instead when you need a separator between segments."
+          },
+          {
+            "name": "leading",
+            "type": "ReactNode",
+            "description": "Optional icon, swatch, or node before the label."
+          },
+          {
+            "name": "trailing",
+            "type": "ReactNode",
+            "description": "Optional icon or node after the label."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles. On dark canvases without a .dark ancestor, pass className=\"dark\" so default frosted uses the dark recipe."
+          },
+          {
+            "name": "style",
+            "type": "CSSProperties",
+            "description": "Inline styles. Override --overlay-hint-bg, --overlay-hint-border, --overlay-hint-fg, --overlay-hint-shadow, --overlay-hint-blur, or --overlay-hint-radius directly."
+          }
+        ]
+      },
+      {
+        "id": "overlay-hint-exports",
+        "title": "Exports",
+        "description": "Named exports from the Overlay Hint module: OverlayHint component; OVERLAY_HINT_SEPARATOR middle-dot constant; OverlayHintSize (sm | md); OverlayHintClickTarget (chip | action).",
+        "props": []
+      },
+      {
+        "id": "overlay-hint-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or set the instance vars via props or style.",
+        "props": [
+          {
+            "name": "--overlay-hint-radius",
+            "type": "CSS length",
+            "default": "var(--radius-md)",
+            "description": "Corner radius used by the hint."
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          },
+          {
+            "name": "--df-label-line-height",
+            "type": "CSS line-height",
+            "description": "Line box for label flex centering. Defaults to --df-leading-none. When text-box is unavailable and the cap unit is supported, the kit sets this to 1cap so flex centering matches cap-height ink.",
+            "default": "var(--df-leading-none)"
+          },
+          {
+            "name": "--overlay-hint-bg",
+            "type": "CSS color",
+            "description": "Resolved fill for the active surface."
+          },
+          {
+            "name": "--overlay-hint-border",
+            "type": "CSS color",
+            "description": "Resolved border color."
+          },
+          {
+            "name": "--overlay-hint-fg",
+            "type": "CSS color",
+            "description": "Resolved label color."
+          },
+          {
+            "name": "--overlay-hint-shadow",
+            "type": "CSS shadow",
+            "description": "Resolved box shadow."
+          },
+          {
+            "name": "--overlay-hint-blur",
+            "type": "CSS length",
+            "description": "Resolved backdrop blur."
+          },
+          {
+            "name": "--overlay-hint-default-bg",
+            "type": "CSS color",
+            "default": "color-mix(in oklch, white 78%, transparent)",
+            "description": "Default frosted fill on light surfaces."
+          },
+          {
+            "name": "--overlay-hint-default-border",
+            "type": "CSS color",
+            "default": "color-mix(in oklch, black 10%, transparent)",
+            "description": "Default frosted border on light surfaces."
+          },
+          {
+            "name": "--overlay-hint-default-fg",
+            "type": "CSS color",
+            "default": "color-mix(in oklch, black 72%, transparent)",
+            "description": "Default frosted label on light surfaces."
+          },
+          {
+            "name": "--overlay-hint-default-shadow",
+            "type": "CSS shadow",
+            "default": "0 10px 28px color-mix(in oklch, black var(--df-shadow-intensity-md), transparent)",
+            "description": "Default frosted shadow on light surfaces."
+          },
+          {
+            "name": "--overlay-hint-default-blur",
+            "type": "CSS length",
+            "default": "var(--overlay-blur)",
+            "description": "Default frosted blur on light surfaces."
+          },
+          {
+            "name": "--overlay-hint-default-dark-bg",
+            "type": "CSS color",
+            "default": "var(--overlay-bg)",
+            "description": "Default frosted fill on .dark surfaces."
+          },
+          {
+            "name": "--overlay-hint-default-dark-border",
+            "type": "CSS color",
+            "default": "var(--overlay-border)",
+            "description": "Default frosted border on .dark surfaces."
+          },
+          {
+            "name": "--overlay-hint-default-dark-fg",
+            "type": "CSS color",
+            "default": "var(--overlay-item-fg)",
+            "description": "Default frosted label on .dark surfaces."
+          },
+          {
+            "name": "--overlay-hint-default-dark-shadow",
+            "type": "CSS shadow",
+            "default": "var(--overlay-shadow)",
+            "description": "Default frosted shadow on .dark surfaces."
+          },
+          {
+            "name": "--overlay-hint-default-dark-blur",
+            "type": "CSS length",
+            "default": "var(--overlay-blur)",
+            "description": "Default frosted blur on .dark surfaces."
+          },
+          {
+            "name": "--overlay-hint-muted-bg",
+            "type": "CSS color",
+            "default": "var(--muted)",
+            "description": "Muted variant fill."
+          },
+          {
+            "name": "--overlay-hint-muted-border",
+            "type": "CSS color",
+            "default": "var(--border)",
+            "description": "Muted variant border."
+          },
+          {
+            "name": "--overlay-hint-muted-fg",
+            "type": "CSS color",
+            "default": "var(--muted-foreground)",
+            "description": "Muted variant label."
+          },
+          {
+            "name": "--overlay-hint-muted-shadow",
+            "type": "CSS shadow",
+            "default": "none",
+            "description": "Muted variant shadow."
+          },
+          {
+            "name": "--overlay-hint-muted-blur",
+            "type": "CSS length",
+            "default": "0px",
+            "description": "Muted variant blur."
+          },
+          {
+            "name": "--overlay-hint-marquee-duration",
+            "type": "CSS time",
+            "default": "18s",
+            "description": "One full marquee loop duration."
+          },
+          {
+            "name": "--overlay-hint-marquee-width",
+            "type": "CSS length",
+            "default": "12rem",
+            "description": "Visible marquee viewport width."
+          },
+          {
+            "name": "--overlay-hint-marquee-bg",
+            "type": "CSS color",
+            "default": "color-mix(in oklch, white 88%, transparent)",
+            "description": "Marquee fill on light surfaces."
+          },
+          {
+            "name": "--overlay-hint-marquee-dark-bg",
+            "type": "CSS color",
+            "default": "var(--overlay-bg)",
+            "description": "Marquee fill on dark surfaces."
+          },
+          {
+            "name": "--overlay-hint-marquee-gap",
+            "type": "CSS length",
+            "default": "calc(4 * var(--spacing-unit))",
+            "description": "Gap between repeated marquee label segments."
+          },
+          {
+            "name": "--overlay-hint-marquee-fade",
+            "type": "CSS length",
+            "default": "0.75rem",
+            "description": "Soft edge fade depth for the scrolling label, on both sides."
+          }
+        ]
+      }
+    ]
+  }
+}

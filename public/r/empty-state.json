@@ -1,0 +1,18 @@
+{
+  "name": "empty-state",
+  "type": "registry:ui",
+  "title": "Empty State",
+  "description": "Placeholder for missing or filtered results with glyph, title, description, and optional action.",
+  "dependencies": [],
+  "registryDependencies": [
+    "foundation"
+  ],
+  "files": [
+    {
+      "path": "src/components/df-empty-state.tsx",
+      "type": "registry:ui",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"../lib/utils\"\n\ntype EmptyStateProps = React.HTMLAttributes<HTMLDivElement> & {\n  glyph?: React.ReactNode\n  title: React.ReactNode\n  description?: React.ReactNode\n  action?: React.ReactNode\n  /**\n   * When true, exposes `role=\"status\"` so assistive technology announces the\n   * empty state as it appears, for example after a search returns no results.\n   * Keep false for a static empty illustration that is part of the initial page.\n   */\n  announce?: boolean\n}\n\nfunction EmptyState({\n  className,\n  glyph,\n  title,\n  description,\n  action,\n  announce = false,\n  ...props\n}: EmptyStateProps) {\n  return (\n    <div\n      data-df=\"empty-state\"\n      className={cn(className)}\n      {...props}\n      role={announce ? \"status\" : props.role}\n    >\n      {glyph != null ? (\n        <div data-df=\"empty-state-glyph\" aria-hidden>\n          {glyph}\n        </div>\n      ) : null}\n      <div data-df=\"empty-state-copy\">\n        <div data-df=\"empty-state-title\">{title}</div>\n        {description != null ? (\n          <div data-df=\"empty-state-description\">{description}</div>\n        ) : null}\n      </div>\n      {action != null ? (\n        <div data-df=\"empty-state-action\">{action}</div>\n      ) : null}\n    </div>\n  )\n}\n\nexport { EmptyState }\nexport type { EmptyStateProps }\n",
+      "target": "default-file-ui/components/df-empty-state.tsx"
+    }
+  ]
+}

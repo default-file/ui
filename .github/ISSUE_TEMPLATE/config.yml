@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation and live examples
+    url: https://defaultfile.com/ui
+    about: Component catalogue, install guides, tokens, and API tables.
+  - name: Report a security vulnerability
+    url: https://github.com/default-file/ui/security/advisories/new
+    about: Private disclosure. Do not open a public issue.

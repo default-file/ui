@@ -1,0 +1,1363 @@
+{
+  "generatedAt": "2026-08-30T19:58:16.081Z",
+  "colorSystem": {
+    "registryName": "color-system",
+    "title": "Color System",
+    "description": "Color scales, semantic tokens, and utilities. Install without components.",
+    "chapter": "color-system"
+  },
+  "foundation": {
+    "registryName": "foundation",
+    "title": "Foundation",
+    "description": "Kit CSS entry, component styles, hooks, and cn. Depends on color-system. Install first for components.",
+    "chapter": "foundation"
+  },
+  "chapters": [
+    {
+      "id": "color-system",
+      "label": "Color system"
+    },
+    {
+      "id": "foundation",
+      "label": "Foundation"
+    },
+    {
+      "id": "actions",
+      "label": "Actions"
+    },
+    {
+      "id": "inputs",
+      "label": "Inputs"
+    },
+    {
+      "id": "feedback",
+      "label": "Feedback"
+    },
+    {
+      "id": "overlays",
+      "label": "Overlays"
+    },
+    {
+      "id": "structure",
+      "label": "Structure"
+    },
+    {
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "id": "toolbars",
+      "label": "Toolbars"
+    }
+  ],
+  "components": [
+    {
+      "slug": "accordion",
+      "name": "accordion",
+      "title": "Accordion",
+      "description": "Expandable sections with single or multiple open items.",
+      "aliases": [
+        "disclosure",
+        "expandable sections",
+        "collapsible sections",
+        "faq accordion",
+        "Accordion"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-accordion",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 45
+    },
+    {
+      "slug": "avatar",
+      "name": "avatar",
+      "title": "Avatar",
+      "description": "Person mark with photo or initials, optional presence, and a stacked overflow group.",
+      "aliases": [
+        "user avatar",
+        "profile photo",
+        "avatar stack",
+        "Avatar"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-avatar",
+      "dependencies": [],
+      "propCount": 12
+    },
+    {
+      "slug": "badge",
+      "name": "badge",
+      "title": "Badge",
+      "description": "Compact labels for status, counts, and metadata.",
+      "aliases": [
+        "status badge",
+        "count badge",
+        "notification badge",
+        "meta badge",
+        "Badge"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-badge",
+      "dependencies": [],
+      "propCount": 28
+    },
+    {
+      "slug": "border-glow",
+      "name": "border-glow",
+      "title": "Border Glow",
+      "description": "Pointer directed border glow wrapper with optional soft bloom.",
+      "aliases": [
+        "glow border",
+        "pointer glow",
+        "border bloom",
+        "hover border glow",
+        "Border Glow"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-border-glow",
+      "dependencies": [],
+      "propCount": 50
+    },
+    {
+      "slug": "button",
+      "name": "button",
+      "title": "Button",
+      "description": "Primary actions with variants, text sizes, icon sizes, and a plain icon-only style.",
+      "aliases": [
+        "cta",
+        "action button",
+        "icon button",
+        "plain icon button",
+        "outline button",
+        "transparent outline",
+        "Button"
+      ],
+      "chapter": "actions",
+      "registryDependencies": [
+        "foundation",
+        "spinner",
+        "badge"
+      ],
+      "importPath": "@default-file/ui/components/df-button",
+      "dependencies": [],
+      "propCount": 42
+    },
+    {
+      "slug": "chart",
+      "name": "chart",
+      "title": "Chart",
+      "description": "Chart frame with optional title, description, toolbar, loading and empty states, plus legend and tooltip helpers.",
+      "aliases": [
+        "chart frame",
+        "plot",
+        "data chart",
+        "legend",
+        "Chart"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-chart",
+      "dependencies": [],
+      "propCount": 17
+    },
+    {
+      "slug": "checkbox",
+      "name": "checkbox",
+      "title": "Checkbox",
+      "description": "Native checkbox with optional label and description, including indeterminate.",
+      "aliases": [
+        "tick box",
+        "indeterminate checkbox",
+        "Checkbox"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-checkbox",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 13
+    },
+    {
+      "slug": "choice-chip",
+      "name": "choice-chip",
+      "title": "Choice Chip",
+      "description": "Compact selectable chip for filters. Host owns grouping and multi-select.",
+      "aliases": [
+        "filter chip",
+        "choice chips",
+        "selectable chip",
+        "filter pill",
+        "Choice Chip"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-choice-chip",
+      "dependencies": [],
+      "propCount": 11
+    },
+    {
+      "slug": "color-picker",
+      "name": "color-picker",
+      "title": "Color Picker",
+      "description": "Swatch trigger with hex trailing, hover border, and channel editors.",
+      "aliases": [
+        "colour picker",
+        "swatch picker",
+        "hex picker",
+        "color swatch",
+        "Color Picker"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "input",
+        "popover",
+        "tabs"
+      ],
+      "importPath": "@default-file/ui/components/df-color-picker",
+      "dependencies": [],
+      "propCount": 24
+    },
+    {
+      "slug": "combobox",
+      "name": "combobox",
+      "title": "Combobox",
+      "description": "Filterable text field with an option list, optional async loading, and custom values.",
+      "aliases": [
+        "autocomplete",
+        "typeahead",
+        "filter select",
+        "Combobox"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "option-list"
+      ],
+      "importPath": "@default-file/ui/components/df-combobox",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 20
+    },
+    {
+      "slug": "command-palette",
+      "name": "command-palette",
+      "title": "Command Palette",
+      "description": "Searchable command dialog with ranking, optional async source, and recent ids.",
+      "aliases": [
+        "command menu",
+        "spotlight",
+        "quick actions",
+        "Command Palette"
+      ],
+      "chapter": "overlays",
+      "registryDependencies": [
+        "foundation",
+        "dialog",
+        "search-input",
+        "spinner",
+        "kbd"
+      ],
+      "importPath": "@default-file/ui/components/df-command-palette",
+      "dependencies": [],
+      "propCount": 21
+    },
+    {
+      "slug": "content-switcher",
+      "name": "content-switcher",
+      "title": "Content Switcher",
+      "description": "Segmented single select for filters and view modes. Does not own tab panels.",
+      "aliases": [
+        "segmented control",
+        "segment control",
+        "segmented switcher",
+        "view switcher",
+        "mode switcher",
+        "Content Switcher"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-content-switcher",
+      "dependencies": [],
+      "propCount": 17
+    },
+    {
+      "slug": "contents-nav",
+      "name": "contents-nav",
+      "title": "Contents Nav",
+      "description": "Page outline and catalogue index composed with List Item. Use toc for on-page headings with optional nest line and scroll spy. Use index for sectioned side navigation.",
+      "aliases": [
+        "toc",
+        "table of contents",
+        "on this page",
+        "catalogue index",
+        "side nav",
+        "outline",
+        "contents",
+        "Contents Nav"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation",
+        "list-item"
+      ],
+      "importPath": "@default-file/ui/components/df-contents-nav",
+      "dependencies": [],
+      "propCount": 42
+    },
+    {
+      "slug": "context-menu",
+      "name": "context-menu",
+      "title": "Context Menu",
+      "description": "Pointer and keyboard menu with nested submenus and an imperative open helper.",
+      "aliases": [
+        "right click menu",
+        "contextual menu",
+        "Context Menu"
+      ],
+      "chapter": "overlays",
+      "registryDependencies": [
+        "foundation",
+        "kbd"
+      ],
+      "importPath": "@default-file/ui/components/df-context-menu",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 17
+    },
+    {
+      "slug": "data-grid",
+      "name": "data-grid",
+      "title": "Data Grid",
+      "description": "Virtualized table with resizable columns, selection, and optional cell editing.",
+      "aliases": [
+        "table",
+        "grid",
+        "spreadsheet",
+        "virtual table",
+        "Data Grid"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-data-grid",
+      "dependencies": [
+        "@tanstack/react-virtual"
+      ],
+      "propCount": 23
+    },
+    {
+      "slug": "date-picker",
+      "name": "date-picker",
+      "title": "Date Picker",
+      "description": "Single day and range calendars in a popover, with locale-aware month titles and week start.",
+      "aliases": [
+        "calendar",
+        "date range",
+        "range picker",
+        "Date Picker"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "popover",
+        "input"
+      ],
+      "importPath": "@default-file/ui/components/df-date-picker",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 18
+    },
+    {
+      "slug": "dialog",
+      "name": "dialog",
+      "title": "Dialog",
+      "description": "Center modal with scrim, focus trap, Escape to close, and scroll lock.",
+      "aliases": [
+        "modal",
+        "modal dialog",
+        "center modal",
+        "confirm dialog",
+        "Dialog"
+      ],
+      "chapter": "overlays",
+      "registryDependencies": [
+        "foundation",
+        "button"
+      ],
+      "importPath": "@default-file/ui/components/df-dialog",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 16
+    },
+    {
+      "slug": "dock-panel",
+      "name": "dock-panel",
+      "title": "Dock Panel",
+      "description": "Collapsible edge-docked inspector with a kit scrollbar body. Prefer this for persistent side chrome; prefer Options Panel for anchored temporary controls.",
+      "aliases": [
+        "side panel",
+        "side drawer",
+        "edge drawer",
+        "inspector",
+        "inspector panel",
+        "edge panel",
+        "docked inspector",
+        "collapsible inspector",
+        "Dock Panel"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation",
+        "button",
+        "scroll-area"
+      ],
+      "importPath": "@default-file/ui/components/df-dock-panel",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 64
+    },
+    {
+      "slug": "drawer",
+      "name": "drawer",
+      "title": "Drawer",
+      "description": "Edge modal sheet with scrim, focus trap, and Escape to close.",
+      "aliases": [
+        "sheet",
+        "side sheet",
+        "bottom sheet",
+        "Drawer"
+      ],
+      "chapter": "overlays",
+      "registryDependencies": [
+        "foundation",
+        "button",
+        "scroll-area"
+      ],
+      "importPath": "@default-file/ui/components/df-drawer",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 19
+    },
+    {
+      "slug": "dropdown-menu",
+      "name": "dropdown-menu",
+      "title": "Dropdown Menu",
+      "description": "Anchored action menu with header, body, and footer. Rows compose List Item. Prefer Option List for pickers that keep a selected value.",
+      "aliases": [
+        "action menu",
+        "three dot menu",
+        "kebab menu",
+        "profile menu",
+        "account menu",
+        "overflow menu",
+        "button menu",
+        "Dropdown Menu"
+      ],
+      "chapter": "overlays",
+      "registryDependencies": [
+        "foundation",
+        "list-item",
+        "scroll-area",
+        "kbd"
+      ],
+      "importPath": "@default-file/ui/components/df-dropdown-menu",
+      "dependencies": [],
+      "propCount": 151
+    },
+    {
+      "slug": "editor",
+      "name": "editor",
+      "title": "Editor",
+      "description": "Markdown-backed rich text surface with optional static and floating format toolbars.",
+      "aliases": [
+        "markdown editor",
+        "rich text",
+        "contenteditable",
+        "Editor"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "button"
+      ],
+      "importPath": "@default-file/ui/components/df-editor",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 9
+    },
+    {
+      "slug": "empty-state",
+      "name": "empty-state",
+      "title": "Empty State",
+      "description": "Placeholder for missing or filtered results with glyph, title, description, and optional action.",
+      "aliases": [
+        "no results",
+        "blank state",
+        "zero state",
+        "Empty State"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-empty-state",
+      "dependencies": [],
+      "propCount": 6
+    },
+    {
+      "slug": "featured-icon",
+      "name": "featured-icon",
+      "title": "Featured Icon",
+      "description": "Static featured icon shell with chrome variants, semantic colors, sizes, shape, and a plain glyph mode.",
+      "aliases": [
+        "feature icon",
+        "icon badge",
+        "icon shell",
+        "featured glyph",
+        "status icon",
+        "Featured Icon"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-featured-icon",
+      "dependencies": [],
+      "propCount": 25
+    },
+    {
+      "slug": "file-uploader",
+      "name": "file-uploader",
+      "title": "File Uploader",
+      "description": "Click, drag, or paste target for files with consumer-owned validation. Defaults to images. Use the tile variant for compact square or circle add and replace controls such as profile photos.",
+      "aliases": [
+        "file uploader",
+        "file upload",
+        "image upload",
+        "image dropzone",
+        "image paste target",
+        "photo dropzone",
+        "dropzone",
+        "profile picture upload",
+        "avatar upload",
+        "add photo"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-file-uploader",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 37
+    },
+    {
+      "slug": "floating-controls",
+      "name": "floating-controls",
+      "title": "Floating Controls",
+      "description": "Modular action strip for canvas toolbars and docks.",
+      "aliases": [
+        "floating toolbar",
+        "canvas action bar",
+        "tool action strip",
+        "overlay controls",
+        "Floating Controls"
+      ],
+      "chapter": "toolbars",
+      "registryDependencies": [
+        "foundation",
+        "separator"
+      ],
+      "importPath": "@default-file/ui/components/df-floating-controls",
+      "dependencies": [],
+      "propCount": 47
+    },
+    {
+      "slug": "format-toolbar",
+      "name": "format-toolbar",
+      "title": "Format Toolbar",
+      "description": "Rich text formatting toolbar with headings, marks, lists, callouts, and table row and column actions.",
+      "aliases": [
+        "rich text toolbar",
+        "formatting toolbar",
+        "editor toolbar",
+        "wysiwyg toolbar",
+        "text formatting bar",
+        "Format Toolbar"
+      ],
+      "chapter": "toolbars",
+      "registryDependencies": [
+        "foundation",
+        "button",
+        "input",
+        "popover",
+        "separator",
+        "tooltip"
+      ],
+      "importPath": "@default-file/ui/components/df-format-toolbar",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 31
+    },
+    {
+      "slug": "input",
+      "name": "input",
+      "title": "Input",
+      "description": "Text fields with variants, sizes, labels, icons, clear control, numeric stepper, change or blur value commit, addons, input groups, hover and focus borders, and validation.",
+      "aliases": [
+        "text field",
+        "text input",
+        "text box",
+        "form input",
+        "number input",
+        "numeric stepper",
+        "spinbutton",
+        "Input"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "label"
+      ],
+      "importPath": "@default-file/ui/components/df-input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 92
+    },
+    {
+      "slug": "kbd",
+      "name": "kbd",
+      "title": "Kbd",
+      "description": "Keyboard hint chip for shortcuts and key chords.",
+      "aliases": [
+        "keyboard shortcut",
+        "keycap",
+        "hotkey",
+        "shortcut chip",
+        "kbd"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-kbd",
+      "dependencies": [],
+      "propCount": 23
+    },
+    {
+      "slug": "label",
+      "name": "label",
+      "title": "Label",
+      "description": "Field and section labels with leading and trailing slots, required and optional marks, subtext, control inset alignment, and typography chrome.",
+      "aliases": [
+        "field label",
+        "form label",
+        "accessible label",
+        "section label",
+        "Label"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-label",
+      "dependencies": [],
+      "propCount": 36
+    },
+    {
+      "slug": "list-item",
+      "name": "list-item",
+      "title": "List Item",
+      "description": "Configurable row with leading, secondary, trailing, density, muted or accent variants, readOnly presentational rows, and as=\"button\" or asChild link hosts. Includes ListItemLabel for menu and nav section headings, and ListItemNest for indented child groups with an optional guide line. Option List, Select, Combobox, Tag Input, Contents Nav, Sidebar, and Dropdown Menu compose these for selectable options, outlines, and app nav.",
+      "aliases": [
+        "list row",
+        "menu item",
+        "nav item",
+        "option row",
+        "line item",
+        "List Item"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-list-item",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 76
+    },
+    {
+      "slug": "number-slider",
+      "name": "number-slider",
+      "title": "Number Slider",
+      "description": "Compact labeled Slider convenience with a live numeric readout. Prefer Slider for dual thumb, marks, orientation, or richer value chrome.",
+      "aliases": [
+        "labeled number slider",
+        "settings slider",
+        "numeric readout slider",
+        "Number Slider"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "label",
+        "slider"
+      ],
+      "importPath": "@default-file/ui/components/df-number-slider",
+      "dependencies": [],
+      "propCount": 10
+    },
+    {
+      "slug": "option-list",
+      "name": "option-list",
+      "title": "Option List",
+      "description": "Picker panel with option rows, search, checks, and footer actions. Rows compose List Item. Configure root width and panel match. Select composes this.",
+      "aliases": [
+        "options list",
+        "select list",
+        "picker list",
+        "option rows",
+        "Option List"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "list-item",
+        "search-input",
+        "scroll-area"
+      ],
+      "importPath": "@default-file/ui/components/df-option-list",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 156
+    },
+    {
+      "slug": "options-panel",
+      "name": "options-panel",
+      "title": "Options Panel",
+      "description": "Anchored popover shell with header, body, and footer slots for custom controls. Footer owns gapX and gapY, with FooterActions and FooterMeta for paired actions and status copy. Prefer this over Popover when the surface needs composed controls.",
+      "aliases": [
+        "rich popover",
+        "form popover",
+        "control popover",
+        "popover with controls",
+        "tool popover",
+        "custom popover",
+        "options popover",
+        "titled popover",
+        "options sheet",
+        "Options Panel"
+      ],
+      "chapter": "overlays",
+      "registryDependencies": [
+        "foundation",
+        "popover"
+      ],
+      "importPath": "@default-file/ui/components/df-options-panel",
+      "dependencies": [],
+      "propCount": 34
+    },
+    {
+      "slug": "overlay-hint",
+      "name": "overlay-hint",
+      "title": "Overlay Hint",
+      "description": "On-canvas instruction or status pill with frosted, muted, and marquee variants.",
+      "aliases": [
+        "instruction chip",
+        "hint pill",
+        "canvas hint",
+        "marquee hint",
+        "Overlay Hint"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-overlay-hint",
+      "dependencies": [],
+      "propCount": 53
+    },
+    {
+      "slug": "panel-section",
+      "name": "panel-section",
+      "title": "Panel Section",
+      "description": "Titled groupings for control panels and inspectors.",
+      "aliases": [
+        "inspector section",
+        "panel group",
+        "control section",
+        "settings section",
+        "Panel Section"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-panel-section",
+      "dependencies": [],
+      "propCount": 6
+    },
+    {
+      "slug": "popover",
+      "name": "popover",
+      "title": "Popover",
+      "description": "Anchored panel for mid-range tasks such as share sheets and short forms. Prefer Options Panel for denser inspectors, and Tooltip for hover-only hints.",
+      "aliases": [
+        "simple popover",
+        "light popover",
+        "lightweight popover",
+        "anchored popover",
+        "flyout",
+        "Popover"
+      ],
+      "chapter": "overlays",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-popover",
+      "dependencies": [],
+      "propCount": 118
+    },
+    {
+      "slug": "progress",
+      "name": "progress",
+      "title": "Progress",
+      "description": "Linear progress bar for determinate or indeterminate completion.",
+      "aliases": [
+        "progress bar",
+        "linear progress",
+        "determinate progress",
+        "indeterminate progress",
+        "Progress"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-progress",
+      "dependencies": [],
+      "propCount": 10
+    },
+    {
+      "slug": "radio-group",
+      "name": "radio-group",
+      "title": "Radio Group",
+      "description": "Exclusive native radio group with optional heading and per-item labels.",
+      "aliases": [
+        "radio buttons",
+        "option radios",
+        "Radio Group"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-radio-group",
+      "dependencies": [],
+      "propCount": 19
+    },
+    {
+      "slug": "scroll-area",
+      "name": "scroll-area",
+      "title": "Scroll Area",
+      "description": "Scrollable regions with a custom thumb.",
+      "aliases": [
+        "custom scrollbar",
+        "scroll container",
+        "scrollport",
+        "custom scroll area",
+        "Scroll Area"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-scroll-area",
+      "dependencies": [],
+      "propCount": 22
+    },
+    {
+      "slug": "search-input",
+      "name": "search-input",
+      "title": "Search Input",
+      "description": "Search field with clear control, icon placement, background fill, and hover border.",
+      "aliases": [
+        "search bar",
+        "SearchBar",
+        "search field",
+        "search box",
+        "Search Input"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "input"
+      ],
+      "importPath": "@default-file/ui/components/df-search-input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 22
+    },
+    {
+      "slug": "select",
+      "name": "select",
+      "title": "Select",
+      "description": "Single or multi choice field that composes Option List. Rows use List Item chrome. Configure width and open-list sizing. Closed list selection, not free-text autocomplete.",
+      "aliases": [
+        "dropdown",
+        "dropdown select",
+        "select menu",
+        "multi select",
+        "single select dropdown",
+        "Select"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "option-list",
+        "label"
+      ],
+      "importPath": "@default-file/ui/components/df-select",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 181
+    },
+    {
+      "slug": "separator",
+      "name": "separator",
+      "title": "Separator",
+      "description": "Horizontal or vertical rules between sections.",
+      "aliases": [
+        "divider",
+        "horizontal rule",
+        "vertical divider",
+        "Separator"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-separator",
+      "dependencies": [],
+      "propCount": 4
+    },
+    {
+      "slug": "sidebar",
+      "name": "sidebar",
+      "title": "Sidebar",
+      "description": "Composable primary navigation with provider state, collapse modes, and a List Item menu hierarchy.",
+      "aliases": [
+        "app sidebar",
+        "navigation sidebar",
+        "vertical nav",
+        "primary nav",
+        "side navigation",
+        "labeled nav",
+        "app shell nav",
+        "Sidebar"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation",
+        "button",
+        "label",
+        "list-item",
+        "search-input",
+        "tooltip",
+        "separator",
+        "skeleton",
+        "scroll-area"
+      ],
+      "importPath": "@default-file/ui/components/df-sidebar",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 184
+    },
+    {
+      "slug": "skeleton",
+      "name": "skeleton",
+      "title": "Skeleton",
+      "description": "Decorative loading placeholder shapes. Always aria-hidden; announce busy state on the host.",
+      "aliases": [
+        "loading placeholder",
+        "shimmer",
+        "pulse placeholder",
+        "Skeleton"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-skeleton",
+      "dependencies": [],
+      "propCount": 4
+    },
+    {
+      "slug": "slider",
+      "name": "slider",
+      "title": "Slider",
+      "description": "Single or dual thumb scrubber with marks, orientation, label, and value chrome. Prefer Number Slider for a compact settings row, and Tick Slider for bound labels with a tick gauge.",
+      "aliases": [
+        "range slider",
+        "dual slider",
+        "range scrubber",
+        "marked slider",
+        "continuous slider",
+        "Slider"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "button"
+      ],
+      "importPath": "@default-file/ui/components/df-slider",
+      "dependencies": [],
+      "propCount": 69
+    },
+    {
+      "slug": "spectrum-text",
+      "name": "spectrum-text",
+      "title": "Spectrum Text",
+      "description": "Inline text with a shifting multi stop gradient fill.",
+      "aliases": [
+        "gradient text",
+        "spectrum gradient text",
+        "animated gradient text",
+        "Spectrum Text"
+      ],
+      "chapter": "text",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-spectrum-text",
+      "dependencies": [],
+      "propCount": 11
+    },
+    {
+      "slug": "spinner",
+      "name": "spinner",
+      "title": "Spinner",
+      "description": "Indeterminate circular loading indicator.",
+      "aliases": [
+        "loader",
+        "loading spinner",
+        "circular loader",
+        "Spinner"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-spinner",
+      "dependencies": [],
+      "propCount": 11
+    },
+    {
+      "slug": "split",
+      "name": "split",
+      "title": "Split",
+      "description": "Two-pane layout with a keyboard and pointer resizable separator.",
+      "aliases": [
+        "split pane",
+        "resizable panes",
+        "splitter",
+        "Split"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-split",
+      "dependencies": [],
+      "propCount": 10
+    },
+    {
+      "slug": "status-dot",
+      "name": "status-dot",
+      "title": "Status Dot",
+      "description": "Filled presence mark for online, live, and similar status chips.",
+      "aliases": [
+        "presence dot",
+        "online dot",
+        "live indicator",
+        "status indicator",
+        "Status Dot"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-status-dot",
+      "dependencies": [],
+      "propCount": 7
+    },
+    {
+      "slug": "switch",
+      "name": "switch",
+      "title": "Switch",
+      "description": "Binary on and off control for immediate settings.",
+      "aliases": [
+        "toggle switch",
+        "on off switch",
+        "binary switch",
+        "settings switch",
+        "Switch"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-switch",
+      "dependencies": [],
+      "propCount": 18
+    },
+    {
+      "slug": "tabs",
+      "name": "tabs",
+      "title": "Tabs",
+      "description": "Panel switcher with pill, line, and segment variants. Prefer Content Switcher when you only switch mode without tab panels.",
+      "aliases": [
+        "tab bar",
+        "tab panels",
+        "tabbed panels",
+        "panel tabs",
+        "Tabs"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-tabs",
+      "dependencies": [],
+      "propCount": 35
+    },
+    {
+      "slug": "tag-input",
+      "name": "tag-input",
+      "title": "Tag Input",
+      "description": "Chip field for a string[] value with suggestions, paste batching, and max tags.",
+      "aliases": [
+        "chips input",
+        "token input",
+        "multi value input",
+        "Tag Input"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation",
+        "option-list"
+      ],
+      "importPath": "@default-file/ui/components/df-tag-input",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 14
+    },
+    {
+      "slug": "text-mark",
+      "name": "text-mark",
+      "title": "Text Mark",
+      "description": "Hand drawn text marks: highlight wash, underline, circle, and related annotation kinds.",
+      "aliases": [
+        "highlight mark",
+        "marker underline",
+        "scribble circle",
+        "text annotation",
+        "rough highlight",
+        "Text Mark"
+      ],
+      "chapter": "text",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-text-mark",
+      "dependencies": [
+        "rough-notation"
+      ],
+      "propCount": 25
+    },
+    {
+      "slug": "tick-slider",
+      "name": "tick-slider",
+      "title": "Tick Slider",
+      "description": "Bound labels, tick gauge, optional purpose title, and floating value bubble.",
+      "aliases": [
+        "tic slider",
+        "tick scrubber",
+        "gauge slider",
+        "bound slider",
+        "tick gauge slider",
+        "Tick Slider"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-tick-slider",
+      "dependencies": [],
+      "propCount": 97
+    },
+    {
+      "slug": "timeline",
+      "name": "timeline",
+      "title": "Timeline",
+      "description": "Virtualized timeline with time-scale bars, dependency paths, and snapped drag edits.",
+      "aliases": [
+        "gantt",
+        "schedule",
+        "bar timeline",
+        "Timeline"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-timeline",
+      "dependencies": [
+        "@tanstack/react-virtual"
+      ],
+      "propCount": 19
+    },
+    {
+      "slug": "toast",
+      "name": "toast",
+      "title": "Toast",
+      "description": "Transient messages with tone, a leading slot, and screen position.",
+      "aliases": [
+        "snackbar",
+        "notification toast",
+        "toast message",
+        "toast notification",
+        "Toast"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-toast",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "propCount": 74
+    },
+    {
+      "slug": "toggle-group",
+      "name": "toggle-group",
+      "title": "Toggle Group",
+      "description": "Grouped toggle buttons with a clearable string[] selection model. Prefer Content Switcher for exclusive view modes as segments.",
+      "aliases": [
+        "button group",
+        "option group",
+        "toggle buttons",
+        "multi select toggles",
+        "Toggle Group"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-toggle-group",
+      "dependencies": [],
+      "propCount": 23
+    },
+    {
+      "slug": "nav-rail",
+      "name": "nav-rail",
+      "title": "Tool Rail",
+      "description": "Fixed icon-over-label edge rail for switching tools or modes.",
+      "aliases": [
+        "tool rail",
+        "nav rail",
+        "navigation rail",
+        "icon rail",
+        "mode rail"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-nav-rail",
+      "dependencies": [],
+      "propCount": 62
+    },
+    {
+      "slug": "tooltip",
+      "name": "tooltip",
+      "title": "Tooltip",
+      "description": "Compact and detailed labels on hover, focus, or a viewport point.",
+      "aliases": [
+        "hover tip",
+        "focus tip",
+        "hover label",
+        "info tip",
+        "Tooltip"
+      ],
+      "chapter": "feedback",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-tooltip",
+      "dependencies": [],
+      "propCount": 28
+    },
+    {
+      "slug": "widget-grid",
+      "name": "widget-grid",
+      "title": "Widget Grid",
+      "description": "Draggable and resizable widget layout on a CSS grid with keyboard edit affordances.",
+      "aliases": [
+        "dashboard grid",
+        "tile grid",
+        "resizable widgets",
+        "Widget Grid"
+      ],
+      "chapter": "structure",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-widget-grid",
+      "dependencies": [],
+      "propCount": 18
+    }
+  ]
+}

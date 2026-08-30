@@ -1,0 +1,18 @@
+{
+  "name": "status-dot",
+  "type": "registry:ui",
+  "title": "Status Dot",
+  "description": "Filled status mark for online, live, and similar presence chips.",
+  "dependencies": [],
+  "registryDependencies": [
+    "foundation"
+  ],
+  "files": [
+    {
+      "path": "src/components/df-status-dot.tsx",
+      "type": "registry:ui",
+      "content": "import * as React from \"react\"\n\nimport { cn } from \"../lib/utils\"\n\ntype StatusDotSize = \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"\n\ntype StatusDotProps = React.HTMLAttributes<HTMLSpanElement> & {\n  /** Diameter step. Omit inside Badge to follow the badge size. */\n  size?: StatusDotSize\n}\n\nfunction StatusDot({ className, size, ...props }: StatusDotProps) {\n  return (\n    <span\n      data-df=\"status-dot\"\n      data-size={size}\n      aria-hidden\n      className={cn(className)}\n      {...props}\n    />\n  )\n}\n\nexport { StatusDot }\nexport type { StatusDotProps, StatusDotSize }\n",
+      "target": "default-file-ui/components/df-status-dot.tsx"
+    }
+  ]
+}

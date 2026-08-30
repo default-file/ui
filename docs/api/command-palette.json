@@ -1,0 +1,153 @@
+{
+  "name": "command-palette",
+  "slug": "command-palette",
+  "title": "Command Palette",
+  "description": "Searchable command dialog with ranking, optional async source, and recent ids.",
+  "aliases": [
+    "command menu",
+    "spotlight",
+    "quick actions",
+    "Command Palette"
+  ],
+  "chapter": "overlays",
+  "registryDependencies": [
+    "foundation",
+    "dialog",
+    "search-input",
+    "spinner",
+    "kbd"
+  ],
+  "importPath": "@default-file/ui/components/df-command-palette",
+  "dependencies": [],
+  "api": {
+    "description": "Searchable command dialog over kit Dialog. Ranks static commands, optional async results, and recent ids, then runs the active command.",
+    "groups": [
+      {
+        "id": "command-palette",
+        "title": "CommandPalette",
+        "props": [
+          {
+            "name": "open",
+            "type": "boolean",
+            "description": "Controlled open state."
+          },
+          {
+            "name": "defaultOpen",
+            "type": "boolean",
+            "default": "false",
+            "description": "Uncontrolled initial open state."
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "description": "Called when open changes. Closing clears the query and async session."
+          },
+          {
+            "name": "commands",
+            "type": "CommandItem[]",
+            "description": "Static command list (required)."
+          },
+          {
+            "name": "source",
+            "type": "(query: string) => Promise<CommandItem[]>",
+            "description": "Optional async source. Debounced while open; merged with static commands."
+          },
+          {
+            "name": "recentIds",
+            "type": "string[]",
+            "default": "[]",
+            "description": "Command ids promoted when the query is empty."
+          },
+          {
+            "name": "onRun",
+            "type": "(command: CommandItem) => void",
+            "description": "Called after a command is chosen, before command.run()."
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "description": "Search field placeholder. Defaults to the string catalogue."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Search field fill, forwarded to SearchInput."
+          },
+          {
+            "name": "emptyContent",
+            "type": "ReactNode",
+            "description": "Empty status content when nothing matches. Defaults to the string catalogue."
+          },
+          {
+            "name": "footer",
+            "type": "ReactNode",
+            "description": "Footer content under the list. Defaults to short keyboard hints."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on DialogContent."
+          }
+        ]
+      },
+      {
+        "id": "command-item",
+        "title": "CommandItem",
+        "props": [
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Stable id (required)."
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "description": "Visible and searchable label (required)."
+          },
+          {
+            "name": "section",
+            "type": "string",
+            "description": "Group heading. Falls back to the catalogue commands label."
+          },
+          {
+            "name": "keywords",
+            "type": "string[]",
+            "description": "Extra strings included in ranking."
+          },
+          {
+            "name": "rankTier",
+            "type": "number",
+            "default": "0",
+            "description": "Ranking band for query results. Lower tiers sort before higher tiers."
+          },
+          {
+            "name": "glyph",
+            "type": "ReactNode",
+            "description": "Leading mark on the option row."
+          },
+          {
+            "name": "shortcut",
+            "type": "string",
+            "description": "Optional shortcut shown with Kbd."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Non-runnable option."
+          },
+          {
+            "name": "run",
+            "type": "() => void",
+            "description": "Action invoked when the command runs (required)."
+          }
+        ]
+      },
+      {
+        "id": "command-palette-a11y",
+        "title": "Keyboard and accessibility",
+        "description": "Dialog (aria-label): DialogContent receives the catalogue command-palette accessible name. Search (combobox): Search input is a combobox with aria-controls and aria-activedescendant pointing at the active option. List (listbox): Results render as a listbox of options. Arrow keys move the active option; Enter runs it; Escape closes.",
+        "props": []
+      }
+    ]
+  }
+}

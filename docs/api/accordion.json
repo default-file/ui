@@ -1,0 +1,307 @@
+{
+  "name": "accordion",
+  "slug": "accordion",
+  "title": "Accordion",
+  "description": "Expandable sections with single or multiple open items.",
+  "aliases": [
+    "disclosure",
+    "expandable sections",
+    "collapsible sections",
+    "faq accordion",
+    "Accordion"
+  ],
+  "chapter": "structure",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-accordion",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Expandable sections for FAQs, changelogs, and settings groups. Compose Accordion, AccordionItem, AccordionTrigger, and AccordionContent. Supports single or multiple open items, sizes, dividers, and keyboard focus between triggers.",
+    "groups": [
+      {
+        "id": "accordion",
+        "title": "Accordion",
+        "props": [
+          {
+            "name": "type",
+            "type": "\"single\" | \"multiple\"",
+            "default": "\"single\"",
+            "description": "single opens one item at a time. multiple lets several items stay open."
+          },
+          {
+            "name": "collapsible",
+            "type": "boolean",
+            "default": "true",
+            "description": "For type single only. When true, clicking the open item closes it. When false, one item always stays open."
+          },
+          {
+            "name": "variant",
+            "type": "\"default\" | \"ghost\" | \"separated\"",
+            "default": "\"default\"",
+            "description": "default is a connected list with dividers. ghost is a flush embed. separated renders each item as its own bordered card with a gap between rows (dividers off by default)."
+          },
+          {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"default\" | \"lg\"",
+            "default": "\"default\"",
+            "description": "Trigger padding and title or content type scale."
+          },
+          {
+            "name": "radius",
+            "type": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"full\"",
+            "default": "\"3xl\"",
+            "description": "Corner radius step on the root. Maps to a --radius-* token (default --radius-3xl). Steps scale from the project --radius set at create or init. Use none for square corners."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Root shell fill. Prefer theme semantics such as var(--card). Sets --df-accordion-bg."
+          },
+          {
+            "name": "triggerBackground",
+            "type": "string",
+            "description": "Header fill for every trigger. Runs edge to edge on connected and ghost variants (inline padding lives on the trigger). Prefer theme semantics such as var(--muted) so light and dark stay readable. Absolute neutrals stay fixed and can break on dark surfaces. Sets --df-accordion-trigger-bg. Override per row with AccordionTrigger background."
+          },
+          {
+            "name": "contentBackground",
+            "type": "string",
+            "description": "Open panel fill for every item. Runs edge to edge on connected and ghost variants (inline padding lives on the content body). Prefer a theme-aware mix such as color-mix(in oklch, var(--muted) 40%, var(--card)). Absolute neutrals stay fixed and can break on dark surfaces. Sets --df-accordion-content-bg. Override per row with AccordionContent background."
+          },
+          {
+            "name": "contentPadding",
+            "type": "\"none\" | \"sm\" | \"default\" | \"lg\"",
+            "description": "Block padding on open panels only. Omit to keep the size-based bottom padding used by regular accordions. Set when using contentBackground so filled panels can inset without changing default size spacing."
+          },
+          {
+            "name": "showDividers",
+            "type": "boolean",
+            "default": "true (false when variant is separated)",
+            "description": "Draw a hairline under each item. The last item never shows a trailing divider. Separated defaults to false unless you set this explicitly."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Disable every item in the accordion."
+          },
+          {
+            "name": "value",
+            "type": "string | null | string[]",
+            "description": "Controlled open state. string or null for single; string array for multiple."
+          },
+          {
+            "name": "defaultValue",
+            "type": "string | null | string[]",
+            "description": "Uncontrolled initial open state."
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: string | null) => void | (value: string[]) => void",
+            "description": "Called when open state changes."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "accordion-item",
+        "title": "AccordionItem",
+        "description": "One expandable row. Owns the value shared by its trigger and content.",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Unique item value (required)."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Non interactive item. Trigger stays closed."
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "description": "Optional DOM id on the item wrapper."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the item."
+          }
+        ]
+      },
+      {
+        "id": "accordion-trigger",
+        "title": "AccordionTrigger",
+        "description": "Button that toggles the item. Supports title, subtitle, meta, leading, and a custom indicator.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Trigger title."
+          },
+          {
+            "name": "subtitle",
+            "type": "ReactNode",
+            "description": "Secondary line under the title. Pass text or any React node."
+          },
+          {
+            "name": "meta",
+            "type": "ReactNode",
+            "description": "Optional trailing metadata before the indicator (for example a date)."
+          },
+          {
+            "name": "leading",
+            "type": "ReactNode",
+            "description": "Optional leading icon or mark before the title. Pass any React node. When set, panel body text indents to align under the title."
+          },
+          {
+            "name": "indicator",
+            "type": "ReactNode | null",
+            "description": "Replace the default chevron. Pass null to hide the indicator."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Header fill for this trigger only. Prefer theme semantics such as var(--muted). Sets --df-accordion-trigger-bg on the button."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Disable this trigger only."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the trigger button."
+          }
+        ]
+      },
+      {
+        "id": "accordion-content",
+        "title": "AccordionContent",
+        "description": "Animated panel for the item body. Uses grid row expand and collapse with reduced motion support. Closed panels set inert so focus cannot enter hidden content.",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Panel body."
+          },
+          {
+            "name": "background",
+            "type": "string",
+            "description": "Panel fill for this content only. Prefer a theme-aware mix with var(--muted) and var(--card). Sets --df-accordion-content-bg on the panel."
+          },
+          {
+            "name": "forceMount",
+            "type": "boolean",
+            "default": "true",
+            "description": "Keep content mounted when closed so the height animation can run. Set false to unmount when closed."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the inner content."
+          }
+        ]
+      },
+      {
+        "id": "accordion-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--radius",
+            "type": "CSS length",
+            "description": "Base corner radius from create or init (df-ui init --radius). Every --radius-* step derives from this value.",
+            "default": "0.625rem"
+          },
+          {
+            "name": "--radius-3xl",
+            "type": "CSS length",
+            "description": "Default radius step when radius is 3xl. The radius prop selects any --radius-* step from none to full.",
+            "default": "calc(var(--radius) * 2.2)"
+          },
+          {
+            "name": "--df-accordion-bg",
+            "type": "CSS color",
+            "description": "Root shell fill. Set with the background prop or override on :root / the host.",
+            "default": "transparent"
+          },
+          {
+            "name": "--df-accordion-item-bg",
+            "type": "CSS color",
+            "description": "Separated item card fill. Used when variant is separated.",
+            "default": "var(--card)"
+          },
+          {
+            "name": "--df-accordion-trigger-bg",
+            "type": "CSS color",
+            "description": "Header (trigger) fill. Edge to edge on connected and ghost variants. Set with triggerBackground or AccordionTrigger background.",
+            "default": "transparent"
+          },
+          {
+            "name": "--df-accordion-content-bg",
+            "type": "CSS color",
+            "description": "Open panel fill. Edge to edge on connected and ghost variants. Set with contentBackground or AccordionContent background.",
+            "default": "transparent"
+          },
+          {
+            "name": "--df-accordion-pad-inline",
+            "type": "CSS length",
+            "description": "Horizontal padding on triggers and content bodies for connected and ghost variants. Keeps fills full width while inseting text.",
+            "default": "calc(5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-accordion-content-pad-block-start",
+            "type": "CSS length",
+            "description": "Top padding on open panel bodies when contentPadding is set.",
+            "default": "calc(5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-accordion-content-pad-block-end",
+            "type": "CSS length",
+            "description": "Bottom padding on open panel bodies when contentPadding is set.",
+            "default": "calc(5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-accordion-radius",
+            "type": "CSS length",
+            "description": "Resolved corner radius from the radius prop. Applied to the root, or to each item when variant is separated.",
+            "default": "0"
+          },
+          {
+            "name": "--border",
+            "type": "CSS color",
+            "description": "Hairline color for item dividers when showDividers is true.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--df-duration-panel",
+            "type": "CSS time",
+            "description": "Open and close duration for the panel and chevron.",
+            "default": "400ms"
+          },
+          {
+            "name": "--df-ease-decelerate",
+            "type": "CSS easing",
+            "description": "Easing for the panel expand and chevron rotate.",
+            "default": "cubic-bezier(0.22, 1, 0.36, 1)"
+          },
+          {
+            "name": "--df-corner-shape",
+            "type": "CSS corner-shape",
+            "description": "Theme corner curve for all kit chrome. round = circular arcs; smooth = continuous squircle. Set with df-ui init --corner-shape, or override on :root. Default round.",
+            "default": "var(--df-corner-shape-round)"
+          }
+        ]
+      }
+    ]
+  }
+}

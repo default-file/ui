@@ -1,0 +1,99 @@
+{
+  "name": "choice-chip",
+  "slug": "choice-chip",
+  "title": "Choice Chip",
+  "description": "Compact selectable chip for filters. Host owns grouping and multi-select.",
+  "aliases": [
+    "filter chip",
+    "choice chips",
+    "selectable chip",
+    "filter pill",
+    "Choice Chip"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-choice-chip",
+  "dependencies": [],
+  "api": {
+    "description": "Compact selectable chip for filters and quick choices. Label ink is optically centered to cap height with text-box when available, and a 1cap line box otherwise.",
+    "groups": [
+      {
+        "id": "choice-chip",
+        "title": "ChoiceChip",
+        "props": [
+          {
+            "name": "selected",
+            "type": "boolean",
+            "description": "Selected (pressed) appearance."
+          },
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "T-shirt height and type size."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Non-interactive chip."
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "description": "Chip label."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles."
+          }
+        ]
+      },
+      {
+        "id": "choice-chip-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally or on a local host.",
+        "props": [
+          {
+            "name": "--primary",
+            "type": "CSS color",
+            "description": "Selected fill.",
+            "default": "var(--df-neutral-850, var(--df-neutral-900))"
+          },
+          {
+            "name": "--border",
+            "type": "CSS color",
+            "description": "Unselected border.",
+            "default": "var(--df-neutral-100)"
+          },
+          {
+            "name": "--muted",
+            "type": "CSS color",
+            "description": "Hover fill.",
+            "default": "var(--df-neutral-50)"
+          },
+          {
+            "name": "--background",
+            "type": "CSS color",
+            "description": "Unselected fill.",
+            "default": "var(--df-neutral-0)"
+          },
+          {
+            "name": "--spacing-unit",
+            "type": "CSS length",
+            "description": "Base unit for padding and gap.",
+            "default": "0.25rem"
+          },
+          {
+            "name": "--df-label-line-height",
+            "type": "CSS line-height",
+            "description": "Line box for label flex centering. Defaults to --df-leading-none. When text-box is unavailable and the cap unit is supported, the kit sets this to 1cap so flex centering matches cap-height ink.",
+            "default": "var(--df-leading-none)"
+          }
+        ]
+      }
+    ]
+  }
+}

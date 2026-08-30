@@ -1,0 +1,86 @@
+{
+  "name": "editor",
+  "slug": "editor",
+  "title": "Editor",
+  "description": "Markdown-backed rich text surface with optional static and floating format toolbars.",
+  "aliases": [
+    "markdown editor",
+    "rich text",
+    "contenteditable",
+    "Editor"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation",
+    "button"
+  ],
+  "importPath": "@default-file/ui/components/df-editor",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "api": {
+    "description": "Markdown-backed rich text surface with optional static and floating format toolbars.",
+    "groups": [
+      {
+        "id": "editor",
+        "title": "Editor",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "description": "Controlled Markdown document (required)."
+          },
+          {
+            "name": "onChange",
+            "type": "(markdown: string) => void",
+            "description": "Called with serialized Markdown after edits settle."
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "description": "Empty-state hint. Defaults to the kit string catalogue."
+          },
+          {
+            "name": "readOnly",
+            "type": "boolean",
+            "default": "false",
+            "description": "Blocks edits and hides interactive toolbar controls."
+          },
+          {
+            "name": "minHeight",
+            "type": "string",
+            "description": "CSS length applied to --df-editor-min-height for this instance."
+          },
+          {
+            "name": "toolbar",
+            "type": "\"static\" | \"floating\" | \"both\" | \"none\"",
+            "default": "\"both\"",
+            "description": "static pins a format bar above the surface. floating shows a selection toolbar. both enables both. none hides kit chrome."
+          },
+          {
+            "name": "autoFocus",
+            "type": "boolean",
+            "default": "false",
+            "description": "Focus the editable surface on mount."
+          },
+          {
+            "name": "aria-label",
+            "type": "string",
+            "description": "Accessible name for the editable surface. Defaults to the kit string catalogue. Override when the host already names the field with a visible Label."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          }
+        ]
+      },
+      {
+        "id": "editor-a11y",
+        "title": "Accessibility",
+        "description": "Editable name: The contenteditable surface uses aria-label (catalogue default, or your override). Format toolbars use catalogue labels for icon-only controls. Prefer a visible Label with htmlFor only when you wrap a separate form control; this surface is not a native input.",
+        "props": []
+      }
+    ]
+  }
+}
