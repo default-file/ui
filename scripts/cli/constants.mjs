@@ -23,7 +23,7 @@ export const REPO_SLUG = readRepoSlug()
 export const PACKAGE_NAME = "@default-file/ui"
 
 /** Dependency spec written into consumer manifests and printed in guidance. */
-export const PACKAGE_SPEC = `github:${REPO_SLUG}#${REPO_BRANCH}`
+export const PACKAGE_SPEC = PACKAGE_NAME
 
 export const CSS_IMPORT = `@import "${PACKAGE_NAME}/css/df-index.css";`
 export const CSS_IMPORT_JS = `import "${PACKAGE_NAME}/css/df-index.css"`

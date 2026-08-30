@@ -2,6 +2,10 @@
 
 Semver for `@default-file/ui` lives in `package.json`. `df-ui init` records the same version in `df.json`.
 
+## 0.31.1
+
+- Install from the public registry. The CLI, README, and agent brief now use `@default-file/ui` instead of a source URL.
+
 ## 0.31.0
 
 - Own the utility generator and theme tables here. Consumers pass `--app-root <dir>` to build a product stylesheet instead of forking the generator.

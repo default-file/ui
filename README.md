@@ -15,7 +15,7 @@ individual components into your app as source you own. Docs and live examples:
 Scaffold a new app with Default File UI already wired:
 
 ```bash
-npx --yes -p github:default-file/ui#main df-ui init -t next
+npx --yes -p @default-file/ui df-ui init -t next
 ```
 
 Templates: `next`, `vite`, `react-router`, `tanstack-start`, `astro`, `react`.
@@ -23,13 +23,13 @@ Templates: `next`, `vite`, `react-router`, `tanstack-start`, `astro`, `react`.
 Configure an existing React app (also writes `df.json`, the project map):
 
 ```bash
-npx --yes -p github:default-file/ui#main df-ui init
+npx --yes -p @default-file/ui df-ui init
 ```
 
 Add components (copy source) into your app, resolving dependencies:
 
 ```bash
-npx --yes -p github:default-file/ui#main df-ui add button
+npx --yes -p @default-file/ui df-ui add button
 ```
 
 Existing local files stay in your project. Kit releases do not replace them
@@ -42,8 +42,8 @@ df-ui add button --force
 Inspect the kit version and `df.json` (init records `version`):
 
 ```bash
-npx --yes -p github:default-file/ui#main df-ui version
-npx --yes -p github:default-file/ui#main df-ui info
+npx --yes -p @default-file/ui df-ui version
+npx --yes -p @default-file/ui df-ui info
 ```
 
 Discover the kit (human or agent):
@@ -90,7 +90,7 @@ Example host config:
       "args": [
         "--yes",
         "-p",
-        "github:default-file/ui#main",
+        "@default-file/ui",
         "df-ui",
         "mcp"
       ]
@@ -110,7 +110,7 @@ Install color scales, semantic tokens, and utilities without components.
 Package entry:
 
 ```bash
-npm install github:default-file/ui#main
+npm install @default-file/ui
 ```
 
 ```css
@@ -132,7 +132,7 @@ Component peer packages are optional when you only import the color system CSS. 
 ## Install (full kit)
 
 ```bash
-npm install github:default-file/ui#main
+npm install @default-file/ui
 ```
 
 Component peers: `react`, `react-dom`, `lucide-react` (and `rough-notation` for TextMark).

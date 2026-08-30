@@ -12,7 +12,7 @@ Default File UI is a design system: color system, tokens, components, owned CSS,
 
 **Full kit** (components + color system):
 
-- Package: `npm install github:default-file/ui#main`
+- Package: `npm install @default-file/ui`
 - CSS: `@import "@default-file/ui/css/df-index.css";`
 - Components: `import { Button } from "@default-file/ui/components/df-button"`
 - Copy source: `df-ui init` then `df-ui add <items>` (resolves `foundation` to `color-system`)
@@ -58,7 +58,7 @@ Works with any host that supports MCP.
       "args": [
         "--yes",
         "-p",
-        "github:default-file/ui#main",
+        "@default-file/ui",
         "df-ui",
         "mcp"
       ]
