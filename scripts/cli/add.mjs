@@ -3,8 +3,7 @@ import path from "node:path"
 import { RAW_BASE } from "./constants.mjs"
 import { readDfConfig, defaultBaseDir } from "./df-config.mjs"
 import { exists, readText, writeText } from "./fs-utils.mjs"
-
-const LOCAL_PKG = "node_modules/@default-file/ui"
+import { kitFileExists, kitPath, readKitJson } from "./kit-root.mjs"
 
 export async function addCommand(args) {
   const options = parseAddArgs(args)
@@ -18,7 +17,7 @@ export async function addCommand(args) {
   const config = readDfConfig(cwd)
   const baseDir = options.dir ?? config?.baseDir ?? defaultBaseDir(cwd)
 
-  const registry = await loadRegistry(cwd)
+  const registry = loadRegistry()
   const resolved = resolveItems(registry, options.items)
 
   const npmDeps = new Set()
@@ -28,7 +27,7 @@ export async function addCommand(args) {
   for (const item of resolved) {
     for (const dep of item.dependencies ?? []) npmDeps.add(dep)
     for (const file of item.files ?? []) {
-      const source = await readSource(cwd, file.path)
+      const source = await readSource(item.name, file.path)
       const dest = destinationFor(cwd, baseDir, file.path)
       if (exists(dest) && !options.force) {
         skipped += 1
@@ -138,32 +137,47 @@ function destinationFor(cwd, baseDir, sourcePath) {
   return destination
 }
 
-function parseRegistryJson(text, sourceLabel) {
+/** Registry catalog for the kit release that owns this CLI. */
+function loadRegistry() {
   try {
-    return JSON.parse(text)
+    return readKitJson("registry.json")
   } catch (error) {
     const detail = error instanceof Error ? error.message : String(error)
     throw new Error(
-      `Could not parse registry.json from ${sourceLabel}: ${detail}. Reinstall @default-file/ui or check the remote registry payload.`
+      `Could not read registry.json from the installed kit: ${detail}. Reinstall @default-file/ui.`
     )
   }
 }
 
-async function loadRegistry(cwd) {
-  const local = path.join(cwd, LOCAL_PKG, "registry.json")
-  if (exists(local)) {
-    return parseRegistryJson(readText(local), local)
+const payloadCache = new Map()
+
+/** Built payload for one item, or null when the kit does not ship it. */
+function loadPayload(itemName) {
+  if (!payloadCache.has(itemName)) {
+    payloadCache.set(
+      itemName,
+      kitFileExists("public", "r", `${itemName}.json`)
+        ? readKitJson("public", "r", `${itemName}.json`)
+        : null
+    )
   }
-  const res = await fetch(`${RAW_BASE}/registry.json`)
-  if (!res.ok) {
-    throw new Error(`Could not load registry.json (HTTP ${res.status}).`)
-  }
-  return parseRegistryJson(await res.text(), `${RAW_BASE}/registry.json`)
+  return payloadCache.get(itemName)
 }
 
-async function readSource(cwd, relPath) {
-  const local = path.join(cwd, LOCAL_PKG, relPath)
+/**
+ * File contents for one registry file. Sources resolve from the installed kit
+ * so copied files match `df-ui version`. The pinned release is read over the
+ * network only when the kit ships neither the source nor its built payload.
+ */
+async function readSource(itemName, relPath) {
+  const local = kitPath(relPath)
   if (exists(local)) return readText(local)
+
+  const file = (loadPayload(itemName)?.files ?? []).find(
+    (entry) => entry.path === relPath
+  )
+  if (typeof file?.content === "string") return file.content
+
   const res = await fetch(`${RAW_BASE}/${relPath}`)
   if (!res.ok) {
     throw new Error(`Could not fetch ${relPath} (HTTP ${res.status}).`)
@@ -198,6 +212,8 @@ Usage:
 
 Copies registry items (and their dependencies) into your app under
 <baseDir>/default-file-ui, reading baseDir from df.json when present.
+
+Files come from the installed kit, so copies match \`df-ui version\`.
 
 Existing files are kept by default so local customizations stay intact.
 Pass --force only when you choose to replace them with the kit release.

@@ -23,6 +23,7 @@ import {
   type ContextMenuNavState,
   type ContextMenuSeparatorEntry,
 } from "../lib/df-context-menu"
+import { focusWithoutScroll } from "../lib/df-focus-trap"
 import { nearestDarkClass } from "../lib/nearest-theme"
 import { cn } from "../lib/utils"
 import { hasKbdShortcut, Kbd } from "./df-kbd"
@@ -220,7 +221,7 @@ function ContextMenuSurface({
     const target =
       level === "submenu" ? submenuSurfaceRef.current : contentRef.current
     window.requestAnimationFrame(() => {
-      target?.focus()
+      focusWithoutScroll(target)
     })
   }, [])
 
@@ -274,7 +275,7 @@ function ContextMenuSurface({
   React.useEffect(() => {
     if (!open) return
     const id = window.requestAnimationFrame(() => {
-      contentRef.current?.focus()
+      focusWithoutScroll(contentRef.current)
     })
     return () => window.cancelAnimationFrame(id)
   }, [open, sessionKey])

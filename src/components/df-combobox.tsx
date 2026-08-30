@@ -14,6 +14,7 @@ import {
   resolveComboboxDisplayText,
   type ComboboxOption,
 } from "../lib/df-combobox"
+import { focusWithoutScroll } from "../lib/df-focus-trap"
 import { useDfStrings } from "../lib/df-intl"
 import { cn } from "../lib/utils"
 import type { ListItemChromeProps } from "./df-list-item"
@@ -339,7 +340,7 @@ function Combobox({
     setText("")
     lastSyncedCommittedRef.current = ""
     setOpen(false)
-    inputRef.current?.focus()
+    focusWithoutScroll(inputRef.current)
   }
 
   return (
@@ -358,7 +359,7 @@ function Combobox({
           if (option == null || !isComboboxOptionInteractive(option)) return
           commitOption(option)
           setOpen(false)
-          inputRef.current?.focus()
+          focusWithoutScroll(inputRef.current)
         }}
         open={isOpen && !disabled}
         onOpenChange={(next) => {

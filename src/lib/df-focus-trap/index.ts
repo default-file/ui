@@ -1,5 +1,6 @@
 export {
   FOCUSABLE_SELECTOR,
+  focusWithoutScroll,
   lockBodyScroll,
   resolveFocusRestoreTarget,
   resolveFocusTrapKey,

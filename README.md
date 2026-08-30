@@ -157,6 +157,8 @@ import { Button } from "@default-file/ui/components/df-button"
 
 Root `registry.json` lists installable items. Built payloads live under `public/r/` after `npm run df:registry`.
 
+`df-ui add` reads the catalogue and file contents from the installed kit, so copied files match `df-ui version` and the command needs no network. The pinned release tag is read only when the kit ships neither the source nor its payload.
+
 GitHub registry path: `default-file/ui/<item>`
 
 | Item | Purpose |

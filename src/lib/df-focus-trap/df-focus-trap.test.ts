@@ -3,6 +3,7 @@ import { test } from "node:test"
 
 import {
   FOCUSABLE_SELECTOR,
+  focusWithoutScroll,
   lockBodyScroll,
   resolveFocusRestoreTarget,
   resolveFocusTrapKey,
@@ -99,6 +100,18 @@ test("resolveInitialFocus picks the first tabbable or the panel", () => {
   assert.equal(resolveInitialFocus(["a", "b"], "panel"), "a")
   assert.equal(resolveInitialFocus([], "panel"), "panel")
   assert.equal(resolveInitialFocus([], null), null)
+})
+
+test("focusWithoutScroll requests preventScroll", () => {
+  const calls: unknown[] = []
+  const element = {
+    focus(options?: FocusOptions) {
+      calls.push(options)
+    },
+  } as HTMLElement
+  focusWithoutScroll(element)
+  focusWithoutScroll(null)
+  assert.deepEqual(calls, [{ preventScroll: true }])
 })
 
 test("lockBodyScroll and unlockBodyScroll round-trip overflow", () => {

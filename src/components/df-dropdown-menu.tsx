@@ -15,6 +15,7 @@ import {
   type Align,
   type Side,
 } from "../hooks"
+import { focusWithoutScroll } from "../lib/df-focus-trap"
 import {
   dfPaddingChromeStyle,
   resolvePaddingSides,
@@ -405,7 +406,7 @@ function DropdownMenuContent({
       if (!didInitialFocusRef.current) {
         didInitialFocusRef.current = true
         const items = getMenuItems(contentRef.current)
-        items[0]?.focus()
+        focusWithoutScroll(items[0])
       }
       return
     }
@@ -421,7 +422,7 @@ function DropdownMenuContent({
       active === document.body ||
       contentRef.current?.contains(active)
     ) {
-      triggerRef.current?.focus?.()
+      focusWithoutScroll(triggerRef.current)
     }
   }, [open, present, restoreFocusRef, triggerRef])
 
@@ -1373,7 +1374,7 @@ function DropdownMenuSubContent({
               nextEvent.preventDefault()
               nextEvent.stopPropagation()
               setOpen(false)
-              triggerRef.current?.focus?.()
+              focusWithoutScroll(triggerRef.current)
               return
             }
 

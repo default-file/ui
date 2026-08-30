@@ -65,6 +65,13 @@ export function resolveInitialFocus<T>(
   return focusables[0] ?? panel ?? null
 }
 
+/** Move focus without scrolling ancestor overflow containers. */
+export function focusWithoutScroll(
+  element: HTMLElement | null | undefined
+): void {
+  element?.focus({ preventScroll: true })
+}
+
 export type OverflowStyleHost = {
   style: { overflow: string }
 }

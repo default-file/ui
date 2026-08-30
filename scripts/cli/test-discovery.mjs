@@ -13,6 +13,7 @@ import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js"
 
 import { resolveItems } from "./add.mjs"
 import {
+  capabilityGapRules,
   checkCoverage,
   getDocs,
   kitSummary,
@@ -229,6 +230,66 @@ async function testHelpers() {
     avatarCover.matched.some((row) => row.name === "avatar"),
     "avatar need should match the registered avatar"
   )
+
+  const radioCover = checkCoverage("radio input for one choice")
+  assert.ok(
+    radioCover.matched.some((row) => row.name === "radio-group"),
+    "radio need should match the registered radio-group"
+  )
+  assert.equal(
+    radioCover.gaps.length,
+    0,
+    "registered radio-group must close the radio gap"
+  )
+
+  const compactSpellingCover = checkCoverage("datagrid of users")
+  assert.ok(
+    compactSpellingCover.matched.some((row) => row.name === "data-grid"),
+    "closed-up spelling should match the registered data-grid"
+  )
+  assert.equal(
+    compactSpellingCover.gaps.length,
+    0,
+    "closed-up spelling must not open a false data-grid gap"
+  )
+  assert.equal(
+    showComponent("datagrid")?.name,
+    "data-grid",
+    "closed-up spelling should resolve through show"
+  )
+
+  // A capability gap rule must never contradict the registry.
+  const registryNames = new Set(listComponents().map((item) => item.name))
+  for (const rule of capabilityGapRules()) {
+    for (const name of rule.satisfiedBy) {
+      assert.ok(
+        !registryNames.has(name),
+        `gap rule "${rule.gap}" is stale: registry item "${name}" ships`
+      )
+    }
+    for (const token of rule.tokens) {
+      const hit = showComponent(token)
+      assert.ok(
+        !hit,
+        `gap rule "${rule.gap}" claims "${token}" is missing, but it resolves`
+      )
+    }
+  }
+  console.log(`gap rules: ${capabilityGapRules().length} verified against registry`)
+
+  // Every shipped item stays reachable from its own title and registry name.
+  for (const item of listComponents({ type: "registry:ui" })) {
+    const byTitle = checkCoverage(item.title)
+    assert.ok(
+      byTitle.matched.some((row) => row.name === item.name),
+      `coverage for "${item.title}" should match ${item.name}`
+    )
+    assert.equal(
+      showComponent(item.name)?.name,
+      item.name,
+      `show should resolve ${item.name}`
+    )
+  }
 
   const tokens = listTokens()
   assert.ok(tokens.tokenCount > 50)

@@ -19,6 +19,8 @@ Default File UI is a design system: color system, tokens, components, owned CSS,
 
 **Ownership:** local copy source files stay in the app. Do not re-add with `--force` unless the user chooses to upgrade those files. Package import updates apply only when the dependency is upgraded. Track versions with `df-ui version`, `df.json` `version`, and `df-ui info`.
 
+**Reproducible adds:** `df-ui add` copies from the installed kit, so the files match `df-ui version`. Pin the CLI version when an install must be repeatable.
+
 ## Discover before you invent
 
 ```bash

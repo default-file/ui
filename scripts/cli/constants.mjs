@@ -10,8 +10,8 @@ export const FRAMEWORKS = [
   "react",
 ]
 
-/** Branch that serves source installs and raw registry payloads. */
-const REPO_BRANCH = "main"
+/** Release tag that owns this CLI. Copy source never reads a moving branch. */
+const REPO_REF = `v${readKitJson("package.json").version}`
 
 /**
  * `owner/repo` for the kit source, parsed from `repository.url`.
@@ -30,7 +30,7 @@ export const CSS_IMPORT_JS = `import "${PACKAGE_NAME}/css/df-index.css"`
 
 export const DF_JSON = "df.json"
 
-export const RAW_BASE = `https://raw.githubusercontent.com/${REPO_SLUG}/${REPO_BRANCH}`
+export const RAW_BASE = `https://raw.githubusercontent.com/${REPO_SLUG}/${REPO_REF}`
 
 function readRepoSlug() {
   const url = String(readKitJson("package.json").repository?.url ?? "")

@@ -180,3 +180,32 @@ describe("DropdownMenuContent zero-box host", () => {
     expect(selected).toBe(true)
   })
 })
+
+describe("DropdownMenu open focus", () => {
+  it("does not scroll ancestor overflow when the menu opens", async () => {
+    const focus = vi.spyOn(HTMLElement.prototype, "focus")
+    render(
+      <DropdownMenu defaultOpen>
+        <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+        <DropdownMenuContent portal={false} animated={false}>
+          <DropdownMenuItem>Open</DropdownMenuItem>
+          <DropdownMenuItem>Duplicate</DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    )
+
+    await waitFor(() => {
+      expect(screen.getByRole("menuitem", { name: "Open" })).toHaveFocus()
+    })
+
+    const preventScrollCalls = focus.mock.calls.filter(
+      ([options]) =>
+        options != null &&
+        typeof options === "object" &&
+        "preventScroll" in options &&
+        options.preventScroll === true
+    )
+    expect(preventScrollCalls.length).toBeGreaterThan(0)
+    focus.mockRestore()
+  })
+})

@@ -31,61 +31,37 @@ const CHAPTER_TAGS = {
 }
 
 /**
- * Dedicated capability gaps. Each rule lists whole labels that mean "this need
- * is present in the query" and "this item is a dedicated primitive for it".
- * Satisfaction is exact label match on name, title, or alias, never a substring
- * hit inside a longer alias.
+ * Capability gaps the registry does not cover yet. `tokens` are whole labels
+ * that mean the need asks for the capability. `satisfiedBy` names the registry
+ * items that provide it, so a rule stops reporting a gap as soon as one of
+ * those items ships and the registry stays the single source of coverage.
  */
-const NEED_SYNONYMS = [
+const CAPABILITY_GAPS = [
   {
-    tokens: ["table", "data table", "data grid", "data-grid", "datagrid"],
-    gap: "Table or data-grid primitive",
-    suggestion:
-      "Build tables with owned markup and kit tokens (text, border, muted).",
-    related: ["scroll-area", "separator", "badge"],
-  },
-  {
-    tokens: ["checkbox", "radio", "radio group", "radio-group"],
-    gap: "Standalone checkbox or radio primitive",
-    suggestion:
-      "Use choice-chip, toggle-group, content-switcher, or select/option-list for choices.",
-    related: [
-      "choice-chip",
-      "toggle-group",
-      "content-switcher",
-      "select",
-      "option-list",
-    ],
-  },
-  {
-    tokens: ["avatar"],
-    gap: "Avatar primitive",
-    suggestion:
-      "Compose with badge, separator, and kit tokens, or request a registry item.",
-    related: ["badge", "separator", "overlay-hint"],
-  },
-  {
-    tokens: ["breadcrumb"],
+    tokens: ["breadcrumb", "breadcrumbs", "breadcrumb trail"],
+    satisfiedBy: ["breadcrumb"],
     gap: "Breadcrumb primitive",
     suggestion:
-      "Compose with badge, separator, and kit tokens, or request a registry item.",
-    related: ["badge", "separator", "overlay-hint"],
+      "Compose a trail with List Item, Separator, and kit text tokens.",
+    related: ["list-item", "separator", "contents-nav"],
   },
   {
-    tokens: ["pagination"],
+    tokens: ["pagination", "pager", "page controls"],
+    satisfiedBy: ["pagination"],
     gap: "Pagination primitive",
-    suggestion:
-      "Compose with badge, separator, and kit tokens, or request a registry item.",
-    related: ["badge", "separator", "overlay-hint"],
-  },
-  {
-    tokens: ["skeleton"],
-    gap: "Skeleton primitive",
-    suggestion:
-      "Compose with badge, separator, and kit tokens, or request a registry item.",
-    related: ["badge", "separator", "overlay-hint"],
+    suggestion: "Compose page controls with Button, Select, and kit tokens.",
+    related: ["button", "select", "option-list"],
   },
 ]
+
+/** Capability gap rules, for coverage reporting and registry drift checks. */
+export function capabilityGapRules() {
+  return CAPABILITY_GAPS.map((rule) => ({
+    tokens: [...rule.tokens],
+    satisfiedBy: [...rule.satisfiedBy],
+    gap: rule.gap,
+  }))
+}
 
 /** Coverage family hints. Optional alsoRequires narrows when the pattern alone is too broad. */
 const COMPOSE_HINTS = [
@@ -119,6 +95,31 @@ function normalizeLabel(value) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, " ")
     .trim()
+}
+
+/**
+ * Closed-up spelling of a multi-word label, for example "data grid" to
+ * "datagrid". Returns null for labels that are already a single word.
+ */
+function collapseLabel(normalized) {
+  if (!normalized || !normalized.includes(" ")) return null
+  return normalized.replace(/ /g, "")
+}
+
+/**
+ * Every whole label that identifies an item: its name, title, and aliases, each
+ * with its closed-up spelling. Callers match against these, never substrings.
+ */
+function buildMatchLabels(name, title, aliases) {
+  const labels = new Set()
+  for (const raw of [name, title, ...aliases]) {
+    const normalized = normalizeLabel(raw)
+    if (!normalized) continue
+    labels.add(normalized)
+    const collapsed = collapseLabel(normalized)
+    if (collapsed) labels.add(collapsed)
+  }
+  return [...labels]
 }
 
 function readAliases(meta) {
@@ -172,6 +173,7 @@ function loadBundle() {
     const title = meta?.title ?? item.title ?? item.name
     const description = meta?.description ?? item.description ?? ""
     const aliases = readAliases(meta)
+    const matchLabels = buildMatchLabels(item.name, title, aliases)
     const tags = buildTags(item, meta, chapter, title, description, aliases)
     const coverTerms = buildCoverTerms(item.name, title, chapter, aliases)
     return {
@@ -190,6 +192,7 @@ function loadBundle() {
       })),
       importPath: meta?.importPath ?? null,
       propCount: meta?.propCount ?? 0,
+      matchLabels,
       tags,
       coverTerms,
     }
@@ -216,6 +219,8 @@ function buildTags(item, meta, chapter, title, description, aliases = []) {
   for (const alias of aliases) {
     const normalized = normalizeLabel(alias)
     if (normalized) tags.add(normalized)
+    const collapsed = collapseLabel(normalized)
+    if (collapsed) tags.add(collapsed)
     for (const word of normalized.split(" ").filter((w) => w.length > 2)) {
       tags.add(word)
     }
@@ -223,10 +228,11 @@ function buildTags(item, meta, chapter, title, description, aliases = []) {
   return [...tags]
 }
 
-/** Coverage terms from name parts, title words, full aliases, and chapter. */
+/** Coverage terms from whole labels, name parts, title words, and chapter. */
 function buildCoverTerms(name, title, chapter, aliases = []) {
   const terms = new Set()
   terms.add(name)
+  for (const label of buildMatchLabels(name, title, aliases)) terms.add(label)
   for (const part of name.split("-").filter((w) => w.length > 2)) terms.add(part)
   for (const word of title
     .toLowerCase()
@@ -249,14 +255,7 @@ function itemAliasLabels(item) {
 function hasExactLabelMatch(item, query) {
   const q = normalizeLabel(query)
   if (!q) return false
-  if (normalizeLabel(item.name) === q) return true
-  if (normalizeLabel(item.title) === q) return true
-  return itemAliasLabels(item).includes(q)
-}
-
-/** True when the item's name, title, or an alias is exactly this capability token. */
-function itemSatisfiesToken(item, token) {
-  return hasExactLabelMatch(item, token)
+  return (item.matchLabels ?? []).includes(q)
 }
 
 /**
@@ -289,21 +288,17 @@ export function checkCoverage(need) {
   const matched = matchNeedToItems(query, items)
   const gaps = []
 
-  for (const rule of NEED_SYNONYMS) {
-    const requested = rule.tokens.filter((token) =>
+  for (const rule of CAPABILITY_GAPS) {
+    const requested = rule.tokens.some((token) =>
       needRequestsToken(normalizedNeed, token, items)
     )
-    if (requested.length === 0) continue
-    const dedicatedMissing = !requested.some((token) =>
-      items.some((item) => itemSatisfiesToken(item, token))
-    )
-    if (dedicatedMissing) {
-      gaps.push({
-        need: rule.gap,
-        suggestion: rule.suggestion,
-        related: rule.related.filter((name) => byName.has(name)),
-      })
-    }
+    if (!requested) continue
+    if (rule.satisfiedBy.some((name) => byName.has(name))) continue
+    gaps.push({
+      need: rule.gap,
+      suggestion: rule.suggestion,
+      related: rule.related.filter((name) => byName.has(name)),
+    })
   }
 
   // Form surfaces: suggest core form primitives when form-like language appears

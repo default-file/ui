@@ -26,6 +26,7 @@ import {
   useNearestDarkClass,
   usePresence,
 } from "../hooks"
+import { focusWithoutScroll } from "../lib/df-focus-trap"
 import { useDfStrings } from "../lib/df-intl"
 import { cn, composeEventHandlers, composeRefs } from "../lib/utils"
 
@@ -1182,8 +1183,8 @@ function OptionListContent({
     const searchInput = root.querySelector<HTMLInputElement>(
       '[data-df="option-list-search"] input'
     )
-    if (searchInput) searchInput.focus()
-    else root.focus()
+    if (searchInput) focusWithoutScroll(searchInput)
+    else focusWithoutScroll(root)
     if (initial) scrollSelectedIntoListViewport(initial, root)
   }, [open, mounted, portal, setActiveValue, value, values])
 
@@ -1200,7 +1201,7 @@ function OptionListContent({
     setActiveValue(null)
     const active = document.activeElement
     if (active == null || active === document.body) {
-      triggerRef.current?.focus?.()
+      focusWithoutScroll(triggerRef.current)
     }
   }, [open, portal, setActiveValue, triggerRef])
 

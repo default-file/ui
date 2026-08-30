@@ -2,6 +2,7 @@ import { useEffect, useRef, type RefObject } from "react"
 
 import {
   FOCUSABLE_SELECTOR,
+  focusWithoutScroll,
   lockBodyScroll,
   resolveFocusRestoreTarget,
   resolveFocusTrapKey,
@@ -43,7 +44,7 @@ export function useFocusTrap({
           previousFocusRef.current
         )
         previousFocusRef.current = null
-        restore?.focus?.()
+        focusWithoutScroll(restore)
       }
       return
     }
@@ -59,7 +60,7 @@ export function useFocusTrap({
       ? Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR))
       : []
     const initial = resolveInitialFocus(focusables, panel)
-    initial?.focus?.()
+    focusWithoutScroll(initial)
 
     return () => {
       unlockBodyScroll(document.body, previousOverflow)
@@ -91,15 +92,15 @@ export function useFocusTrap({
         return
       }
       if (decision.action === "focus-panel") {
-        panel?.focus()
+        focusWithoutScroll(panel)
         return
       }
       if (decision.action === "focus-last") {
-        focusables[focusables.length - 1]?.focus()
+        focusWithoutScroll(focusables[focusables.length - 1])
         return
       }
       if (decision.action === "focus-first") {
-        focusables[0]?.focus()
+        focusWithoutScroll(focusables[0])
       }
     }
 

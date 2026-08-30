@@ -2,6 +2,18 @@
 
 Semver for `@default-file/ui` lives in `package.json`. `df-ui init` records the same version in `df.json`.
 
+## 0.32.0
+
+- Resolve `df-ui add` from the installed kit, so copied files match `df-ui version` and a published package installs with no network.
+- Pin the copy source fallback to the release tag that owns the CLI instead of the default branch.
+- Report capability coverage from the registry. A gap rule now names the items that would satisfy it, so shipped components are never reported as missing.
+- Match closed-up spellings of multi-word labels, so `datagrid` resolves to Data Grid.
+- Add discovery gates that fail when a gap rule contradicts the registry, or when a shipped item is unreachable from its own title.
+
+## 0.31.2
+
+- Move focus into menus, pickers, and modal panels without scrolling ancestor overflow containers.
+
 ## 0.31.1
 
 - Install from the public registry. The CLI, README, and agent brief now use `@default-file/ui` instead of a source URL.
