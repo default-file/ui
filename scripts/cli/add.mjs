@@ -1,9 +1,9 @@
 import path from "node:path"
 
 import { RAW_BASE } from "./constants.mjs"
-import { readDfConfig, defaultBaseDir } from "./df-config.mjs"
+import { readDfConfig, defaultBaseDir, recordCopiedItems } from "./df-config.mjs"
 import { exists, readText, writeText } from "./fs-utils.mjs"
-import { kitFileExists, kitPath, readKitJson } from "./kit-root.mjs"
+import { kitFileExists, kitPath, kitVersion, readKitJson } from "./kit-root.mjs"
 
 export async function addCommand(args) {
   const options = parseAddArgs(args)
@@ -23,9 +23,11 @@ export async function addCommand(args) {
   const npmDeps = new Set()
   let written = 0
   let skipped = 0
+  const stamped = []
 
   for (const item of resolved) {
     for (const dep of item.dependencies ?? []) npmDeps.add(dep)
+    let itemWritten = 0
     for (const file of item.files ?? []) {
       const source = await readSource(item.name, file.path)
       const dest = destinationFor(cwd, baseDir, file.path)
@@ -38,8 +40,14 @@ export async function addCommand(args) {
       }
       writeText(dest, source)
       written += 1
+      itemWritten += 1
       console.log(`  + ${path.relative(cwd, dest)}`)
     }
+    if (itemWritten > 0) stamped.push(item.name)
+  }
+
+  if (stamped.length > 0) {
+    recordCopiedItems(cwd, stamped, kitVersion())
   }
 
   console.log(

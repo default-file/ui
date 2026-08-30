@@ -19,7 +19,9 @@ Default File UI is a design system: color system, tokens, components, owned CSS,
 
 **Ownership:** local copy source files stay in the app. Do not re-add with `--force` unless the user chooses to upgrade those files. Package import updates apply only when the dependency is upgraded. Track versions with `df-ui version`, `df.json` `version`, and `df-ui info`.
 
-**Reproducible adds:** `df-ui add` copies from the installed kit, so the files match `df-ui version`. Pin the CLI version when an install must be repeatable.
+**Reproducible adds:** `df-ui add` copies from the installed kit, so the files match `df-ui version`. Pin the CLI version when an install must be repeatable. `df.json` `copied` records each item's kit version. `df-ui upgrade` replaces those files with the current CLI release.
+
+**Copy source init:** `df-ui init --install-mode registry` copies foundation into the app and does not add `@default-file/ui` as a project dependency.
 
 ## Discover before you invent
 
@@ -97,5 +99,6 @@ Local install:
 | `install_skill` | Copy skill into `.agents/skills` and `.cursor/skills` |
 | `init_project` | Scaffold or configure (writes files) |
 | `add_components` | Copy source add (writes files) |
+| `upgrade_copied` | Replace copied items with the current CLI release |
 
 Prefer an explicit `cwd` for write tools.

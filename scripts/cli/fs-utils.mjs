@@ -59,7 +59,7 @@ export function installPackages(pm, packages, cwd) {
 
 export function ensureCssImport(filePath, importLine) {
   const current = exists(filePath) ? readText(filePath) : ""
-  if (current.includes("@default-file/ui/css/df-index.css")) {
+  if (current.includes(importLine.trim()) || current.includes("df-index.css")) {
     return { path: filePath, changed: false }
   }
   const next =

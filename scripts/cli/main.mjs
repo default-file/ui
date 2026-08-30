@@ -13,6 +13,7 @@ import { initCommand } from "./init.mjs"
 import { kitVersion } from "./kit-root.mjs"
 import { startMcpServer } from "./mcp.mjs"
 import { skillsCommand } from "./skills.mjs"
+import { upgradeCommand } from "./upgrade.mjs"
 
 export async function run(argv) {
   const [command, ...rest] = argv
@@ -34,6 +35,11 @@ export async function run(argv) {
 
   if (command === "add") {
     await addCommand(rest)
+    return
+  }
+
+  if (command === "upgrade") {
+    await upgradeCommand(rest)
     return
   }
 
@@ -100,6 +106,7 @@ Usage:
 Commands:
   init         Scaffold (-t) or configure an existing React app; writes df.json
   add          Copy registry items into your app. Keeps existing files unless --force.
+  upgrade      Replace copied items with the current CLI release (df.json copied).
   info         Print kit version, detected framework, and df.json
   version      Print the design system semver
   frameworks   List supported framework templates
@@ -117,6 +124,7 @@ Examples:
   df-ui init --framework vite --color-scale compact
   df-ui add button select
   df-ui add button --force
+  df-ui upgrade
   df-ui version
   df-ui list --json
   df-ui show button --json

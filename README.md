@@ -99,7 +99,7 @@ Example host config:
 }
 ```
 
-Tools: `list_components`, `get_component`, `list_tokens`, `search_kit`, `check_coverage`, `get_docs`, `list_skills`, `get_skill`, `install_skill`, `init_project`, `add_components`.
+Tools: `list_components`, `get_component`, `list_tokens`, `search_kit`, `check_coverage`, `get_docs`, `list_skills`, `get_skill`, `install_skill`, `init_project`, `add_components`, `upgrade_copied`.
 
 Agent brief: [docs/agents.md](./docs/agents.md).
 
@@ -157,7 +157,9 @@ import { Button } from "@default-file/ui/components/df-button"
 
 Root `registry.json` lists installable items. Built payloads live under `public/r/` after `npm run df:registry`.
 
-`df-ui add` reads the catalogue and file contents from the installed kit, so copied files match `df-ui version` and the command needs no network. The pinned release tag is read only when the kit ships neither the source nor its payload.
+`df-ui add` reads the catalogue and file contents from the installed kit, so copied files match `df-ui version` and the command needs no network. The pinned release tag is read only when the kit ships neither the source nor its payload. Each copied item records that version in `df.json` under `copied`. `df-ui upgrade` replaces those files with the current CLI release.
+
+`df-ui init --install-mode registry` copies foundation source and does not add the kit package. Import the local `default-file-ui/css/df-index.css`.
 
 GitHub registry path: `default-file/ui/<item>`
 

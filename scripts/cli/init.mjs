@@ -1,6 +1,7 @@
 import path from "node:path"
 
 import { applyKit } from "./apply.mjs"
+import { addCommand } from "./add.mjs"
 import {
   COLOR_SCALES,
   CORNER_SHAPES,
@@ -74,11 +75,13 @@ export async function initCommand(args) {
     const parent = path.resolve(options.cwd)
     const projectDir = scaffoldProject(options.template, name, parent)
     const result = applyKit(projectDir, options.template, {
+      installMode: options.installMode ?? "package",
       radius: options.radius,
       cornerShape: options.cornerShape,
       hoverBorder: options.hoverBorder,
     })
     finalizeConfig(projectDir, options.template, options, result)
+    await copyFoundationIfRegistry(projectDir, options.installMode)
     console.log(`\nNext:\n  cd ${name}\n  npm run dev\n`)
     return
   }
@@ -103,11 +106,13 @@ export async function initCommand(args) {
 
   console.log(`Detected ${frameworkLabel(framework)} in ${cwd}`)
   const result = applyKit(cwd, framework, {
+    installMode: options.installMode ?? "package",
     radius: options.radius,
     cornerShape: options.cornerShape,
     hoverBorder: options.hoverBorder,
   })
   finalizeConfig(cwd, framework, options, result)
+  await copyFoundationIfRegistry(cwd, options.installMode)
 }
 
 function finalizeConfig(cwd, framework, options, result) {
@@ -136,6 +141,11 @@ function finalizeConfig(cwd, framework, options, result) {
       `Set data-df-hover-border="${hoverBorder}" on <html> so field hover borders follow the theme.`
     )
   }
+}
+
+async function copyFoundationIfRegistry(cwd, installMode) {
+  if (installMode !== "registry") return
+  await addCommand(["foundation", "--cwd", cwd])
 }
 
 function parseInitArgs(args) {
@@ -203,7 +213,7 @@ Options:
   -f, --framework <fw>      Force framework when configuring in place
   -n, --name <dir>          Project directory name (with -t)
       --color-scale <s>     ${COLOR_SCALES.join(" | ")} (default: detailed)
-      --install-mode <m>    ${INSTALL_MODES.join(" | ")} (default: package)
+      --install-mode <m>    ${INSTALL_MODES.join(" | ")} (default: package). registry copies foundation source and does not add the kit package.
       --radius <len>        Corner radius token, e.g. 0, 0.375rem, 1rem (default: ${DEFAULT_RADIUS})
       --corner-shape <s>    ${CORNER_SHAPES.join(" | ")} (default: ${DEFAULT_CORNER_SHAPE})
       --hover-border <s>    ${HOVER_BORDERS.join(" | ")} (default: ${DEFAULT_HOVER_BORDER})

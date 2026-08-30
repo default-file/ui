@@ -32,6 +32,28 @@ export function infoCommand(args) {
     console.log(`    hoverBorder: ${config.hoverBorder ?? "n/a"}`)
     console.log(`    baseDir:     ${config.baseDir}`)
     console.log(`    css:         ${config.css ?? "n/a"}`)
+    const copied = config.copied && typeof config.copied === "object" ? config.copied : {}
+    const copiedNames = Object.keys(copied)
+    if (copiedNames.length > 0) {
+      console.log(`\n  Copied items:`)
+      let behind = 0
+      for (const name of copiedNames.sort()) {
+        const itemVersion =
+          typeof copied[name] === "string"
+            ? copied[name]
+            : copied[name]?.version ?? "n/a"
+        const stale = itemVersion !== release
+        if (stale) behind += 1
+        console.log(
+          `    ${name.padEnd(18)} ${itemVersion}${stale ? " (behind CLI)" : ""}`
+        )
+      }
+      if (behind > 0) {
+        console.log(
+          `\n  ${behind} copied item(s) are behind ${release}. Run \`df-ui upgrade\` to replace them.`
+        )
+      }
+    }
     if (config.version && config.version !== release) {
       console.log(
         `\n  Note: project was configured on ${config.version}; CLI kit is ${release}.`

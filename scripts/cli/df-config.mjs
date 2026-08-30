@@ -44,6 +44,27 @@ export function buildDfConfig(cwd, framework, options = {}) {
       ui: "@/default-file-ui",
       lib: "@/lib",
     },
+    copied: options.copied ?? existingCopied(cwd),
     css: options.css ?? null,
   }
+}
+
+function existingCopied(cwd) {
+  const current = readDfConfig(cwd)
+  if (!current?.copied || typeof current.copied !== "object") return {}
+  return current.copied
+}
+
+/** Record kit semver for items whose files were written this run. */
+export function recordCopiedItems(cwd, names, version) {
+  if (!Array.isArray(names) || names.length === 0) return null
+  const config = readDfConfig(cwd)
+  if (!config) return null
+  const copied = { ...(config.copied ?? {}) }
+  for (const name of names) {
+    copied[name] = { version }
+  }
+  config.copied = copied
+  writeDfConfig(cwd, config)
+  return config
 }

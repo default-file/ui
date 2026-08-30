@@ -537,9 +537,10 @@ export function getDocs(topic = "overview") {
       body: [
         `Scaffold: npx --yes -p ${PACKAGE_SPEC} df-ui init -t next`,
         "Existing app: df-ui init (writes df.json with kit version; supports --framework, --color-scale, --radius, --corner-shape, --hover-border, --install-mode)",
+        "Copy source: df-ui init --install-mode registry copies foundation and does not add the kit package. Import the local default-file-ui CSS.",
         "Color system: df-ui add color-system, or package CSS @import \"@default-file/ui/css/df-color-system.css\"",
         "Components: df-ui add button select (resolves foundation and color-system). Existing files are kept unless --force.",
-        "Upgrade local copies: df-ui add <item> --force only when you choose to replace them.",
+        "Copied files record their kit version in df.json copied. df-ui info lists them. df-ui upgrade replaces them with the current CLI release.",
         "Package imports: upgrade the @default-file/ui dependency when you want package updates. App files are not overwritten.",
         `Agent skill: npx skills add ${REPO_SLUG} --skill design-file-ui`,
         "Component peers (optional at package level): react, react-dom, lucide-react, rough-notation",
@@ -564,7 +565,7 @@ export function getDocs(topic = "overview") {
       title: "MCP",
       body: [
         "Start: df-ui mcp (stdio). Works with any MCP-capable host.",
-        "Tools: list_components, get_component, list_tokens, search_kit, check_coverage, get_docs, list_skills, get_skill, install_skill, init_project, add_components.",
+        "Tools: list_components, get_component, list_tokens, search_kit, check_coverage, get_docs, list_skills, get_skill, install_skill, init_project, add_components, upgrade_copied.",
         "get_component returns full prop tables from docs/api when available.",
         `Host config example: command df-ui, args ["mcp"] (or npx -p ${PACKAGE_SPEC} df-ui mcp).`,
       ].join("\n"),

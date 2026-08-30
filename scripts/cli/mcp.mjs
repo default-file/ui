@@ -15,6 +15,7 @@ import {
 import { initCommand } from "./init.mjs"
 import { kitVersion } from "./kit-root.mjs"
 import { installSkill, listSkills, showSkill } from "./skills.mjs"
+import { upgradeCommand } from "./upgrade.mjs"
 
 function jsonResult(data) {
   return {
@@ -408,6 +409,36 @@ export async function startMcpServer() {
         if (cwd) argv.push("--cwd", cwd)
         if (dir) argv.push("--dir", dir)
         const result = await captureCommand(() => addCommand(argv))
+        return jsonResult(result)
+      } catch (error) {
+        return errorResult(error)
+      }
+    }
+  )
+
+  server.registerTool(
+    "upgrade_copied",
+    {
+      title: "Upgrade copied items",
+      description:
+        "Replace copied kit files with the current CLI release (df-ui upgrade). Reads item names from df.json copied. Prefer an explicit cwd.",
+      inputSchema: {
+        cwd: z
+          .string()
+          .optional()
+          .describe("Project directory (default: process cwd)"),
+        dir: z.string().optional().describe("Base directory override"),
+      },
+      annotations: {
+        destructiveHint: true,
+      },
+    },
+    async ({ cwd, dir }) => {
+      try {
+        const argv = []
+        if (cwd) argv.push("--cwd", cwd)
+        if (dir) argv.push("--dir", dir)
+        const result = await captureCommand(() => upgradeCommand(argv))
         return jsonResult(result)
       } catch (error) {
         return errorResult(error)

@@ -11,6 +11,7 @@ import {
   frameworkLabel,
 } from "./constants.mjs"
 import { readPackageJson } from "./detect.mjs"
+import { defaultBaseDir } from "./df-config.mjs"
 import {
   ensureCssImport,
   findFirst,
@@ -27,8 +28,13 @@ export function applyKit(cwd, framework, options = {}) {
     throw new Error(`No package.json found in ${cwd}`)
   }
 
+  const installMode = options.installMode === "registry" ? "registry" : "package"
+  const baseDir = options.baseDir ?? defaultBaseDir(cwd)
+
   const toInstall = []
-  if (!hasDep(pkg, "@default-file/ui")) toInstall.push(PACKAGE_SPEC)
+  if (installMode === "package" && !hasDep(pkg, "@default-file/ui")) {
+    toInstall.push(PACKAGE_SPEC)
+  }
   if (!hasDep(pkg, "lucide-react")) toInstall.push("lucide-react")
   if (!hasDep(pkg, "react")) toInstall.push("react")
   if (!hasDep(pkg, "react-dom")) toInstall.push("react-dom")
@@ -40,7 +46,7 @@ export function applyKit(cwd, framework, options = {}) {
     console.log("Dependencies already present.")
   }
 
-  const css = ensureStylesheet(cwd, framework)
+  const css = ensureStylesheet(cwd, framework, { installMode, baseDir })
   const configNotes = []
 
   if (options.radius && options.radius !== DEFAULT_RADIUS && css.path) {
@@ -78,7 +84,7 @@ export function applyKit(cwd, framework, options = {}) {
     }
   }
 
-  if (framework === "next") {
+  if (framework === "next" && installMode === "package") {
     const patched = ensureNextTranspile(cwd)
     if (patched.changed) {
       console.log(`Updated ${path.relative(cwd, patched.path)} (transpilePackages).`)
@@ -115,9 +121,13 @@ export function applyKit(cwd, framework, options = {}) {
     )
   }
   for (const note of configNotes) console.log(note)
-  console.log(`\nTry:\n  import { Button } from "@default-file/ui/components/df-button"\n`)
+  const tryImport =
+    installMode === "registry"
+      ? 'import { Button } from "@/default-file-ui/components/df-button"'
+      : 'import { Button } from "@default-file/ui/components/df-button"'
+  console.log(`\nTry:\n  ${tryImport}\n`)
 
-  return { css, configNotes }
+  return { css, configNotes, installMode, baseDir }
 }
 
 function hasDep(pkg, name) {
@@ -126,11 +136,28 @@ function hasDep(pkg, name) {
   return Boolean(deps?.[name] || dev?.[name])
 }
 
-function ensureStylesheet(cwd, framework) {
+function kitIndexImport(filePath, cwd, baseDir, { js = false } = {}) {
+  const dest = path.join(cwd, baseDir, "default-file-ui", "css", "df-index.css")
+  let rel = path.relative(path.dirname(filePath), dest).split(path.sep).join("/")
+  if (!rel.startsWith(".")) rel = `./${rel}`
+  return js ? `import "${rel}"` : `@import "${rel}";`
+}
+
+function stylesheetImport(filePath, cwd, { installMode, baseDir, js = false }) {
+  if (installMode === "registry") {
+    return kitIndexImport(filePath, cwd, baseDir, { js })
+  }
+  return js ? CSS_IMPORT_JS : CSS_IMPORT
+}
+
+function ensureStylesheet(cwd, framework, { installMode, baseDir }) {
   const candidates = stylesheetCandidates(framework)
   const existing = findFirst(cwd, candidates)
   if (existing) {
-    return ensureCssImport(existing, CSS_IMPORT)
+    return ensureCssImport(
+      existing,
+      stylesheetImport(existing, cwd, { installMode, baseDir })
+    )
   }
 
   if (framework === "astro") {
@@ -141,12 +168,16 @@ function ensureStylesheet(cwd, framework) {
       "src/layouts/main.astro",
     ])
     if (layout) {
-      return ensureAstroLayoutImport(layout)
+      return ensureAstroLayoutImport(
+        layout,
+        stylesheetImport(layout, cwd, { installMode, baseDir, js: true })
+      )
     }
   }
 
   const fallback = path.join(cwd, "src/styles/default-file-ui.css")
-  writeText(fallback, `${CSS_IMPORT}\n`)
+  const importLine = stylesheetImport(fallback, cwd, { installMode, baseDir })
+  writeText(fallback, `${importLine}\n`)
   console.log(
     `Created ${path.relative(cwd, fallback)}. Import it once from your app entry if it is not already loaded.`
   )
@@ -234,9 +265,9 @@ function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }
 
-function ensureAstroLayoutImport(layoutPath) {
+function ensureAstroLayoutImport(layoutPath, importLine) {
   const current = readText(layoutPath)
-  if (current.includes("@default-file/ui/css/df-index.css")) {
+  if (current.includes("df-index.css")) {
     return { path: layoutPath, changed: false }
   }
   if (current.trimStart().startsWith("---")) {
@@ -244,14 +275,12 @@ function ensureAstroLayoutImport(layoutPath) {
     if (end !== -1) {
       const head = current.slice(0, end)
       const rest = current.slice(end)
-      if (!head.includes("@default-file/ui/css/df-index.css")) {
-        const next = `${head}${CSS_IMPORT_JS}\n${rest}`
-        writeText(layoutPath, next)
-        return { path: layoutPath, changed: true }
-      }
+      const next = `${head}${importLine}\n${rest}`
+      writeText(layoutPath, next)
+      return { path: layoutPath, changed: true }
     }
   }
-  writeText(layoutPath, `---\n${CSS_IMPORT_JS}\n---\n${current}`)
+  writeText(layoutPath, `---\n${importLine}\n---\n${current}`)
   return { path: layoutPath, changed: true }
 }
 

@@ -2,6 +2,11 @@
 
 Semver for `@default-file/ui` lives in `package.json`. `df-ui init` records the same version in `df.json`.
 
+## 0.33.0
+
+- Honor `--install-mode registry`: do not add the kit package, import local CSS, and copy foundation on init.
+- Record each copied item's kit version in `df.json`. `df-ui info` lists them. `df-ui upgrade` replaces them with the current CLI release.
+
 ## 0.32.0
 
 - Resolve `df-ui add` from the installed kit, so copied files match `df-ui version` and a published package installs with no network.

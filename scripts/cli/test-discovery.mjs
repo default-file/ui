@@ -443,6 +443,7 @@ async function testMcp() {
       "install_skill",
       "init_project",
       "add_components",
+      "upgrade_copied",
     ]) {
       assert.ok(names.includes(required), `missing tool ${required}`)
     }
