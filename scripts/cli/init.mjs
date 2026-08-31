@@ -76,6 +76,7 @@ export async function initCommand(args) {
     const projectDir = scaffoldProject(options.template, name, parent)
     const result = applyKit(projectDir, options.template, {
       installMode: options.installMode ?? "package",
+      scaffolded: true,
       radius: options.radius,
       cornerShape: options.cornerShape,
       hoverBorder: options.hoverBorder,
@@ -124,7 +125,7 @@ function finalizeConfig(cwd, framework, options, result) {
     radius: options.radius ?? DEFAULT_RADIUS,
     cornerShape: options.cornerShape ?? DEFAULT_CORNER_SHAPE,
     hoverBorder,
-    css: result?.css?.path ? path.relative(cwd, result.css.path) : null,
+    css: result?.css?.path ? toPosix(path.relative(cwd, result.css.path)) : null,
   })
   const file = writeDfConfig(cwd, config)
   console.log(`Wrote ${path.relative(cwd, file)} (project map for \`df-ui add\`).`)
@@ -141,6 +142,11 @@ function finalizeConfig(cwd, framework, options, result) {
       `Set data-df-hover-border="${hoverBorder}" on <html> so field hover borders follow the theme.`
     )
   }
+}
+
+/** df.json is committed and read on every platform, so paths stay posix. */
+function toPosix(value) {
+  return value.split(path.sep).join("/")
 }
 
 async function copyFoundationIfRegistry(cwd, installMode) {

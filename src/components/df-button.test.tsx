@@ -38,4 +38,52 @@ describe("Button contracts", () => {
     )
     expect(screen.getByRole("button", { name: "More" })).toBeInTheDocument()
   })
+
+  it("writes chrome props onto button CSS variables", () => {
+    render(
+      <Button
+        paddingX="calc(6 * var(--spacing-unit))"
+        paddingY="calc(3 * var(--spacing-unit))"
+        height="calc(12 * var(--spacing-unit))"
+        width="calc(36 * var(--spacing-unit))"
+        fontSize="var(--df-text-base)"
+        lineHeight="var(--df-leading-6)"
+        fontFamily="var(--df-font-mono)"
+        radius="var(--radius-md)"
+      >
+        Custom
+      </Button>
+    )
+    const control = screen.getByRole("button", { name: "Custom" })
+    expect(control.style.getPropertyValue("--df-button-padding-inline-start")).toBe(
+      "calc(6 * var(--spacing-unit))"
+    )
+    expect(control.style.getPropertyValue("--df-button-padding-inline-end")).toBe(
+      "calc(6 * var(--spacing-unit))"
+    )
+    expect(control.style.getPropertyValue("--df-button-padding-block-start")).toBe(
+      "calc(3 * var(--spacing-unit))"
+    )
+    expect(control.style.getPropertyValue("--df-button-padding-block-end")).toBe(
+      "calc(3 * var(--spacing-unit))"
+    )
+    expect(control.style.getPropertyValue("--df-button-height")).toBe(
+      "calc(12 * var(--spacing-unit))"
+    )
+    expect(control.style.getPropertyValue("--df-button-width")).toBe(
+      "calc(36 * var(--spacing-unit))"
+    )
+    expect(control.style.getPropertyValue("--df-button-font-size")).toBe(
+      "var(--df-text-base)"
+    )
+    expect(control.style.getPropertyValue("--df-button-line-height")).toBe(
+      "var(--df-leading-6)"
+    )
+    expect(control.style.getPropertyValue("--df-button-font-family")).toBe(
+      "var(--df-font-mono)"
+    )
+    expect(control.style.getPropertyValue("--df-button-radius")).toBe(
+      "var(--radius-md)"
+    )
+  })
 })

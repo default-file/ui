@@ -90,8 +90,3 @@ Use these prompts in a fresh agent turn after install. Pass only if the skill at
 - Workflow graphs need a readable execution path, not disconnected cards.
 - Visual authorship and adaptive density are finish gates for tool UI.
 - When Default File UI is present, open `references/kit.md` and discover components/tokens before inventing chrome.
-
-## Research sources
-
-- Marketing corpus: promotional and brand campaign UI research (in the UX Tools app repo when developing locally)
-- Workspace corpus: enterprise workspace and admin UI research (in the UX Tools app repo when developing locally)

@@ -5,7 +5,8 @@
   "description": "Tokenized instruction pill with frosted glass, muted chip, and marquee variants. Supports sm and md density plus configurable radius, chrome, and separator.",
   "dependencies": [],
   "registryDependencies": [
-    "foundation"
+    "foundation",
+    "button"
   ],
   "files": [
     {

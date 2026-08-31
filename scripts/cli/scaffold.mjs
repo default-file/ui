@@ -35,6 +35,8 @@ export function scaffoldProject(framework, name, parentDir) {
           "--use-npm",
           "--yes",
           "--disable-git",
+          // The kit ships its own utilities, so skip the template CSS toolchain.
+          "--no-tailwind",
         ],
         { cwd: parentDir }
       )

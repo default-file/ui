@@ -4,6 +4,7 @@
  * 1. Every path in registry.json exists on disk.
  * 2. public/r/*.json matches a fresh build from the same builder.
  * 3. Each public df-*.tsx maps to registry:ui + docs/api, with an explicit allowlist.
+ * 4. Every relative import in an item resolves inside that item's install closure.
  */
 import fs from "node:fs"
 import os from "node:os"
@@ -190,12 +191,96 @@ function assertComponentConsistency(catalog) {
   return errors
 }
 
+/** Source extensions a relative import may resolve to, in resolution order. */
+const SOURCE_EXTENSIONS = [".ts", ".tsx", ".css"]
+
+/** Strip comments and strings so only real import specifiers are scanned. */
+function stripNonCode(source) {
+  return source
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .replace(/(^|[^:])\/\/[^\n]*/g, "$1")
+    .replace(/`(?:\\[\s\S]|[^`\\])*`/g, "``")
+}
+
+function isFile(relPath) {
+  try {
+    return fs.statSync(path.join(ROOT, relPath)).isFile()
+  } catch {
+    return false
+  }
+}
+
+function resolveRelativeImport(fromPath, specifier) {
+  const base = path.posix.join(path.posix.dirname(fromPath), specifier)
+  const candidates = [
+    base,
+    ...SOURCE_EXTENSIONS.map((ext) => `${base}${ext}`),
+    ...SOURCE_EXTENSIONS.map((ext) => `${base}/index${ext}`),
+  ]
+  return candidates.find((candidate) => isFile(candidate)) ?? null
+}
+
+/** Names of an item plus every item it depends on, transitively. */
+function dependencyClosure(items, name, seen = new Set()) {
+  if (seen.has(name)) return seen
+  seen.add(name)
+  for (const dep of items.get(name)?.registryDependencies ?? []) {
+    const local = dep.replace(/^default-file\/ui\//, "")
+    if (items.has(local)) dependencyClosure(items, local, seen)
+  }
+  return seen
+}
+
+/**
+ * A copied item must be able to compile on its own, so every relative import in
+ * its sources has to resolve to a file that the same install writes. Without
+ * this gate a component can ship with a shared lib that no dependency declares.
+ */
+function assertImportClosure(catalog) {
+  const errors = []
+  const items = new Map((catalog.items ?? []).map((item) => [item.name, item]))
+
+  for (const item of catalog.items ?? []) {
+    const installed = new Set()
+    for (const name of dependencyClosure(items, item.name)) {
+      for (const file of items.get(name)?.files ?? []) installed.add(file.path)
+    }
+
+    for (const file of item.files ?? []) {
+      if (!/\.tsx?$/.test(file.path)) continue
+      const source = stripNonCode(fs.readFileSync(path.join(ROOT, file.path), "utf8"))
+      const specifiers = new Set(
+        [...source.matchAll(/(?:from|import)\s*\(?\s*["'](\.[^"']+)["']/g)].map(
+          (match) => match[1]
+        )
+      )
+      for (const specifier of specifiers) {
+        const resolved = resolveRelativeImport(file.path, specifier)
+        if (!resolved) {
+          errors.push(
+            `registry item "${item.name}": ${file.path} imports "${specifier}", which does not exist on disk`
+          )
+          continue
+        }
+        if (!installed.has(resolved)) {
+          errors.push(
+            `registry item "${item.name}": ${file.path} imports "${specifier}" (${resolved}), which no declared file or registryDependency installs`
+          )
+        }
+      }
+    }
+  }
+
+  return errors
+}
+
 function main() {
   const catalog = readCatalog()
   const errors = [
     ...assertDeclaredPathsExist(catalog),
     ...assertPublicPayloadsFresh(catalog),
     ...assertComponentConsistency(catalog),
+    ...assertImportClosure(catalog),
   ]
 
   if (errors.length > 0) {

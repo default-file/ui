@@ -46,7 +46,11 @@ export function applyKit(cwd, framework, options = {}) {
     console.log("Dependencies already present.")
   }
 
-  const css = ensureStylesheet(cwd, framework, { installMode, baseDir })
+  const css = ensureStylesheet(cwd, framework, {
+    installMode,
+    baseDir,
+    scaffolded: options.scaffolded === true,
+  })
   const configNotes = []
 
   if (options.radius && options.radius !== DEFAULT_RADIUS && css.path) {
@@ -88,7 +92,7 @@ export function applyKit(cwd, framework, options = {}) {
     const patched = ensureNextTranspile(cwd)
     if (patched.changed) {
       console.log(`Updated ${path.relative(cwd, patched.path)} (transpilePackages).`)
-    } else if (patched.path) {
+    } else if (patched.configured) {
       console.log(`Next transpile already configured (${path.relative(cwd, patched.path)}).`)
     } else {
       configNotes.push(
@@ -114,11 +118,16 @@ export function applyKit(cwd, framework, options = {}) {
 
   console.log(`\nDefault File UI is ready for ${frameworkLabel(framework)}.`)
   if (css.path) {
-    console.log(
-      css.changed
-        ? `Stylesheet: added import in ${path.relative(cwd, css.path)}`
-        : `Stylesheet: already imported in ${path.relative(cwd, css.path)}`
-    )
+    const where = path.relative(cwd, css.path)
+    if (css.claimed) {
+      console.log(`Stylesheet: kit owns ${where} (template styles replaced)`)
+    } else {
+      console.log(
+        css.changed
+          ? `Stylesheet: added import in ${where}`
+          : `Stylesheet: already imported in ${where}`
+      )
+    }
   }
   for (const note of configNotes) console.log(note)
   const tryImport =
@@ -150,14 +159,13 @@ function stylesheetImport(filePath, cwd, { installMode, baseDir, js = false }) {
   return js ? CSS_IMPORT_JS : CSS_IMPORT
 }
 
-function ensureStylesheet(cwd, framework, { installMode, baseDir }) {
+function ensureStylesheet(cwd, framework, { installMode, baseDir, scaffolded }) {
   const candidates = stylesheetCandidates(framework)
   const existing = findFirst(cwd, candidates)
   if (existing) {
-    return ensureCssImport(
-      existing,
-      stylesheetImport(existing, cwd, { installMode, baseDir })
-    )
+    const importLine = stylesheetImport(existing, cwd, { installMode, baseDir })
+    if (scaffolded) return claimStylesheet(existing, importLine)
+    return ensureCssImport(existing, importLine)
   }
 
   if (framework === "astro") {
@@ -182,6 +190,21 @@ function ensureStylesheet(cwd, framework, { installMode, baseDir }) {
     `Created ${path.relative(cwd, fallback)}. Import it once from your app entry if it is not already loaded.`
   )
   return { path: fallback, changed: true }
+}
+
+/**
+ * Replace a freshly scaffolded template stylesheet with the kit import alone.
+ * Starter templates declare their own custom properties, and names such as
+ * `--background` or `--border` resolve to kit semantic tokens. Those
+ * declarations follow the import and would win the cascade, so the kit owns
+ * this file for projects it scaffolds. Existing projects keep their CSS.
+ */
+function claimStylesheet(filePath, importLine) {
+  const current = readText(filePath)
+  const next = `${importLine}\n`
+  if (current === next) return { path: filePath, changed: false, claimed: true }
+  writeText(filePath, next)
+  return { path: filePath, changed: true, claimed: true }
 }
 
 function stylesheetCandidates(framework) {
@@ -284,6 +307,18 @@ function ensureAstroLayoutImport(layoutPath, importLine) {
   return { path: layoutPath, changed: true }
 }
 
+/**
+ * Opening brace of a Next config object literal, in priority order. The named
+ * form allows an optional type annotation, so `const nextConfig: NextConfig = {`
+ * is matched as well as `const nextConfig = {`. A config with no object literal
+ * matches nothing and is reported to the caller instead of being rewritten.
+ */
+const NEXT_CONFIG_DECLARATIONS = [
+  /const\s+\w*[Cc]onfig\w*\s*(?::[^=]+)?=\s*\{/,
+  /export\s+default\s*\{/,
+  /module\.exports\s*=\s*\{/,
+]
+
 function ensureNextTranspile(cwd) {
   const configPath = findFirst(cwd, [
     "next.config.ts",
@@ -291,14 +326,14 @@ function ensureNextTranspile(cwd) {
     "next.config.js",
     "next.config.cjs",
   ])
-  if (!configPath) return { path: null, changed: false }
+  if (!configPath) return { path: null, changed: false, configured: false }
 
   const source = readText(configPath)
   if (
     source.includes("@default-file/ui") &&
     /transpilePackages\s*:/.test(source)
   ) {
-    return { path: configPath, changed: false }
+    return { path: configPath, changed: false, configured: true }
   }
 
   if (/transpilePackages\s*:\s*\[/.test(source)) {
@@ -307,26 +342,17 @@ function ensureNextTranspile(cwd) {
       'transpilePackages: ["@default-file/ui", '
     )
     writeText(configPath, next)
-    return { path: configPath, changed: true }
+    return { path: configPath, changed: true, configured: true }
   }
 
-  if (/const\s+nextConfig\s*=\s*\{/.test(source)) {
-    const next = source.replace(
-      /const\s+nextConfig\s*=\s*\{/,
-      'const nextConfig = {\n  transpilePackages: ["@default-file/ui"],'
-    )
+  for (const pattern of NEXT_CONFIG_DECLARATIONS) {
+    const match = pattern.exec(source)
+    if (!match) continue
+    const at = match.index + match[0].length
+    const next = `${source.slice(0, at)}\n  transpilePackages: ["@default-file/ui"],${source.slice(at)}`
     writeText(configPath, next)
-    return { path: configPath, changed: true }
+    return { path: configPath, changed: true, configured: true }
   }
 
-  if (/export\s+default\s*\{/.test(source)) {
-    const next = source.replace(
-      /export\s+default\s*\{/,
-      'export default {\n  transpilePackages: ["@default-file/ui"],'
-    )
-    writeText(configPath, next)
-    return { path: configPath, changed: true }
-  }
-
-  return { path: configPath, changed: false }
+  return { path: configPath, changed: false, configured: false }
 }

@@ -2,6 +2,23 @@
 
 Semver for `@default-file/ui` lives in `package.json`. `df-ui init` records the same version in `df.json`.
 
+## 0.34.0
+
+- Clear the parent runner's invocation config before spawning a package manager. `npx -p @default-file/ui df-ui init -t <framework>` exported `npm_config_package`, so the nested runner looked for the framework scaffolder inside this kit and failed for `next`, `react-router`, `tanstack-start`, and `astro`.
+- Install `df-focus-trap` with `foundation`, so Combobox, Context Menu, Dropdown Menu, and Option List copy source compiles. Overlay Hint now declares its Button dependency.
+- Gate the registry on import closure: every relative import in an item must resolve to a file that the same install writes.
+- Let the kit own the stylesheet in projects `df-ui init -t` scaffolds. Template custom properties such as `--background` and `--border` no longer shadow kit semantic tokens. Existing projects keep their CSS.
+- Skip the template CSS toolchain when scaffolding Next, so the kit provides the only utility layer.
+- Add `transpilePackages` to a Next config that carries a type annotation, and report honestly when the config cannot be patched.
+- Record the `df.json` stylesheet path with posix separators so the file stays portable.
+- Remove references to a private workspace from the README, the agent guide, and the bundled skill. Public docs now cite only commands and paths this repository ships.
+- Own text Button geometry per size: padding, type size, and line height. Height follows those tokens.
+- Set xs and sm text Button vertical padding to one and two spacing units.
+- Keep square icon Buttons on the form control height tokens.
+- Keep icon-adjacent text Buttons one step tighter on the icon side.
+- Let Button chrome props override padding, height, width, type size, line height, font, and radius on the host.
+- Remove the Button glyphShadow prop. Plain icon buttons no longer apply a glyph drop shadow.
+
 ## 0.33.0
 
 - Honor `--install-mode registry`: do not add the kit package, import local CSS, and copy foundation on init.

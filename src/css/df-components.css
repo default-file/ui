@@ -177,13 +177,20 @@
   align-items: center;
   justify-content: center;
   gap: calc(1.5 * var(--spacing-unit, 0.25rem));
-  border-radius: var(--radius-4xl);
+  height: var(--df-button-height, auto);
+  width: var(--df-button-width, auto);
+  padding-block: var(--df-button-padding-block-start, var(--df-button-padding-block, 0))
+    var(--df-button-padding-block-end, var(--df-button-padding-block, 0));
+  padding-inline: var(--df-button-padding-inline-start, 0)
+    var(--df-button-padding-inline-end, 0);
+  border-radius: var(--df-button-radius, var(--radius-4xl));
   border: var(--border-width-hairline) solid transparent;
   background-clip: padding-box;
   color: var(--foreground);
-  font-size: var(--df-text-sm);
-  line-height: var(--df-leading-5);
-  font-weight: var(--df-font-weight-medium);
+  font-family: var(--df-button-font-family, var(--df-font-sans));
+  font-size: var(--df-button-font-size, var(--df-text-sm));
+  line-height: var(--df-button-line-height, var(--df-leading-5));
+  font-weight: var(--df-button-font-weight, var(--df-font-weight-medium));
   white-space: nowrap;
   transition: color var(--df-duration-base), border-color var(--df-duration-base),
     box-shadow var(--df-duration-base), transform var(--df-duration-base);
@@ -351,15 +358,6 @@
   border-radius: var(--df-button-plain-hover-radius);
   overflow: visible;
 }
-:where([data-df="button"][data-variant="plain"][data-size^="icon"] svg) {
-  filter: var(--df-button-plain-glyph-filter);
-}
-:where(
-    [data-df="button"][data-variant="plain"][data-size^="icon"][data-glyph-shadow="off"]
-      svg
-  ) {
-  filter: none;
-}
 :where([data-df="button"][data-variant="plain"][data-size^="icon"])::before {
   content: "";
   position: absolute;
@@ -399,10 +397,11 @@
 }
 
 :where([data-df="button"][data-variant="link"]) {
-  height: auto;
+  --df-button-height: auto;
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
   min-height: 0;
-  padding-block: 0;
-  padding-inline: 0;
   color: var(--primary);
   text-underline-offset: var(--df-underline-offset);
 }
@@ -414,16 +413,21 @@
 }
 
 :where([data-df="button"][data-size="default"]) {
-  height: var(--df-control-height-md);
-  padding-block: 0;
-  padding-inline: calc(4 * var(--spacing-unit, 0.25rem));
+  --df-button-height: var(--df-button-height-md, auto);
+  --df-button-width: var(--df-button-width-md, auto);
+  --df-button-font-size: var(--df-button-font-size-md, var(--df-text-sm));
+  --df-button-line-height: var(--df-button-line-height-md, var(--df-leading-5));
+  --df-button-padding-block: var(--df-button-padding-block-md, calc(2 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="xs"]) {
   gap: calc(1 * var(--spacing-unit, 0.25rem));
-  height: var(--df-control-height-xs);
-  padding-block: 0;
-  padding-inline: calc(2.5 * var(--spacing-unit, 0.25rem));
-  font-size: var(--df-text-xs);
+  --df-button-height: var(--df-button-height-xs, auto);
+  --df-button-width: var(--df-button-width-xs, auto);
+  --df-button-font-size: var(--df-button-font-size-xs, var(--df-text-xs));
+  --df-button-line-height: var(--df-button-line-height-xs, var(--df-leading-4));
+  --df-button-padding-block: var(--df-button-padding-block-xs, calc(1 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-xs, calc(2.5 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-xs, calc(2.5 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="xs"] svg) {
   width: calc(3 * var(--spacing-unit, 0.25rem));
@@ -431,104 +435,134 @@
 }
 :where([data-df="button"][data-size="sm"]) {
   gap: calc(1 * var(--spacing-unit, 0.25rem));
-  height: var(--df-control-height-sm);
-  padding-block: 0;
-  padding-inline: calc(3 * var(--spacing-unit, 0.25rem));
+  --df-button-height: var(--df-button-height-sm, auto);
+  --df-button-width: var(--df-button-width-sm, auto);
+  --df-button-font-size: var(--df-button-font-size-sm, var(--df-text-sm));
+  --df-button-line-height: var(--df-button-line-height-sm, var(--df-leading-4));
+  --df-button-padding-block: var(--df-button-padding-block-sm, calc(2 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-sm, calc(4 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-sm, calc(4 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="lg"]) {
-  height: var(--df-control-height-lg);
-  padding-block: 0;
-  padding-inline: calc(5 * var(--spacing-unit, 0.25rem));
+  --df-button-height: var(--df-button-height-lg, auto);
+  --df-button-width: var(--df-button-width-lg, auto);
+  --df-button-font-size: var(--df-button-font-size-lg, var(--df-text-sm));
+  --df-button-line-height: var(--df-button-line-height-lg, var(--df-leading-5));
+  --df-button-padding-block: var(--df-button-padding-block-lg, calc(2.5 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-lg, calc(5 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-lg, calc(5 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="xl"]) {
-  height: var(--df-control-height-xl);
-  padding-block: 0;
-  padding-inline: calc(6 * var(--spacing-unit, 0.25rem));
+  --df-button-height: var(--df-button-height-xl, auto);
+  --df-button-width: var(--df-button-width-xl, auto);
+  --df-button-font-size: var(--df-button-font-size-xl, var(--df-text-sm));
+  --df-button-line-height: var(--df-button-line-height-xl, var(--df-leading-5));
+  --df-button-padding-block: var(--df-button-padding-block-xl, calc(3 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-xl, calc(6 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-xl, calc(6 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="2xl"]) {
-  height: var(--df-control-height-2xl);
-  padding-block: 0;
-  padding-inline: calc(7 * var(--spacing-unit, 0.25rem));
+  --df-button-height: var(--df-button-height-2xl, auto);
+  --df-button-width: var(--df-button-width-2xl, auto);
+  --df-button-font-size: var(--df-button-font-size-2xl, var(--df-text-sm));
+  --df-button-line-height: var(--df-button-line-height-2xl, var(--df-leading-5));
+  --df-button-padding-block: var(--df-button-padding-block-2xl, calc(3.5 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-2xl, calc(7 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-2xl, calc(7 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="icon"]) {
-  width: var(--df-control-height-md);
-  height: var(--df-control-height-md);
-  padding: 0;
+  --df-button-width: var(--df-control-height-md);
+  --df-button-height: var(--df-control-height-md);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 :where([data-df="button"][data-size="icon-2xs"]) {
-  width: var(--df-control-height-2xs);
-  height: var(--df-control-height-2xs);
-  padding: 0;
+  --df-button-width: var(--df-control-height-2xs);
+  --df-button-height: var(--df-control-height-2xs);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 :where([data-df="button"][data-size="icon-2xs"] svg) {
   width: var(--df-affordance-size-2xs);
   height: var(--df-affordance-size-2xs);
 }
 :where([data-df="button"][data-size="icon-xs"]) {
-  width: var(--df-control-height-xs);
-  height: var(--df-control-height-xs);
-  padding: 0;
+  --df-button-width: var(--df-control-height-xs);
+  --df-button-height: var(--df-control-height-xs);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 :where([data-df="button"][data-size="icon-xs"] svg) {
   width: calc(3 * var(--spacing-unit, 0.25rem));
   height: calc(3 * var(--spacing-unit, 0.25rem));
 }
 :where([data-df="button"][data-size="icon-sm"]) {
-  width: var(--df-control-height-sm);
-  height: var(--df-control-height-sm);
-  padding: 0;
+  --df-button-width: var(--df-control-height-sm);
+  --df-button-height: var(--df-control-height-sm);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 :where([data-df="button"][data-size="icon-lg"]) {
-  width: var(--df-control-height-lg);
-  height: var(--df-control-height-lg);
-  padding: 0;
+  --df-button-width: var(--df-control-height-lg);
+  --df-button-height: var(--df-control-height-lg);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 :where([data-df="button"][data-size="icon-xl"]) {
-  width: var(--df-control-height-xl);
-  height: var(--df-control-height-xl);
-  padding: 0;
+  --df-button-width: var(--df-control-height-xl);
+  --df-button-height: var(--df-control-height-xl);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 :where([data-df="button"][data-size="icon-2xl"]) {
-  width: var(--df-control-height-2xl);
-  height: var(--df-control-height-2xl);
-  padding: 0;
+  --df-button-width: var(--df-control-height-2xl);
+  --df-button-height: var(--df-control-height-2xl);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 
 :where([data-df="button"][data-variant="plain"][data-size="icon-2xs"]) {
-  width: var(--df-affordance-size-2xs);
-  height: var(--df-affordance-size-2xs);
+  --df-button-width: var(--df-affordance-size-2xs);
+  --df-button-height: var(--df-affordance-size-2xs);
 }
 :where([data-df="button"][data-variant="plain"][data-size="icon-2xs"] svg) {
   width: 100%;
   height: 100%;
 }
 :where([data-df="button"][data-variant="plain"][data-size="icon-xs"]) {
-  width: var(--df-affordance-size-xs);
-  height: var(--df-affordance-size-xs);
+  --df-button-width: var(--df-affordance-size-xs);
+  --df-button-height: var(--df-affordance-size-xs);
 }
 :where([data-df="button"][data-variant="plain"][data-size="icon-xs"] svg) {
   width: 100%;
   height: 100%;
 }
 :where([data-df="button"][data-variant="plain"][data-size="icon-sm"]) {
-  width: calc(3.5 * var(--spacing-unit, 0.25rem));
-  height: calc(3.5 * var(--spacing-unit, 0.25rem));
+  --df-button-width: calc(3.5 * var(--spacing-unit, 0.25rem));
+  --df-button-height: calc(3.5 * var(--spacing-unit, 0.25rem));
 }
 :where([data-df="button"][data-variant="plain"][data-size="icon"]) {
-  width: var(--df-affordance-size-sm);
-  height: var(--df-affordance-size-sm);
+  --df-button-width: var(--df-affordance-size-sm);
+  --df-button-height: var(--df-affordance-size-sm);
 }
 :where([data-df="button"][data-variant="plain"][data-size="icon-lg"]) {
-  width: var(--df-affordance-size-md);
-  height: var(--df-affordance-size-md);
+  --df-button-width: var(--df-affordance-size-md);
+  --df-button-height: var(--df-affordance-size-md);
 }
 :where([data-df="button"][data-variant="plain"][data-size="icon-xl"]) {
-  width: calc(5.5 * var(--spacing-unit, 0.25rem));
-  height: calc(5.5 * var(--spacing-unit, 0.25rem));
+  --df-button-width: calc(5.5 * var(--spacing-unit, 0.25rem));
+  --df-button-height: calc(5.5 * var(--spacing-unit, 0.25rem));
 }
 :where([data-df="button"][data-variant="plain"][data-size="icon-2xl"]) {
-  width: calc(6 * var(--spacing-unit, 0.25rem));
-  height: calc(6 * var(--spacing-unit, 0.25rem));
+  --df-button-width: calc(6 * var(--spacing-unit, 0.25rem));
+  --df-button-height: calc(6 * var(--spacing-unit, 0.25rem));
 }
 :where([data-df="button"][data-variant="plain"][data-size="icon-sm"] svg),
 :where([data-df="button"][data-variant="plain"][data-size="icon"] svg),
@@ -540,47 +574,48 @@
 }
 
 :where([data-df="button"]:has([data-icon="inline-end"])) {
-  padding-right: calc(3 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-end-icon, calc(3 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"]:has([data-icon="inline-start"])) {
-  padding-left: calc(3 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-start-icon, calc(3 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="xs"]:has([data-icon="inline-end"])) {
-  padding-right: calc(2 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-icon-xs, calc(2 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="xs"]:has([data-icon="inline-start"])) {
-  padding-left: calc(2 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-icon-xs, calc(2 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="sm"]:has([data-icon="inline-end"])) {
-  padding-right: calc(2.5 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-icon-sm, calc(3 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="sm"]:has([data-icon="inline-start"])) {
-  padding-left: calc(2.5 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-icon-sm, calc(3 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="lg"]:has([data-icon="inline-end"])) {
-  padding-right: calc(4 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-icon-lg, calc(4 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="lg"]:has([data-icon="inline-start"])) {
-  padding-left: calc(4 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-icon-lg, calc(4 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="xl"]:has([data-icon="inline-end"])) {
-  padding-right: calc(5 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-icon-xl, calc(5 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="xl"]:has([data-icon="inline-start"])) {
-  padding-left: calc(5 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-icon-xl, calc(5 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="2xl"]:has([data-icon="inline-end"])) {
-  padding-right: calc(6 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-icon-2xl, calc(6 * var(--spacing-unit, 0.25rem)));
 }
 :where([data-df="button"][data-size="2xl"]:has([data-icon="inline-start"])) {
-  padding-left: calc(6 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-icon-2xl, calc(6 * var(--spacing-unit, 0.25rem)));
 }
 
 :where([data-df="button"][data-variant="link"][data-size]) {
-  height: auto;
+  --df-button-height: auto;
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
   min-height: 0;
-  padding-block: 0;
-  padding-inline: 0;
 }
 
 .df-btn {
@@ -589,14 +624,21 @@
   align-items: center;
   justify-content: center;
   gap: calc(1.5 * var(--spacing-unit, 0.25rem));
-  border-radius: var(--radius-4xl);
+  height: var(--df-button-height, auto);
+  width: var(--df-button-width, auto);
+  padding-block: var(--df-button-padding-block-start, var(--df-button-padding-block, 0))
+    var(--df-button-padding-block-end, var(--df-button-padding-block, 0));
+  padding-inline: var(--df-button-padding-inline-start, 0)
+    var(--df-button-padding-inline-end, 0);
+  border-radius: var(--df-button-radius, var(--radius-4xl));
   corner-shape: var(--df-corner-shape);
   border: var(--border-width-hairline) solid transparent;
   background-clip: padding-box;
   color: var(--foreground);
-  font-size: var(--df-text-sm);
-  line-height: var(--df-leading-5);
-  font-weight: var(--df-font-weight-medium);
+  font-family: var(--df-button-font-family, var(--df-font-sans));
+  font-size: var(--df-button-font-size, var(--df-text-sm));
+  line-height: var(--df-button-line-height, var(--df-leading-5));
+  font-weight: var(--df-button-font-weight, var(--df-font-weight-medium));
   white-space: nowrap;
   transition: color var(--df-duration-base), border-color var(--df-duration-base),
     box-shadow var(--df-duration-base), transform var(--df-duration-base);
@@ -675,24 +717,6 @@
   border-radius: var(--df-button-plain-hover-radius);
   overflow: visible;
 }
-.df-btn-plain.df-btn-icon svg,
-.df-btn-plain.df-btn-icon-2xs svg,
-.df-btn-plain.df-btn-icon-xs svg,
-.df-btn-plain.df-btn-icon-sm svg,
-.df-btn-plain.df-btn-icon-lg svg,
-.df-btn-plain.df-btn-icon-xl svg,
-.df-btn-plain.df-btn-icon-2xl svg {
-  filter: var(--df-button-plain-glyph-filter);
-}
-.df-btn-plain.df-btn-icon[data-glyph-shadow="off"] svg,
-.df-btn-plain.df-btn-icon-2xs[data-glyph-shadow="off"] svg,
-.df-btn-plain.df-btn-icon-xs[data-glyph-shadow="off"] svg,
-.df-btn-plain.df-btn-icon-sm[data-glyph-shadow="off"] svg,
-.df-btn-plain.df-btn-icon-lg[data-glyph-shadow="off"] svg,
-.df-btn-plain.df-btn-icon-xl[data-glyph-shadow="off"] svg,
-.df-btn-plain.df-btn-icon-2xl[data-glyph-shadow="off"] svg {
-  filter: none;
-}
 .df-btn-plain.df-btn-icon:active,
 .df-btn-plain.df-btn-icon-2xs:active,
 .df-btn-plain.df-btn-icon-xs:active,
@@ -762,10 +786,11 @@
   color: var(--destructive);
 }
 .df-btn-link {
-  height: auto;
+  --df-button-height: auto;
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
   min-height: 0;
-  padding-block: 0;
-  padding-inline: 0;
   color: var(--primary);
   text-underline-offset: var(--df-underline-offset);
 }
@@ -776,56 +801,83 @@
   text-decoration: none;
 }
 .df-btn-default-size {
-  height: var(--df-control-height-md);
-  padding-block: 0;
-  padding-inline: calc(4 * var(--spacing-unit, 0.25rem));
+  --df-button-height: var(--df-button-height-md, auto);
+  --df-button-width: var(--df-button-width-md, auto);
+  --df-button-font-size: var(--df-button-font-size-md, var(--df-text-sm));
+  --df-button-line-height: var(--df-button-line-height-md, var(--df-leading-5));
+  --df-button-padding-block: var(--df-button-padding-block-md, calc(2 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-xs {
   gap: calc(1 * var(--spacing-unit, 0.25rem));
-  height: var(--df-control-height-xs);
-  padding-block: 0;
-  padding-inline: calc(2.5 * var(--spacing-unit, 0.25rem));
-  font-size: var(--df-text-xs);
+  --df-button-height: var(--df-button-height-xs, auto);
+  --df-button-width: var(--df-button-width-xs, auto);
+  --df-button-font-size: var(--df-button-font-size-xs, var(--df-text-xs));
+  --df-button-line-height: var(--df-button-line-height-xs, var(--df-leading-4));
+  --df-button-padding-block: var(--df-button-padding-block-xs, calc(1 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-xs, calc(2.5 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-xs, calc(2.5 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-sm {
   gap: calc(1 * var(--spacing-unit, 0.25rem));
-  height: var(--df-control-height-sm);
-  padding-block: 0;
-  padding-inline: calc(3 * var(--spacing-unit, 0.25rem));
+  --df-button-height: var(--df-button-height-sm, auto);
+  --df-button-width: var(--df-button-width-sm, auto);
+  --df-button-font-size: var(--df-button-font-size-sm, var(--df-text-sm));
+  --df-button-line-height: var(--df-button-line-height-sm, var(--df-leading-4));
+  --df-button-padding-block: var(--df-button-padding-block-sm, calc(2 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-sm, calc(4 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-sm, calc(4 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-lg {
-  height: var(--df-control-height-lg);
-  padding-block: 0;
-  padding-inline: calc(5 * var(--spacing-unit, 0.25rem));
+  --df-button-height: var(--df-button-height-lg, auto);
+  --df-button-width: var(--df-button-width-lg, auto);
+  --df-button-font-size: var(--df-button-font-size-lg, var(--df-text-sm));
+  --df-button-line-height: var(--df-button-line-height-lg, var(--df-leading-5));
+  --df-button-padding-block: var(--df-button-padding-block-lg, calc(2.5 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-lg, calc(5 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-lg, calc(5 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-xl {
-  height: var(--df-control-height-xl);
-  padding-block: 0;
-  padding-inline: calc(6 * var(--spacing-unit, 0.25rem));
+  --df-button-height: var(--df-button-height-xl, auto);
+  --df-button-width: var(--df-button-width-xl, auto);
+  --df-button-font-size: var(--df-button-font-size-xl, var(--df-text-sm));
+  --df-button-line-height: var(--df-button-line-height-xl, var(--df-leading-5));
+  --df-button-padding-block: var(--df-button-padding-block-xl, calc(3 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-xl, calc(6 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-xl, calc(6 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-2xl {
-  height: var(--df-control-height-2xl);
-  padding-block: 0;
-  padding-inline: calc(7 * var(--spacing-unit, 0.25rem));
+  --df-button-height: var(--df-button-height-2xl, auto);
+  --df-button-width: var(--df-button-width-2xl, auto);
+  --df-button-font-size: var(--df-button-font-size-2xl, var(--df-text-sm));
+  --df-button-line-height: var(--df-button-line-height-2xl, var(--df-leading-5));
+  --df-button-padding-block: var(--df-button-padding-block-2xl, calc(3.5 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-2xl, calc(7 * var(--spacing-unit, 0.25rem)));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-2xl, calc(7 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-icon {
-  width: var(--df-control-height-md);
-  height: var(--df-control-height-md);
-  padding: 0;
+  --df-button-width: var(--df-control-height-md);
+  --df-button-height: var(--df-control-height-md);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 .df-btn-icon-2xs {
-  width: var(--df-control-height-2xs);
-  height: var(--df-control-height-2xs);
-  padding: 0;
+  --df-button-width: var(--df-control-height-2xs);
+  --df-button-height: var(--df-control-height-2xs);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 .df-btn-icon-2xs svg {
   width: var(--df-affordance-size-2xs);
   height: var(--df-affordance-size-2xs);
 }
 .df-btn-icon-xs {
-  width: var(--df-control-height-xs);
-  height: var(--df-control-height-xs);
-  padding: 0;
+  --df-button-width: var(--df-control-height-xs);
+  --df-button-height: var(--df-control-height-xs);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 .df-btn-icon-xs svg {
   width: calc(3 * var(--spacing-unit, 0.25rem));
@@ -836,24 +888,32 @@
   height: calc(3 * var(--spacing-unit, 0.25rem));
 }
 .df-btn-icon-sm {
-  width: var(--df-control-height-sm);
-  height: var(--df-control-height-sm);
-  padding: 0;
+  --df-button-width: var(--df-control-height-sm);
+  --df-button-height: var(--df-control-height-sm);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 .df-btn-icon-lg {
-  width: var(--df-control-height-lg);
-  height: var(--df-control-height-lg);
-  padding: 0;
+  --df-button-width: var(--df-control-height-lg);
+  --df-button-height: var(--df-control-height-lg);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 .df-btn-icon-xl {
-  width: var(--df-control-height-xl);
-  height: var(--df-control-height-xl);
-  padding: 0;
+  --df-button-width: var(--df-control-height-xl);
+  --df-button-height: var(--df-control-height-xl);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 .df-btn-icon-2xl {
-  width: var(--df-control-height-2xl);
-  height: var(--df-control-height-2xl);
-  padding: 0;
+  --df-button-width: var(--df-control-height-2xl);
+  --df-button-height: var(--df-control-height-2xl);
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
 }
 .df-btn-link.df-btn-default-size,
 .df-btn-link.df-btn-xs,
@@ -861,46 +921,47 @@
 .df-btn-link.df-btn-lg,
 .df-btn-link.df-btn-xl,
 .df-btn-link.df-btn-2xl {
-  height: auto;
+  --df-button-height: auto;
+  --df-button-padding-block: 0;
+  --df-button-padding-inline-start: 0;
+  --df-button-padding-inline-end: 0;
   min-height: 0;
-  padding-block: 0;
-  padding-inline: 0;
 }
 .df-btn-plain.df-btn-icon-2xs {
-  width: var(--df-affordance-size-2xs);
-  height: var(--df-affordance-size-2xs);
+  --df-button-width: var(--df-affordance-size-2xs);
+  --df-button-height: var(--df-affordance-size-2xs);
 }
 .df-btn-plain.df-btn-icon-2xs svg {
   width: 100%;
   height: 100%;
 }
 .df-btn-plain.df-btn-icon-xs {
-  width: var(--df-affordance-size-xs);
-  height: var(--df-affordance-size-xs);
+  --df-button-width: var(--df-affordance-size-xs);
+  --df-button-height: var(--df-affordance-size-xs);
 }
 .df-btn-plain.df-btn-icon-xs svg {
   width: 100%;
   height: 100%;
 }
 .df-btn-plain.df-btn-icon-sm {
-  width: calc(3.5 * var(--spacing-unit, 0.25rem));
-  height: calc(3.5 * var(--spacing-unit, 0.25rem));
+  --df-button-width: calc(3.5 * var(--spacing-unit, 0.25rem));
+  --df-button-height: calc(3.5 * var(--spacing-unit, 0.25rem));
 }
 .df-btn-plain.df-btn-icon {
-  width: var(--df-affordance-size-sm);
-  height: var(--df-affordance-size-sm);
+  --df-button-width: var(--df-affordance-size-sm);
+  --df-button-height: var(--df-affordance-size-sm);
 }
 .df-btn-plain.df-btn-icon-lg {
-  width: var(--df-affordance-size-md);
-  height: var(--df-affordance-size-md);
+  --df-button-width: var(--df-affordance-size-md);
+  --df-button-height: var(--df-affordance-size-md);
 }
 .df-btn-plain.df-btn-icon-xl {
-  width: calc(5.5 * var(--spacing-unit, 0.25rem));
-  height: calc(5.5 * var(--spacing-unit, 0.25rem));
+  --df-button-width: calc(5.5 * var(--spacing-unit, 0.25rem));
+  --df-button-height: calc(5.5 * var(--spacing-unit, 0.25rem));
 }
 .df-btn-plain.df-btn-icon-2xl {
-  width: calc(6 * var(--spacing-unit, 0.25rem));
-  height: calc(6 * var(--spacing-unit, 0.25rem));
+  --df-button-width: calc(6 * var(--spacing-unit, 0.25rem));
+  --df-button-height: calc(6 * var(--spacing-unit, 0.25rem));
 }
 .df-btn-plain.df-btn-icon-sm svg,
 .df-btn-plain.df-btn-icon svg,
@@ -912,40 +973,40 @@
 }
 
 .df-btn:has([data-icon="inline-end"]) {
-  padding-right: calc(3 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-end-icon, calc(3 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn:has([data-icon="inline-start"]) {
-  padding-left: calc(3 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-start-icon, calc(3 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-xs:has([data-icon="inline-end"]) {
-  padding-right: calc(2 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-icon-xs, calc(2 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-xs:has([data-icon="inline-start"]) {
-  padding-left: calc(2 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-icon-xs, calc(2 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-sm:has([data-icon="inline-end"]) {
-  padding-right: calc(2.5 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-icon-sm, calc(3 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-sm:has([data-icon="inline-start"]) {
-  padding-left: calc(2.5 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-icon-sm, calc(3 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-lg:has([data-icon="inline-end"]) {
-  padding-right: calc(4 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-icon-lg, calc(4 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-lg:has([data-icon="inline-start"]) {
-  padding-left: calc(4 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-icon-lg, calc(4 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-xl:has([data-icon="inline-end"]) {
-  padding-right: calc(5 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-icon-xl, calc(5 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-xl:has([data-icon="inline-start"]) {
-  padding-left: calc(5 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-icon-xl, calc(5 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-2xl:has([data-icon="inline-end"]) {
-  padding-right: calc(6 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-end: var(--df-button-padding-inline-icon-2xl, calc(6 * var(--spacing-unit, 0.25rem)));
 }
 .df-btn-2xl:has([data-icon="inline-start"]) {
-  padding-left: calc(6 * var(--spacing-unit, 0.25rem));
+  --df-button-padding-inline-start: var(--df-button-padding-inline-icon-2xl, calc(6 * var(--spacing-unit, 0.25rem)));
 }
 
 .df-btn-slot {

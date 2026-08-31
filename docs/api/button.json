@@ -21,7 +21,7 @@
   "importPath": "@default-file/ui/components/df-button",
   "dependencies": [],
   "api": {
-    "description": "Primary actions with variants, text and icon sizes, optional leading or trailing content, loading state, and a corner count badge. plain is the icon-only variant with no resting plate. Use glyphShadow to control the plain icon drop shadow on busy surfaces. Use transparent on outline to drop the resting fill.",
+    "description": "Primary actions with variants, text and icon sizes, optional leading or trailing content, loading state, and a corner count badge. plain is the icon-only variant with no resting plate. Use transparent on outline to drop the resting fill.",
     "groups": [
       {
         "id": "button",
@@ -37,7 +37,7 @@
             "name": "size",
             "type": "\"default\" | \"xs\" | \"sm\" | \"lg\" | \"xl\" | \"2xl\" | \"icon\" | \"icon-2xs\" | \"icon-xs\" | \"icon-sm\" | \"icon-lg\" | \"icon-xl\" | \"icon-2xl\"",
             "default": "\"default\"",
-            "description": "Text sizes use padding (xs to 2xl). Icon sizes are square controls (icon-2xs to icon-2xl). plain requires an icon size; the resting box matches the glyph for that step. If plain is paired with a text size, size falls back to icon-xs."
+            "description": "Text sizes use padding, type size, and line height (xs to 2xl). Height follows those tokens unless you set height. Icon sizes are square controls (icon-2xs to icon-2xl) on the form control height tokens. Override padding, size, type, font, and radius with chrome props or --df-button-* variables. plain requires an icon size; the resting box matches the glyph for that step. If plain is paired with a text size, size falls back to icon-xs."
           },
           {
             "name": "underline",
@@ -50,12 +50,6 @@
             "type": "boolean",
             "default": "false",
             "description": "Outline variant only. When true, drop the resting fill (data-transparent). Theme the filled plate with --df-button-outline-fill. Hover and expanded washes stay for affordance. Ignored on other variants."
-          },
-          {
-            "name": "glyphShadow",
-            "type": "boolean",
-            "default": "true",
-            "description": "Plain icon only. When true, apply the glyph drop shadow to the icon so light glyphs stay readable on busy surfaces such as media and gradients. Set false to turn the shadow off (data-glyph-shadow=off). Customize the filter with --df-button-plain-glyph-filter when the shadow is on. Ignored on non-plain variants."
           },
           {
             "name": "leading",
@@ -120,6 +114,83 @@
         ]
       },
       {
+        "id": "button-chrome",
+        "title": "Chrome overrides",
+        "description": "String props write --df-button-* on the host. Prefer token expressions such as var(--df-text-sm), var(--df-font-sans), var(--radius-md), or calc(4 * var(--spacing-unit)). Size still supplies defaults when a prop is omitted. On dfButtonClass hosts, pass the same values through dfButtonChromeStyle into style.",
+        "props": [
+          {
+            "name": "padding",
+            "type": "string",
+            "description": "Padding on all sides. Sets --df-button-padding-block-start, --df-button-padding-block-end, --df-button-padding-inline-start, and --df-button-padding-inline-end."
+          },
+          {
+            "name": "paddingX",
+            "type": "string",
+            "description": "Horizontal padding. Sets --df-button-padding-inline-start and --df-button-padding-inline-end. Overrides padding on those sides."
+          },
+          {
+            "name": "paddingY",
+            "type": "string",
+            "description": "Vertical padding. Sets --df-button-padding-block-start and --df-button-padding-block-end. Overrides padding on those sides."
+          },
+          {
+            "name": "paddingTop",
+            "type": "string",
+            "description": "Top padding. Sets --df-button-padding-block-start and wins over paddingY and padding."
+          },
+          {
+            "name": "paddingRight",
+            "type": "string",
+            "description": "Trailing-edge padding. Sets --df-button-padding-inline-end and wins over paddingX and padding."
+          },
+          {
+            "name": "paddingBottom",
+            "type": "string",
+            "description": "Bottom padding. Sets --df-button-padding-block-end and wins over paddingY and padding."
+          },
+          {
+            "name": "paddingLeft",
+            "type": "string",
+            "description": "Leading-edge padding. Sets --df-button-padding-inline-start and wins over paddingX and padding."
+          },
+          {
+            "name": "height",
+            "type": "string",
+            "description": "Control height. Default auto so height follows padding and line height. Sets --df-button-height."
+          },
+          {
+            "name": "width",
+            "type": "string",
+            "description": "Control width. Default auto so width follows content and padding. Sets --df-button-width."
+          },
+          {
+            "name": "fontSize",
+            "type": "string",
+            "description": "Label type size. Prefer type tokens such as var(--df-text-sm). Sets --df-button-font-size."
+          },
+          {
+            "name": "lineHeight",
+            "type": "string",
+            "description": "Label line height. Prefer leading tokens such as var(--df-leading-5). Sets --df-button-line-height."
+          },
+          {
+            "name": "fontFamily",
+            "type": "string",
+            "description": "Label font family. Prefer family tokens such as var(--df-font-sans) or var(--df-font-mono). Sets --df-button-font-family."
+          },
+          {
+            "name": "fontWeight",
+            "type": "string",
+            "description": "Label font weight. Prefer weight tokens such as var(--df-font-weight-medium). Sets --df-button-font-weight."
+          },
+          {
+            "name": "radius",
+            "type": "string",
+            "description": "Corner radius. Prefer radius tokens such as var(--radius-md). Default is --radius-4xl. Sets --df-button-radius."
+          }
+        ]
+      },
+      {
         "id": "button-helpers",
         "title": "Helpers",
         "description": "Class helper for applying button styles to a host that is not a button.",
@@ -127,7 +198,12 @@
           {
             "name": "dfButtonClass",
             "type": "(opts?: { variant?, size?, className? }) => string",
-            "description": "Builds the same class string Button uses internally. Resolves plain with a non-icon size to icon-xs, matching Button. For link hosts, set the underline data attribute to hover or none to match the underline prop. For outline hosts without a resting fill, set data-transparent. For plain icon hosts without glyph shadow, set data-glyph-shadow to off."
+            "description": "Builds the same class string Button uses internally. Resolves plain with a non-icon size to icon-xs, matching Button. For link hosts, set the underline data attribute to hover or none to match the underline prop. For outline hosts without a resting fill, set data-transparent."
+          },
+          {
+            "name": "dfButtonChromeStyle",
+            "type": "(opts?: ButtonChromeProps) => CSSProperties",
+            "description": "Writes the same --df-button-* variables the chrome props set on Button. Merge into style on a dfButtonClass host."
           }
         ]
       },
@@ -221,12 +297,6 @@
             "default": "var(--radius-md)"
           },
           {
-            "name": "--df-button-plain-glyph-filter",
-            "type": "CSS filter",
-            "description": "Glyph elevation for plain icons when glyphShadow is true. Set glyphShadow to false to disable without changing this token.",
-            "default": "drop-shadow(0 1px 1px rgb(0 0 0 / 0.35))"
-          },
-          {
             "name": "--df-affordance-size-2xs",
             "type": "CSS length",
             "description": "Glyph size for icon-2xs and plain icon-2xs.",
@@ -243,6 +313,12 @@
             "type": "CSS length",
             "description": "Link variant underline offset.",
             "default": "4px"
+          },
+          {
+            "name": "--df-button-radius",
+            "type": "CSS length",
+            "description": "Corner radius. Default is --radius-4xl. Set by the radius chrome prop.",
+            "default": "var(--radius-4xl)"
           },
           {
             "name": "--radius-4xl",
@@ -267,6 +343,234 @@
             "type": "CSS length",
             "description": "Offset used when badgePosition is inset.",
             "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-font-family",
+            "type": "CSS font-family",
+            "description": "Label font family.",
+            "default": "var(--df-font-sans)"
+          },
+          {
+            "name": "--df-button-font-weight",
+            "type": "CSS font-weight",
+            "description": "Label font weight.",
+            "default": "var(--df-font-weight-medium)"
+          },
+          {
+            "name": "--df-button-height-md",
+            "type": "CSS length",
+            "description": "Default text size height. Auto follows padding and line height. Same pattern on --df-button-height-xs to --df-button-height-2xl.",
+            "default": "auto"
+          },
+          {
+            "name": "--df-button-width-md",
+            "type": "CSS length",
+            "description": "Default text size width. Auto follows content and padding. Same pattern on --df-button-width-xs to --df-button-width-2xl.",
+            "default": "auto"
+          },
+          {
+            "name": "--df-button-font-size-xs",
+            "type": "CSS length",
+            "description": "xs text size. Maps to --df-text-xs (0.75rem).",
+            "default": "var(--df-text-xs)"
+          },
+          {
+            "name": "--df-button-font-size-sm",
+            "type": "CSS length",
+            "description": "sm text size. Maps to --df-text-sm (0.875rem).",
+            "default": "var(--df-text-sm)"
+          },
+          {
+            "name": "--df-button-font-size-md",
+            "type": "CSS length",
+            "description": "Default text size. Maps to --df-text-sm (0.875rem).",
+            "default": "var(--df-text-sm)"
+          },
+          {
+            "name": "--df-button-font-size-lg",
+            "type": "CSS length",
+            "description": "lg text size. Maps to --df-text-sm (0.875rem).",
+            "default": "var(--df-text-sm)"
+          },
+          {
+            "name": "--df-button-font-size-xl",
+            "type": "CSS length",
+            "description": "xl text size. Maps to --df-text-sm (0.875rem).",
+            "default": "var(--df-text-sm)"
+          },
+          {
+            "name": "--df-button-font-size-2xl",
+            "type": "CSS length",
+            "description": "2xl text size. Maps to --df-text-sm (0.875rem).",
+            "default": "var(--df-text-sm)"
+          },
+          {
+            "name": "--df-button-line-height-xs",
+            "type": "CSS length",
+            "description": "xs line height. Maps to --df-leading-4 (1rem).",
+            "default": "var(--df-leading-4)"
+          },
+          {
+            "name": "--df-button-line-height-sm",
+            "type": "CSS length",
+            "description": "sm line height. Maps to --df-leading-4 (1rem).",
+            "default": "var(--df-leading-4)"
+          },
+          {
+            "name": "--df-button-line-height-md",
+            "type": "CSS length",
+            "description": "Default line height. Maps to --df-leading-5 (1.25rem).",
+            "default": "var(--df-leading-5)"
+          },
+          {
+            "name": "--df-button-line-height-lg",
+            "type": "CSS length",
+            "description": "lg line height. Maps to --df-leading-5 (1.25rem).",
+            "default": "var(--df-leading-5)"
+          },
+          {
+            "name": "--df-button-line-height-xl",
+            "type": "CSS length",
+            "description": "xl line height. Maps to --df-leading-5 (1.25rem).",
+            "default": "var(--df-leading-5)"
+          },
+          {
+            "name": "--df-button-line-height-2xl",
+            "type": "CSS length",
+            "description": "2xl line height. Maps to --df-leading-5 (1.25rem).",
+            "default": "var(--df-leading-5)"
+          },
+          {
+            "name": "--df-button-padding-block-xs",
+            "type": "CSS length",
+            "description": "xs vertical padding. One spacing unit (4px).",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-block-sm",
+            "type": "CSS length",
+            "description": "sm vertical padding. Two spacing units (8px).",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-block-md",
+            "type": "CSS length",
+            "description": "Default vertical padding. Two spacing units (8px).",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-block-lg",
+            "type": "CSS length",
+            "description": "lg vertical padding. Two and a half spacing units (10px).",
+            "default": "calc(2.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-block-xl",
+            "type": "CSS length",
+            "description": "xl vertical padding. Three spacing units (12px).",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-block-2xl",
+            "type": "CSS length",
+            "description": "2xl vertical padding. Three and a half spacing units (14px).",
+            "default": "calc(3.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-xs",
+            "type": "CSS length",
+            "description": "xs horizontal padding. Two and a half spacing units (10px).",
+            "default": "calc(2.5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-sm",
+            "type": "CSS length",
+            "description": "sm horizontal padding. Four spacing units (1rem).",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-md",
+            "type": "CSS length",
+            "description": "Default horizontal padding. Four spacing units (1rem).",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-lg",
+            "type": "CSS length",
+            "description": "lg horizontal padding. Five spacing units (1.25rem).",
+            "default": "calc(5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-xl",
+            "type": "CSS length",
+            "description": "xl horizontal padding. Six spacing units (1.5rem).",
+            "default": "calc(6 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-2xl",
+            "type": "CSS length",
+            "description": "2xl horizontal padding. Seven spacing units (1.75rem).",
+            "default": "calc(7 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-start",
+            "type": "CSS length",
+            "description": "Default text size padding on the leading edge. Aliases --df-button-padding-inline-md.",
+            "default": "var(--df-button-padding-inline-md)"
+          },
+          {
+            "name": "--df-button-padding-inline-end",
+            "type": "CSS length",
+            "description": "Default text size padding on the trailing edge. Aliases --df-button-padding-inline-md.",
+            "default": "var(--df-button-padding-inline-md)"
+          },
+          {
+            "name": "--df-button-padding-inline-icon-xs",
+            "type": "CSS length",
+            "description": "xs icon-adjacent inline padding. Two spacing units (8px).",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-icon-sm",
+            "type": "CSS length",
+            "description": "sm icon-adjacent inline padding. Three spacing units (0.75rem).",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-icon-md",
+            "type": "CSS length",
+            "description": "Default icon-adjacent inline padding. Three spacing units (0.75rem).",
+            "default": "calc(3 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-icon-lg",
+            "type": "CSS length",
+            "description": "lg icon-adjacent inline padding. Four spacing units (1rem).",
+            "default": "calc(4 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-icon-xl",
+            "type": "CSS length",
+            "description": "xl icon-adjacent inline padding. Five spacing units (1.25rem).",
+            "default": "calc(5 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-icon-2xl",
+            "type": "CSS length",
+            "description": "2xl icon-adjacent inline padding. Six spacing units (1.5rem).",
+            "default": "calc(6 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-button-padding-inline-start-icon",
+            "type": "CSS length",
+            "description": "Default text size leading-edge padding when a leading icon is present. Aliases --df-button-padding-inline-icon-md.",
+            "default": "var(--df-button-padding-inline-icon-md)"
+          },
+          {
+            "name": "--df-button-padding-inline-end-icon",
+            "type": "CSS length",
+            "description": "Default text size trailing-edge padding when a trailing icon is present. Aliases --df-button-padding-inline-icon-md.",
+            "default": "var(--df-button-padding-inline-icon-md)"
           },
           {
             "name": "--z-raised",

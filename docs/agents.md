@@ -40,7 +40,7 @@ df-ui skills install design-file-ui
 
 `show` and MCP `get_component` return full prop tables (name, type, default, description) from `docs/api`.
 
-Catalogue `aliases` are built when docs are prepared (`df:export-api` / `df:prepare`): curated labels plus title, slug, and registry name forms. Exact alias matches score like registry names. Shared aliases return every match; do not guess. `show` / `get_component` resolve a unique alias, or return `{ ambiguous, matches }` when several items share it.
+Catalogue `aliases` ship with the kit in `docs/api`: curated labels plus title, slug, and registry name forms. Exact alias matches score like registry names. Shared aliases return every match; do not guess. `show` / `get_component` resolve a unique alias, or return `{ ambiguous, matches }` when several items share it.
 
 The bundled `design-file-ui` skill routes marketing vs workspace vs mobileTool surfaces, and includes `references/kit.md` for discover then compose with these CLI and MCP tools.
 

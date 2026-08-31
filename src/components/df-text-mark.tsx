@@ -277,7 +277,6 @@ function TextMark({
       teardown()
     }
     // Depend on layersKey (stable serialization), not the layers array reference.
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- layersKey is the stable fingerprint
   }, [layersKey, multiline])
 
   useIsomorphicLayoutEffect(() => {

@@ -126,6 +126,21 @@
           "path": "src/lib/hover-border/index.ts",
           "type": "registry:lib",
           "target": "default-file-ui/lib/hover-border/index.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/index.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/trap.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/trap.ts"
+        },
+        {
+          "path": "src/lib/df-focus-trap/use-focus-trap.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-focus-trap/use-focus-trap.ts"
         }
       ]
     },
@@ -743,21 +758,6 @@
           "target": "default-file-ui/components/df-sidebar.tsx"
         },
         {
-          "path": "src/lib/df-focus-trap/index.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/index.ts"
-        },
-        {
-          "path": "src/lib/df-focus-trap/trap.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/trap.ts"
-        },
-        {
-          "path": "src/lib/df-focus-trap/use-focus-trap.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/use-focus-trap.ts"
-        },
-        {
           "path": "src/lib/df-sidebar/sidebar-content-separators.ts",
           "type": "registry:lib",
           "target": "default-file-ui/lib/df-sidebar/sidebar-content-separators.ts"
@@ -896,7 +896,8 @@
       "title": "Overlay Hint",
       "description": "Tokenized instruction pill with frosted glass, muted chip, and marquee variants. Supports sm and md density plus configurable radius, chrome, and separator.",
       "registryDependencies": [
-        "foundation"
+        "foundation",
+        "button"
       ],
       "files": [
         {
@@ -928,21 +929,6 @@
           "path": "src/components/df-dialog.tsx",
           "type": "registry:ui",
           "target": "default-file-ui/components/df-dialog.tsx"
-        },
-        {
-          "path": "src/lib/df-focus-trap/index.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/index.ts"
-        },
-        {
-          "path": "src/lib/df-focus-trap/trap.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/trap.ts"
-        },
-        {
-          "path": "src/lib/df-focus-trap/use-focus-trap.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/use-focus-trap.ts"
         }
       ]
     },
@@ -1436,21 +1422,6 @@
           "path": "src/lib/df-command/score.ts",
           "type": "registry:lib",
           "target": "default-file-ui/lib/df-command/score.ts"
-        },
-        {
-          "path": "src/lib/df-focus-trap/index.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/index.ts"
-        },
-        {
-          "path": "src/lib/df-focus-trap/trap.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/trap.ts"
-        },
-        {
-          "path": "src/lib/df-focus-trap/use-focus-trap.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/use-focus-trap.ts"
         }
       ]
     },
@@ -1618,21 +1589,6 @@
           "path": "src/components/df-drawer.tsx",
           "type": "registry:ui",
           "target": "default-file-ui/components/df-drawer.tsx"
-        },
-        {
-          "path": "src/lib/df-focus-trap/index.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/index.ts"
-        },
-        {
-          "path": "src/lib/df-focus-trap/trap.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/trap.ts"
-        },
-        {
-          "path": "src/lib/df-focus-trap/use-focus-trap.ts",
-          "type": "registry:lib",
-          "target": "default-file-ui/lib/df-focus-trap/use-focus-trap.ts"
         }
       ],
       "dependencies": [

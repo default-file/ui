@@ -1,5 +1,9 @@
 import * as React from "react"
 
+import {
+  resolvePaddingSides,
+  type PaddingChromeProps,
+} from "../lib/padding-chrome"
 import { cn } from "../lib/utils"
 import { Badge, type BadgeVariant } from "./df-badge"
 import { Spinner, type SpinnerSize } from "./df-spinner"
@@ -38,23 +42,31 @@ type ButtonLoadingAppearance = "muted" | "solid"
 type ButtonBadgePosition = "edge" | "inset"
 type ButtonBadgeSide = "start" | "end"
 
-type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type ButtonChromeProps = PaddingChromeProps & {
+  height?: string | undefined
+  width?: string | undefined
+  fontSize?: string | undefined
+  lineHeight?: string | undefined
+  fontFamily?: string | undefined
+  fontWeight?: string | undefined
+  radius?: string | undefined
+}
+
+type ButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "height" | "width"
+> &
+  ButtonChromeProps & {
   /** Visual style. plain requires an icon size and an accessible name. */
   variant?: ButtonVariant
   /**
-   * Text sizes use padding. Icon sizes are square.
+   * Text sizes use padding, type size, and line height. Icon sizes are square.
    * plain with a text size resolves to icon-xs.
    */
   size?: ButtonSize
   underline?: boolean
   /** Outline only. When true, drop the resting fill (data-transparent). */
   transparent?: boolean
-  /**
-   * Plain icon only. When true, apply the glyph drop shadow for busy surfaces.
-   * Set false to turn the shadow off. Customize the filter with
-   * --df-button-plain-glyph-filter when the shadow is on.
-   */
-  glyphShadow?: boolean
   leading?: React.ReactNode
   trailing?: React.ReactNode
   loading?: boolean
@@ -149,13 +161,64 @@ function dfButtonClass({
   )
 }
 
+function dfButtonChromeStyle({
+  padding,
+  paddingX,
+  paddingY,
+  paddingTop,
+  paddingRight,
+  paddingBottom,
+  paddingLeft,
+  height,
+  width,
+  fontSize,
+  lineHeight,
+  fontFamily,
+  fontWeight,
+  radius,
+}: ButtonChromeProps): React.CSSProperties {
+  const sides = resolvePaddingSides({
+    padding,
+    paddingX,
+    paddingY,
+    paddingTop,
+    paddingRight,
+    paddingBottom,
+    paddingLeft,
+  })
+  return {
+    ...(sides.top != null
+      ? { "--df-button-padding-block-start": sides.top }
+      : null),
+    ...(sides.bottom != null
+      ? { "--df-button-padding-block-end": sides.bottom }
+      : null),
+    ...(sides.left != null
+      ? { "--df-button-padding-inline-start": sides.left }
+      : null),
+    ...(sides.right != null
+      ? { "--df-button-padding-inline-end": sides.right }
+      : null),
+    ...(height != null ? { "--df-button-height": height } : null),
+    ...(width != null ? { "--df-button-width": width } : null),
+    ...(fontSize != null ? { "--df-button-font-size": fontSize } : null),
+    ...(lineHeight != null ? { "--df-button-line-height": lineHeight } : null),
+    ...(fontFamily != null
+      ? { "--df-button-font-family": fontFamily }
+      : null),
+    ...(fontWeight != null
+      ? { "--df-button-font-weight": fontWeight }
+      : null),
+    ...(radius != null ? { "--df-button-radius": radius } : null),
+  } as React.CSSProperties
+}
+
 function Button({
   className,
   variant = "default",
   size = "default",
   underline = true,
   transparent = false,
-  glyphShadow = true,
   type = "button",
   leading,
   trailing,
@@ -168,6 +231,21 @@ function Button({
   badgeSide = "end",
   disabled,
   children,
+  padding,
+  paddingX,
+  paddingY,
+  paddingTop,
+  paddingRight,
+  paddingBottom,
+  paddingLeft,
+  height,
+  width,
+  fontSize,
+  lineHeight,
+  fontFamily,
+  fontWeight,
+  radius,
+  style,
   ...props
 }: ButtonProps) {
   const resolvedSize = resolveButtonSize(variant, size)
@@ -178,7 +256,6 @@ function Button({
   ) : null
 
   const iconOnly = isIconButtonSize(resolvedSize)
-  const plainIcon = variant === "plain" && iconOnly
   const outlineTransparent = variant === "outline" && transparent
   let resolvedLeading = leading
   let resolvedTrailing = trailing
@@ -210,6 +287,22 @@ function Button({
   }
 
   const showBadge = shouldShowBadge(badge)
+  const chromeStyle = dfButtonChromeStyle({
+    padding,
+    paddingX,
+    paddingY,
+    paddingTop,
+    paddingRight,
+    paddingBottom,
+    paddingLeft,
+    height,
+    width,
+    fontSize,
+    lineHeight,
+    fontFamily,
+    fontWeight,
+    radius,
+  })
 
   return (
     <button
@@ -221,7 +314,6 @@ function Button({
         variant === "link" ? (underline ? "hover" : "none") : undefined
       }
       data-transparent={outlineTransparent ? "" : undefined}
-      data-glyph-shadow={plainIcon && !glyphShadow ? "off" : undefined}
       data-loading={isLoading ? "" : undefined}
       data-loading-appearance={isLoading ? loadingAppearance : undefined}
       data-badge={showBadge ? "" : undefined}
@@ -233,6 +325,7 @@ function Button({
         className,
       })}
       {...props}
+      style={{ ...chromeStyle, ...style }}
       disabled={disabled || isLoading}
       aria-busy={isLoading || undefined}
     >
@@ -272,9 +365,10 @@ function Button({
   )
 }
 
-export { Button, dfButtonClass }
+export { Button, dfButtonClass, dfButtonChromeStyle }
 export type {
   ButtonProps,
+  ButtonChromeProps,
   ButtonVariant,
   ButtonSize,
   TextButtonSize,

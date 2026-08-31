@@ -47,9 +47,9 @@ Read this file immediately when the skill applies, then follow the task path bel
 
 When implementing or rewriting **user-facing frontend UI** (headlines, subheads, body, labels, buttons, nav, empty states, errors, toasts, placeholders, table headers, tooltips, alt text, and similar visible strings):
 
-- Never use em dashes (`—`) or en dashes (`–`).
+- Never use em dashes (U+2014) or en dashes (U+2013).
 - Never use hyphens (`-`) inside ordinary English UI copy. Prefer spaced words, commas, periods, colons, or semicolons.
-- Examples of bad UI copy: `Best-in-class`, `Real-time sync`, `Sign-in`, `AI-powered`, `Jan–Mar`, `Design — Build`.
+- Examples of bad UI copy: `Best-in-class`, `Real-time sync`, `Sign-in`, `AI-powered`, a month range joined by an en dash, a title split by an em dash.
 - Examples of good UI copy: `Best in class`, `Realtime sync`, `Sign in`, `AI powered`, `Jan to Mar`, `Design. Build.`
 
 **Allowed exceptions** (not ordinary English marketing compounds):
