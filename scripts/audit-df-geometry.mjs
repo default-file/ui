@@ -9,6 +9,7 @@ import {
   explainZeroSlack,
   checkBannedTokenNames,
   findHardcodedGeometry,
+  checkSelectValueLineBoxContract,
   NON_GEOMETRY_TOKEN_RULE,
 } from "./lib/df-geometry.mjs"
 
@@ -302,6 +303,7 @@ function main() {
   const zeroSlack = checkZeroSlack(merged, ZERO_SLACK_EQUATIONS)
   const zeroSlackExplain = explainZeroSlack(merged, ZERO_SLACK_EQUATIONS)
   const banned = checkBannedTokenNames(merged, BANNED_TOKEN_NAME_PATTERNS)
+  const selectValueLineBox = checkSelectValueLineBoxContract(componentsCss)
   const hardcoded = findHardcodedGeometry(componentsCss)
 
   console.log("df:audit-geometry")
@@ -391,6 +393,15 @@ function main() {
     }
   }
 
+  section("Select value line box")
+  if (selectValueLineBox.length === 0) {
+    console.log("(none)")
+  } else {
+    for (const hit of selectValueLineBox) {
+      console.log(`${hit.selector} [${hit.reason}]`)
+    }
+  }
+
   section("Informational: hardcoded geometry in df-components.css")
   if (hardcoded.length === 0) {
     console.log("(none)")
@@ -433,7 +444,8 @@ function main() {
     pairs.violations.length +
     pairs.stale.length +
     zeroSlack.length +
-    banned.length
+    banned.length +
+    selectValueLineBox.length
 
   section("Summary")
   console.log(`whole-pixel: ${wholePixel.length}`)
@@ -441,6 +453,7 @@ function main() {
   console.log(`stale-table: ${pairs.stale.length}`)
   console.log(`zero-slack: ${zeroSlack.length}`)
   console.log(`banned-names: ${banned.length}`)
+  console.log(`select-value-line-box: ${selectValueLineBox.length}`)
   console.log(
     `hardcoded-geometry (informational): ${hardcoded.length}`
   )

@@ -14,7 +14,7 @@
   --df-corner-shape: var(--df-corner-shape-smooth);
 }
 
-/* Cap height label centering for leading-none flex chrome. */
+/* Cap height label centering for leading-none flex chrome. Do not include field values that clip overflow for ellipsis. */
 :where(
   [data-df="badge"],
   [data-df="choice-chip"],
@@ -25,8 +25,7 @@
   [data-df="button"] > [data-slot="badge"],
   [data-df="kbd-abbr"],
   [data-df="input-prefix"],
-  [data-df="input-suffix"],
-  [data-df="select-value"]
+  [data-df="input-suffix"]
 ),
 .df-content-switcher-item,
 .df-tabs-trigger,
@@ -48,8 +47,7 @@
     [data-df="button"] > [data-slot="badge"],
     [data-df="kbd-abbr"],
     [data-df="input-prefix"],
-    [data-df="input-suffix"],
-    [data-df="select-value"]
+    [data-df="input-suffix"]
   ),
   .df-content-switcher-item,
   .df-tabs-trigger,
@@ -71,8 +69,7 @@
     [data-df="button"] > [data-slot="badge"],
     [data-df="kbd-abbr"],
     [data-df="input-prefix"],
-    [data-df="input-suffix"],
-    [data-df="select-value"]
+    [data-df="input-suffix"]
   ),
   .df-content-switcher-item,
   .df-tabs-trigger,
@@ -5877,6 +5874,9 @@
   text-align: left;
   text-overflow: ellipsis;
   white-space: nowrap;
+  /* Control line box so ellipsis overflow keeps full glyphs. */
+  line-height: var(--df-select-line-height);
+  text-box-trim: none;
 }
 
 :where([data-df="select-value"][data-layout="stacked"]) {
@@ -5899,6 +5899,7 @@
   overflow: hidden;
   font-weight: var(--df-font-weight-medium);
   line-height: var(--df-select-line-height, var(--df-leading-5));
+  text-box-trim: none;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -5911,6 +5912,7 @@
   font-size: var(--df-text-xs);
   font-weight: var(--df-font-weight-normal);
   line-height: var(--df-leading-4);
+  text-box-trim: none;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

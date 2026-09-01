@@ -8,6 +8,7 @@ import {
   checkZeroSlack,
   checkBannedTokenNames,
   findHardcodedGeometry,
+  checkSelectValueLineBoxContract,
 } from "./df-geometry.mjs"
 
 describe("resolveTokenLengths", () => {
@@ -482,5 +483,66 @@ describe("findHardcodedGeometry", () => {
     assert.ok(literals.includes("transform:4px"))
     assert.ok(!literals.some((l) => l.startsWith("height:")))
     assert.ok(!literals.some((l) => l.startsWith("margin:")))
+  })
+})
+
+const SELECT_VALUE_CONTROL_BOX = `
+:where([data-df="select-value"]) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: var(--df-select-line-height);
+  text-box-trim: none;
+}
+`
+
+describe("checkSelectValueLineBoxContract", () => {
+  it("passes when the value keeps the control line box", () => {
+    const css = `
+:where([data-df="badge"], [data-df="input-prefix"]) {
+  --df-label-line-height: var(--df-leading-none);
+  line-height: var(--df-label-line-height);
+}
+${SELECT_VALUE_CONTROL_BOX}
+`
+    assert.equal(checkSelectValueLineBoxContract(css).length, 0)
+  })
+
+  it("fails when the value is a cap-height trim subject", () => {
+    const css = `
+:where([data-df="badge"], [data-df="select-value"]) {
+  --df-label-line-height: var(--df-leading-none);
+  line-height: var(--df-label-line-height);
+}
+${SELECT_VALUE_CONTROL_BOX}
+`
+    const hits = checkSelectValueLineBoxContract(css)
+    assert.equal(hits.length, 1)
+    assert.match(hits[0].reason, /cap-height trim/)
+  })
+
+  it("fails when text-box trim inside supports targets the value", () => {
+    const css = `
+@supports (text-box-trim: trim-both) {
+  :where([data-df="badge"], [data-df="select-value"]) {
+    text-box: trim-both cap alphabetic;
+  }
+}
+${SELECT_VALUE_CONTROL_BOX}
+`
+    const hits = checkSelectValueLineBoxContract(css)
+    assert.equal(hits.length, 1)
+    assert.match(hits[0].reason, /cap-height trim/)
+  })
+
+  it("fails when the value omits the control line box", () => {
+    const css = `
+:where([data-df="select-value"]) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+`
+    const hits = checkSelectValueLineBoxContract(css)
+    assert.equal(hits.length, 1)
+    assert.match(hits[0].reason, /control line-height/)
   })
 })

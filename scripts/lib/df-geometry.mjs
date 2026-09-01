@@ -77,9 +77,11 @@ function stripComments(cssText) {
 
 /**
  * @param {string} cssText
+ * @param {{ includeNestedAtRules?: boolean }} [options]
  * @returns {{ selector: string, body: string }[]}
  */
-function parseDeclaringBlocks(cssText) {
+function parseDeclaringBlocks(cssText, options = {}) {
+  const includeNestedAtRules = options.includeNestedAtRules === true
   const text = stripComments(cssText)
   const blocks = []
   let i = 0
@@ -96,12 +98,19 @@ function parseDeclaringBlocks(cssText) {
         i++
         continue
       }
-      let depth = 0
-      do {
+      i++
+      const innerStart = i
+      let depth = 1
+      while (i < n && depth > 0) {
         if (text[i] === "{") depth++
         else if (text[i] === "}") depth--
-        i++
-      } while (i < n && depth > 0)
+        if (depth > 0) i++
+      }
+      const inner = text.slice(innerStart, i)
+      if (text[i] === "}") i++
+      if (includeNestedAtRules) {
+        blocks.push(...parseDeclaringBlocks(inner, options))
+      }
       continue
     }
 
@@ -1348,4 +1357,151 @@ function splitCssList(value) {
   }
   if (current.trim()) parts.push(current.trim())
   return parts
+}
+
+const SELECT_VALUE_ATTR = '[data-df="select-value"]'
+const SELECT_VALUE_EXACT_SELECTOR = ':where([data-df="select-value"])'
+const SELECT_VALUE_LINE_HEIGHT_RE =
+  /line-height\s*:\s*var\(\s*--df-select-line-height\s*\)/
+
+/**
+ * @param {string} selectorList
+ * @returns {string[]}
+ */
+function splitCommaList(selectorList) {
+  const parts = []
+  let depth = 0
+  let current = ""
+  for (let i = 0; i < selectorList.length; i++) {
+    const ch = selectorList[i]
+    if (ch === "(" || ch === "[") depth++
+    else if (ch === ")" || ch === "]") depth--
+    if (ch === "," && depth === 0) {
+      if (current.trim()) parts.push(current.trim())
+      current = ""
+      continue
+    }
+    current += ch
+  }
+  if (current.trim()) parts.push(current.trim())
+  return parts
+}
+
+/**
+ * @param {string} part
+ * @returns {string | null}
+ */
+function unwrapWhereOrIs(part) {
+  const match = part.match(/^:(?:where|is)\(/)
+  if (!match) return null
+  const open = match[0].length - 1
+  const close = matchingParen(part, open)
+  if (close < 0) return null
+  if (part.slice(close + 1).trim() !== "") return null
+  return part.slice(open + 1, close)
+}
+
+/**
+ * @param {string} part
+ * @returns {string}
+ */
+function lastCompoundSelector(part) {
+  const text = part.trim()
+  let depth = 0
+  for (let i = text.length - 1; i >= 0; i--) {
+    const ch = text[i]
+    if (ch === ")" || ch === "]") depth++
+    else if (ch === "(" || ch === "[") depth--
+    else if (depth === 0 && /\s/.test(ch)) {
+      return text.slice(i + 1).trim()
+    }
+  }
+  return text
+}
+
+/**
+ * @param {string} part
+ * @param {string[]} subjects
+ */
+function collectSelectorSubjects(part, subjects) {
+  const unwrapped = unwrapWhereOrIs(part)
+  if (unwrapped != null) {
+    for (const inner of splitCommaList(unwrapped)) {
+      collectSelectorSubjects(inner.trim(), subjects)
+    }
+    return
+  }
+  subjects.push(lastCompoundSelector(part))
+}
+
+/**
+ * @param {string} selector
+ * @returns {boolean}
+ */
+function selectorHasSelectValueSubject(selector) {
+  const subjects = []
+  for (const part of splitCommaList(selector)) {
+    collectSelectorSubjects(part.trim(), subjects)
+  }
+  return subjects.some((subject) => subject.includes(SELECT_VALUE_ATTR))
+}
+
+/**
+ * @param {string} body
+ * @returns {boolean}
+ */
+function bodyTrimsCapHeight(body) {
+  return (
+    /--df-label-line-height\s*:/.test(body) ||
+    /text-box\s*:\s*trim-both/.test(body) ||
+    /text-box-trim\s*:\s*trim-(?:both|start|end)/.test(body) ||
+    /line-height\s*:\s*1cap/.test(body)
+  )
+}
+
+/**
+ * Select value ellipsis must keep the control line box. Cap-height trim on the
+ * same subject as overflow clipping cuts descenders and cap overshoot.
+ *
+ * @param {string} cssText
+ * @returns {Array<{ selector: string, reason: string }>}
+ */
+export function checkSelectValueLineBoxContract(cssText) {
+  const blocks = parseDeclaringBlocks(cssText, { includeNestedAtRules: true })
+  /** @type {Array<{ selector: string, reason: string }>} */
+  const violations = []
+  let hasControlLineBox = false
+
+  for (const block of blocks) {
+    const selector = block.selector.replace(/\s+/g, " ").trim()
+    if (
+      selectorHasSelectValueSubject(block.selector) &&
+      bodyTrimsCapHeight(block.body)
+    ) {
+      violations.push({
+        selector,
+        reason:
+          "Select value is a cap-height trim subject. Ellipsis overflow clips glyphs.",
+      })
+    }
+    if (
+      selector === SELECT_VALUE_EXACT_SELECTOR &&
+      /overflow\s*:\s*hidden/.test(block.body) &&
+      /text-overflow\s*:\s*ellipsis/.test(block.body) &&
+      SELECT_VALUE_LINE_HEIGHT_RE.test(block.body) &&
+      /text-box-trim\s*:\s*none/.test(block.body)
+    ) {
+      hasControlLineBox = true
+    }
+  }
+
+  if (!hasControlLineBox) {
+    violations.push({
+      selector: SELECT_VALUE_EXACT_SELECTOR,
+      reason:
+        "Select value must set overflow ellipsis, the control line-height, and text-box-trim none.",
+    })
+  }
+
+  return violations
 }

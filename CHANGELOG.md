@@ -2,6 +2,11 @@
 
 Semver for `@default-file/ui` lives in `package.json`. `df-ui init` records the same version in `df.json`.
 
+## 0.35.1
+
+- Keep Select value text on the control line box so ellipsis overflow cannot clip glyphs.
+- Install Format Toolbar with Dropdown Menu, so table actions copy source compiles.
+
 ## 0.35.0
 
 - Group Format Toolbar table controls into one labelled menu behind the table button. The menu shows a size grid before insert and row, column, and delete actions while the caret is in a table.

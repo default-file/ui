@@ -872,6 +872,7 @@
       "registryDependencies": [
         "foundation",
         "button",
+        "dropdown-menu",
         "input",
         "popover",
         "separator",
