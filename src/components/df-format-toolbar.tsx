@@ -32,6 +32,13 @@ import {
 import { isSafeHref } from "../lib/df-url"
 import { cn } from "../lib/utils"
 import { Button } from "./df-button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./df-dropdown-menu"
 import { Input } from "./df-input"
 import {
   Popover,
@@ -99,7 +106,8 @@ export type FormatToolbarController = {
   unsetCallout: () => void
   toggleCodeBlock: () => void
   insertHorizontalRule: () => void
-  insertTable: () => void
+  /** Insert a table. Rows include the header row. Omit both for the host default. */
+  insertTable: (rows?: number, columns?: number) => void
   addTableRow: () => void
   addTableColumn: () => void
   deleteTableRow: () => void
@@ -222,6 +230,74 @@ function ToolbarDivider() {
   return <Separator orientation="vertical" className="mx-0.5 h-5 bg-border" />
 }
 
+/** Largest table the size grid offers. Further rows and columns come from the menu. */
+const TABLE_PICKER_ROWS = 8
+const TABLE_PICKER_COLUMNS = 8
+
+/**
+ * Grid for choosing table size before insert. The first row is the header row, so the
+ * smallest table the grid can produce is a single header row.
+ */
+function TableSizePicker({
+  label,
+  disabled,
+  onPick,
+}: {
+  label: string
+  disabled?: boolean
+  onPick: (rows: number, columns: number) => void
+}) {
+  const [hovered, setHovered] = React.useState<{
+    rows: number
+    columns: number
+  } | null>(null)
+
+  return (
+    <div>
+      <div className="mb-2 flex items-baseline justify-between gap-2 px-0.5">
+        <p className="text-xs font-medium text-foreground">{label}</p>
+        <p className="text-2xs text-muted-foreground">
+          {hovered ? `${hovered.rows} × ${hovered.columns}` : null}
+        </p>
+      </div>
+      <div
+        className="grid gap-0.5 px-0.5"
+        style={{
+          gridTemplateColumns: `repeat(${TABLE_PICKER_COLUMNS}, minmax(0, 1fr))`,
+        }}
+        onPointerLeave={() => setHovered(null)}
+      >
+        {Array.from({ length: TABLE_PICKER_ROWS }, (_, rowIndex) =>
+          Array.from({ length: TABLE_PICKER_COLUMNS }, (_, columnIndex) => {
+            const rows = rowIndex + 1
+            const columns = columnIndex + 1
+            const within =
+              hovered != null && rows <= hovered.rows && columns <= hovered.columns
+            return (
+              <button
+                key={`${rows}-${columns}`}
+                type="button"
+                disabled={disabled}
+                aria-label={`${rows} × ${columns}`}
+                className={cn(
+                  "h-4 rounded-sm border border-border",
+                  within ? "bg-primary" : "bg-muted"
+                )}
+                onPointerEnter={() => setHovered({ rows, columns })}
+                onFocus={() => setHovered({ rows, columns })}
+                onClick={() => {
+                  if (disabled) return
+                  onPick(rows, columns)
+                }}
+              />
+            )
+          })
+        )}
+      </div>
+    </div>
+  )
+}
+
 function FormatToolbar({
   controller,
   disabled,
@@ -241,6 +317,7 @@ function FormatToolbar({
     () => s.formatToolbarLinkPlaceholder
   )
   const [calloutOpen, setCalloutOpen] = React.useState(false)
+  const [tableOpen, setTableOpen] = React.useState(false)
 
   React.useEffect(() => {
     if (!controller) return
@@ -569,54 +646,102 @@ function FormatToolbar({
 
       <ToolbarDivider />
 
-      <ToolbarButton
-        label={s.formatToolbarInsertTable}
-        disabled={busy}
-        locked={editLocked}
-        onClick={() => controller.insertTable()}
-      >
-        <Table className="size-4" />
-      </ToolbarButton>
-      <ToolbarButton
-        label={s.formatToolbarAddRow}
-        disabled={busy || !inTable}
-        locked={editLocked}
-        onClick={() => controller.addTableRow()}
-      >
-        <BetweenHorizontalEnd className="size-4" />
-      </ToolbarButton>
-      <ToolbarButton
-        label={s.formatToolbarAddColumn}
-        disabled={busy || !inTable}
-        locked={editLocked}
-        onClick={() => controller.addTableColumn()}
-      >
-        <BetweenVerticalEnd className="size-4" />
-      </ToolbarButton>
-      <ToolbarButton
-        label={s.formatToolbarDeleteRow}
-        disabled={busy || !inTable}
-        locked={editLocked}
-        onClick={() => controller.deleteTableRow()}
-      >
-        <TableRowsSplit className="size-4" />
-      </ToolbarButton>
-      <ToolbarButton
-        label={s.formatToolbarDeleteColumn}
-        disabled={busy || !inTable}
-        locked={editLocked}
-        onClick={() => controller.deleteTableColumn()}
-      >
-        <TableColumnsSplit className="size-4" />
-      </ToolbarButton>
-      <ToolbarButton
-        label={s.formatToolbarDeleteTable}
-        disabled={busy || !inTable}
-        locked={editLocked}
-        onClick={() => controller.deleteTable()}
-      >
-        <Trash2 className="size-4" />
-      </ToolbarButton>
+      {inTable ? (
+        <DropdownMenu
+          open={editLocked ? false : tableOpen}
+          onOpenChange={(open) => setTableOpen(editLocked ? false : open)}
+        >
+          <ToolbarTooltip label={s.formatToolbarTable}>
+            <DropdownMenuTrigger
+              render={
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="icon-sm"
+                  disabled={busy}
+                  aria-label={s.formatToolbarTable}
+                >
+                  <Table className="size-4" />
+                </Button>
+              }
+            />
+          </ToolbarTooltip>
+          <DropdownMenuContent align="start" sideOffset={8} width="sm">
+            <DropdownMenuItem
+              leading={<BetweenHorizontalEnd />}
+              disabled={editLocked}
+              onSelect={() => controller.addTableRow()}
+            >
+              {s.formatToolbarAddRow}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              leading={<BetweenVerticalEnd />}
+              disabled={editLocked}
+              onSelect={() => controller.addTableColumn()}
+            >
+              {s.formatToolbarAddColumn}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              leading={<TableRowsSplit />}
+              disabled={editLocked}
+              onSelect={() => controller.deleteTableRow()}
+            >
+              {s.formatToolbarDeleteRow}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              leading={<TableColumnsSplit />}
+              disabled={editLocked}
+              onSelect={() => controller.deleteTableColumn()}
+            >
+              {s.formatToolbarDeleteColumn}
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem
+              leading={<Trash2 />}
+              tone="destructive"
+              disabled={editLocked}
+              onSelect={() => controller.deleteTable()}
+            >
+              {s.formatToolbarDeleteTable}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      ) : (
+        <ToolbarTooltip label={s.formatToolbarTable}>
+          <Popover
+            open={editLocked ? false : tableOpen}
+            onOpenChange={(open) => setTableOpen(editLocked ? false : open)}
+          >
+            <PopoverTrigger
+              render={
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon-sm"
+                  disabled={busy}
+                  aria-label={s.formatToolbarTable}
+                >
+                  <Table className="size-4" />
+                </Button>
+              }
+            />
+            <PopoverContent
+              align="start"
+              sideOffset={8}
+              className="w-52 rounded-xl border border-border bg-card p-2 shadow-[var(--df-shadow-panel)]"
+            >
+              <TableSizePicker
+                label={s.formatToolbarInsertTable}
+                disabled={editLocked}
+                onPick={(rows, columns) => {
+                  controller.insertTable(rows, columns)
+                  setTableOpen(false)
+                }}
+              />
+            </PopoverContent>
+          </Popover>
+        </ToolbarTooltip>
+      )}
     </div>
   )
 }

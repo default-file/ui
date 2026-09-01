@@ -168,8 +168,8 @@
           },
           {
             "name": "insertTable",
-            "type": "() => void",
-            "description": "Insert a table after the current block. Replaces an empty paragraph in place."
+            "type": "(rows?: number, columns?: number) => void",
+            "description": "Insert a table after the current block. Rows include the header row. Omit both values to use the host default. Replaces an empty paragraph in place."
           },
           {
             "name": "addTableRow",

@@ -145,6 +145,7 @@ export type DfStrings = {
   formatToolbarCalloutCaution: string
   formatToolbarCodeBlock: string
   formatToolbarHorizontalRule: string
+  formatToolbarTable: string
   formatToolbarInsertTable: string
   formatToolbarAddRow: string
   formatToolbarAddColumn: string
@@ -393,9 +394,10 @@ export const defaultStrings: DfStrings = {
   formatToolbarCalloutCaution: "Caution",
   formatToolbarCodeBlock: "Code block",
   formatToolbarHorizontalRule: "Horizontal rule",
+  formatToolbarTable: "Table",
   formatToolbarInsertTable: "Insert table",
-  formatToolbarAddRow: "Add row",
-  formatToolbarAddColumn: "Add column",
+  formatToolbarAddRow: "Add row below",
+  formatToolbarAddColumn: "Add column right",
   formatToolbarDeleteRow: "Delete row",
   formatToolbarDeleteColumn: "Delete column",
   formatToolbarDeleteTable: "Delete table",

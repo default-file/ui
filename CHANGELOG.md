@@ -2,6 +2,13 @@
 
 Semver for `@default-file/ui` lives in `package.json`. `df-ui init` records the same version in `df.json`.
 
+## 0.35.0
+
+- Group Format Toolbar table controls into one labelled menu behind the table button. The menu shows a size grid before insert and row, column, and delete actions while the caret is in a table.
+- Build the table actions on Dropdown Menu, so labels align to the start of the row and keyboard navigation follows the menu pattern. Delete table uses the destructive tone.
+- Accept a size on `FormatToolbarController.insertTable(rows, columns)`. Rows include the header row, and both values stay optional so existing controllers keep working.
+- Add a `formatToolbarTable` string for the menu trigger. Row and column labels now state their direction.
+
 ## 0.34.0
 
 - Clear the parent runner's invocation config before spawning a package manager. `npx -p @default-file/ui df-ui init -t <framework>` exported `npm_config_package`, so the nested runner looked for the framework scaffolder inside this kit and failed for `next`, `react-router`, `tanstack-start`, and `astro`.
