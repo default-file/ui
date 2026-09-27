@@ -2,6 +2,10 @@
 
 Semver for `@default-file/ui` lives in `package.json`. `df-ui init` records the same version in `df.json`.
 
+## 0.36.1
+
+- Keep the Dial ring heading in state so a wrap continues in the same direction.
+
 ## 0.36.0
 
 - Add Dial, a circular numeric control with a tick ring, sm to lg sizes, inside or edge labels, and optional tick and scrub sound.

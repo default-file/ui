@@ -209,7 +209,6 @@ function Dial({
   const dragValueRef = React.useRef(current)
   const lastPointerRef = React.useRef<{ x: number; y: number } | null>(null)
   const turnPixelsRef = React.useRef(1)
-  const displayAngleRef = React.useRef<number | null>(null)
   const { begin: beginDrag } = useDragGesture()
   const [dragging, setDragging] = React.useState(false)
   const [dragLive, setDragLive] = React.useState<number | null>(null)
@@ -228,11 +227,18 @@ function Dial({
     startAngle,
     safeSweep
   )
-  const displayAngle =
-    dragging || displayAngleRef.current == null
+  const [ring, setRing] = React.useState(() => ({
+    dragging,
+    targetAngle,
+    displayAngle: targetAngle,
+  }))
+  let displayAngle = ring.displayAngle
+  if (ring.dragging !== dragging || ring.targetAngle !== targetAngle) {
+    displayAngle = dragging
       ? targetAngle
-      : followAngle(displayAngleRef.current, targetAngle)
-  displayAngleRef.current = displayAngle
+      : followAngle(ring.displayAngle, targetAngle)
+    setRing({ dragging, targetAngle, displayAngle })
+  }
 
   const shownValue = commitDialValue(visualValue, min, max, safeStep, wrap)
   const displayText = formatDialValue(
