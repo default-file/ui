@@ -4,6 +4,7 @@ import { Minus, Plus } from "lucide-react"
 import * as React from "react"
 
 import { useControllableState, useDragGesture } from "../hooks"
+import { formatByStep, snapToStep } from "../lib/df-step"
 import {
   resumeUiScrubAudio,
   startUiScrub,
@@ -92,23 +93,6 @@ type SliderProps = Omit<
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value))
-}
-
-function snapToStep(value: number, min: number, max: number, step: number) {
-  const safeStep = step > 0 ? step : 1
-  const stepped = Math.round((value - min) / safeStep) * safeStep + min
-  const precision = String(safeStep).includes(".")
-    ? (String(safeStep).split(".")[1]?.length ?? 0)
-    : 0
-  const rounded =
-    precision > 0 ? Number(stepped.toFixed(precision)) : stepped
-  return clamp(rounded, min, max)
-}
-
-function formatByStep(value: number, step: number) {
-  const safeStep = step > 0 ? step : 1
-  const digits = safeStep >= 1 ? 0 : safeStep >= 0.1 ? 1 : 2
-  return value.toFixed(digits)
 }
 
 function resolveMarks(

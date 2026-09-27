@@ -8,6 +8,7 @@ import {
   useIsomorphicLayoutEffect,
   useLatestRef,
 } from "../hooks"
+import { snapToStep } from "../lib/df-step"
 import { playUiTick, resumeUiTickAudio } from "../lib/df-tick-sound"
 import { cn } from "../lib/utils"
 
@@ -107,16 +108,6 @@ type TickSliderProps = Omit<
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value))
-}
-
-function snapToStep(value: number, min: number, max: number, step: number) {
-  const stepped = Math.round((value - min) / step) * step + min
-  const precision = String(step).includes(".")
-    ? (String(step).split(".")[1]?.length ?? 0)
-    : 0
-  const rounded =
-    precision > 0 ? Number(stepped.toFixed(precision)) : stepped
-  return clamp(rounded, min, max)
 }
 
 function resolveFade(

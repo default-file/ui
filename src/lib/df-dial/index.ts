@@ -1,25 +1,11 @@
+import { quantizeToStep, snapToStep } from "../df-step"
+
 export type DialDragAxis = "all" | "horizontal" | "vertical"
+
+export { formatByStep, snapToStep, stepPrecision } from "../df-step"
 
 export function clamp(value: number, min: number, max: number) {
   return Math.min(max, Math.max(min, value))
-}
-
-function quantizeToStep(value: number, min: number, step: number) {
-  const safeStep = step > 0 ? step : 1
-  const stepped = Math.round((value - min) / safeStep) * safeStep + min
-  const precision = String(safeStep).includes(".")
-    ? (String(safeStep).split(".")[1]?.length ?? 0)
-    : 0
-  return precision > 0 ? Number(stepped.toFixed(precision)) : stepped
-}
-
-export function snapToStep(
-  value: number,
-  min: number,
-  max: number,
-  step: number
-) {
-  return clamp(quantizeToStep(value, min, step), min, max)
 }
 
 /** Wrap a ring heading into 0 to 360. */
@@ -253,10 +239,4 @@ export function isTickFilled(
   if (safeSweep < 360 && fromStart > safeSweep + fillEps) return false
   if (safeRatio >= 1) return true
   return fromStart <= safeSweep * safeRatio + fillEps
-}
-
-export function formatByStep(value: number, step: number) {
-  const safeStep = step > 0 ? step : 1
-  const digits = safeStep >= 1 ? 0 : safeStep >= 0.1 ? 1 : 2
-  return value.toFixed(digits)
 }

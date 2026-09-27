@@ -2,6 +2,10 @@
 
 Semver for `@default-file/ui` lives in `package.json`. `df-ui init` records the same version in `df.json`.
 
+## 0.36.2
+
+- Share one numeric step contract across Dial, Slider, Tick Slider, and Number Slider. The readout uses the same precision as the committed value, including steps smaller than 0.01 and exponent steps such as 1e-7.
+
 ## 0.36.1
 
 - Keep the Dial ring heading in state so a wrap continues in the same direction.

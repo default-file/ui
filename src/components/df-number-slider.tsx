@@ -2,6 +2,7 @@
 
 import * as React from "react"
 
+import { formatByStep } from "../lib/df-step"
 import { Label } from "./df-label"
 import { Slider, type SliderThickness, type SliderVariant } from "./df-slider"
 
@@ -29,7 +30,6 @@ function NumberSlider({
   variant = "bar",
 }: NumberSliderProps) {
   const labelId = React.useId()
-  const digits = step >= 1 ? 0 : step >= 0.1 ? 1 : 2
   const bounded = Math.min(max, Math.max(min, value))
 
   return (
@@ -39,7 +39,7 @@ function NumberSlider({
         as="div"
         className="text-xs text-muted-foreground"
         trailing={
-          <span className="font-mono text-11">{bounded.toFixed(digits)}</span>
+          <span className="font-mono text-11">{formatByStep(bounded, step)}</span>
         }
       >
         {label}
