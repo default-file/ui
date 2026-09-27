@@ -41,6 +41,7 @@ async function testHelpers() {
 
   const items = listComponents()
   assert.ok(items.some((i) => i.name === "button"))
+  assert.ok(items.some((i) => i.name === "dial"))
   assert.ok(items.some((i) => i.name === "foundation"))
   assert.ok(
     items.some((i) => i.name === "color-system"),
@@ -168,10 +169,16 @@ async function testHelpers() {
 
   const sliderFamilyCover = checkCoverage("settings slider scrubber")
   assert.ok(
-    ["slider", "number-slider", "tick-slider"].every((name) =>
+    ["slider", "number-slider", "tick-slider", "dial"].every((name) =>
       sliderFamilyCover.matched.some((m) => m.name === name)
     ),
     "slider language must cover the full slider family"
+  )
+
+  const dialCover = checkCoverage("rotary knob")
+  assert.ok(
+    dialCover.matched.some((m) => m.name === "dial"),
+    "knob language must cover dial"
   )
 
   const cover = checkCoverage("settings form with select, switch, and toast")

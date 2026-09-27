@@ -1,0 +1,538 @@
+{
+  "name": "dial",
+  "slug": "dial",
+  "title": "Dial",
+  "description": "Circular numeric control with a tick ring that fills from min to the current value, drag axis, wrap, invert, progress outline, sizes, and label placement. Prefer Slider for a linear track, and Tick Slider for bound labels with a tick gauge.",
+  "aliases": [
+    "knob",
+    "circular slider",
+    "radial slider",
+    "rotary",
+    "circular control",
+    "radial control",
+    "Dial"
+  ],
+  "chapter": "inputs",
+  "registryDependencies": [
+    "foundation"
+  ],
+  "importPath": "@default-file/ui/components/df-dial",
+  "dependencies": [],
+  "api": {
+    "description": "Circular numeric control with a tick ring that fills from min to the current value, optional center or edge label, and a moving indicator. Pointer travel raises or lowers the value. wrap spins through a full turn with no origin fill. invert reverses drag so reverse rotation can go negative. progress draws a rotation outline on the face. Prefer Slider for a linear track, and Tick Slider for bound labels with a tick gauge.",
+    "groups": [
+      {
+        "id": "value",
+        "title": "Value",
+        "props": [
+          {
+            "name": "min",
+            "type": "number",
+            "default": "0",
+            "description": "Minimum value."
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "default": "100",
+            "description": "Maximum value."
+          },
+          {
+            "name": "step",
+            "type": "number",
+            "default": "1",
+            "description": "Increment between committed values. Values of 0 or less fall back to 1."
+          },
+          {
+            "name": "value",
+            "type": "number",
+            "description": "Controlled value. Snapped to step and clamped, or wrapped when wrap is set."
+          },
+          {
+            "name": "defaultValue",
+            "type": "number",
+            "default": "min",
+            "description": "Uncontrolled initial value."
+          },
+          {
+            "name": "onValueChange",
+            "type": "(value: number) => void",
+            "description": "Called when a committed value changes."
+          },
+          {
+            "name": "wrap",
+            "type": "boolean",
+            "default": "false",
+            "description": "When true, dragging or stepping past max continues at min, and past min continues at max. Ticks do not fill from an origin unless tickFill is set. Leave false to clamp."
+          },
+          {
+            "name": "invert",
+            "type": "boolean",
+            "default": "false",
+            "description": "Reverse pointer travel and arrow keys. Right and up decrease. Set min below 0 so reverse rotation can go negative."
+          },
+          {
+            "name": "dragAxis",
+            "type": "\"all\" | \"horizontal\" | \"vertical\"",
+            "default": "\"all\"",
+            "description": "Pointer axis that changes the value. all maps right and up to increase, left and down to decrease, and diagonals combine. horizontal uses only left and right. vertical uses only up and down. The indicator still travels around the ring."
+          },
+          {
+            "name": "startAngle",
+            "type": "number",
+            "default": "0",
+            "description": "Ring heading in degrees clockwise from the top. Gauge min sits here when min is 0 or greater. When min is below 0 and max is above 0, value 0 sits here."
+          },
+          {
+            "name": "sweep",
+            "type": "number",
+            "default": "360",
+            "description": "How much of the ring the range uses. 360 is a full ring. Use less than 360 to keep the ends on distinct points."
+          },
+          {
+            "name": "formatValue",
+            "type": "(value: number) => string",
+            "description": "Formats the visible value and aria valuetext. Overrides valueFormat."
+          },
+          {
+            "name": "valueFormat",
+            "type": "\"number\" | \"percent\"",
+            "default": "\"number\"",
+            "description": "Built in readout format. number uses step precision. percent shows position across min to max. Ignored when formatValue is set."
+          },
+          {
+            "name": "showValue",
+            "type": "boolean",
+            "default": "false",
+            "description": "Show the formatted value in the center of the ring."
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "description": "Disables pointer and keyboard interaction."
+          }
+        ]
+      },
+      {
+        "id": "label",
+        "title": "Label",
+        "props": [
+          {
+            "name": "label",
+            "type": "React.ReactNode",
+            "description": "Optional label. Use a short mark for inside, or any copy for an outside edge. An inside label next to a value uses smaller muted type so the value stays primary."
+          },
+          {
+            "name": "labelPosition",
+            "type": "\"inside\" | \"top\" | \"bottom\" | \"left\" | \"right\"",
+            "default": "\"inside\"",
+            "description": "Where the label sits. inside places it in the center of the ring. top, bottom, left, and right sit outside the ring."
+          },
+          {
+            "name": "labelGap",
+            "type": "string",
+            "description": "Gap between an outside label and the ring. Prefer a kit length token such as calc(4 * var(--spacing-unit)). Ignored when the label is inside."
+          }
+        ]
+      },
+      {
+        "id": "appearance",
+        "title": "Appearance",
+        "props": [
+          {
+            "name": "size",
+            "type": "\"sm\" | \"md\" | \"lg\"",
+            "default": "\"md\"",
+            "description": "Ring diameter and matching tick, thumb, and type sizes. sm is compact, md is the default, lg is a large ring."
+          },
+          {
+            "name": "thumb",
+            "type": "\"dot\" | \"tick\"",
+            "default": "\"dot\"",
+            "description": "Value indicator. dot is a circular thumb on the ring. tick hides the thumb and accents the nearest tick."
+          },
+          {
+            "name": "tickCount",
+            "type": "number",
+            "default": "36",
+            "description": "Number of ticks around the ring. Minimum 2."
+          },
+          {
+            "name": "showTicks",
+            "type": "boolean",
+            "default": "true",
+            "description": "Show the tick ring."
+          },
+          {
+            "name": "tickFill",
+            "type": "boolean",
+            "default": "true when wrap is off and min is 0 or greater",
+            "description": "Fill ticks from min to the current value. Defaults to on for a gauge. Off when wrap is set or min is below 0 so the ring has no origin. Set true to force fill."
+          },
+          {
+            "name": "tickRadius",
+            "type": "\"none\" | \"xxs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"full\"",
+            "default": "\"none\"",
+            "description": "End of each default tick. none is square. full is round."
+          },
+          {
+            "name": "thumbRadius",
+            "type": "\"none\" | \"xxs\" | \"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" | \"4xl\" | \"full\"",
+            "default": "\"full\"",
+            "description": "Corner radius of the dot thumb."
+          },
+          {
+            "name": "renderTick",
+            "type": "(tick: { index: number; count: number; active: boolean; filled: boolean; angle: number; value: number }) => React.ReactNode",
+            "description": "Replace each default tick with custom content. filled is true from min to the current value. active is true on the nearest tick when thumb is tick."
+          },
+          {
+            "name": "accent",
+            "type": "string",
+            "description": "Fill for the dot thumb and the nearest tick when thumb is tick. Prefer a kit color token."
+          },
+          {
+            "name": "tickMuted",
+            "type": "string",
+            "description": "Fill for ticks past the current value. Prefer a kit color token."
+          },
+          {
+            "name": "tickFilled",
+            "type": "string",
+            "description": "Fill for ticks from min to the current value. Prefer a kit color token."
+          },
+          {
+            "name": "tickActive",
+            "type": "string",
+            "description": "Fill for the nearest tick when thumb is tick. Prefer a kit color token."
+          },
+          {
+            "name": "labelColor",
+            "type": "string",
+            "description": "Label text color. Prefer a kit color token."
+          },
+          {
+            "name": "valueColor",
+            "type": "string",
+            "description": "Value text color. Prefer a kit color token."
+          },
+          {
+            "name": "faceBackground",
+            "type": "string",
+            "description": "Fill behind the ring. Transparent by default."
+          },
+          {
+            "name": "faceBorder",
+            "type": "string",
+            "description": "Border color of the ring. Transparent by default."
+          },
+          {
+            "name": "progress",
+            "type": "boolean",
+            "default": "false",
+            "description": "Draw a ring on the face edge from startAngle to the current value. The unused part of the rim stays empty. Ticks inset from that ring so they do not sit on the edge."
+          },
+          {
+            "name": "progressColor",
+            "type": "string",
+            "description": "Color of the progress ring. Prefer a kit color token."
+          },
+          {
+            "name": "tickWidth",
+            "type": "string",
+            "description": "Tick thickness. Prefer a kit length token."
+          },
+          {
+            "name": "tickLength",
+            "type": "string",
+            "description": "Tick length along the radius. Prefer a kit length token."
+          },
+          {
+            "name": "thumbSize",
+            "type": "string",
+            "description": "Dot thumb diameter. Prefer a kit length token."
+          }
+        ]
+      },
+      {
+        "id": "sound",
+        "title": "Sound",
+        "props": [
+          {
+            "name": "tickSound",
+            "type": "boolean",
+            "default": "true",
+            "description": "Play a short tick on each stepped value change while dragging or using the keyboard. Skipped when the document is hidden or reduced motion is preferred."
+          },
+          {
+            "name": "scrubSound",
+            "type": "boolean",
+            "default": "false",
+            "description": "Play a smooth scrub tone while dragging. Pitch follows position and level follows drag speed. Off by default. Stops on release, unmount, or when the document is hidden. Skipped when reduced motion is preferred."
+          }
+        ]
+      },
+      {
+        "id": "accessibility",
+        "title": "Keyboard and accessibility",
+        "description": "Slider (role=\"slider\"): The face is the slider. Arrow keys step the value. invert flips that direction. Home goes to min. End goes to max, or to the last rest when wrap is set. PageUp and PageDown move by one tenth of the range.",
+        "props": [
+          {
+            "name": "aria-label",
+            "type": "string",
+            "description": "Accessible name when label is omitted or is not a string."
+          },
+          {
+            "name": "aria-labelledby",
+            "type": "string",
+            "description": "ID of a labeling element. Defaults to the label element when label is set and aria-label is omitted."
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "description": "Additional styles on the root."
+          },
+          {
+            "name": "style",
+            "type": "React.CSSProperties",
+            "description": "Inline styles on the root. Can also override Dial CSS variables directly."
+          },
+          {
+            "name": "ref",
+            "type": "React.Ref<HTMLDivElement>",
+            "description": "Ref to the root element."
+          }
+        ]
+      },
+      {
+        "id": "dial-tokens",
+        "title": "Tokens",
+        "description": "Theme defaults live on :root. Override these globally, on a local host, or with the matching appearance props. size remaps diameter, tick, thumb, and type tokens. Prop and style overrides still win.",
+        "props": [
+          {
+            "name": "--df-dial-size",
+            "type": "CSS length",
+            "description": "Ring diameter for size md.",
+            "default": "calc(18 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-dial-size-sm",
+            "type": "CSS length",
+            "description": "Ring diameter for size sm.",
+            "default": "calc(12 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-dial-size-lg",
+            "type": "CSS length",
+            "description": "Ring diameter for size lg.",
+            "default": "calc(28 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-dial-accent",
+            "type": "CSS color",
+            "description": "Dot thumb fill and default active tick fill.",
+            "default": "var(--df-coral-430)"
+          },
+          {
+            "name": "--df-dial-tick-muted",
+            "type": "CSS color",
+            "description": "Fill for ticks past the current value.",
+            "default": "color-mix(in oklch, var(--foreground) 14%, var(--background))"
+          },
+          {
+            "name": "--df-dial-tick-filled",
+            "type": "CSS color",
+            "description": "Fill for ticks from min to the current value.",
+            "default": "color-mix(in oklch, var(--foreground) 32%, var(--background))"
+          },
+          {
+            "name": "--df-dial-tick-active",
+            "type": "CSS color",
+            "description": "Nearest tick fill when thumb is tick.",
+            "default": "var(--df-dial-accent)"
+          },
+          {
+            "name": "--df-dial-tick-width",
+            "type": "CSS length",
+            "description": "Tick thickness for size md.",
+            "default": "var(--border-width-thick)"
+          },
+          {
+            "name": "--df-dial-tick-length",
+            "type": "CSS length",
+            "description": "Tick length for size md.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-dial-tick-radius",
+            "type": "CSS length",
+            "description": "End radius of a custom HTML tick.",
+            "default": "0px"
+          },
+          {
+            "name": "--df-dial-thumb-size",
+            "type": "CSS length",
+            "description": "Dot thumb diameter for size md. The center sits on the tick midpoint. One spacing unit longer so the dot covers the mark.",
+            "default": "calc(var(--df-dial-tick-length) + var(--spacing-unit))"
+          },
+          {
+            "name": "--df-dial-thumb-radius",
+            "type": "CSS length",
+            "description": "Dot thumb corner radius.",
+            "default": "var(--radius-full)"
+          },
+          {
+            "name": "--df-dial-face-bg",
+            "type": "CSS color",
+            "description": "Fill inside the ring. Transparent by default so the ticks sit on the page.",
+            "default": "transparent"
+          },
+          {
+            "name": "--df-dial-face-fill",
+            "type": "CSS color",
+            "description": "Filled face color. Pass it as faceBackground for a disc behind the ticks.",
+            "default": "color-mix(in oklch, var(--muted) 88%, var(--background))"
+          },
+          {
+            "name": "--df-dial-face-border",
+            "type": "CSS color",
+            "description": "Ring border color.",
+            "default": "transparent"
+          },
+          {
+            "name": "--df-dial-face-border-width",
+            "type": "CSS length",
+            "description": "Ring border width.",
+            "default": "var(--border-width-thick)"
+          },
+          {
+            "name": "--df-dial-face-radius",
+            "type": "CSS length",
+            "description": "Corner radius of the ring face.",
+            "default": "var(--radius-full)"
+          },
+          {
+            "name": "--df-dial-ring-inset",
+            "type": "CSS length",
+            "description": "Space from the face edge to the outer tick tips when the face is filled or progress is set.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-dial-progress-color",
+            "type": "CSS color",
+            "description": "Progress ring color.",
+            "default": "var(--df-yellow-orange-230)"
+          },
+          {
+            "name": "--df-dial-progress-width",
+            "type": "CSS length",
+            "description": "Progress ring thickness.",
+            "default": "var(--border-width-thick)"
+          },
+          {
+            "name": "--df-dial-label-color",
+            "type": "CSS color",
+            "description": "Label text color.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-dial-label-font-family",
+            "type": "CSS font family",
+            "description": "Label font.",
+            "default": "var(--df-font-sans)"
+          },
+          {
+            "name": "--df-dial-label-font-weight",
+            "type": "CSS font weight",
+            "description": "Label weight.",
+            "default": "var(--df-font-weight-medium)"
+          },
+          {
+            "name": "--df-dial-label-size",
+            "type": "CSS length",
+            "description": "Label type size for size md.",
+            "default": "var(--df-text-xs)"
+          },
+          {
+            "name": "--df-dial-label-caption-color",
+            "type": "CSS color",
+            "description": "Inside label color when a value is also shown.",
+            "default": "var(--muted-foreground)"
+          },
+          {
+            "name": "--df-dial-label-caption-size",
+            "type": "CSS length",
+            "description": "Inside label type size when a value is also shown, for size md.",
+            "default": "var(--df-text-2xs)"
+          },
+          {
+            "name": "--df-dial-value-color",
+            "type": "CSS color",
+            "description": "Value text color.",
+            "default": "var(--foreground)"
+          },
+          {
+            "name": "--df-dial-value-font-family",
+            "type": "CSS font family",
+            "description": "Value font.",
+            "default": "var(--df-font-sans)"
+          },
+          {
+            "name": "--df-dial-value-font-weight",
+            "type": "CSS font weight",
+            "description": "Value weight.",
+            "default": "var(--df-font-weight-semibold)"
+          },
+          {
+            "name": "--df-dial-value-size",
+            "type": "CSS length",
+            "description": "Value type size for size md.",
+            "default": "var(--df-text-sm)"
+          },
+          {
+            "name": "--df-dial-label-gap",
+            "type": "CSS length",
+            "description": "Gap between an outside label and the ring. size remaps this. labelGap and style overrides still win.",
+            "default": "calc(2 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-dial-center-gap",
+            "type": "CSS length",
+            "description": "Gap between an inside label and the value.",
+            "default": "calc(1 * var(--spacing-unit))"
+          },
+          {
+            "name": "--df-dial-motion-duration",
+            "type": "CSS time",
+            "description": "Duration for thumb settle, face press, and active tick length.",
+            "default": "var(--df-duration-slow)"
+          },
+          {
+            "name": "--df-dial-motion-ease",
+            "type": "CSS easing",
+            "description": "Easing for thumb settle, face press, and active tick length.",
+            "default": "var(--df-ease-emphasized)"
+          },
+          {
+            "name": "--df-dial-drag-scale",
+            "type": "CSS number",
+            "description": "Face scale while dragging.",
+            "default": "0.98"
+          },
+          {
+            "name": "--df-dial-tick-active-grow",
+            "type": "CSS length",
+            "description": "Extra tick length when thumb is tick and the mark is nearest the value.",
+            "default": "var(--spacing-unit)"
+          },
+          {
+            "name": "--df-dial-label-max-width",
+            "type": "CSS length",
+            "description": "Maximum width of an outside label.",
+            "default": "calc(16 * var(--spacing-unit))"
+          }
+        ]
+      }
+    ]
+  }
+}

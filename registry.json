@@ -396,6 +396,42 @@
       ]
     },
     {
+      "name": "dial",
+      "type": "registry:ui",
+      "title": "Dial",
+      "description": "Circular numeric control with a tick ring that fills from min to the current value, drag axis, wrap, invert, progress outline, sizes, and label placement. Prefer Slider for a linear track, and Tick Slider for bound labels with a tick gauge.",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "files": [
+        {
+          "path": "src/components/df-dial.tsx",
+          "type": "registry:ui",
+          "target": "default-file-ui/components/df-dial.tsx"
+        },
+        {
+          "path": "src/lib/df-dial/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-dial/index.ts"
+        },
+        {
+          "path": "src/lib/df-ui-audio/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-ui-audio/index.ts"
+        },
+        {
+          "path": "src/lib/df-tick-sound/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-tick-sound/index.ts"
+        },
+        {
+          "path": "src/lib/df-scrub-sound/index.ts",
+          "type": "registry:lib",
+          "target": "default-file-ui/lib/df-scrub-sound/index.ts"
+        }
+      ]
+    },
+    {
       "name": "toggle-group",
       "type": "registry:ui",
       "title": "Toggle Group",

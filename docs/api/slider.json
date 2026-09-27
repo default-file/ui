@@ -2,7 +2,7 @@
   "name": "slider",
   "slug": "slider",
   "title": "Slider",
-  "description": "Single or dual thumb scrubber with marks, orientation, label, and value chrome. Prefer Number Slider for a compact settings row, and Tick Slider for bound labels with a tick gauge.",
+  "description": "Single or dual thumb scrubber with marks, orientation, label, and value chrome. Prefer Number Slider for a compact settings row, Tick Slider for bound labels with a tick gauge, and Dial for a circular range.",
   "aliases": [
     "range slider",
     "dual slider",

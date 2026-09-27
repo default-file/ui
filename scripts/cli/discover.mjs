@@ -17,6 +17,8 @@ const CHAPTER_TAGS = {
     "toggle",
     "switch",
     "slider",
+    "dial",
+    "knob",
     "checkbox",
     "radio",
     "search",
@@ -73,8 +75,13 @@ const COMPOSE_HINTS = [
   },
   {
     patterns: /\b(slider|scrubber)\b/i,
-    include: ["slider", "number-slider", "tick-slider"],
+    include: ["slider", "number-slider", "tick-slider", "dial"],
     reason: "Slider family",
+  },
+  {
+    patterns: /\b(dial|knob|rotary)\b/i,
+    include: ["dial"],
+    reason: "Circular numeric control",
   },
   {
     patterns: /\b(segmented|segment control|view mode|mode switcher)\b/i,

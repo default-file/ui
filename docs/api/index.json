@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-01T10:04:17.730Z",
+  "generatedAt": "2026-09-06T14:44:28.383Z",
   "source": "docs/api",
   "colorSystem": {
     "registryName": "color-system",
@@ -357,6 +357,28 @@
         "lucide-react"
       ],
       "propCount": 18
+    },
+    {
+      "slug": "dial",
+      "name": "dial",
+      "title": "Dial",
+      "description": "Circular numeric control with a tick ring that fills from min to the current value, drag axis, wrap, invert, progress outline, sizes, and label placement. Prefer Slider for a linear track, and Tick Slider for bound labels with a tick gauge.",
+      "aliases": [
+        "knob",
+        "circular slider",
+        "radial slider",
+        "rotary",
+        "circular control",
+        "radial control",
+        "Dial"
+      ],
+      "chapter": "inputs",
+      "registryDependencies": [
+        "foundation"
+      ],
+      "importPath": "@default-file/ui/components/df-dial",
+      "dependencies": [],
+      "propCount": 83
     },
     {
       "slug": "dialog",
@@ -999,7 +1021,7 @@
       "slug": "slider",
       "name": "slider",
       "title": "Slider",
-      "description": "Single or dual thumb scrubber with marks, orientation, label, and value chrome. Prefer Number Slider for a compact settings row, and Tick Slider for bound labels with a tick gauge.",
+      "description": "Single or dual thumb scrubber with marks, orientation, label, and value chrome. Prefer Number Slider for a compact settings row, Tick Slider for bound labels with a tick gauge, and Dial for a circular range.",
       "aliases": [
         "range slider",
         "dual slider",

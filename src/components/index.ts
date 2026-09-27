@@ -111,6 +111,17 @@ export type {
   TickSliderSize,
   TickSliderTickRenderContext,
 } from "./df-tick-slider"
+export { Dial } from "./df-dial"
+export type {
+  DialDragAxis,
+  DialLabelPosition,
+  DialProps,
+  DialRadius,
+  DialSize,
+  DialThumb,
+  DialTickRenderContext,
+  DialValueFormat,
+} from "./df-dial"
 export { ToggleGroup, ToggleGroupItem } from "./df-toggle-group"
 export {
   Tabs,

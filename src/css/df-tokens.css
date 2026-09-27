@@ -605,6 +605,79 @@
   --df-tick-slider-fade-size: calc(6 * var(--spacing-unit));
   --df-tick-slider-root-pad-top: calc(9 * var(--spacing-unit));
   --df-tick-slider-root-pad-bottom: calc(9 * var(--spacing-unit));
+  --df-dial-size: calc(18 * var(--spacing-unit));
+  --df-dial-size-sm: calc(12 * var(--spacing-unit));
+  --df-dial-size-lg: calc(28 * var(--spacing-unit));
+  --df-dial-tick-length: calc(2 * var(--spacing-unit));
+  --df-dial-tick-length-sm: calc(1 * var(--spacing-unit));
+  --df-dial-tick-length-lg: calc(2 * var(--spacing-unit));
+  --df-dial-tick-width: var(--border-width-thick);
+  --df-dial-tick-width-sm: var(--border-width-thick);
+  --df-dial-tick-width-lg: var(--border-width-thick);
+  --df-dial-tick-radius: 0px;
+  --df-dial-tick-muted: color-mix(
+    in oklch,
+    var(--foreground) 14%,
+    var(--background)
+  );
+  --df-dial-tick-filled: color-mix(
+    in oklch,
+    var(--foreground) 32%,
+    var(--background)
+  );
+  --df-dial-tick-active: var(--df-dial-accent);
+  --df-dial-thumb-size: calc(
+    var(--df-dial-tick-length) + var(--spacing-unit)
+  );
+  --df-dial-thumb-size-sm: calc(
+    var(--df-dial-tick-length-sm) + var(--spacing-unit)
+  );
+  --df-dial-thumb-size-lg: calc(
+    var(--df-dial-tick-length-lg) + var(--spacing-unit)
+  );
+  --df-dial-thumb-radius: var(--radius-full);
+  --df-dial-accent: var(--df-coral-430);
+  --df-dial-face-bg: transparent;
+  --df-dial-face-fill: color-mix(
+    in oklch,
+    var(--muted) 88%,
+    var(--background)
+  );
+  --df-dial-face-border: transparent;
+  --df-dial-face-border-width: var(--border-width-thick);
+  --df-dial-face-radius: var(--radius-full);
+  --df-dial-ring-inset: calc(1 * var(--spacing-unit));
+  --df-dial-ring-inset-sm: calc(1 * var(--spacing-unit));
+  --df-dial-ring-inset-lg: calc(1 * var(--spacing-unit));
+  --df-dial-progress-color: var(--df-yellow-orange-230);
+  --df-dial-progress-width: var(--border-width-thick);
+  --df-dial-label-gap: calc(2 * var(--spacing-unit));
+  --df-dial-label-gap-sm: calc(2 * var(--spacing-unit));
+  --df-dial-label-gap-lg: calc(4 * var(--spacing-unit));
+  --df-dial-label-max-width: calc(16 * var(--spacing-unit));
+  --df-dial-label-color: var(--foreground);
+  --df-dial-label-font-family: var(--df-font-sans);
+  --df-dial-label-font-weight: var(--df-font-weight-medium);
+  --df-dial-label-size: var(--df-text-xs);
+  --df-dial-label-size-sm: var(--df-text-xs);
+  --df-dial-label-size-lg: var(--df-text-sm);
+  --df-dial-label-caption-color: var(--muted-foreground);
+  --df-dial-label-caption-size: var(--df-text-2xs);
+  --df-dial-label-caption-size-sm: var(--df-text-2xs);
+  --df-dial-label-caption-size-lg: var(--df-text-xs);
+  --df-dial-value-color: var(--foreground);
+  --df-dial-value-font-family: var(--df-font-sans);
+  --df-dial-value-font-weight: var(--df-font-weight-semibold);
+  --df-dial-value-size: var(--df-text-sm);
+  --df-dial-value-size-sm: var(--df-text-xs);
+  --df-dial-value-size-lg: var(--df-text-base);
+  --df-dial-center-gap: calc(1 * var(--spacing-unit));
+  --df-dial-center-gap-sm: calc(1 * var(--spacing-unit));
+  --df-dial-center-gap-lg: calc(2 * var(--spacing-unit));
+  --df-dial-motion-duration: var(--df-duration-slow);
+  --df-dial-motion-ease: var(--df-ease-emphasized);
+  --df-dial-drag-scale: 0.98;
+  --df-dial-tick-active-grow: var(--spacing-unit);
   --df-options-panel-max-height: 520px;
   --df-options-panel-max-width: var(--df-max-w-xs);
   --df-menu-stacked-max-height: 16rem;
@@ -1398,6 +1471,11 @@
   --df-tick-slider-shell-height: calc(14 * var(--spacing-unit));
   --df-tick-slider-tick-height: calc(5 * var(--spacing-unit));
   --df-tick-slider-thumb-height: calc(6 * var(--spacing-unit));
+  --df-dial-size: calc(18 * var(--spacing-unit));
+  --df-dial-tick-length: calc(2 * var(--spacing-unit));
+  --df-dial-thumb-size: calc(
+    var(--df-dial-tick-length) + var(--spacing-unit)
+  );
 
   --df-data-grid-row-height: var(--df-control-height-md);
   --df-data-grid-header-height: var(--df-control-height-lg);
@@ -1900,5 +1978,23 @@
     in oklch,
     var(--foreground) 28%,
     transparent
+  );
+  --df-dial-tick-muted: color-mix(
+    in oklch,
+    var(--foreground) 22%,
+    var(--background)
+  );
+  --df-dial-tick-filled: color-mix(
+    in oklch,
+    var(--foreground) 42%,
+    var(--background)
+  );
+  --df-dial-label-color: var(--foreground);
+  --df-dial-value-color: var(--foreground);
+  --df-dial-label-caption-color: var(--muted-foreground);
+  --df-dial-face-fill: color-mix(
+    in oklch,
+    var(--muted) 70%,
+    var(--background)
   );
 }

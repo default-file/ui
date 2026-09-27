@@ -2,6 +2,21 @@
 
 Semver for `@default-file/ui` lives in `package.json`. `df-ui init` records the same version in `df.json`.
 
+## 0.36.0
+
+- Add Dial, a circular numeric control with a tick ring, sm to lg sizes, inside or edge labels, and optional tick and scrub sound.
+- Map any numeric min to max around the ring. Pointer travel raises or lowers the value. dragAxis chooses all directions, horizontal only, or vertical only. wrap loops past the ends so the ring can spin through full turns. labelGap sets the space between an outside label and the ring.
+- Remap Dial tick contrast and filled-face fill in dark, the same way Tick Slider remaps its gauge.
+- Fill Dial ticks from min to the current value with a darker grey. Unfilled ticks stay lighter so the path of rotation is visible. tickFilled sets that fill color.
+- Remap Dial label and value color in dark so center type stays visible on a filled face.
+- Place the dot thumb from the same outer ring edge as the ticks, on the tick midpoint, so the larger dot covers the mark.
+- Size Dial chrome on the spacing unit so ring, tick, and thumb lengths stay even. Tick strokes use the thick border. The active tick grows by one spacing unit.
+- Set an inside Dial label next to a value in smaller muted type so the value stays primary.
+- Let wrap hide tick fill so a full turn has no origin. tickFill turns fill back on. invert reverses pointer travel and arrow keys. When min is below 0 and max is above 0, value 0 sits at startAngle so reverse rotation can go negative.
+- Inset Dial ticks from the face edge when the face is filled or progress is set.
+- Add Dial progress, a rotation outline on the face edge from startAngle to the current value.
+- Paint Dial ticks as short SVG strokes in the outer ring so a 1x view stays clean and the center label stays clear. Tick color mixes with the face, not with transparency.
+
 ## 0.35.1
 
 - Keep Select value text on the control line box so ellipsis overflow cannot clip glyphs.

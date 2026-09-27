@@ -114,6 +114,9 @@
   [data-df="slider"],
   [data-df="slider-control"],
   [data-df="tick-slider"],
+  [data-df="dial"],
+  [data-df="dial-face"],
+  [data-df="dial-progress"],
   [data-df="file-uploader"],
   [data-df="progress"],
   [data-df="scroll-area-scrollbar"],
@@ -4553,6 +4556,308 @@
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
+}
+
+:where([data-df="dial"]) {
+  --df-dial-ring-inner: calc(
+    var(--df-dial-size) - 2 * var(--df-dial-face-border-width)
+  );
+  --df-dial-tick-inset: 0px;
+  --df-dial-ring-orbit: calc(
+    var(--df-dial-ring-inner) - 2 * var(--df-dial-tick-inset)
+  );
+  --df-dial-tick-band: var(--df-dial-tick-length);
+  --df-dial-tick-cap: butt;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--df-dial-label-gap);
+  touch-action: none;
+}
+
+:where([data-df="dial"][data-thumb="tick"]) {
+  --df-dial-tick-band: calc(
+    var(--df-dial-tick-length) + var(--df-dial-tick-active-grow)
+  );
+}
+
+:where([data-df="dial"][data-face="fill"]),
+:where([data-df="dial"][data-progress]) {
+  --df-dial-tick-inset: var(--df-dial-ring-inset);
+}
+
+:where([data-df="dial"][data-face="fill"]) {
+  --df-dial-tick-muted: color-mix(
+    in oklch,
+    var(--foreground) 18%,
+    var(--df-dial-face-bg)
+  );
+  --df-dial-tick-filled: color-mix(
+    in oklch,
+    var(--foreground) 32%,
+    var(--df-dial-face-bg)
+  );
+}
+
+:where([data-df="dial"][data-progress]) {
+  --df-dial-progress-from: 0deg;
+  --df-dial-progress-angle: 0deg;
+}
+
+:where([data-df="dial"][data-label-position="top"]),
+:where([data-df="dial"][data-label-position="bottom"]) {
+  flex-direction: column;
+}
+
+:where([data-df="dial"][data-label-position="left"]),
+:where([data-df="dial"][data-label-position="right"]) {
+  flex-direction: row;
+}
+
+:where([data-df="dial"][data-size="sm"]) {
+  --df-dial-size: var(--df-dial-size-sm);
+  --df-dial-tick-length: var(--df-dial-tick-length-sm);
+  --df-dial-tick-width: var(--df-dial-tick-width-sm);
+  --df-dial-thumb-size: var(--df-dial-thumb-size-sm);
+  --df-dial-label-size: var(--df-dial-label-size-sm);
+  --df-dial-label-caption-size: var(--df-dial-label-caption-size-sm);
+  --df-dial-value-size: var(--df-dial-value-size-sm);
+  --df-dial-label-gap: var(--df-dial-label-gap-sm);
+  --df-dial-center-gap: var(--df-dial-center-gap-sm);
+  --df-dial-ring-inset: var(--df-dial-ring-inset-sm);
+}
+
+:where([data-df="dial"][data-size="lg"]) {
+  --df-dial-size: var(--df-dial-size-lg);
+  --df-dial-tick-length: var(--df-dial-tick-length-lg);
+  --df-dial-tick-width: var(--df-dial-tick-width-lg);
+  --df-dial-thumb-size: var(--df-dial-thumb-size-lg);
+  --df-dial-label-size: var(--df-dial-label-size-lg);
+  --df-dial-label-caption-size: var(--df-dial-label-caption-size-lg);
+  --df-dial-value-size: var(--df-dial-value-size-lg);
+  --df-dial-label-gap: var(--df-dial-label-gap-lg);
+  --df-dial-center-gap: var(--df-dial-center-gap-lg);
+  --df-dial-ring-inset: var(--df-dial-ring-inset-lg);
+}
+
+:where([data-df="dial"][data-disabled]) {
+  opacity: var(--opacity-disabled);
+  pointer-events: none;
+}
+
+:where([data-df="dial-label"]) {
+  max-width: var(--df-dial-label-max-width);
+  color: var(--df-dial-label-color);
+  font-family: var(--df-dial-label-font-family);
+  font-size: var(--df-dial-label-size);
+  font-weight: var(--df-dial-label-font-weight);
+  line-height: var(--df-leading-tight);
+  text-align: center;
+}
+
+:where([data-df="dial-face"]) {
+  position: relative;
+  box-sizing: border-box;
+  width: var(--df-dial-size);
+  height: var(--df-dial-size);
+  flex-shrink: 0;
+  border-radius: var(--df-dial-face-radius);
+  border: var(--df-dial-face-border-width) solid var(--df-dial-face-border);
+  background-color: var(--df-dial-face-bg);
+  background-clip: padding-box;
+  outline: none;
+  cursor: grab;
+  transform: scale(1);
+  transition: transform var(--df-dial-motion-duration) var(--df-dial-motion-ease);
+}
+
+:where([data-df="dial"][data-drag-axis="horizontal"] [data-df="dial-face"]) {
+  cursor: ew-resize;
+}
+
+:where([data-df="dial"][data-drag-axis="vertical"] [data-df="dial-face"]) {
+  cursor: ns-resize;
+}
+
+:where([data-df="dial"][data-dragging] [data-df="dial-face"]) {
+  cursor: grabbing;
+  transform: scale(var(--df-dial-drag-scale));
+}
+
+:where([data-df="dial"][data-drag-axis="horizontal"][data-dragging] [data-df="dial-face"]) {
+  cursor: ew-resize;
+}
+
+:where([data-df="dial"][data-drag-axis="vertical"][data-dragging] [data-df="dial-face"]) {
+  cursor: ns-resize;
+}
+
+:where([data-df="dial-face"]:focus-visible) {
+  box-shadow: var(--focus-ring-lg);
+}
+
+:where([data-df="dial-progress"]) {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  border-radius: inherit;
+  padding: var(--df-dial-progress-width);
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--df-dial-progress-from),
+    var(--df-dial-progress-color) 0 var(--df-dial-progress-angle),
+    transparent var(--df-dial-progress-angle)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+:where([data-df="dial-ticks"]) {
+  position: absolute;
+  inset: var(--df-dial-tick-inset);
+  pointer-events: none;
+}
+
+:where([data-df="dial-ticks"] svg) {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  shape-rendering: geometricPrecision;
+  -webkit-mask-image: radial-gradient(
+    closest-side,
+    transparent calc(100% - var(--df-dial-tick-band)),
+    white calc(100% - var(--df-dial-tick-band))
+  );
+  mask-image: radial-gradient(
+    closest-side,
+    transparent calc(100% - var(--df-dial-tick-band)),
+    white calc(100% - var(--df-dial-tick-band))
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  mask-mode: alpha;
+}
+
+:where([data-df="dial-ticks"] svg [data-df="dial-tick"]) {
+  fill: none;
+  stroke: var(--df-dial-tick-muted);
+  stroke-width: var(--df-dial-tick-width);
+  stroke-linecap: var(--df-dial-tick-cap);
+  vector-effect: non-scaling-stroke;
+  transition: stroke var(--df-dial-motion-duration) var(--df-dial-motion-ease);
+}
+
+:where([data-df="dial-ticks"] svg [data-df="dial-tick"][data-filled]) {
+  stroke: var(--df-dial-tick-filled);
+}
+
+:where([data-df="dial-ticks"] svg [data-df="dial-tick"][data-active]) {
+  stroke: var(--df-dial-tick-active);
+}
+
+:where([data-df="dial-tick-host"]) {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--df-dial-tick-width);
+  height: var(--df-dial-tick-length);
+  margin-left: calc(var(--df-dial-tick-width) / -2);
+  pointer-events: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  transform-origin: 50% calc(var(--df-dial-ring-orbit) / 2);
+  transform: rotate(var(--df-dial-tick-angle));
+  corner-shape: round;
+}
+
+:where([data-df="dial-thumb-orbit"]) {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+  transform: rotate(var(--df-dial-angle));
+  transition: transform var(--df-dial-motion-duration) var(--df-dial-motion-ease);
+  z-index: var(--z-sticky);
+}
+
+:where([data-df="dial"][data-dragging] [data-df="dial-thumb-orbit"]) {
+  transition: none;
+}
+
+:where([data-df="dial-thumb"]) {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--df-dial-thumb-size);
+  height: var(--df-dial-thumb-size);
+  margin-left: calc(var(--df-dial-thumb-size) / -2);
+  /* Thumb center sits on the tick midpoint from the shared ring edge. */
+  margin-top: calc(
+    (var(--df-dial-tick-length) - var(--df-dial-thumb-size)) / 2
+  );
+  border-radius: var(--df-dial-thumb-radius);
+  background-color: var(--df-dial-accent);
+  pointer-events: none;
+}
+
+:where([data-df="dial"][data-dragging] [data-df="dial-tick"]),
+:where([data-df="dial"][data-dragging] [data-df="dial-tick-host"]) {
+  transition: none;
+}
+
+:where([data-df="dial-center"]) {
+  position: absolute;
+  inset: calc(
+    var(--df-dial-tick-inset) + var(--df-dial-tick-band) +
+      (2 * var(--spacing-unit))
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--df-dial-center-gap);
+  pointer-events: none;
+  z-index: var(--z-sticky);
+}
+
+:where([data-df="dial-center"] [data-df="dial-label"]) {
+  max-width: 100%;
+}
+
+:where([data-df="dial-center"][data-with-value] [data-df="dial-label"]) {
+  color: var(--df-dial-label-caption-color);
+  font-size: var(--df-dial-label-caption-size);
+}
+
+:where([data-df="dial-value"]) {
+  color: var(--df-dial-value-color);
+  font-family: var(--df-dial-value-font-family);
+  font-size: var(--df-dial-value-size);
+  font-weight: var(--df-dial-value-font-weight);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where([data-df="dial-face"]),
+  :where([data-df="dial-thumb-orbit"]),
+  :where([data-df="dial-tick"]),
+  :where([data-df="dial-tick-host"]) {
+    transition: none;
+  }
+
+  :where([data-df="dial"][data-dragging] [data-df="dial-face"]) {
+    transform: none;
+  }
 }
 
 :where([data-df="toggle"]),
